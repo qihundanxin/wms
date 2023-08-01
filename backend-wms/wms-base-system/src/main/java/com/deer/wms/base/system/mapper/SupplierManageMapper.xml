@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.SupplierManageMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.Supplier.SupplierManage">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="supplier_id" jdbcType="INTEGER" property="supplierId"/>
+        <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="supplier_type" jdbcType="VARCHAR" property="supplierType"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="supplier_site" jdbcType="VARCHAR" property="supplierSite"/>
+        <result column="supplier_email" jdbcType="VARCHAR" property="supplierEmail"/>
+        <result column="supplier_fax" jdbcType="VARCHAR" property="supplierFax"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="supplier_bank" jdbcType="VARCHAR" property="supplierBank"/>
+        <result column="supplier_factory" jdbcType="VARCHAR" property="supplierFactory"/>
+        <result column="supplier_country" jdbcType="VARCHAR" property="supplierCountry"/>
+        <result column="supplier_area" jdbcType="VARCHAR" property="supplierArea"/>
+        <result column="supplier_bankAccount" jdbcType="VARCHAR" property="supplierBankaccount"/>
+        <result column="supplier_taxNumber" jdbcType="VARCHAR" property="supplierTaxnumber"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.base.system.model.Supplier.SupplierManageDto">
+
+    </resultMap>
+    <select id="findList" parameterType="com.deer.wms.base.system.model.Supplier.SupplierManageCriteria"
+            resultMap="Dto">
+        select
+        supplier.supplier_id
+        ,supplier.supplier_code
+        ,supplier.supplier_name
+        ,supplier.supplier_type
+        ,supplier.link_man
+        ,supplier.link_phone
+        ,supplier.supplier_site
+        ,supplier.supplier_email
+        ,supplier.supplier_fax
+        ,supplier.memo
+        ,supplier.create_time
+        ,supplier.supplier_bank
+        ,supplier.supplier_factory
+        ,supplier.supplier_country
+        ,supplier.supplier_area
+        ,supplier.supplier_bankAccount
+        ,supplier.supplier_taxNumber
+        ,supplier.province
+        ,supplier.city
+        ,supplier.area
+        ,supplier.detail_address
+
+
+        from supplier_manage supplier
+        where 1=1
+        <if test="supplierCode  != null and supplierCode != ''">
+            and supplier.supplier_code = #{supplierCode}
+        </if>
+        <if test="supplierId  != null and supplierId != ''">
+            and supplier.supplier_id = #{supplierId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                supplier.supplier_code like CONCAT('%', #{keyWord}, '%')
+                or supplier.supplier_name like CONCAT('%', #{keyWord}, '%')
+                or supplier.supplier_type like CONCAT('%', #{keyWord}, '%')
+                or supplier.link_man like CONCAT('%', #{keyWord}, '%')
+                or supplier.link_phone like CONCAT('%', #{keyWord}, '%')
+                or supplier.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+
+    </select>
+
+    <delete id="deleteBySupplierCode" parameterType="java.lang.String">
+        delete from supplier_manage
+        where supplier_code = #{supplierCode}
+
+  </delete>
+
+    <select id="findByCode" resultMap="Dto" parameterType="java.lang.String">
+    select
+    supplier.supplier_id
+    ,supplier.supplier_code
+    ,supplier.supplier_name
+    ,supplier.supplier_type
+    ,supplier.link_man
+    ,supplier.link_phone
+    ,supplier.supplier_site
+    ,supplier.supplier_email
+    ,supplier.supplier_fax
+    ,supplier.memo
+    ,supplier.create_time
+    ,supplier.supplier_bank
+    ,supplier.supplier_factory
+    ,supplier.supplier_country
+    ,supplier.supplier_area
+    ,supplier.supplier_bankAccount
+    ,supplier.supplier_taxNumber
+    ,supplier.province
+    ,supplier.city
+    ,supplier.area
+    ,supplier.detail_address
+
+
+
+    from supplier_manage supplier
+    where supplier.supplier_code = #{supplierCode}
+
+  </select>
+
+    <select id="findByName" resultMap="Dto" parameterType="java.lang.String">
+    select
+    supplier.supplier_id
+    ,supplier.supplier_code
+    ,supplier.supplier_name
+    ,supplier.supplier_type
+    ,supplier.link_man
+    ,supplier.link_phone
+    ,supplier.supplier_site
+    ,supplier.supplier_email
+    ,supplier.supplier_fax
+    ,supplier.memo
+    ,supplier.create_time
+    ,supplier.supplier_bank
+    ,supplier.supplier_factory
+    ,supplier.supplier_country
+    ,supplier.supplier_area
+    ,supplier.supplier_bankAccount
+    ,supplier.supplier_taxNumber
+    ,supplier.province
+    ,supplier.city
+    ,supplier.area
+    ,supplier.detail_address
+
+
+
+    from supplier_manage supplier
+    where supplier.supplier_name = #{supplierName}
+
+  </select>
+
+    <select id="hasAsn" resultMap="Dto" parameterType="com.deer.wms.base.system.model.Supplier.SupplierManageDto">
+        SELECT
+        am.asn_state,
+        supplier.*
+
+        from supplier_manage supplier
+        INNER   JOIN asn_master am on am.supplier_id = supplier.supplier_id and    am.asn_state&lt;3
+        where 1=1
+        <if test="supplierCode  != null and supplierCode != ''">
+            and supplier.supplier_code = #{supplierCode}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                supplier.supplier_code like CONCAT('%', #{keyWord}, '%')
+                or supplier.supplier_name like CONCAT('%', #{keyWord}, '%')
+                or supplier.supplier_type like CONCAT('%', #{keyWord}, '%')
+                or supplier.link_man like CONCAT('%', #{keyWord}, '%')
+                or supplier.link_phone like CONCAT('%', #{keyWord}, '%')
+                or supplier.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        GROUP BY supplier.supplier_id
+    </select>
+
+</mapper>

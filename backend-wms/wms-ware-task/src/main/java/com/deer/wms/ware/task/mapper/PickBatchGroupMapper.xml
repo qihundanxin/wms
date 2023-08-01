@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.PickBatchGroupMapper">
+
+    <select id="findList" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchGroup">
+        select *
+        from pick_batch_group pb
+        where 1=1
+        <if test="id != null">
+            and pb.id = #{id}
+        </if>
+        <if test="pickBatchGroupNo != null and pickBatchGroupNo != ''">
+            and pb.pick_batch_group_no = #{pickBatchGroupNo}
+        </if>
+        <if test="driverName != null and driverName != ''">
+            and pb.driver_name = #{driverName}
+        </if>
+        <if test="status == null">
+            and pb.status >= 0
+        </if>
+        <if test="status != null">
+            and pb.status = #{status}
+        </if>
+        <if test="createTime != null" >
+            and pb.create_time = #{createTime}
+        </if>
+        <if test="createUserId != null" >
+            and pb.create_user_id = #{createUserId}
+        </if>
+        <if test="createUserName != null and createUserName!=''" >
+            and pb.create_user_name = #{createUserName}
+        </if>
+    </select>
+
+    <update id="updateStatus" >
+        update pick_batch_group
+        set status = #{status}
+        where pick_batch_group_no = #{pickBatchGroupNo}
+        AND status >= 0
+    </update>
+
+    <select id="getByNo" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchGroup">
+        SELECT * FROM
+        pick_batch_group
+        WHERE
+        pick_batch_group_no = #{pickBatchGroupNo}
+        AND
+        status >= 0
+    </select>
+    
+    <select id="getByNos" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchGroup">
+        SELECT * FROM
+        pick_batch_group
+        <where>
+            AND pick_batch_group_no IN
+            <foreach collection="pickBatchGroupNos" item="pickBatchGroupNo" open="(" separator="," close=")">
+                #{pickBatchGroupNo}
+            </foreach>
+            AND status >= 0
+        </where>
+    </select>
+    
+</mapper>

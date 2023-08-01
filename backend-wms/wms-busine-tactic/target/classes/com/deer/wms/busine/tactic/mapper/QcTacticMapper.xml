@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.QcTacticMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.QC.QcTactic">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="qc_tactic_id" jdbcType="INTEGER" property="qcTacticId"/>
+        <result column="qc_tactic_code" jdbcType="VARCHAR" property="qcTacticCode"/>
+        <result column="qc_tactic_name" jdbcType="VARCHAR" property="qcTacticName"/>
+        <result column="qc_type" jdbcType="INTEGER" property="qcType"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.QC.QcTacticCriteria"
+            resultMap="BaseResultMap">
+        select
+        tactic.qc_tactic_id
+        ,tactic.qc_tactic_code
+        ,tactic.qc_tactic_name
+        ,tactic.qc_type
+        from qc_tactic tactic
+        where 1=1
+        <if test="qcTacticId != null and qcTacticId != ''">
+            and tactic.qc_tactic_id = #{qcTacticId}
+        </if>
+        <if test="qcTacticCode != null and qcTacticCode != ''">
+            and tactic.qc_tactic_code = #{qcTacticCode}
+        </if>
+        <if test="qcTacticName != null and qcTacticName != ''">
+            and tactic.qc_tactic_name = #{qcTacticName}
+        </if>
+        <if test="qcType != null">
+            and tactic.qc_type = #{qcType}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                tactic.qc_tactic_code like CONCAT('%', #{keyWord}, '%')
+                or tactic.qc_tactic_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+    </select>
+</mapper>

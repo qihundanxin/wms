@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>我的第一个 HTML 页面</title>
+    <script language="javascript" src="./aaa.js"></script>
+  </head>
+
+  <body>
+    <a href="javascript:;" onclick="javascript:test();">打印</a>
+
+    <script language="javascript" type="text/javascript">
+      var LODOP; //声明为全局变量
+      function test() {
+        LODOP = getLodop();
+        LODOP.PRINT_INIT("测试PDF打印功能");
+        LODOP.SET_LICENSES("","A099C4F906A9700980194E334A43D85A300","","");
+        LODOP.ADD_PRINT_PDF(0, 0, "100%", "100%", "http://localhost:8000/CLodopDemos/PDFDemo.pdf");
+        LODOP.PRINT();
+      }
+    </script>
+  </body>
+</html>

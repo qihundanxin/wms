@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.InventorySafetyMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.Item.InventorySafety">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="ceiling" jdbcType="DOUBLE" property="ceiling"/>
+        <result column="floor" jdbcType="DOUBLE" property="floor"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="cpfr_floor" jdbcType="DOUBLE" property="cpfrFloor"/>
+        <result column="cpfr_ceiling" jdbcType="DOUBLE" property="cpfrCeiling"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.base.system.model.Item.InventorySafetyDto" extends="BaseResultMap">
+
+        <result column="canAllotQuantity" jdbcType="DOUBLE" property="canAllotQuantity" />
+
+        <result column="bhQuantity" jdbcType="DOUBLE" property="bhQuantity" />
+
+    </resultMap>
+
+
+    <select id="bh" resultMap="Dto">
+
+
+        SELECT
+    safe.*
+    ,sum(DISTINCT  case when  inventory1.inventory_id  then inventory1.quantity-inventory1.allot_quantity else 0 end )  as canAllotQuantity
+    ,sum(  case when  task.cpfr_task_id  then task.quantity else 0 end ) as bhQuantity
+    ,sum(DISTINCT  case when  inventory2.inventory_id  then inventory2.quantity-inventory2.allot_quantity else 0 end )
+    from
+
+    inventory_safety safe
+    LEFT JOIN inventory1 inventory1
+    on safe.item_code = inventory1.item_code
+    and safe.ware_id = inventory1.ware_id
+    and safe.organization_id = inventory1.organization_id
+    and inventory1.cell_use_type=1
+    LEFT JOIN inventory inventory2
+    on safe.item_code = inventory2.item_code
+    and safe.ware_id = inventory2.ware_id
+    and safe.organization_id = inventory2.organization_id
+    and inventory2.cell_use_type=2
+    left join cpfr_task  task
+    on task.item_code = safe.item_code
+    and task.ware_id = safe.ware_id
+    and task.organization_id = safe.organization_id
+    and task.state=0
+    group by safe.item_code,safe.ware_id ,safe.organization_id
+    HAVING
+        (
+         -
+        sum(DISTINCT  case when  inventory1.inventory_id  then inventory1.quantity-inventory1.allot_quantity else 0 end )
+        -
+            sum(DISTINCT  case when  task.cpfr_task_id  then task.quantity else 0 end )
+        +
+         safe.cpfr_floor
+        ) >0
+        and
+        sum(DISTINCT  case when  inventory2.inventory_id  then inventory2.quantity-inventory2.allot_quantity else 0 end ) >0
+    </select>
+
+
+
+
+    <select id="findList" resultMap="BaseResultMap" parameterType="com.deer.wms.base.system.model.Item.InventorySafetyCriteria">
+        select
+         *
+        from inventory_safety
+        where 1=1
+            <if test="wareId != null">
+                and ware_id = #{wareId}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId}
+            </if>
+        <if test="itemCode != null and itemCode !=''">
+            and item_code = #{itemCode}
+        </if>
+            <if test="keyWordList != null">
+                and
+                <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                    organization_name like CONCAT('%', #{keyWord}, '%')
+                    or item_name like CONCAT('%', #{keyWord}, '%')
+                    or item_code like CONCAT('%', #{keyWord}, '%')
+                </foreach>
+            </if>
+
+    </select>
+
+
+
+</mapper>

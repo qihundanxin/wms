@@ -1,0 +1,6075 @@
+{
+    "code": 200,
+    "message": "操作成功",
+    "data": {
+        "roleId": 63,
+        "roleName": "测试角色01",
+        "roleDescribe": "测试角色01",
+        "treeList": [
+            {
+                "id": 803,
+                "code": "case/review",
+                "name": "审核",
+                "parentId": null,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1043,
+                "code": "request_masters_list",
+                "name": "领料单",
+                "parentId": null,
+                "type": "B",
+                "checked": true
+            },
+            {
+                "id": 1077,
+                "code": "ship_boxs_list",
+                "name": "装运箱",
+                "parentId": null,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 869,
+                "code": "login_pdaLogin",
+                "name": "pad登录",
+                "parentId": 16,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 870,
+                "code": "login_loginWMS",
+                "name": "wms登录",
+                "parentId": 16,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 917,
+                "code": "signout_out",
+                "name": "退出",
+                "parentId": 16,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 933,
+                "code": "users_retrieval_password",
+                "name": "找回密码",
+                "parentId": 16,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 934,
+                "code": "users_get",
+                "name": "获取当前账户信息",
+                "parentId": 16,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 804,
+                "code": "case",
+                "name": "审核内容",
+                "parentId": 803,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 805,
+                "code": "",
+                "name": "审核流",
+                "parentId": 803,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 807,
+                "code": "case_details_list",
+                "name": "审核内容详情",
+                "parentId": 804,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 808,
+                "code": "case_users_list",
+                "name": "审核人",
+                "parentId": 804,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 823,
+                "code": "review_masters_list",
+                "name": "审核流master",
+                "parentId": 805,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 824,
+                "code": "review_nodes_list",
+                "name": "审核节点信息",
+                "parentId": 805,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 825,
+                "code": "review_users_list",
+                "name": "审核人信息",
+                "parentId": 805,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 809,
+                "code": "case_masters_add",
+                "name": "新增",
+                "parentId": 806,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 810,
+                "code": "case_masters_delete",
+                "name": "删除",
+                "parentId": 806,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 811,
+                "code": "case_masters_update",
+                "name": "修改",
+                "parentId": 806,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 812,
+                "code": "case_masters_get",
+                "name": "详情",
+                "parentId": 806,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 813,
+                "code": "case_details_add",
+                "name": "新增",
+                "parentId": 807,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 814,
+                "code": "case_details_delete",
+                "name": "删除",
+                "parentId": 807,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 815,
+                "code": "case_details_update",
+                "name": "修改",
+                "parentId": 807,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 816,
+                "code": "case_details_get",
+                "name": "详情",
+                "parentId": 807,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 817,
+                "code": "case_details_nowList",
+                "name": "待处理列表",
+                "parentId": 807,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 818,
+                "code": "case_details_nowDetails",
+                "name": "根据单号查询",
+                "parentId": 807,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 819,
+                "code": "case_users_add",
+                "name": "新增",
+                "parentId": 808,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 820,
+                "code": "case_users_delete",
+                "name": "删除",
+                "parentId": 808,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 821,
+                "code": "case_users_update",
+                "name": "修改",
+                "parentId": 808,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 822,
+                "code": "case_users_get",
+                "name": "详情",
+                "parentId": 808,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 826,
+                "code": "review_masters_add",
+                "name": "新增",
+                "parentId": 823,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 827,
+                "code": "review_masters_delete",
+                "name": "删除",
+                "parentId": 823,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 828,
+                "code": "review_masters_update",
+                "name": "修改",
+                "parentId": 823,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 829,
+                "code": "review_masters_get",
+                "name": "详情",
+                "parentId": 823,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 830,
+                "code": "review_nodes_add",
+                "name": "新增",
+                "parentId": 824,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 831,
+                "code": "review_nodes_delete",
+                "name": "删除",
+                "parentId": 824,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 832,
+                "code": "review_nodes_update",
+                "name": "修改",
+                "parentId": 824,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 833,
+                "code": "review_nodes_get",
+                "name": "详情",
+                "parentId": 824,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 834,
+                "code": "review_users_add",
+                "name": "新增",
+                "parentId": 825,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 835,
+                "code": "review_users_delete",
+                "name": "删除",
+                "parentId": 825,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 836,
+                "code": "review_users_update",
+                "name": "修改",
+                "parentId": 825,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 837,
+                "code": "review_users_get",
+                "name": "详情",
+                "parentId": 825,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1044,
+                "code": "request_details_list",
+                "name": "领料单明细",
+                "parentId": 1043,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1045,
+                "code": "request_masters_add",
+                "name": "新增",
+                "parentId": 1043,
+                "type": "B",
+                "checked": true
+            },
+            {
+                "id": 1047,
+                "code": "request_masters_delete",
+                "name": "删除",
+                "parentId": 1043,
+                "type": "B",
+                "checked": true
+            },
+            {
+                "id": 1048,
+                "code": "request_masters_update",
+                "name": "修改",
+                "parentId": 1043,
+                "type": "B",
+                "checked": true
+            },
+            {
+                "id": 1049,
+                "code": "request_masters_get",
+                "name": "详情",
+                "parentId": 1043,
+                "type": "B",
+                "checked": true
+            },
+            {
+                "id": 1050,
+                "code": "request_details_add",
+                "name": "新增",
+                "parentId": 1044,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1051,
+                "code": "request_details_delete",
+                "name": "删除",
+                "parentId": 1044,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1052,
+                "code": "request_details_update",
+                "name": "修改",
+                "parentId": 1044,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1053,
+                "code": "request_details_get",
+                "name": "详情",
+                "parentId": 1044,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1078,
+                "code": "ship_boxs_details_list",
+                "name": "装运箱明细",
+                "parentId": 1077,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1079,
+                "code": "ship_boxs_add",
+                "name": "新增",
+                "parentId": 1077,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1080,
+                "code": "ship_boxs_insert",
+                "name": "新增信息",
+                "parentId": 1077,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1081,
+                "code": "ship_boxs_delete",
+                "name": "删除",
+                "parentId": 1077,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1082,
+                "code": "ship_boxs_update",
+                "name": "修改",
+                "parentId": 1077,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1083,
+                "code": "ship_boxs_get",
+                "name": "详情",
+                "parentId": 1077,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1084,
+                "code": "boxPrint",
+                "name": "打印装箱标签",
+                "parentId": 1077,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1085,
+                "code": "ship_boxs_details_add",
+                "name": "新增",
+                "parentId": 1078,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1086,
+                "code": "ship_boxs_details_delete",
+                "name": "删除",
+                "parentId": 1078,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1087,
+                "code": "ship_boxs_details_update",
+                "name": "修改",
+                "parentId": 1078,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1088,
+                "code": "ship_boxs_details_get",
+                "name": "详情",
+                "parentId": 1078,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 806,
+                "code": "case_masters_list",
+                "name": "审核内容master",
+                "parentId": 804,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 16,
+                "code": "member-center",
+                "name": "个人中心",
+                "parentId": null,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 17,
+                "code": "member-center-modify",
+                "name": "修改信息",
+                "parentId": 16,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 18,
+                "code": "member-center-pass",
+                "name": "修改密码",
+                "parentId": 16,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 994,
+                "code": "home_statistics_topStatistics",
+                "name": "数据统计",
+                "parentId": 1,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1194,
+                "code": "inventorys_CellUseTypeList",
+                "name": "待上架库存",
+                "parentId": 1,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1195,
+                "code": "ware_infos_findSome",
+                "name": "仓库信息",
+                "parentId": 1,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1196,
+                "code": "accept_exs_list",
+                "name": "入库异常",
+                "parentId": 1,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 918,
+                "code": "sys_params_getByCode",
+                "name": "根据编码查询",
+                "parentId": 49,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 639,
+                "code": "combine_pallet_tasks_list",
+                "name": "合托任务",
+                "parentId": 61,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 692,
+                "code": "inventory_moves_list",
+                "name": "基础移库列表",
+                "parentId": 61,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 704,
+                "code": "",
+                "name": "库存信息",
+                "parentId": 61,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 754,
+                "code": "reasons_list",
+                "name": "原因信息",
+                "parentId": 61,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 711,
+                "code": "inventorys_exportList",
+                "name": "导出",
+                "parentId": 62,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 735,
+                "code": "inventorys_recovery",
+                "name": "放入回收站",
+                "parentId": 62,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 687,
+                "code": "inventory_transacts_insert",
+                "name": "新增",
+                "parentId": 63,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 688,
+                "code": "inventory_transacts_delete",
+                "name": "删除",
+                "parentId": 63,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 689,
+                "code": "inventory_transacts_update",
+                "name": "修改",
+                "parentId": 63,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 690,
+                "code": "inventory_transacts_detail",
+                "name": "详情",
+                "parentId": 63,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 691,
+                "code": "inventory_transacts_addTransact",
+                "name": "调整库存",
+                "parentId": 63,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 291,
+                "code": "acceptRecord-add",
+                "name": "新增",
+                "parentId": 64,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 292,
+                "code": "acceptRecord-delete",
+                "name": "删除",
+                "parentId": 64,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 293,
+                "code": "acceptRecord-update",
+                "name": "修改",
+                "parentId": 64,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 294,
+                "code": "acceptRecord-detail",
+                "name": "详情",
+                "parentId": 64,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 295,
+                "code": "acceptRecord-accept",
+                "name": "异常验收",
+                "parentId": 64,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 296,
+                "code": "acceptRecord-acceptList",
+                "name": "批量验收/盲收",
+                "parentId": 64,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 297,
+                "code": "acceptRecord-acceptPrint",
+                "name": "打印",
+                "parentId": 64,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 660,
+                "code": "freeze_masters_insert",
+                "name": "新增",
+                "parentId": 65,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 661,
+                "code": "freeze_masters_release",
+                "name": "单条释放",
+                "parentId": 65,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 662,
+                "code": "freeze_masters_releaseAll",
+                "name": "整个释放",
+                "parentId": 65,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 663,
+                "code": "freeze_masters_review",
+                "name": "审核",
+                "parentId": 65,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 664,
+                "code": "freeze_masters_reReview",
+                "name": "重新发起审核",
+                "parentId": 65,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 665,
+                "code": "freeze_masters_delete",
+                "name": "删除库存冻结单",
+                "parentId": 65,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 666,
+                "code": "freeze_masters_update",
+                "name": "修改",
+                "parentId": 65,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 667,
+                "code": "freeze_masters_detail",
+                "name": "详情",
+                "parentId": 65,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 379,
+                "code": "request_buys_insert",
+                "name": "新增",
+                "parentId": 71,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 380,
+                "code": "request_buy_details_list",
+                "name": "采购详情单",
+                "parentId": 71,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 381,
+                "code": "request_buys_daochu",
+                "name": "导出",
+                "parentId": 71,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 382,
+                "code": "request_buys_review",
+                "name": "审核",
+                "parentId": 71,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 383,
+                "code": "request_buys_reReview",
+                "name": "重新发起审核",
+                "parentId": 71,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 384,
+                "code": "request_buys_forcecompletion",
+                "name": "采购强制完成",
+                "parentId": 71,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 385,
+                "code": "request_buys_delete",
+                "name": "删除",
+                "parentId": 71,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 386,
+                "code": "request_buys_update",
+                "name": "修改",
+                "parentId": 71,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 387,
+                "code": "request_buys_detail",
+                "name": "主单详情",
+                "parentId": 71,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 388,
+                "code": "request_buys_file",
+                "name": "归档",
+                "parentId": 71,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 299,
+                "code": "asnMaster-add",
+                "name": "入库单新增/采购单生成入库单",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 300,
+                "code": "asnMaster-review",
+                "name": "入库单审核",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 301,
+                "code": "asnMaster-reReview",
+                "name": "重新审核",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 302,
+                "code": "asnMaster-update",
+                "name": "修改",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 303,
+                "code": "asnMaster-detail",
+                "name": "入库单详情",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 304,
+                "code": "asnMaster-delete",
+                "name": "删除",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 305,
+                "code": "asnMaster-pdaAccept",
+                "name": "UPC验收列表",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 306,
+                "code": "asnMaster-findByBillNo",
+                "name": "根据单号查询列表",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 307,
+                "code": "asnMaster-file",
+                "name": "归档",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 308,
+                "code": "asnMasters-importAsnBills",
+                "name": "单据导入",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 310,
+                "code": "asnMaster-daochu",
+                "name": "导出",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 313,
+                "code": "erp-updateSkuQuantity",
+                "name": "ERP--》WMS修改数量",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 314,
+                "code": "erp-addInExResult",
+                "name": "ERP--》WMS推送入库异常解决方案",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 315,
+                "code": "erp-disableASN",
+                "name": "ERP--》WMS入库单作废",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 327,
+                "code": "asnMasterFiles-list",
+                "name": "ASN归档",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 332,
+                "code": "asnShip",
+                "name": "快递信息",
+                "parentId": 74,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 984,
+                "code": "box_details_list",
+                "name": "装箱信息",
+                "parentId": 86,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1106,
+                "code": "so_log_list",
+                "name": "出库日志",
+                "parentId": 86,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1107,
+                "code": "so_masters_createSO",
+                "name": "ERP--》WMS生成出库单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1108,
+                "code": "so_masters_getOrder",
+                "name": "PassQuan订单推送",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1109,
+                "code": "so_masters_insert",
+                "name": "新增",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1110,
+                "code": "so_masters_priority",
+                "name": "设置优先级",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1111,
+                "code": "so_masters_review",
+                "name": "审核",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1112,
+                "code": "so_masters_reReview",
+                "name": "重新发起审核",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1113,
+                "code": "so_masters_update",
+                "name": "修改主单和详情单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1114,
+                "code": "so_masters_detail",
+                "name": "详情",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1115,
+                "code": "so_masters_getList",
+                "name": "列表查询",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1116,
+                "code": "so_masters_check",
+                "name": "check",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1117,
+                "code": "so_masters_seedingCheck",
+                "name": "seedingCheck",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1118,
+                "code": "so_masters_downSeeding",
+                "name": "downSeeding",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1119,
+                "code": "so_masters_findByWaveCode",
+                "name": "根据波次编号查询",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1120,
+                "code": "so_masters_cancelSO",
+                "name": "取消",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1121,
+                "code": "so_masters_cancel",
+                "name": "取消post",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1122,
+                "code": "so_masters_file",
+                "name": "归档SO信息",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1123,
+                "code": "so_masters_importSoBills",
+                "name": "SO单据导入",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1124,
+                "code": "so_masters_exportSoMaster",
+                "name": "SoMaster导出",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1125,
+                "code": "so_masters_setCarrier",
+                "name": "设置承运人",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1126,
+                "code": "so_masters_pdaSearchSo",
+                "name": "根据追踪号查找出库单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1127,
+                "code": "so_masters_getYdypByItemCode",
+                "name": "getYdypByItemCode",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1128,
+                "code": "so_masters_getSeedingByItemCode",
+                "name": "根据sku查询播种货位",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1129,
+                "code": "so_masters_getSeedingByItemCode2",
+                "name": "getSeedingByItemCode2",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1130,
+                "code": "so_masters_getSeedingYdYpByBox",
+                "name": "getSeedingYdYpByBox",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1131,
+                "code": "so_masters_sendOut",
+                "name": "发运",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1132,
+                "code": "so_masters_getDtoByBoxOrCell",
+                "name": "getDtoByBoxOrCell",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1133,
+                "code": "so_masters_findBillDetailByOrderNo",
+                "name": "根据订单编号查询",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1134,
+                "code": "so_masters_getDzmdByBoxOrCell",
+                "name": "getDzmdByBoxOrCell",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1135,
+                "code": "so_masters_getDzmd",
+                "name": "getDzmd",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1136,
+                "code": "so_masters_getPrintData",
+                "name": "打印单个SO单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1137,
+                "code": "so_masters_getPrintInvoice",
+                "name": "打印发票",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1138,
+                "code": "so_masters_getBillPrintData",
+                "name": "打印当前波次的所有出库单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1140,
+                "code": "so_masters_getSoPrintDataAllForDriver",
+                "name": "批量打印单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1141,
+                "code": "so_masters_getPickTaskLabelForDriver",
+                "name": "打印当前标签",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1142,
+                "code": "so_masters_getPickTaskLabelForDriver2",
+                "name": "打印两件套",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1143,
+                "code": "so_masters_getPickTaskAllForDriver",
+                "name": "批量打印拣货单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1144,
+                "code": "so_masters_getSoPrintDataAll",
+                "name": "批量打印SO单 不加司机信息",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1145,
+                "code": "so_masters_getPickTaskAll",
+                "name": "批量打印当前所有出库单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1146,
+                "code": "so_masters_getPickTaskLabel",
+                "name": "打印当前波次的所有出库单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1147,
+                "code": "so_masters_getSOPickTask",
+                "name": "打印拣货单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1148,
+                "code": "so_masters_getPickPrintData",
+                "name": "打印当前波次的所有拣货标签",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1149,
+                "code": "so_masters_forcedProcessing",
+                "name": "强制处理订单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1150,
+                "code": "so_masters_printerLog",
+                "name": "打印机相关日志",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1151,
+                "code": "so_masters_findByShortageStatistics",
+                "name": "当前缺货清单",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1152,
+                "code": "so_master_files_list",
+                "name": "SO信息归档",
+                "parentId": 90,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1011,
+                "code": "pick_tasks_add",
+                "name": "新增",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1012,
+                "code": "pick_tasks_manualCreatePickTask",
+                "name": "手动创建拣货任务",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1013,
+                "code": "pick_tasks_get",
+                "name": "详情",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1014,
+                "code": "pick_tasks_findBySoMasterId",
+                "name": "根据出库单号查询",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1015,
+                "code": "pick_tasks_allotTask",
+                "name": "分配任务",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1016,
+                "code": "pick_tasks_findFirst",
+                "name": "findFirst",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1017,
+                "code": "pick_tasks_cancelPickTask",
+                "name": "取消拣货任务",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1018,
+                "code": "pick_tasks_pickUpdateBill",
+                "name": "更新出库单状态",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1019,
+                "code": "pick_tasks_pickTaskAffirm",
+                "name": "确认拣货",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1020,
+                "code": "pick_tasks_pickTaskBjbfAffirm",
+                "name": "边检边分",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1021,
+                "code": "pick_tasks_pickTaskEx",
+                "name": "确认异常",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1022,
+                "code": "pick_tasks_getPickTasksForSeeding",
+                "name": "根据波次编码查询",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1023,
+                "code": "pick_tasks_findByWaveMasterId",
+                "name": "根据波次id查询",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1024,
+                "code": "pick_tasks_findRunningByBillNo",
+                "name": "查询拣货和波次信息",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1025,
+                "code": "pick_tasks_findByBox",
+                "name": "根据追踪号查询",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1026,
+                "code": "pick_tasks_getSeedingWallAlertInfo",
+                "name": "查询出库明细单播种信息",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1027,
+                "code": "pick_tasks_updateSeededQuantity",
+                "name": "修改播种数量",
+                "parentId": 91,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 763,
+                "code": "stock_take_masters_insert",
+                "name": "新增",
+                "parentId": 100,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 764,
+                "code": "stock_take_masters_review",
+                "name": "审核",
+                "parentId": 100,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 765,
+                "code": "stock_take_masters_reReview",
+                "name": "重新发起审核",
+                "parentId": 100,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 766,
+                "code": "stock_take_masters_delete",
+                "name": "删除",
+                "parentId": 100,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 767,
+                "code": "stock_take_masters_update",
+                "name": "修改",
+                "parentId": 100,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 768,
+                "code": "stock_take_masters_detail",
+                "name": "详情",
+                "parentId": 100,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 769,
+                "code": "stock_take_masters_deleteByIds",
+                "name": "批量删除",
+                "parentId": 100,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 770,
+                "code": "stock_take_tasks_insert",
+                "name": "新增",
+                "parentId": 101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 771,
+                "code": "stock_take_tasks_delete",
+                "name": "删除",
+                "parentId": 101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 772,
+                "code": "stock_take_tasks_update",
+                "name": "修改",
+                "parentId": 101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 773,
+                "code": "stock_take_tasks_detail",
+                "name": "详情",
+                "parentId": 101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 774,
+                "code": "stock_take_tasks_findPDAList",
+                "name": "findPDAList",
+                "parentId": 101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 775,
+                "code": "stock_take_tasks_calculateStockTake",
+                "name": "盘点",
+                "parentId": 101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 776,
+                "code": "stock_take_tasks_exportStockTakeTask",
+                "name": "导出盘点任务",
+                "parentId": 101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 777,
+                "code": "stock_take_tasks_importStockTakeTask",
+                "name": "导入盘点任务",
+                "parentId": 101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 778,
+                "code": "stock_take_tasks_manualInventory",
+                "name": "手动盘点",
+                "parentId": 101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 309,
+                "code": "allot-generate",
+                "name": "生成入库单和SO单",
+                "parentId": 118,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 973,
+                "code": "allot_details_list",
+                "name": "库存调拨明细",
+                "parentId": 118,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 974,
+                "code": "allot_masters_insert",
+                "name": "新增",
+                "parentId": 118,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 975,
+                "code": "allot_masters_delete",
+                "name": "删除",
+                "parentId": 118,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 976,
+                "code": "allot_masters_update",
+                "name": "修改",
+                "parentId": 118,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 977,
+                "code": "allot_masters_detail",
+                "name": "详情",
+                "parentId": 118,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 978,
+                "code": "allot_masters_review",
+                "name": "审核",
+                "parentId": 118,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 979,
+                "code": "allot_masters_reReview",
+                "name": "重新发起审核",
+                "parentId": 118,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 404,
+                "code": "sjc_upper_tasks_add",
+                "name": "新增",
+                "parentId": 120,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 405,
+                "code": "sjc_upper_tasks_check",
+                "name": "检查",
+                "parentId": 120,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 406,
+                "code": "sjc_upper_tasks_commit",
+                "name": "提交",
+                "parentId": 120,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 407,
+                "code": "sjc_upper_tasks_delete",
+                "name": "删除",
+                "parentId": 120,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 408,
+                "code": "sjc_upper_tasks_update",
+                "name": "修改",
+                "parentId": 120,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 409,
+                "code": "sjc_upper_tasks_get",
+                "name": "详情",
+                "parentId": 120,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 410,
+                "code": "sjc_upper_tasks_findBySjcShellCode",
+                "name": "根据上驾车编码查询",
+                "parentId": 120,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 412,
+                "code": "upper_tasks_list",
+                "name": "上架api",
+                "parentId": 120,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 668,
+                "code": "inventory_adjusts_insert",
+                "name": "新增",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 669,
+                "code": "inventory_adjusts_delete",
+                "name": "删除",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 670,
+                "code": "inventory_adjusts_update",
+                "name": "修改",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 671,
+                "code": "inventory_adjusts_get",
+                "name": "详情",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 672,
+                "code": "inventory_adjusts_deleteDetailAndMaster",
+                "name": "删除主单和详情单",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 673,
+                "code": "inventory_adjusts_createInventoryAdjust",
+                "name": "创建库存调整单",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 674,
+                "code": "inventory_adjusts_createByPd",
+                "name": "根据盘点单创建库存调整单",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 675,
+                "code": "inventory_adjusts_updateInventoryAdjust",
+                "name": "修改库存调整单草稿",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 676,
+                "code": "inventory_adjusts_commitDraft",
+                "name": "库存调整单草稿提交",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 677,
+                "code": "inventory_adjusts_review",
+                "name": "审核",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 678,
+                "code": "inventory_adjusts_reReview",
+                "name": "重新发起审核",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 679,
+                "code": "inventory_adjusts_batchCreateInventoryAdjust",
+                "name": "接口批量创建库存调整单",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 680,
+                "code": "inventory_adjust_details_findList",
+                "name": "库存调整明细",
+                "parentId": 122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1068,
+                "code": "",
+                "name": "销售单明细",
+                "parentId": 130,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1069,
+                "code": "sale_masters_add",
+                "name": "新增",
+                "parentId": 130,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1070,
+                "code": "sale_masters_insert",
+                "name": "新增信息",
+                "parentId": 130,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1071,
+                "code": "sale_masters_delete",
+                "name": "删除",
+                "parentId": 130,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1072,
+                "code": "sale_masters_update",
+                "name": "修改",
+                "parentId": 130,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1073,
+                "code": "sale_masters_detail",
+                "name": "详情",
+                "parentId": 130,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1074,
+                "code": "sale_masters_createSo",
+                "name": "生成出库单",
+                "parentId": 130,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1075,
+                "code": "sale_masters_review",
+                "name": "审核",
+                "parentId": 130,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1076,
+                "code": "sale_masters_reReview",
+                "name": "重新发起审核",
+                "parentId": 130,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 287,
+                "code": "in-ex-add",
+                "name": "异常验收",
+                "parentId": 148,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 288,
+                "code": "in-ex-delete",
+                "name": "删除",
+                "parentId": 148,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 289,
+                "code": "in-ex-update",
+                "name": "修改",
+                "parentId": 148,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 290,
+                "code": "in-ex-get",
+                "name": "详情",
+                "parentId": 148,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 779,
+                "code": "erp_api_passquan_order_return",
+                "name": "退货状态",
+                "parentId": 161,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 780,
+                "code": "erp_records_add",
+                "name": "新增",
+                "parentId": 161,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 781,
+                "code": "erp_records_delete",
+                "name": "删除",
+                "parentId": 161,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 782,
+                "code": "erp_records_update",
+                "name": "修改",
+                "parentId": 161,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 783,
+                "code": "erp_records_get",
+                "name": "详情",
+                "parentId": 161,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 784,
+                "code": "erp_rpc_passquan_order_assignedOrders",
+                "name": "刷新司机",
+                "parentId": 161,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1054,
+                "code": "request_details_list",
+                "name": "退货单明细",
+                "parentId": 274,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1055,
+                "code": "return_masters_add",
+                "name": "新增",
+                "parentId": 274,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1056,
+                "code": "return_masters_insert",
+                "name": "新增信息",
+                "parentId": 274,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1057,
+                "code": "return_masters_delete",
+                "name": "删除",
+                "parentId": 274,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1058,
+                "code": "return_masters_detail",
+                "name": "详情",
+                "parentId": 274,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1059,
+                "code": "return_masters_review",
+                "name": "审核",
+                "parentId": 274,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1060,
+                "code": "return_masters_reReview",
+                "name": "重新发起审核",
+                "parentId": 274,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1061,
+                "code": "return_masters_update",
+                "name": "修改",
+                "parentId": 274,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1062,
+                "code": "return_masters_return",
+                "name": "批量退货",
+                "parentId": 274,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1089,
+                "code": "so_details_insert",
+                "name": "新增",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1090,
+                "code": "so_details_update",
+                "name": "修改",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1091,
+                "code": "so_details_detail",
+                "name": "详情",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1092,
+                "code": "so_details_list",
+                "name": "列表查询",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1093,
+                "code": "so_details_StockoutInfo",
+                "name": "查询缺货信息",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1094,
+                "code": "so_details_findDetailsByWaveId",
+                "name": "根据波次id查询详情",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1095,
+                "code": "so_details_findDayList",
+                "name": "出库日报表",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1098,
+                "code": "so_details_bomSplit",
+                "name": "bom拆分",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1099,
+                "code": "so_details_check",
+                "name": "一单多品check",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1100,
+                "code": "so_details_check2",
+                "name": "一单多品check2",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1101,
+                "code": "so_detail_files_list",
+                "name": "归档信息",
+                "parentId": 276,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 316,
+                "code": "asnDetails-insert",
+                "name": "新增",
+                "parentId": 277,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 317,
+                "code": "asnDetails-delete",
+                "name": "删除",
+                "parentId": 277,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 318,
+                "code": "asnDetails-detail",
+                "name": "详情",
+                "parentId": 277,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 319,
+                "code": "asnDetails-findByDetailNo",
+                "name": "根据详情单号查询列表",
+                "parentId": 277,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 320,
+                "code": "asnDetails-findByBillNo",
+                "name": "根据主单单号查询列表",
+                "parentId": 277,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 321,
+                "code": "asnDetailsFiles",
+                "name": "ASN详情归档",
+                "parentId": 277,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 655,
+                "code": "freeze_details_insert",
+                "name": "新增",
+                "parentId": 278,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 656,
+                "code": "freeze_details_delete",
+                "name": "删除",
+                "parentId": 278,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 657,
+                "code": "freeze_details_update",
+                "name": "修改",
+                "parentId": 278,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 658,
+                "code": "freeze_details_detail",
+                "name": "详情",
+                "parentId": 278,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 659,
+                "code": "freeze_details_list",
+                "name": "列表",
+                "parentId": 278,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1028,
+                "code": "pick_task_exs_add",
+                "name": "新增",
+                "parentId": 279,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1029,
+                "code": "pick_task_exs_delete",
+                "name": "删除",
+                "parentId": 279,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1030,
+                "code": "pick_task_exs_update",
+                "name": "修改",
+                "parentId": 279,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1031,
+                "code": "pick_task_exs_get",
+                "name": "详情",
+                "parentId": 279,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1032,
+                "code": "pick_task_exs_commit",
+                "name": "异常提交",
+                "parentId": 279,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 286,
+                "code": "acceptAuditRecord-notApproved",
+                "name": "盲收审批-不通过",
+                "parentId": 280,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 322,
+                "code": "asnDetailFiles-insert",
+                "name": "新增",
+                "parentId": 321,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 323,
+                "code": "asnDetailFiles-delete",
+                "name": "删除",
+                "parentId": 321,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 324,
+                "code": "asnDetailFiles-update",
+                "name": "修改",
+                "parentId": 321,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 325,
+                "code": "asnDetailFiles-detail",
+                "name": "详情",
+                "parentId": 321,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 328,
+                "code": "asnMasterFiles-insert",
+                "name": "新增",
+                "parentId": 327,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 329,
+                "code": "asnMasterFiles-delete",
+                "name": "删除",
+                "parentId": 327,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 330,
+                "code": "asnMasterFiles-update",
+                "name": "修改",
+                "parentId": 327,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 331,
+                "code": "asnMasterFiles-detail",
+                "name": "详情",
+                "parentId": 327,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 333,
+                "code": "asnShip-add",
+                "name": "新增",
+                "parentId": 332,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 334,
+                "code": "asnShip-delete",
+                "name": "删除",
+                "parentId": 332,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 335,
+                "code": "asnShip-update",
+                "name": "修改",
+                "parentId": 332,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 336,
+                "code": "asnShip-get",
+                "name": "详情",
+                "parentId": 332,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 337,
+                "code": "asnShip-findByBillNo",
+                "name": "根据单号查询列表",
+                "parentId": 332,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 338,
+                "code": "asnShip-accept",
+                "name": "验收",
+                "parentId": 332,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 389,
+                "code": "request_buy_details_insert",
+                "name": "新增",
+                "parentId": 380,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 390,
+                "code": "request_buy_details_delete",
+                "name": "删除",
+                "parentId": 380,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 391,
+                "code": "request_buy_details_update",
+                "name": "修改",
+                "parentId": 380,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 392,
+                "code": "request_buy_details_detail",
+                "name": "详情",
+                "parentId": 380,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 393,
+                "code": "request_buy_detail_files_list",
+                "name": "归档",
+                "parentId": 380,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 398,
+                "code": "request_buy_files_insert",
+                "name": "新增",
+                "parentId": 388,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 399,
+                "code": "request_buy_files_delete",
+                "name": "删除",
+                "parentId": 388,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 400,
+                "code": "request_buy_files_update",
+                "name": "修改",
+                "parentId": 388,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 401,
+                "code": "request_buy_files_detail",
+                "name": "详情",
+                "parentId": 388,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 402,
+                "code": "request_buy_files_list",
+                "name": "列表",
+                "parentId": 388,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 394,
+                "code": "request_buy_detail_files_insert",
+                "name": "新增",
+                "parentId": 393,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 395,
+                "code": "request_buy_detail_files_delete",
+                "name": "删除",
+                "parentId": 393,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 396,
+                "code": "request_buy_detail_files_update",
+                "name": "修改",
+                "parentId": 393,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 397,
+                "code": "request_buy_detail_files_detail",
+                "name": "详情",
+                "parentId": 393,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 413,
+                "code": "upper_tasks_insert",
+                "name": "新增",
+                "parentId": 412,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 414,
+                "code": "upper_tasks_delete",
+                "name": "删除",
+                "parentId": 412,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 415,
+                "code": "upper_tasks_update",
+                "name": "修改",
+                "parentId": 412,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 416,
+                "code": "upper_tasks_detail",
+                "name": "详情",
+                "parentId": 412,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 417,
+                "code": "upper_tasks_findUpperCell",
+                "name": "查询合适的货位",
+                "parentId": 412,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 418,
+                "code": "upper_tasks_upperTask",
+                "name": "上架",
+                "parentId": 412,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 419,
+                "code": "upper_tasks_generateInCellTask",
+                "name": "生成上架任务",
+                "parentId": 412,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 640,
+                "code": "combine_pallet_tasks_insert",
+                "name": "新增",
+                "parentId": 639,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 641,
+                "code": "combine_pallet_tasks_delete",
+                "name": "删除",
+                "parentId": 639,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 642,
+                "code": "combine_pallet_tasks_update",
+                "name": "修改",
+                "parentId": 639,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 643,
+                "code": "combine_pallet_tasks_get",
+                "name": "详情",
+                "parentId": 639,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 644,
+                "code": "combine_pallet_tasks_getTaskByBoxCode",
+                "name": "根据追踪号查询",
+                "parentId": 639,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 645,
+                "code": "combine_pallet_task_details_list",
+                "name": "合托任务明细",
+                "parentId": 639,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 646,
+                "code": "combine_pallet_task_details_add",
+                "name": "新增",
+                "parentId": 645,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 647,
+                "code": "combine_pallet_task_details_delete",
+                "name": "删除",
+                "parentId": 645,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 648,
+                "code": "combine_pallet_task_details_update",
+                "name": "修改",
+                "parentId": 645,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 649,
+                "code": "combine_pallet_task_details_get",
+                "name": "详情",
+                "parentId": 645,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 681,
+                "code": "inventory_adjust_details_add",
+                "name": "新增",
+                "parentId": 680,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 682,
+                "code": "inventory_adjust_details_delete",
+                "name": "删除",
+                "parentId": 680,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 683,
+                "code": "inventory_adjust_details_update",
+                "name": "修改",
+                "parentId": 680,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 684,
+                "code": "inventory_adjust_details_get",
+                "name": "详情",
+                "parentId": 680,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 685,
+                "code": "inventory_adjust_details_list",
+                "name": "列表",
+                "parentId": 680,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 686,
+                "code": "inventory_adjust_details_adjustAffirm",
+                "name": "确认调整",
+                "parentId": 680,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 693,
+                "code": "inventory_moves_add",
+                "name": "新增",
+                "parentId": 692,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 694,
+                "code": "inventory_moves_review",
+                "name": "审核",
+                "parentId": 692,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 695,
+                "code": "inventory_moves_reReview",
+                "name": "重新发起审核",
+                "parentId": 692,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 696,
+                "code": "inventory_moves_delete",
+                "name": "删除",
+                "parentId": 692,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 697,
+                "code": "inventory_moves_update",
+                "name": "修改",
+                "parentId": 692,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 698,
+                "code": "inventory_moves_detail",
+                "name": "详情",
+                "parentId": 692,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 699,
+                "code": "inventory_moves_details_list",
+                "name": "明细列表",
+                "parentId": 692,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 700,
+                "code": "inventory_moves_details_insert",
+                "name": "新增",
+                "parentId": 699,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 701,
+                "code": "inventory_moves_details_delete",
+                "name": "删除",
+                "parentId": 699,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 702,
+                "code": "inventory_moves_details_update",
+                "name": "修改",
+                "parentId": 699,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 703,
+                "code": "inventory_moves_details_detail",
+                "name": "详情",
+                "parentId": 699,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 705,
+                "code": "inventorys_list",
+                "name": "列表",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 706,
+                "code": "inventorys_insert",
+                "name": "新增",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 707,
+                "code": "inventorys_moveList",
+                "name": "基础移库",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 708,
+                "code": "inventorys_update",
+                "name": "修改",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 709,
+                "code": "inventorys_detail",
+                "name": "详情",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 710,
+                "code": "inventorys_getAccept",
+                "name": "获取验收位库存",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 714,
+                "code": "inventorys_getUPCUpList",
+                "name": "待上架库存",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 715,
+                "code": "inventorys_checkList",
+                "name": "待拣货库存",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 716,
+                "code": "inventorys_SumList",
+                "name": "sku分组查询库存信息",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 717,
+                "code": "inventorys_CellUseTypeList",
+                "name": "根据库位类型查询库存列表",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 718,
+                "code": "inventorys_importInventory",
+                "name": "库存导入",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 719,
+                "code": "inventorys_exportInventory",
+                "name": "库存导出",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 721,
+                "code": "inventorys_findByFreeze",
+                "name": "查询冻结货位",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 722,
+                "code": "inventorys_findByRelease",
+                "name": "查询解冻货位",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 723,
+                "code": "inventorys_freezeCell",
+                "name": "库存",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 724,
+                "code": "inventorys_freezeCells",
+                "name": "货位库存冻结",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 725,
+                "code": "inventorys_releaseCell",
+                "name": "库存解冻",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 726,
+                "code": "inventorys_releaseCells",
+                "name": "货位库存批量解冻",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 727,
+                "code": "inventorys_lockCell",
+                "name": "货位锁定",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 728,
+                "code": "inventorys_unlockCell",
+                "name": "货位解锁",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 729,
+                "code": "inventorys_synchronization",
+                "name": "同步库存和批次的质检状态",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 730,
+                "code": "inventorys_inventorySafetyReport",
+                "name": "库存安全报表",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 731,
+                "code": "inventorys_palletsToCombine",
+                "name": "查询待合并库存",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 732,
+                "code": "inventorys_inventoriesWithBoxCode",
+                "name": "根据追踪号查询库存",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 733,
+                "code": "inventorys_boxResult",
+                "name": "boxResult",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 734,
+                "code": "inventorys_exportFindGroupByWareOrgItem",
+                "name": "导出2",
+                "parentId": 704,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 713,
+                "code": "inventorys_move",
+                "name": "移库",
+                "parentId": 707,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 755,
+                "code": "reasons_insert",
+                "name": "新增",
+                "parentId": 754,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 756,
+                "code": "reasons_delete",
+                "name": "删除",
+                "parentId": 754,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 757,
+                "code": "reasons_update",
+                "name": "修改",
+                "parentId": 754,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 758,
+                "code": "reasons_get",
+                "name": "详情",
+                "parentId": 754,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 799,
+                "code": "bill_records_add",
+                "name": "新增",
+                "parentId": 798,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 800,
+                "code": "bill_records_delete",
+                "name": "删除",
+                "parentId": 798,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 801,
+                "code": "bill_records_update",
+                "name": "修改",
+                "parentId": 798,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 802,
+                "code": "bill_records_detail",
+                "name": "详情",
+                "parentId": 798,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 980,
+                "code": "allot_details_insert",
+                "name": "新增",
+                "parentId": 973,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 981,
+                "code": "allot_details_delete",
+                "name": "删除",
+                "parentId": 973,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 982,
+                "code": "allot_details_update",
+                "name": "修改",
+                "parentId": 973,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 983,
+                "code": "allot_details_detail",
+                "name": "详情",
+                "parentId": 973,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 985,
+                "code": "box_details_insert",
+                "name": "新增",
+                "parentId": 984,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 986,
+                "code": "box_details_withdraw",
+                "name": "撤回",
+                "parentId": 984,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 987,
+                "code": "box_details_delete",
+                "name": "删除",
+                "parentId": 984,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 988,
+                "code": "box_details_update",
+                "name": "修改",
+                "parentId": 984,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 989,
+                "code": "box_details_detail",
+                "name": "详情",
+                "parentId": 984,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1063,
+                "code": "request_details_add",
+                "name": "新增",
+                "parentId": 1054,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1064,
+                "code": "request_details_insert",
+                "name": "新增信息",
+                "parentId": 1054,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1065,
+                "code": "request_details_delete",
+                "name": "删除",
+                "parentId": 1054,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1066,
+                "code": "request_details_update",
+                "name": "修改",
+                "parentId": 1054,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1067,
+                "code": "request_details_detail",
+                "name": "详情",
+                "parentId": 1054,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1097,
+                "code": "so_details_exportDayList",
+                "name": "导出",
+                "parentId": 1095,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1102,
+                "code": "so_detail_files_insert",
+                "name": "新增",
+                "parentId": 1101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1103,
+                "code": "so_detail_files_delete",
+                "name": "删除",
+                "parentId": 1101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1104,
+                "code": "so_detail_files_update",
+                "name": "修改",
+                "parentId": 1101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1105,
+                "code": "so_detail_files_detail",
+                "name": "详情",
+                "parentId": 1101,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1153,
+                "code": "so_master_files_insert",
+                "name": "新增",
+                "parentId": 1122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1154,
+                "code": "so_master_files_delete",
+                "name": "删除",
+                "parentId": 1122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1155,
+                "code": "so_master_files_update",
+                "name": "修改",
+                "parentId": 1122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1156,
+                "code": "so_master_files_detail",
+                "name": "详情",
+                "parentId": 1122,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 798,
+                "code": "bill_records_list",
+                "name": "订单跟踪信息",
+                "parentId": 1209,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 285,
+                "code": "acceptAuditRecord-approved",
+                "name": "盲收审批-通过",
+                "parentId": 280,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1,
+                "code": "home",
+                "name": "首页",
+                "parentId": null,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 129,
+                "code": "orderManage",
+                "name": "订单管理",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 70,
+                "code": "billInManage",
+                "name": "入库管理",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 86,
+                "code": "bill-out",
+                "name": "出库管理",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 61,
+                "code": "inventory",
+                "name": "库存管理",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 109,
+                "code": "cellList",
+                "name": "货位一览",
+                "parentId": null,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 49,
+                "code": "sys-param",
+                "name": "系统参数",
+                "parentId": 1,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 62,
+                "code": "inventoryBalance",
+                "name": "库存余量",
+                "parentId": 61,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 63,
+                "code": "inventoryTransact",
+                "name": "库存事务",
+                "parentId": 61,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 65,
+                "code": "freeze",
+                "name": "库存冻结",
+                "parentId": 61,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 71,
+                "code": "buyBillIn",
+                "name": "采购单",
+                "parentId": 129,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 130,
+                "code": "saleBill",
+                "name": "销售单",
+                "parentId": 129,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 118,
+                "code": "InventoryAllocation",
+                "name": "库存调拨",
+                "parentId": 129,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 161,
+                "code": "erpRecord",
+                "name": "ERP记录",
+                "parentId": 61,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 162,
+                "code": "canOutInventory",
+                "name": "可拣库存",
+                "parentId": 61,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 144,
+                "code": "totalInventory",
+                "name": "库存统计",
+                "parentId": 61,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 278,
+                "code": "freezeDetails",
+                "name": "库存冻结明细",
+                "parentId": 61,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 122,
+                "code": "inventoryAdjust",
+                "name": "库存调整",
+                "parentId": 61,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 99,
+                "code": "stock_take_manage",
+                "name": "盘点管理",
+                "parentId": 61,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 274,
+                "code": "asnReturnBill",
+                "name": "退货单",
+                "parentId": 70,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 74,
+                "code": "asnBill",
+                "name": "入库单",
+                "parentId": 70,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 277,
+                "code": "asnDetails",
+                "name": "入库单明细",
+                "parentId": 70,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 146,
+                "code": "kuaisu-accept",
+                "name": "快速验收",
+                "parentId": 70,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 79,
+                "code": "asnBillDetailAccept",
+                "name": "ASN明细验收",
+                "parentId": 70,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 148,
+                "code": "in-ex",
+                "name": "异常入库",
+                "parentId": 70,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 64,
+                "code": "acceptRecord",
+                "name": "验收记录",
+                "parentId": 70,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 120,
+                "code": "inCellTask",
+                "name": "上架任务",
+                "parentId": 70,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 280,
+                "code": "acceptAuditRecord",
+                "name": "盲收审批",
+                "parentId": 70,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 90,
+                "code": "soBill",
+                "name": "出库单",
+                "parentId": 86,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 276,
+                "code": "soDetails",
+                "name": "出库单明细",
+                "parentId": 86,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 174,
+                "code": "outPrint",
+                "name": "出库打印",
+                "parentId": 86,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 171,
+                "code": "pick",
+                "name": "拣货管理",
+                "parentId": 86,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 150,
+                "code": "ydyp",
+                "name": "一单一品",
+                "parentId": 86,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 149,
+                "code": "seeding",
+                "name": "多品播种",
+                "parentId": 86,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 100,
+                "code": "stock_tareke_mast",
+                "name": "盘点单",
+                "parentId": 99,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 101,
+                "code": "stock_take_task",
+                "name": "盘点任务",
+                "parentId": 99,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 91,
+                "code": "pickTask",
+                "name": "拣货任务",
+                "parentId": 171,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 279,
+                "code": "PickTaskEx",
+                "name": "拣货异常",
+                "parentId": 171,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 1209,
+                "code": "common",
+                "name": "通用配置",
+                "parentId": null,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 883,
+                "code": "permissions_list",
+                "name": "角色-菜单权限",
+                "parentId": 2,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 894,
+                "code": "resources_list",
+                "name": "资源菜单",
+                "parentId": 2,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 905,
+                "code": "roles_list",
+                "name": "角色管理",
+                "parentId": 2,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 937,
+                "code": "user_organizations_list",
+                "name": "用户-货主关联",
+                "parentId": 2,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 954,
+                "code": "ware_users_list",
+                "name": "用户-仓库关联",
+                "parentId": 2,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 935,
+                "code": "users_updateUserInfoAccountStatus",
+                "name": "一键启用禁用账户",
+                "parentId": 3,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 936,
+                "code": "users_bindWare",
+                "name": "绑定仓库、角色、货主",
+                "parentId": 3,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 864,
+                "code": "depts_insert",
+                "name": "新增",
+                "parentId": 21,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 865,
+                "code": "depts_delete",
+                "name": "删除",
+                "parentId": 21,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 866,
+                "code": "depts_update",
+                "name": "修改",
+                "parentId": 21,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 867,
+                "code": "depts_detail",
+                "name": "详情",
+                "parentId": 21,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 868,
+                "code": "depts_treeParentList",
+                "name": "树形结构",
+                "parentId": 21,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 538,
+                "code": "shelf_infos_list",
+                "name": "货架管理",
+                "parentId": 22,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 946,
+                "code": "ware_infos_insert",
+                "name": "新增",
+                "parentId": 23,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 947,
+                "code": "ware_infos_delete",
+                "name": "删除",
+                "parentId": 23,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 948,
+                "code": "ware_infos_update",
+                "name": "修改",
+                "parentId": 23,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 949,
+                "code": "ware_infos_changeStatus",
+                "name": "更新仓库状态",
+                "parentId": 23,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 950,
+                "code": "ware_infos_detail",
+                "name": "详情",
+                "parentId": 23,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 951,
+                "code": "ware_infos_list",
+                "name": "列表查询",
+                "parentId": 23,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 952,
+                "code": "ware_infos_findUserByWareId",
+                "name": "根据仓库id查询用户信息",
+                "parentId": 23,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 953,
+                "code": "ware_infos_allList",
+                "name": "查询全部",
+                "parentId": 23,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 871,
+                "code": "organizations_insert",
+                "name": "新增",
+                "parentId": 24,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 872,
+                "code": "organizations_delete",
+                "name": "删除",
+                "parentId": 24,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 873,
+                "code": "organizations_update",
+                "name": "修改",
+                "parentId": 24,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 874,
+                "code": "organizations_detail",
+                "name": "详情",
+                "parentId": 24,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 875,
+                "code": "organizations_allList",
+                "name": "查询全部",
+                "parentId": 24,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 876,
+                "code": "organizations_enable",
+                "name": "启用货主",
+                "parentId": 24,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 877,
+                "code": "organizations_disable",
+                "name": "停用货主",
+                "parentId": 24,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 912,
+                "code": "shipping_addresss_list",
+                "name": "寄件地址",
+                "parentId": 24,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 484,
+                "code": "item_upcs_list",
+                "name": "upc",
+                "parentId": 37,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 736,
+                "code": "item_batchs_list",
+                "name": "物料批次",
+                "parentId": 37,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1006,
+                "code": "manufacture_bills_list",
+                "name": "加工单",
+                "parentId": 37,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 464,
+                "code": "item_infos_insert",
+                "name": "新增",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 465,
+                "code": "item_infos_delete",
+                "name": "删除",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 466,
+                "code": "item_infos_update",
+                "name": "修改",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 467,
+                "code": "item_infos_detail",
+                "name": "详情",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 468,
+                "code": "item_infos_findBYCode",
+                "name": "根据code查询",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 469,
+                "code": "item_infos_selectItem",
+                "name": "物料查询",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 470,
+                "code": "item_infos_enable",
+                "name": "启用物料",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 471,
+                "code": "item_infos_disable",
+                "name": "停用物料",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 472,
+                "code": "item_infos_uploadItems",
+                "name": "修改",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 473,
+                "code": "item_infos_uploadIUPC",
+                "name": "导入",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 474,
+                "code": "item_infos_uploadIUPC2",
+                "name": "导入2",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 475,
+                "code": "item_infos_print",
+                "name": "打印",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 476,
+                "code": "item_infos_xhcSku",
+                "name": "同步SKU",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 477,
+                "code": "item_infos_xhcSku2",
+                "name": "自定义参数同步sku",
+                "parentId": 41,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 478,
+                "code": "item_types_insert",
+                "name": "新增",
+                "parentId": 42,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 479,
+                "code": "item_types_delete",
+                "name": "删除",
+                "parentId": 42,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 480,
+                "code": "item_types_update",
+                "name": "修改",
+                "parentId": 42,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 481,
+                "code": "item_types_detail",
+                "name": "详情",
+                "parentId": 42,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 482,
+                "code": "item_types_treeParentList",
+                "name": "树形结构",
+                "parentId": 42,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 483,
+                "code": "item_types_uploadItemTypes",
+                "name": "导入",
+                "parentId": 42,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 546,
+                "code": "supplier_manages_insert",
+                "name": "新增",
+                "parentId": 43,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 547,
+                "code": "supplier_manages_delete",
+                "name": "删除",
+                "parentId": 43,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 548,
+                "code": "supplier_manages_update",
+                "name": "修改",
+                "parentId": 43,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 549,
+                "code": "supplier_manages_detail",
+                "name": "详情",
+                "parentId": 43,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 550,
+                "code": "supplier_manages_hasAsn",
+                "name": "有入库单的",
+                "parentId": 43,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 551,
+                "code": "supplier_manages_allList",
+                "name": "查询全部",
+                "parentId": 43,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 849,
+                "code": "customers_insert",
+                "name": "新增",
+                "parentId": 44,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 850,
+                "code": "customers_delete",
+                "name": "删除",
+                "parentId": 44,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 851,
+                "code": "customers_update",
+                "name": "修改",
+                "parentId": 44,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 852,
+                "code": "customers_detail",
+                "name": "详情",
+                "parentId": 44,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 853,
+                "code": "customers_allList",
+                "name": "查询全部",
+                "parentId": 44,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 889,
+                "code": "receiving_addresss_list",
+                "name": "客户收件信息",
+                "parentId": 44,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 839,
+                "code": "carriers_insert",
+                "name": "新增",
+                "parentId": 47,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 840,
+                "code": "carriers_delete",
+                "name": "删除",
+                "parentId": 47,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 841,
+                "code": "carriers_update",
+                "name": "修改",
+                "parentId": 47,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 842,
+                "code": "carriers_detail",
+                "name": "详情",
+                "parentId": 47,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 843,
+                "code": "carriers_allList",
+                "name": "查询全部",
+                "parentId": 47,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 844,
+                "code": "carriers_details_list",
+                "name": "承运方明细",
+                "parentId": 47,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 532,
+                "code": "select_products_list",
+                "name": "搜索",
+                "parentId": 48,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 650,
+                "code": "exception_infos_list",
+                "name": "异常信息",
+                "parentId": 48,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 888,
+                "code": "properties_getDetail",
+                "name": "数据库连接查询",
+                "parentId": 48,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 942,
+                "code": "",
+                "name": "重复性检验",
+                "parentId": 48,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 923,
+                "code": "sys_params_findByMemo",
+                "name": "根据备注查询",
+                "parentId": 49,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 924,
+                "code": "sys_params_findByModuleCode",
+                "name": "根据模块查询",
+                "parentId": 49,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 925,
+                "code": "sys_params_findByParamCode",
+                "name": "根据参数编码查询",
+                "parentId": 49,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 927,
+                "code": "sys_params_all",
+                "name": "查询全部",
+                "parentId": 49,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 854,
+                "code": "data_dict_details_list",
+                "name": "数据字典明细",
+                "parentId": 51,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 855,
+                "code": "data_dict_masters_insert",
+                "name": "新增",
+                "parentId": 51,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 856,
+                "code": "data_dict_masters_delete",
+                "name": "删除",
+                "parentId": 51,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 857,
+                "code": "data_dict_masters_update",
+                "name": "修改",
+                "parentId": 51,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 858,
+                "code": "data_dict_masters_detail",
+                "name": "详情",
+                "parentId": 51,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 582,
+                "code": "print_details_list",
+                "name": "打印详情",
+                "parentId": 54,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 878,
+                "code": "organizations_tactics_list",
+                "name": "货主仓库上架策略",
+                "parentId": 54,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 420,
+                "code": "area_infos_insert",
+                "name": "新增",
+                "parentId": 56,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 421,
+                "code": "area_infos_delete",
+                "name": "删除",
+                "parentId": 56,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 422,
+                "code": "area_infos_update",
+                "name": "修改",
+                "parentId": 56,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 423,
+                "code": "area_infos_detail",
+                "name": "详情",
+                "parentId": 56,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 424,
+                "code": "area_infos_validator",
+                "name": "验证获取信息重复",
+                "parentId": 56,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 430,
+                "code": "cell_infos_insert",
+                "name": "新增",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 432,
+                "code": "cell_infos_delete",
+                "name": "删除",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 433,
+                "code": "cell_infos_deleteByIds",
+                "name": "批量删除",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 434,
+                "code": "cell_infos_getCellByCellCode",
+                "name": "根据库位编码查询库位信息",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 435,
+                "code": "cell_infos_update",
+                "name": "修改",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 436,
+                "code": "cell_infos_detail",
+                "name": "详情",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 437,
+                "code": "cell_infos_findByShelfInfoId",
+                "name": "根据货位组查询",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 438,
+                "code": "cell_infos_findByCellUserTypes",
+                "name": "根据货位类型查询",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 439,
+                "code": "cell_infos_enable",
+                "name": "启用货位",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 440,
+                "code": "cell_infos_disable",
+                "name": "停用货位",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 441,
+                "code": "cell_infos_print",
+                "name": "打印",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 442,
+                "code": "cell_infos_plPrint",
+                "name": "批量打印",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 443,
+                "code": "cell_infos_importCellPickOrder",
+                "name": "导入库位排序",
+                "parentId": 57,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 785,
+                "code": "monitor_job_remove",
+                "name": "批量删除任务调度",
+                "parentId": 60,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 786,
+                "code": "monitor_job_changeStatus",
+                "name": "任务调度状态修改",
+                "parentId": 60,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 787,
+                "code": "monitor_job_run",
+                "name": "立即执行",
+                "parentId": 60,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 788,
+                "code": "monitor_job_add",
+                "name": "新增",
+                "parentId": 60,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 789,
+                "code": "monitor_job_edit",
+                "name": "修改",
+                "parentId": 60,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 790,
+                "code": "monitor_job_updateCron",
+                "name": "修改cron表达式",
+                "parentId": 60,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 791,
+                "code": "monitor_job_checkCronExpressionIsValid",
+                "name": "校验cron表达式是否有效",
+                "parentId": 60,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 792,
+                "code": "monitor_job_sysJobExport",
+                "name": "任务调度单导出",
+                "parentId": 60,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 793,
+                "code": "monitor_jobLog_list",
+                "name": "调度任务日志",
+                "parentId": 60,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 523,
+                "code": "seeding_walls_add",
+                "name": "新增",
+                "parentId": 111,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 524,
+                "code": "seeding_walls_delete",
+                "name": "删除",
+                "parentId": 111,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 525,
+                "code": "seeding_walls_update",
+                "name": "修改",
+                "parentId": 111,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 526,
+                "code": "seeding_walls_get",
+                "name": "详情",
+                "parentId": 111,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 527,
+                "code": "seeding_cells_list",
+                "name": "播种工位",
+                "parentId": 111,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 592,
+                "code": "print_temp_infos_add",
+                "name": "新增",
+                "parentId": 145,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 593,
+                "code": "print_temp_infos_delete",
+                "name": "删除",
+                "parentId": 145,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 594,
+                "code": "print_temp_infos_update",
+                "name": "修改",
+                "parentId": 145,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 595,
+                "code": "print_temp_infos_detail",
+                "name": "详情",
+                "parentId": 145,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 596,
+                "code": "print_temp_infos_getPrintData",
+                "name": "获取打印数据",
+                "parentId": 145,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 425,
+                "code": "box_infos_add",
+                "name": "新增",
+                "parentId": 168,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 426,
+                "code": "box_infos_delete",
+                "name": "删除",
+                "parentId": 168,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 427,
+                "code": "box_infos_update",
+                "name": "修改",
+                "parentId": 168,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 428,
+                "code": "box_infos_get",
+                "name": "详情",
+                "parentId": 168,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 429,
+                "code": "box_infos_print",
+                "name": "打印",
+                "parentId": 168,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 587,
+                "code": "print_ips_insert",
+                "name": "新增",
+                "parentId": 173,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 588,
+                "code": "print_ips_add",
+                "name": "新增2",
+                "parentId": 173,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 589,
+                "code": "print_ips_delete",
+                "name": "删除",
+                "parentId": 173,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 590,
+                "code": "print_ips_update",
+                "name": "修改",
+                "parentId": 173,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 591,
+                "code": "print_ips_detail",
+                "name": "详情",
+                "parentId": 173,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 515,
+                "code": "printer_infos_add",
+                "name": "新增",
+                "parentId": 177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 516,
+                "code": "printer_infos_delete",
+                "name": "删除",
+                "parentId": 177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 517,
+                "code": "printer_infos_update",
+                "name": "修改",
+                "parentId": 177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 518,
+                "code": "printer_infos_get",
+                "name": "详情",
+                "parentId": 177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 519,
+                "code": "printer_infos_findPdaDefault",
+                "name": "查询默认",
+                "parentId": 177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 520,
+                "code": "printer_infos_changePda",
+                "name": "修改pda",
+                "parentId": 177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 521,
+                "code": "printer_infos_getPda",
+                "name": "获取pda",
+                "parentId": 177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 522,
+                "code": "printer_infos_print",
+                "name": "打印",
+                "parentId": 177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 838,
+                "code": "sys_cache_clear",
+                "name": "清理缓存",
+                "parentId": 281,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 485,
+                "code": "item_upcs_add",
+                "name": "新增",
+                "parentId": 484,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 486,
+                "code": "item_upcs_delete",
+                "name": "删除",
+                "parentId": 484,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 487,
+                "code": "item_upcs_update",
+                "name": "修改",
+                "parentId": 484,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 488,
+                "code": "item_upcs_get",
+                "name": "详情",
+                "parentId": 484,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 528,
+                "code": "seeding_cells_add",
+                "name": "新增",
+                "parentId": 527,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 529,
+                "code": "seeding_cells_delete",
+                "name": "删除",
+                "parentId": 527,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 530,
+                "code": "seeding_cells_update",
+                "name": "修改",
+                "parentId": 527,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 531,
+                "code": "seeding_cells_findByWallCode",
+                "name": "根据播种墙编码查询",
+                "parentId": 527,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 533,
+                "code": "select_products_add",
+                "name": "新增",
+                "parentId": 532,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 534,
+                "code": "select_products_delete",
+                "name": "删除",
+                "parentId": 532,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 535,
+                "code": "select_products_update",
+                "name": "修改",
+                "parentId": 532,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 536,
+                "code": "select_products_get",
+                "name": "详情",
+                "parentId": 532,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 537,
+                "code": "select_products_importData",
+                "name": "导入",
+                "parentId": 532,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 539,
+                "code": "shelf_infos_insert",
+                "name": "新增",
+                "parentId": 538,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 540,
+                "code": "shelf_infos_autoInsert",
+                "name": "添加",
+                "parentId": 538,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 541,
+                "code": "shelf_infos_delete",
+                "name": "删除",
+                "parentId": 538,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 542,
+                "code": "shelf_infos_update",
+                "name": "修改",
+                "parentId": 538,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 543,
+                "code": "shelf_infos_autoUpdate",
+                "name": "更新",
+                "parentId": 538,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 544,
+                "code": "shelf_infos_detail",
+                "name": "详情",
+                "parentId": 538,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 545,
+                "code": "shelf_infos_print",
+                "name": "打印",
+                "parentId": 538,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 583,
+                "code": "print_details_add",
+                "name": "新增",
+                "parentId": 582,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 584,
+                "code": "print_details_delete",
+                "name": "删除",
+                "parentId": 582,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 585,
+                "code": "print_details_update",
+                "name": "修改",
+                "parentId": 582,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 586,
+                "code": "print_details_get",
+                "name": "详情",
+                "parentId": 582,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 651,
+                "code": "exception_infos_add",
+                "name": "新增",
+                "parentId": 650,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 652,
+                "code": "exception_infos_delete",
+                "name": "删除",
+                "parentId": 650,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 653,
+                "code": "exception_infos_update",
+                "name": "修改",
+                "parentId": 650,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 654,
+                "code": "exception_infos_get",
+                "name": "详情",
+                "parentId": 650,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 737,
+                "code": "item_batchs_insert",
+                "name": "新增",
+                "parentId": 736,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 738,
+                "code": "item_batchs_delete",
+                "name": "删除",
+                "parentId": 736,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 739,
+                "code": "item_batchs_update",
+                "name": "修改",
+                "parentId": 736,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 740,
+                "code": "item_batchs_detail",
+                "name": "详情",
+                "parentId": 736,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 741,
+                "code": "item_batchs_findByOrganizationIdAndItemCode",
+                "name": "根据货主和sku查询",
+                "parentId": 736,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 794,
+                "code": "monitor_jobLog_remove",
+                "name": "删除",
+                "parentId": 793,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 795,
+                "code": "monitor_jobLog_detail",
+                "name": "详情",
+                "parentId": 793,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 796,
+                "code": "monitor_jobLog_clean",
+                "name": "清空任务调度日志",
+                "parentId": 793,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 797,
+                "code": "monitor_jobLog_sysJobLogExport",
+                "name": "导出",
+                "parentId": 793,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 845,
+                "code": "carriers_details_insert",
+                "name": "新增",
+                "parentId": 844,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 846,
+                "code": "carriers_details_delete",
+                "name": "删除",
+                "parentId": 844,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 847,
+                "code": "carriers_details_update",
+                "name": "修改",
+                "parentId": 844,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 848,
+                "code": "carriers_details_detail",
+                "name": "详情",
+                "parentId": 844,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 859,
+                "code": "data_dict_details_insert",
+                "name": "新增",
+                "parentId": 854,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 860,
+                "code": "data_dict_details_delete",
+                "name": "删除",
+                "parentId": 854,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 861,
+                "code": "data_dict_details_update",
+                "name": "修改",
+                "parentId": 854,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 862,
+                "code": "data_dict_details_detail",
+                "name": "详情",
+                "parentId": 854,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 863,
+                "code": "data_dict_details_findBydDataDictCode",
+                "name": "根据编码查询",
+                "parentId": 854,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 879,
+                "code": "organizations_tactics_insert",
+                "name": "新增",
+                "parentId": 878,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 880,
+                "code": "organizations_tactics_delete",
+                "name": "删除",
+                "parentId": 878,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 881,
+                "code": "organizations_tactics_update",
+                "name": "修改",
+                "parentId": 878,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 882,
+                "code": "organizations_tactics_detail",
+                "name": "详情",
+                "parentId": 878,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 884,
+                "code": "permissions_add",
+                "name": "新增",
+                "parentId": 883,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 885,
+                "code": "permissions_delete",
+                "name": "删除",
+                "parentId": 883,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 886,
+                "code": "permissions_update",
+                "name": "修改",
+                "parentId": 883,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 887,
+                "code": "permissions_detail",
+                "name": "详情",
+                "parentId": 883,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 890,
+                "code": "receiving_addresss_insert",
+                "name": "新增",
+                "parentId": 889,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 891,
+                "code": "receiving_addresss_delete",
+                "name": "删除",
+                "parentId": 889,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 892,
+                "code": "receiving_addresss_update",
+                "name": "修改",
+                "parentId": 889,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 893,
+                "code": "receiving_addresss_detail",
+                "name": "详情",
+                "parentId": 889,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 895,
+                "code": "resources_add",
+                "name": "新增",
+                "parentId": 894,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 896,
+                "code": "resources_delete",
+                "name": "删除",
+                "parentId": 894,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 897,
+                "code": "resources_update",
+                "name": "修改",
+                "parentId": 894,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 898,
+                "code": "resources_get",
+                "name": "详情",
+                "parentId": 894,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 899,
+                "code": "resources_listPage",
+                "name": "listPage",
+                "parentId": 894,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 900,
+                "code": "resources_urls_list",
+                "name": "资源菜单url",
+                "parentId": 894,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 901,
+                "code": "resources_urls_add",
+                "name": "新增",
+                "parentId": 900,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 902,
+                "code": "resources_urls_delete",
+                "name": "删除",
+                "parentId": 900,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 903,
+                "code": "resources_urls_update",
+                "name": "修改",
+                "parentId": 900,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 904,
+                "code": "resources_urls_get",
+                "name": "详情",
+                "parentId": 900,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 906,
+                "code": "roles_delete",
+                "name": "删除",
+                "parentId": 905,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 907,
+                "code": "roles_add",
+                "name": "新增",
+                "parentId": 905,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 908,
+                "code": "roles_update",
+                "name": "修改",
+                "parentId": 905,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 909,
+                "code": "roles_get",
+                "name": "详情",
+                "parentId": 905,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 910,
+                "code": "roles_permission",
+                "name": "获取角色权限菜单信息",
+                "parentId": 905,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 911,
+                "code": "roles_pagingList",
+                "name": "分页获取角色信息",
+                "parentId": 905,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 913,
+                "code": "shipping_addresss_insert",
+                "name": "新增",
+                "parentId": 912,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 914,
+                "code": "shipping_addresss_delete",
+                "name": "删除",
+                "parentId": 912,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 915,
+                "code": "shipping_addresss_update",
+                "name": "修改",
+                "parentId": 912,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 916,
+                "code": "shipping_addresss_detail",
+                "name": "详情",
+                "parentId": 912,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 938,
+                "code": "user_organizations_insert",
+                "name": "新增",
+                "parentId": 937,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 939,
+                "code": "user_organizations_delete",
+                "name": "删除",
+                "parentId": 937,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 940,
+                "code": "user_organizations_update",
+                "name": "修改",
+                "parentId": 937,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 941,
+                "code": "user_organizations_get",
+                "name": "详情",
+                "parentId": 937,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 943,
+                "code": "validator_get_add",
+                "name": "根据表明查询",
+                "parentId": 942,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 944,
+                "code": "validator_getNextId",
+                "name": "根据表名获取下一个id",
+                "parentId": 942,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 945,
+                "code": "validator_post_add",
+                "name": "验证重复",
+                "parentId": 942,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 955,
+                "code": "ware_users_insert",
+                "name": "新增",
+                "parentId": 954,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 956,
+                "code": "ware_users_delete",
+                "name": "删除",
+                "parentId": 954,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 957,
+                "code": "ware_users_update",
+                "name": "修改",
+                "parentId": 954,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 958,
+                "code": "ware_users_get",
+                "name": "详情",
+                "parentId": 954,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1007,
+                "code": "manufacture_bills_add",
+                "name": "新增",
+                "parentId": 1006,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1008,
+                "code": "manufacture_bills_delete",
+                "name": "删除",
+                "parentId": 1006,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1009,
+                "code": "manufacture_bills_update",
+                "name": "修改",
+                "parentId": 1006,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1010,
+                "code": "manufacture_bills_get",
+                "name": "详情",
+                "parentId": 1006,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1210,
+                "code": "supplier-list",
+                "name": "供应商列表",
+                "parentId": 1209,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1211,
+                "code": "organizations_list",
+                "name": "货主列表",
+                "parentId": 1209,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 22,
+                "code": "warehouse",
+                "name": "库房管理",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 37,
+                "code": "item",
+                "name": "商品管理",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 45,
+                "code": "organizationManage",
+                "name": "组织机构",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 2,
+                "code": "organization",
+                "name": "用户管理",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 54,
+                "code": "tactic",
+                "name": "业务规则",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 48,
+                "code": "system-set",
+                "name": "系统设置",
+                "parentId": 0,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 21,
+                "code": "department",
+                "name": "部门管理",
+                "parentId": 2,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 3,
+                "code": "account",
+                "name": "账户管理",
+                "parentId": 2,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 23,
+                "code": "ware",
+                "name": "仓库管理",
+                "parentId": 22,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 56,
+                "code": "area",
+                "name": "库区管理",
+                "parentId": 22,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 58,
+                "code": "shelf",
+                "name": "库位组",
+                "parentId": 22,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 57,
+                "code": "cell",
+                "name": "库位管理",
+                "parentId": 22,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 111,
+                "code": "seedingWall",
+                "name": "播种墙管理",
+                "parentId": 22,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 41,
+                "code": "item",
+                "name": "商品设置",
+                "parentId": 37,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 42,
+                "code": "itemType",
+                "name": "商品种类",
+                "parentId": 37,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 43,
+                "code": "supplier",
+                "name": "供应商",
+                "parentId": 45,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 24,
+                "code": "organization",
+                "name": "货主管理",
+                "parentId": 45,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 44,
+                "code": "customer",
+                "name": "客户管理",
+                "parentId": 45,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 47,
+                "code": "carrier",
+                "name": "承运方",
+                "parentId": 45,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 53,
+                "code": "sysSetting",
+                "name": "系统设置",
+                "parentId": 48,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 281,
+                "code": "serverCache",
+                "name": "服务器缓存",
+                "parentId": 48,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 282,
+                "code": "Developer",
+                "name": "开发者页面",
+                "parentId": 48,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 60,
+                "code": "timeTask",
+                "name": "定时任务",
+                "parentId": 48,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 51,
+                "code": "data-dict",
+                "name": "数据字典",
+                "parentId": 1209,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 168,
+                "code": "BOX",
+                "name": "拣货容器",
+                "parentId": 22,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 177,
+                "code": "printer",
+                "name": "打印机",
+                "parentId": 22,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 176,
+                "code": "WareShop",
+                "name": "店铺",
+                "parentId": 22,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 145,
+                "code": "printTemp",
+                "name": "打印模板",
+                "parentId": 54,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 173,
+                "code": "printIp",
+                "name": "打印参数",
+                "parentId": 54,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 5,
+                "code": "users_add",
+                "name": "新增",
+                "parentId": 3,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 15,
+                "code": "users_modifyUserInfo",
+                "name": "修改",
+                "parentId": 3,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 7,
+                "code": "users_info",
+                "name": "查看详情",
+                "parentId": 3,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 9,
+                "code": "account-delete",
+                "name": "删除",
+                "parentId": 3,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 10,
+                "code": "account-enable",
+                "name": "启用",
+                "parentId": 3,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 11,
+                "code": "account-disable",
+                "name": "停用",
+                "parentId": 3,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 298,
+                "code": "asnReport-export",
+                "name": "导出",
+                "parentId": 102,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1096,
+                "code": "so_details_exportDayList",
+                "name": "导出",
+                "parentId": 103,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 102,
+                "code": "asnReport",
+                "name": "入库日报表",
+                "parentId": null,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 103,
+                "code": "soReport",
+                "name": "出库日报表",
+                "parentId": null,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 1177,
+                "code": "",
+                "name": "首页（PDA）",
+                "parentId": null,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1175,
+                "code": "cell_infos_list",
+                "name": "货位查询",
+                "parentId": 178,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1184,
+                "code": "asn_details_list",
+                "name": "ASN详情",
+                "parentId": 182,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1186,
+                "code": "accept_exs_add",
+                "name": "异常上报",
+                "parentId": 182,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1187,
+                "code": "accept_records_acceptList",
+                "name": "验收",
+                "parentId": 182,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1176,
+                "code": "accept_records_accept",
+                "name": "验收",
+                "parentId": 183,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1188,
+                "code": "accept_records_acceptList",
+                "name": "验收",
+                "parentId": 184,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 411,
+                "code": "sjc_upper_tasks_zjUp",
+                "name": "提交",
+                "parentId": 186,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1191,
+                "code": "so_masters_sendOut",
+                "name": "发运",
+                "parentId": 192,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 712,
+                "code": "inventorys_move",
+                "name": "移库",
+                "parentId": 193,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1192,
+                "code": "stock_take_tasks_calculateStockTake",
+                "name": "盘点",
+                "parentId": 194,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1193,
+                "code": "stock_take_tasks_calculateStockTake",
+                "name": "盘点",
+                "parentId": 195,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1189,
+                "code": "so_details_StockoutInfo",
+                "name": "查询缺货信息",
+                "parentId": 197,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1190,
+                "code": "pick_tasks_pickTaskBjbfAffirm",
+                "name": "边拣边分",
+                "parentId": 197,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1178,
+                "code": "ware_infos_findSome",
+                "name": "仓库查询",
+                "parentId": 1177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1179,
+                "code": "properties_getDetail",
+                "name": "数据库提醒",
+                "parentId": 1177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1180,
+                "code": "organizations_list",
+                "name": "货主查询",
+                "parentId": 1177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1181,
+                "code": "sys_params_list",
+                "name": "系统参数配置",
+                "parentId": 1177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1182,
+                "code": "data_dict_details_list",
+                "name": "数据字典",
+                "parentId": 1177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1183,
+                "code": "supplier_manages_hasAsn",
+                "name": "供货商查询",
+                "parentId": 1177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 1185,
+                "code": "batch_tactics_findByOrganizationOrItemInfo",
+                "name": "根据货主或物料查询批次",
+                "parentId": 1177,
+                "type": "B",
+                "checked": false
+            },
+            {
+                "id": 183,
+                "code": "ExAccept",
+                "name": "异常验收",
+                "parentId": 178,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 184,
+                "code": "blindAccept",
+                "name": "盲收",
+                "parentId": 178,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 186,
+                "code": "UPCsj",
+                "name": "UPC上架",
+                "parentId": 179,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 192,
+                "code": "fy",
+                "name": "订单发运",
+                "parentId": 180,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 197,
+                "code": "bjbfSo",
+                "name": "拣货单",
+                "parentId": 180,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 193,
+                "code": "baseMove",
+                "name": "基础移库",
+                "parentId": 181,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 194,
+                "code": "stockTakeTask",
+                "name": "盘点（初盘）",
+                "parentId": 181,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 195,
+                "code": "stockTakeTask2",
+                "name": "盘点（复盘）",
+                "parentId": 181,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 196,
+                "code": "skuInfoSearch",
+                "name": "信息查询",
+                "parentId": 181,
+                "type": "F",
+                "checked": false
+            },
+            {
+                "id": 178,
+                "code": "in",
+                "name": "入库验收（PDA）",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 179,
+                "code": "up",
+                "name": "上架（PDA）",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 180,
+                "code": "out",
+                "name": "出库（PDA）",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 181,
+                "code": "inventory",
+                "name": "库存管理（PDA）",
+                "parentId": null,
+                "type": "M",
+                "checked": false
+            },
+            {
+                "id": 182,
+                "code": "UPCAccept",
+                "name": "UPC验收",
+                "parentId": 178,
+                "type": "F",
+                "checked": false
+            }
+        ]
+    }
+}

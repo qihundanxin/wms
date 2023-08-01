@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.UserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.UserRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="user_role_id" jdbcType="INTEGER" property="userRoleId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.user.UserRoleDto" extends="BaseResultMap">
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+    </resultMap>
+    <select id="findList" resultMap="Dto" parameterType="com.deer.wms.system.manage.model.UserRoleCriteria">
+        select
+        *,
+        role.role_name,
+        u.user_name
+        from user_role ur
+        left join role role on role.role_id = ur.role_id
+        left join user_info u on ur.user_id = u.user_id
+        where 1=1
+        <if test="roleId != null">
+            and ur.role_id = #{roleId}
+        </if>
+    </select>
+
+    <delete id="deleteByUserId" parameterType="java.lang.Integer">
+    delete  from user_role where user_id = #{userId}
+  </delete>
+
+    <delete id="deleteByRoleId" parameterType="java.lang.Integer">
+    delete from user_role where role_id = #{roleId}
+  </delete>
+</mapper>

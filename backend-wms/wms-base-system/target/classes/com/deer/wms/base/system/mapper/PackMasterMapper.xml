@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.PackMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.Pack.PackMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="pack_master_id" jdbcType="INTEGER" property="packMasterId"/>
+        <result column="pack_code" jdbcType="VARCHAR" property="packCode"/>
+        <result column="pack_name" jdbcType="VARCHAR" property="packName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="is_sys" jdbcType="INTEGER" property="isSys"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.base.system.model.Pack.PackMasterDto">
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.base.system.model.Pack.PackMasterDto" resultMap="Dto">
+        select
+        master.*
+
+
+        from pack_master master
+        where 1=1
+        <if test="packMasterId != null and packMasterId != ''">
+            and master.pack_master_id = #{packMasterId}
+        </if>
+        <if test="packCode != null and packCode != ''">
+            and master.pack_code = #{packCode}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                master.pack_code like CONCAT('%', #{keyWord}, '%')
+                or master.pack_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        ORDER BY create_time desc
+    </select>
+
+    <delete id="deleteByCode" parameterType="java.lang.String">
+        delete  from pack_master
+        where pack_code = #{packCode}
+
+  </delete>
+
+
+    <select id="findByPackCode" parameterType="java.lang.String" resultMap="Dto">
+    select
+    master.*
+
+    from pack_master master
+    where master.pack_code = #{packCode}
+
+  </select>
+
+    <select id="findByPackName" parameterType="java.lang.String" resultMap="Dto">
+    select
+    master.*
+
+    from pack_master master
+    where master.pack_name = #{packName}
+
+  </select>
+
+
+</mapper>

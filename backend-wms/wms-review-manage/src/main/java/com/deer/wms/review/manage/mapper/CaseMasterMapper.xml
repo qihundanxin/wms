@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.review.manage.dao.CaseMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.review.manage.model.CaseMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="case_master_id" jdbcType="INTEGER" property="caseMasterId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="create_user_id" jdbcType="TIMESTAMP" property="createUserId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="case_node_id" jdbcType="INTEGER" property="caseNodeId"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.review.manage.model.CaseMasterDto" extends="BaseResultMap">
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.review.manage.model.CaseMasterCriteria" resultMap="Dto">
+        select
+        master.case_master_id,
+        master.bill_no,
+        master.state,
+        master.create_user_id,
+        master.create_time
+        master.case_node_id
+        from case_master master
+        where 1=1
+
+
+        <if test="billNo != null and billNo != ''">
+            and master.bill_no = #{billNo}
+        </if>
+        <if test="state != null  ">
+            and master.state = #{state}
+        </if>
+
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from case_master where bill_no = #{billNo}
+  </delete>
+
+    <select id="findByBillNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from case_master where bill_no = #{billNo}
+
+
+  </select>
+</mapper>

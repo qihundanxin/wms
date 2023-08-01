@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.SjcUpperTaskMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.SjcUpperTask">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="sjc_upper_task_id" jdbcType="INTEGER" property="sjcUpperTaskId"/>
+        <result column="inventory_id" jdbcType="INTEGER" property="inventoryId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="from_cell_code" jdbcType="VARCHAR" property="fromCellCode"/>
+        <result column="sjc_shlef_code" jdbcType="VARCHAR" property="sjcShlefCode"/>
+        <result column="sjc_cell_code" jdbcType="VARCHAR" property="sjcCellCode"/>
+        <result column="to_cell_code" jdbcType="VARCHAR" property="toCellCode"/>
+        <result column="to_cell_code2" jdbcType="VARCHAR" property="toCellCode2"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="up_user_id" jdbcType="INTEGER" property="upUserId"/>
+        <result column="up_user_name" jdbcType="VARCHAR" property="upUserName"/>
+        <result column="up_time" jdbcType="TIMESTAMP" property="upTime"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+    </resultMap>
+
+
+    <select id="find0ByCellCode" resultMap="BaseResultMap">
+    select
+      task.*
+      from sjc_upper_task task
+      left join cell_info cell on task.sjc_cell_code  =cell.cell_code
+      where
+      cell.cell_code = #{cellCode}
+      and   task.state=0 and task.ware_id =#{wareId}
+      limit 1
+    </select>
+
+    <select id="find0ByToCellCode" resultMap="BaseResultMap">
+    select
+      task.*
+      from sjc_upper_task task
+      left join cell_info cell on task.to_cell_code  =cell.cell_code
+      where
+      cell.cell_code = #{cellCode}
+      and   task.state=0 and task.ware_id =#{wareId}
+      limit 1
+    </select>
+
+    <select id="findBySjcShellCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+      select
+      task.*
+      from sjc_upper_task task
+      left join cell_info cell on task.sjc_cell_code  =cell.cell_code
+      left join shelf_info shelf on cell.shelf_info_id  =shelf.shelf_info_id
+      where
+      shelf.shelf_code = #{shelfCode}
+      and   task.state=0
+
+
+  </select>
+
+    <select id="findList" resultMap="BaseResultMap" parameterType="com.deer.wms.ASN.manage.model.SjcUpperTaskCriteria">
+        select
+        *
+        from sjc_upper_task task
+        left join cell_info cell on task.sjc_cell_code =cell.cell_code
+        left join shelf_info shelf on cell.shelf_info_id =shelf.shelf_info_id
+        where 1=1
+        <if test="shelfCode != null and  shelfCode !=''">
+            and shelf.shelf_code = #{shelfCode}
+        </if>
+        <if test="state != null">
+            and task.state= #{state}
+        </if>
+        <if test="type != null">
+            and task.type= #{type}
+        </if>
+        <if test="acceptInventoryId != null">
+            and task.accept_inventory_id= #{acceptInventoryId}
+        </if>
+        <if test="keyWords != null and keyWords != ''" >
+            and task.to_cell_code2= #{keyWords}
+        </if>
+        <if test="wareId != null" >
+            and task.ware_id = #{wareId,jdbcType=INTEGER}
+        </if>
+        order by task.state asc
+
+    </select>
+
+    <select id="findSameItemCell" resultType="java.lang.String">
+        select
+        to_cell_code
+        from sjc_upper_task
+        where
+        item_code = #{itemCode}
+        and ware_id = #{wareId}
+        and state = 0
+        limit 1
+    </select>
+
+
+</mapper>

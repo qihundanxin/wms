@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.WareUserMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.ware.WareUser">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="ware_user_id" jdbcType="INTEGER" property="wareUserId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.ware.WareUserDto" extends="BaseResultMap">
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+    </resultMap>
+
+    <select id="findList" resultMap="Dto" parameterType="com.deer.wms.system.manage.model.ware.WareUserCriteria">
+        select
+        wu.ware_user_id,
+        wu.ware_id,
+        wu.user_id,
+        wu.create_time,
+        wu.create_user_id,
+
+        ware.ware_name,
+
+        u.user_name,
+
+        cu.user_name as create_user_name
+
+
+        from ware_user wu
+        left join ware_info ware on ware.ware_id = wu.ware_id
+        left join user_info u on wu.user_id = u.user_id
+        left join user_info cu on wu.create_user_id =cu.user_id
+        where 1=1
+        <if test="wareId != null">
+            and wu.ware_id = #{wareId}
+        </if>
+        <if test="userId != null">
+            and u.user_id = #{userId}
+        </if>
+
+
+    </select>
+
+    <select id="findByWareId" resultMap="Dto" parameterType="java.lang.Integer">
+    select
+    wu.ware_user_id,
+    wu.ware_id,
+    wu.user_id,
+    wu.create_time,
+    wu.create_user_id,
+
+    ware.ware_name,
+
+    u.user_name,
+
+    cu.user_name as create_user_name
+
+
+    from ware_user wu
+    left join ware_info ware on ware.ware_id = wu.ware_id
+    left join user_info u on wu.user_id = u.user_id
+    left join user_info cu on wu.create_user_id =cu.user_id
+    where wu.ware_id = #{wareId}
+
+
+  </select>
+
+    <delete id="deleteByWareId" parameterType="java.lang.Integer">
+    delete
+    from ware_user
+    where ware_id = #{wareId}
+  </delete>
+
+    <delete id="deleteByUserId" parameterType="java.lang.Integer">
+    delete  from ware_user where user_id = #{userId}
+  </delete>
+</mapper>

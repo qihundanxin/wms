@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ureport.dao.ReportAcceptMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ureport.model.ReportAccept">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="report_accept_id" jdbcType="INTEGER" property="reportAcceptId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="quantity1" jdbcType="INTEGER" property="quantity1"/>
+        <result column="quantity2" jdbcType="INTEGER" property="quantity2"/>
+    </resultMap>
+</mapper>

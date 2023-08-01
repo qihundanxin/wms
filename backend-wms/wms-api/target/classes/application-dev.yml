@@ -1,0 +1,123 @@
+# default : connect to test environment
+file-path: /home/ubuntu/wms-web
+redis-host: localhost
+mysql-host: 172.31.5.2:3306
+mysql-database-name: xhc_wms
+mysql-username: root
+mysql-password: fk0FK*2iK123JFzfpFOv
+
+deer:
+  format:
+    datetime: yyyy-MM-dd HH:mm:ss
+    date: yyyy-MM-dd
+    time: HH:mm:ss
+wms:
+  host: https://test-wms.foodsup.com
+  path: 
+    webhook-so-order: /api/wms/so/masters/getOrder
+pdf-invoice:
+  host: http://172.31.35.116:3003
+  path:
+    get-pdf: /
+passquan:
+  host: https://dev1.foodsup.com
+  heads: {"FACEDRIVEFOODS-SUPPLY-CHAIN": "[YlwUma.zQCBWy0eX"}
+  path:
+    get-replay-orderids: /supply/webhook-replay/order-ids
+    get-sku: /supply/products/all
+    get-unfinished-order: /supply/order/unfinished
+    replay: /supply/webhook-replay/replay
+file:
+  staticFileDir: ${file-path}
+  downloadPath: /download
+  modelPath: /model
+  pdfPath: /pdf
+  tempPath: /temp
+lzb:
+  erp:
+    baseUrl: http://47.98.202.112:8000/api/v1 
+    inUrl: /wms/inbound/callback
+    outUrl: /wms/outbound/callback
+    returnUrl: /wms/inbound/return/callback
+    synStockUrl: /wms/stock/update/callback
+    token: 123456
+wx:
+  robot:
+    webhook:
+      missed-orders: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=a4fd2b1a-afec-4443-870b-17837b2c060a
+
+logging:
+  config: classpath:logback4dev.xml
+  level:
+    root: info
+    com.deer.wms: debug
+    com.deer.wms.project.root.log.work.config: trace
+server:
+  port: 8003
+  servlet:
+    context-path: /wms
+spring:
+  application:
+    name: wms-api-service
+  datasource:
+    url: jdbc:mysql://${mysql-host}/${mysql-database-name}?serverTimezone=EST&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    username: ${mysql-username}
+    password: ${mysql-password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  output:
+    ansi:
+      enabled: ALWAYS
+  task:
+    execution:
+      pool:
+        core-size: 4
+        max-size: 16
+        queue-capacity: 512
+        keep-alive: 300000
+        allow-core-thread-timeout: false
+      thread-name-prefix: asyncDeer
+  redis:
+    host: ${redis-host}
+    port: 6379
+    password: 
+    database: 4
+    timeout: 0
+    redisson: 
+      config: |
+        singleServerConfig:
+          idleConnectionTimeout: 10000
+          connectTimeout: 10000
+          timeout: 3000
+          retryAttempts: 3
+          retryInterval: 1500
+          password: ${spring.redis.password}
+          subscriptionsPerConnection: 5
+          clientName: null
+          address: "redis://${spring.redis.host}:${spring.redis.port}"
+          subscriptionConnectionMinimumIdleSize: 1
+          subscriptionConnectionPoolSize: 50
+          connectionMinimumIdleSize: 32
+          connectionPoolSize: 64
+          database: ${spring.redis.database}
+          dnsMonitoringInterval: 5000
+        threads: 4
+        nettyThreads: 64
+        codec: !<org.redisson.codec.JsonJacksonCodec> {}
+        transportMode: "NIO"
+  main:
+    allow-circular-references: true
+  mvc:
+    static-path-pattern: /**
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 100MB
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: NON_NULL
+    date-format: ${deer.format.datetime}
+    time-zone: America/New_York
+mybatis:
+  configuration:
+    mapUnderscoreToCamelCase: true

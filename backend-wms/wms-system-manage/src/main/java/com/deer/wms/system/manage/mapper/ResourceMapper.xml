@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.ResourceMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.resource.Resource">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="resource_id" jdbcType="INTEGER" property="resourceId"/>
+        <result column="resource_code" jdbcType="VARCHAR" property="resourceCode"/>
+        <result column="resource_name" jdbcType="VARCHAR" property="resourceName"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="resource_type" jdbcType="VARCHAR" property="resourceType"/>
+        <result column="control" jdbcType="BIT" property="control"/>
+        <result column="region" jdbcType="VARCHAR" property="region"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="style" jdbcType="VARCHAR" property="style"/>
+        <result column="sort_number" jdbcType="INTEGER" property="sortNumber"/>
+        <result column="state" jdbcType="VARCHAR" property="state"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="resource_group" jdbcType="INTEGER" property="resourceGroup"/>
+        <result column="authority_code" jdbcType="VARCHAR" property="authorityCode"/>
+    </resultMap>
+
+    <resultMap id="DtoMap" type="com.deer.wms.system.manage.model.resource.ResourceDto" extends="BaseResultMap">
+        <result column="url_type" jdbcType="VARCHAR" property="urlType"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.system.manage.model.resource.ResourceCriteria" resultMap="DtoMap">
+    select
+    r.resource_id,
+    r.resource_code,
+    r.resource_name,
+    r.parent_id,
+    r.resource_type,
+    r.control,
+    r.region,
+    r.level,
+    r.icon,
+    r.style,
+    r.sort_number,
+    r.state,
+    r.create_time,
+    r.modify_time,
+    r.resource_group,
+    r.authority_code,
+    ru.url_type,
+    ru.method,
+    ru.url
+    from
+    resource r
+    left join resource_url ru on r.resource_id = ru.resource_id
+    <where>
+        <if test="resourceGroup != null">
+            and r.resource_group = #{resourceGroup}
+        </if>
+    </where>
+    order by r.resource_group ,r.sort_number
+  </select>
+
+    <select id="findPageList" resultMap="DtoMap">
+     select
+    r.resource_id,
+    r.resource_code,
+    r.resource_name,
+    r.parent_id,
+    r.resource_type,
+    r.control,
+    r.region,
+    r.level,
+    r.icon,
+    r.style,
+    r.sort_number,
+    r.state,
+    r.create_time,
+    r.modify_time,
+    r.resource_group,
+    r.authority_code,
+    ru.url_type,
+    ru.method,
+    ru.url
+    from
+    resource r
+    left join resource_url ru on r.resource_id = ru.resource_id
+    where r.state = 'normal'
+    and r.region ='L'
+    and r.resource_type = 'F'
+        order by r.resource_group ,r.sort_number
+    </select>
+
+    <select id="findListByParam" resultMap="DtoMap" parameterType="com.deer.wms.system.manage.model.resource.ResourceCriteria">
+        select * from resource r
+        where 1=1
+        <if test="parentId != null">
+            and parent_id = #{parentId}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.ReturnMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.Return.ReturnMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="return_master_id" jdbcType="INTEGER" property="returnMasterId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="supplier_id" jdbcType="INTEGER" property="supplierId"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="carrier_id" jdbcType="INTEGER" property="carrierId"/>
+        <result column="carrier_name" jdbcType="VARCHAR" property="carrierName"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="bill_source" jdbcType="INTEGER" property="billSource"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="return_udf_hs1" jdbcType="VARCHAR" property="returnUdfHs1"/>
+        <result column="return_udf_hs2" jdbcType="VARCHAR" property="returnUdfHs2"/>
+        <result column="return_udf_hs3" jdbcType="VARCHAR" property="returnUdfHs3"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.Return.ReturnMasterCriteria"
+            resultMap="BaseResultMap">
+        select * from
+        return_master
+        where 1=1
+        <if test="returnMasterId !=null">
+            and return_master_id =#{returnMasterId}
+        </if>
+        <if test="billNo !=null billNo !=''">
+            and bill_no =#{billNo}
+        </if>
+        <if test="wareId !=null ">
+            and ware_id =#{wareId}
+        </if>
+        <if test="organizationId !=null">
+            and organization_id =#{organizationId}
+        </if>
+        <if test="supplierId !=null">
+            and supplier_id =#{supplierId}
+        </if>
+        <if test="createUserId !=null">
+            and create_user_id =#{createUserId}
+        </if>
+        <if test="insertType !=null">
+            and insert_type =#{insertType}
+        </if>
+        <if test="linkMan !=null and linkMan!=''">
+            and link_man =#{linkMan}
+        </if>
+        <if test="carrierId !=null">
+            and carrier_id =#{carrierId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach close=")" collection="keyWordList" index="index" item="keyWord" open="(" separator="and">
+                (
+                ware_name like CONCAT('%', #{keyWord}, '%')
+                or ware_name like CONCAT('%', #{keyWord}, '%')
+                or organization_name like CONCAT('%', #{keyWord}, '%')
+                )
+
+            </foreach>
+        </if>
+        order by create_time desc
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from return_master where bill_no =#{billNo}
+
+  </delete>
+</mapper>

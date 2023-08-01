@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.PickBatchExceptionMapper">
+
+    <select id="getPickBatchExceptionList" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchException">
+        select
+            cell_code,
+            item_code,
+            sum(exception_qty) exception_qty
+        from
+            pick_batch_exception
+        where
+            status = 0
+        group by
+            cell_code,
+            item_code
+    </select>
+
+    <select id="getExceptionList" parameterType="com.deer.wms.ware.task.model.pickTask.PickBatchExceptionParam" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchExcepitonResultVo">
+        SELECT
+        a.*,
+        CASE WHEN a.no_handle_qty > 0 AND a.handle_qty = 0 THEN 0
+        WHEN a.no_handle_qty > 0 AND a.handle_qty > 0 THEN 1
+        WHEN a.no_handle_qty = 0 AND a.handle_qty > 0 THEN 2
+        END status
+        FROM
+        (SELECT
+        phe.item_code,
+        ii.item_name,
+        phe.cell_code,
+        sum(phe.exception_qty) exception_qty,
+        sum(if(phe.status=0,phe.exception_qty,0)) no_handle_qty,
+        sum(if(phe.status=2,phe.exception_qty,0)) handle_qty,
+        max(report_time) report_time
+        FROM
+        pick_batch_exception phe
+        LEFT JOIN item_info ii ON phe.item_code = ii.item_code
+        <where>
+            <if test="startDate != null">
+                AND phe.report_time >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND phe.report_time &lt; #{endDate}
+            </if>
+            <if test="cellCode != null and cellCode != ''">
+                AND phe.cell_code = #{cellCode}
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                AND phe.item_code = #{itemCode}
+            </if>
+        </where>
+        GROUP BY phe.cell_code,phe.item_code) a
+        ORDER BY status ASC, a.report_time DESC
+    </select>
+
+    <select id="getAll" parameterType="com.deer.wms.ware.task.model.pickTask.PickBatchExceptionParam" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchException">
+        select * from pick_batch_exception
+         <where>
+             <if test="id != null">
+                 and id = #{id}
+             </if>
+             <if test="cellCode != null and cellCode != ''">
+                 and cell_code = #{cellCode}
+             </if>
+             <if test="itemCode != null and itemCode != ''">
+                 and item_code = #{itemCode}
+             </if>
+         </where>
+         order by status asc
+    </select>
+
+    <update id="handleExcepiton" parameterType="com.deer.wms.ware.task.model.pickTask.PickBatchException">
+        update pick_batch_exception set status = #{status}, handle_user_id = #{handleUserId}, handle_time = #{handleTime}
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="cellCode != null and cellCode != ''">
+                and cell_code = #{cellCode}
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code = #{itemCode}
+            </if>
+        </where>
+    </update>
+</mapper>

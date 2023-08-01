@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.review.manage.dao.ReviewNodeMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.review.manage.model.ReviewNode">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="review_node_id" jdbcType="INTEGER" property="reviewNodeId"/>
+        <result column="review_node_name" jdbcType="VARCHAR" property="reviewNodeName"/>
+        <result column="review_master_id" jdbcType="INTEGER" property="reviewMasterId"/>
+        <result column="order_no" jdbcType="INTEGER" property="orderNo"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.review.manage.model.ReviewNodeDto" extends="BaseResultMap">
+        <collection property="userIds" ofType="java.lang.Integer">
+            <result column="user_id"/>
+        </collection>
+        <collection property="userNames" ofType="java.lang.String">
+            <result column="user_name"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.review.manage.model.ReviewNodeCriteria" resultMap="Dto">
+        select
+        node.review_node_id,
+        node.review_node_name,
+        node.review_master_id,
+        node.order_no,
+        node.type,
+
+        ru.user_id,
+        ru.user_name
+
+
+        from review_node node
+        left join review_user ru on node.review_node_id = ru.review_node_id
+        where 1=1
+        <if test="reviewMasterId != null">
+            and node.review_master_id = #{reviewMasterId}
+        </if>
+        order by node.order_no asc
+    </select>
+
+    <select id="checkExistBill" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select
+    count(*)
+
+    from case_master  m
+    left join  review_node node on m.review_node_id = node.review_node_id
+    inner join bill_master bill on m.bill_no = bill.bill_no
+    where m.review_node_id = #{reviewNodeId} and m.state =0
+  </select>
+</mapper>

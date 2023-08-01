@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.QcDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.qc.QcDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="qc_detail_id" jdbcType="INTEGER" property="qcDetailId"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="asn_detail_no" jdbcType="VARCHAR" property="asnDetailNo"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="expect_quantity" jdbcType="DOUBLE" property="expectQuantity"/>
+        <result column="qc_quantity" jdbcType="DOUBLE" property="qcQuantity"/>
+        <result column="qc_pack_detail_id" jdbcType="INTEGER" property="qcPackDetailId"/>
+        <result column="qc_pack_describe" jdbcType="VARCHAR" property="qcPackDescribe"/>
+        <result column="qc_trans_ratio" jdbcType="DOUBLE" property="qcTransRatio"/>
+        <result column="check_quantity" jdbcType="DOUBLE" property="checkQuantity"/>
+        <result column="check_pack_detail_id" jdbcType="INTEGER" property="checkPackDetailId"/>
+        <result column="check_pack_describe" jdbcType="VARCHAR" property="checkPackDescribe"/>
+        <result column="check_trans_ratio" jdbcType="DOUBLE" property="checkTransRatio"/>
+        <result column="qc_udf_ds1" jdbcType="VARCHAR" property="qcUdfDs1"/>
+        <result column="qc_udf_ds2" jdbcType="VARCHAR" property="qcUdfDs2"/>
+        <result column="qc_udf_ds3" jdbcType="VARCHAR" property="qcUdfDs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="bill_source" jdbcType="INTEGER" property="billSource"/>
+        <result column="min_pass_rate" jdbcType="DOUBLE" property="minPassRate"/>
+        <result column="inventory_id" jdbcType="DOUBLE" property="inventoryId"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ASN.manage.model.qc.QcDetailDto" extends="BaseResultMap">
+        <result column="real_quantity" jdbcType="DOUBLE" property="realQuantity"/>
+        <result column="qualified_quantity" jdbcType="DOUBLE" property="qualifiedQuantity"/>
+        <result column="fied_quantity" jdbcType="DOUBLE" property="fiedQuantity"/>
+        <result column="one" jdbcType="DOUBLE" property="one"/>
+        <result column="two" jdbcType="DOUBLE" property="two"/>
+    </resultMap>
+
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.qc.QcDetailCriteria" resultMap="Dto">
+        select
+        detail.qc_detail_id
+        ,detail.detail_no
+        ,detail.asn_detail_no
+        ,detail.bill_no
+        ,detail.state
+        ,detail.item_code
+        ,detail.item_name
+        ,detail.pack_detail_id
+        ,detail.pack_describe
+        ,detail.trans_ratio
+        ,detail.expect_quantity
+        ,detail.qc_quantity
+        ,detail.qc_pack_detail_id
+        ,detail.qc_pack_describe
+        ,detail.qc_trans_ratio
+        ,detail.check_quantity
+        ,detail.check_pack_detail_id
+        ,detail.check_pack_describe
+        ,detail.check_trans_ratio
+        ,detail.qc_udf_ds1
+        ,detail.qc_udf_ds2
+        ,detail.qc_udf_ds3
+        ,detail.memo
+        ,detail.bill_source
+        ,detail.min_pass_rate
+        ,detail.inventory_id
+
+        ,record.real_quantity
+        ,record.qualified_quantity
+        ,record.fied_quantity
+        ,ROUND(record.qualified_quantity/record.real_quantity*100,2)as one
+        ,ROUND(record.fied_quantity/record.real_quantity*100,2)as two
+        from qc_detail detail
+        left join qc_record record on record.qc_detail_no = detail.detail_no
+
+        <where>
+            <if test="billNo != null and billNo != ''">
+                detail.bill_no =#{billNo}
+            </if>
+            <if test="detailNo != null and detailNo != ''">
+                and detail.detail_no =#{detailNo}
+            </if>
+            <if test="asnDetailNo != null and asnDetailNo != ''">
+                and detail.asn_detail_no =#{asnDetailNo}
+            </if>
+            <if test="qcDetailId != null">
+                and detail.qc_detail_id =#{qcDetailId}
+            </if>
+        </where>
+        order by detail.qc_detail_id desc
+
+    </select>
+
+    <select id="findByBillNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select
+      *
+    from qc_detail
+    where bill_no =#{billNo}
+
+  </select>
+</mapper>

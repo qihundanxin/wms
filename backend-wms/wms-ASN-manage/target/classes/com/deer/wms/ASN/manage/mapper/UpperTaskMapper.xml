@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.UpperTaskMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.upper.UpperTask">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="upper_task_id" jdbcType="INTEGER" property="upperTaskId"/>
+        <result column="item_info_id" jdbcType="INTEGER" property="itemInfoId"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+        <result column="batch_id" jdbcType="INTEGER" property="batchId"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="upper_user_id" jdbcType="INTEGER" property="upperUserId"/>
+        <result column="upper_user__name" jdbcType="VARCHAR" property="upperUserName"/>
+        <result column="upper_tactic_code" jdbcType="VARCHAR" property="upperTacticCode"/>
+        <result column="upper_tactic_name" jdbcType="VARCHAR" property="upperTacticName"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="pack_describe" jdbcType="VARBINARY" property="packDescribe"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.upper.UpperTaskCriteria"
+            resultMap="BaseResultMap">
+    select * from upper_task
+
+  </select>
+
+</mapper>

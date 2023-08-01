@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.ShipBoxMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.ShipBox">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="ship_box_id" jdbcType="INTEGER" property="shipBoxId"/>
+        <result column="ship_code" jdbcType="VARCHAR" property="shipCode"/>
+        <result column="ship_box_code" jdbcType="VARCHAR" property="shipBoxCode"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="weight" jdbcType="DOUBLE" property="weight"/>
+        <result column="length" jdbcType="DOUBLE" property="length"/>
+        <result column="width" jdbcType="DOUBLE" property="width"/>
+        <result column="height" jdbcType="DOUBLE" property="height"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ware.task.model.ShipBoxDto" extends="BaseResultMap">
+        <result column="ship_name" jdbcType="VARCHAR" property="shipName"/>
+    </resultMap>
+
+    <select id="findList" resultMap="Dto" parameterType="com.deer.wms.ware.task.model.ShipBoxCriteria">
+        select
+        sb.*,
+        ca.carrier_name as ship_name
+        from ship_box sb
+        left join carrier ca on sb.ship_code = ca.carrier_code
+        where 1=1
+        <if test="shipBoxCode != null and shipBoxCode != ''">
+            and sb.ship_box_code like CONCAT('%', #{shipBoxCode}, '%')
+        </if>
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+
+    </select>
+</mapper>

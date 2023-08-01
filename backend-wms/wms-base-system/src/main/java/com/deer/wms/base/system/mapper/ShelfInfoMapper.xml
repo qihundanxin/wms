@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.ShelfInfoMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.Shelf.ShelfInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="shelf_info_id" jdbcType="INTEGER" property="shelfInfoId"/>
+        <result column="shelf_code" jdbcType="VARCHAR" property="shelfCode"/>
+        <result column="shelf_name" jdbcType="VARCHAR" property="shelfName"/>
+        <result column="shelf_describe" jdbcType="VARCHAR" property="shelfDescribe"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+        <result column="x_coordinate" jdbcType="INTEGER" property="xCoordinate"/>
+        <result column="y_coordinate" jdbcType="INTEGER" property="yCoordinate"/>
+        <result column="shelf_no" jdbcType="INTEGER" property="shelfNo"/>
+        <result column="shelf_row" javaType="INTEGER" property="shelfRow"/>
+        <result column="shelf_column" javaType="INTEGER" property="shelfColumn"/>
+        <result column="is_sys" jdbcType="INTEGER" property="isSys"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.base.system.model.Shelf.ShelfInfoDto">
+        <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="area_name" jdbcType="VARCHAR" property="areaName"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+    </resultMap>
+    <select id="findList" parameterType="com.deer.wms.base.system.model.Shelf.ShelfInfoCriteria" resultMap="Dto">
+        select
+        shelf.shelf_info_id
+        ,shelf.shelf_code
+        ,shelf.shelf_name
+        ,shelf.shelf_describe
+        ,shelf.type
+        ,shelf.memo
+        ,shelf.state
+        ,shelf.area_id
+        ,shelf.x_coordinate
+        ,shelf.y_coordinate
+        ,shelf.shelf_no
+        ,shelf.shelf_row
+        ,shelf.shelf_column
+        ,shelf.is_sys
+
+        ,area.area_name
+        -- ,area.area_id
+        ,area.area_code
+        ,area.ware_id
+        ,ware.ware_name
+
+
+        from shelf_info shelf
+        left join area_info area on area.area_id = shelf.area_id
+        left join ware_info ware on area.ware_id = ware.ware_id
+
+        where 1=1
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                shelf.shelf_code like CONCAT('%', #{keyWord}, '%')
+                or shelf.shelf_name like CONCAT('%', #{keyWord}, '%')
+                or area.area_name like CONCAT('%', #{keyWord}, '%')
+                or area.area_code like CONCAT('%', #{keyWord}, '%')
+                or ware.ware_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+        <if test="shelfInfoId != null and shelfInfoId != ''">
+            AND shelf.shelf_info_id =#{shelfInfoId}
+        </if>
+        <if test="shelfNo != null">
+            AND shelf.shelf_no =#{shelfNo}
+        </if>
+        <if test="shelfRow != null">
+            AND shelf.shelf_row =#{shelfRow}
+        </if>
+        <if test="shelfColumn != null">
+            AND shelf.shelf_column =#{shelfColumn}
+        </if>
+        <if test="areaId != null and areaId !=''">
+            AND area.area_id =#{areaId}
+        </if>
+        <if test="wareId != null and wareId !=''">
+            AND area.ware_id =#{wareId}
+        </if>
+        <if test="areaCode != null and areaCode !=''">
+            AND area.area_code =#{areaCode}
+        </if>
+
+    </select>
+
+    <select id="findByCodeAndWareId" resultMap="Dto">
+        select
+        shelf.shelf_info_id
+        ,shelf.shelf_code
+        ,shelf.shelf_name
+        ,shelf.shelf_describe
+        ,shelf.type
+        ,shelf.memo
+        ,shelf.state
+        ,shelf.area_id
+        ,shelf.x_coordinate
+        ,shelf.y_coordinate
+        ,shelf.shelf_no
+        ,shelf.shelf_row
+        ,shelf.shelf_column
+        ,shelf.is_sys
+        ,area.area_name
+        -- ,area.area_id
+        ,area.area_code
+        ,area.ware_id
+        ,ware.ware_name
+        from shelf_info shelf
+        left join area_info area on area.area_id = shelf.area_id
+        left join ware_info ware on area.ware_id = ware.ware_id
+        where shelf.shelf_code = #{shelfCode} AND area.ware_id =#{wareId}
+    </select>
+
+    <select id="findByCode" parameterType="java.lang.String" resultMap="Dto">
+        select
+        shelf.*
+        ,area.area_name
+        -- ,area.area_id
+        ,area.area_code
+        ,area.ware_id
+        ,ware.ware_name
+        from shelf_info shelf
+        left join area_info area on area.area_id = shelf.area_id
+        left join ware_info ware on area.ware_id = ware.ware_id
+        where shelf.shelf_code = #{shelfCode}
+    </select>
+
+    <select id="findByAreaId" resultType="com.deer.wms.base.system.model.Shelf.ShelfInfo">
+        select * from shelf_info where area_id = #{areaId}
+    </select>
+
+    <select id="validatorChongfu" parameterType="com.deer.wms.system.manage.model.ValidatorShelfInfoModel" resultType="java.lang.Integer">
+        select
+        count(1)
+        from shelf_info shelf
+        left join area_info area on area.area_id = shelf.area_id
+        where
+        area.ware_id = #{wareId}
+        <if test="shelfInfoId != null">
+            AND shelf.shelf_info_id != #{shelfInfoId}
+        </if>
+        <if test="shelfCode != null">
+            AND shelf.shelf_code = #{shelfCode}
+        </if>
+        <if test="shelfName != null">
+            AND shelf.shelf_name = #{shelfName}
+        </if>
+    </select>
+
+</mapper>

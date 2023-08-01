@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.PackDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.Pack.PackDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="pack_code" jdbcType="VARCHAR" property="packCode"/>
+        <result column="is_boxing" jdbcType="BIT" property="isBoxing"/>
+        <result column="is_storage_label" jdbcType="BIT" property="isStorageLabel"/>
+        <result column="is_replenish_label" jdbcType="BIT" property="isReplenishLabel"/>
+        <result column="is_outbound_label" jdbcType="BIT" property="isOutboundLabel"/>
+        <result column="is_serial_number" jdbcType="BIT" property="isSerialNumber"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="pack_id" jdbcType="INTEGER" property="packId"/>
+        <result column="pack_level" jdbcType="INTEGER" property="packLevel"/>
+        <result column="state" jdbcType="BIT" property="state"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.base.system.model.Pack.PackDetailDto">
+        <result column="pack_data" jdbcType="VARCHAR" property="packData"/>
+
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.base.system.model.Pack.PackDetailCriteria" resultMap="Dto">
+        select
+        detail.pack_detail_id
+        ,detail.pack_code
+        ,detail.pack_describe
+        ,detail.is_boxing
+        ,detail.is_storage_label
+        ,detail.is_replenish_label
+        ,detail.is_outbound_label
+        ,detail.is_serial_number
+        ,detail.memo
+        ,detail.trans_ratio
+        ,detail.pack_id
+        ,detail.pack_level
+        ,detail.state
+
+
+        from pack_detail detail
+        where 1=1
+        <if test="packDetailId != null and packDetailId != ''">
+            and detail.pack_detail_id = #{packDetailId}
+        </if>
+
+        <if test="packCode != null and packCode != ''">
+            and detail.pack_code = #{packCode}
+        </if>
+        <if test="state != null and state != ''">
+            and detail.state = #{state}
+        </if>
+
+
+    </select>
+
+
+    <select id="findByPackCode" parameterType="java.lang.String" resultMap="Dto">
+        select
+        detail.pack_detail_id
+        ,detail.pack_code
+        ,detail.pack_describe
+        ,detail.is_boxing
+        ,detail.is_storage_label
+        ,detail.is_replenish_label
+        ,detail.is_outbound_label
+        ,detail.is_serial_number
+        ,detail.memo
+        ,detail.trans_ratio
+        ,detail.pack_id
+        ,detail.pack_level
+        ,detail.state
+        from pack_detail detail
+        where detail.pack_code = #{packCode}
+        and state =1
+
+
+
+    </select>
+
+
+    <select id="findByPackId" parameterType="com.deer.wms.base.system.model.Pack.PackDetailDto" resultMap="Dto">
+    select
+    detail.pack_detail_id
+    ,detail.pack_code
+    ,detail.pack_describe
+    ,detail.is_boxing
+    ,detail.is_storage_label
+    ,detail.is_replenish_label
+    ,detail.is_outbound_label
+    ,detail.is_serial_number
+    ,detail.memo
+    ,detail.trans_ratio
+    ,detail.pack_id
+    ,detail.pack_level
+
+
+    from pack_detail detail
+    where detail.pack_id = #{id}
+     and state = 1
+
+  </select>
+
+    <delete id="deleteByCode" parameterType="java.lang.String">
+        delete  from pack_detail
+        where  pack_code = #{packCode}
+
+    </delete>
+    <select id="findLevel" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+     detail.pack_detail_id
+    ,detail.pack_code
+    ,detail.pack_describe
+    ,detail.is_boxing
+    ,detail.is_storage_label
+    ,detail.is_replenish_label
+    ,detail.is_outbound_label
+    ,detail.is_serial_number
+    ,detail.memo
+    ,detail.trans_ratio
+    ,detail.pack_id
+    ,detail.pack_level
+    from pack_detail detail
+    where detail.pack_detail_id = #{packDetailId}
+
+
+  </select>
+
+    <select id="findByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from pack_detail
+    where pack_code =#{packCode}
+ and state = 1
+
+  </select>
+
+    <select id="findByCode2" parameterType="java.lang.String"
+            resultType="com.deer.wms.base.system.model.Pack.PackDetail2">
+    select
+    pack_detail_id as packDetailId1,
+    pack_describe as packDescribe1,
+    trans_ratio as transRatio1
+    from pack_detail
+    where pack_code =#{packCode}
+    and state = 1
+
+
+  </select>
+
+
+</mapper>

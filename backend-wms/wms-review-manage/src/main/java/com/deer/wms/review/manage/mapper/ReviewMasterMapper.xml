@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.review.manage.dao.ReviewMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.review.manage.model.ReviewMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="review_master_id" jdbcType="INTEGER" property="reviewMasterId"/>
+        <result column="review_master_code" jdbcType="VARCHAR" property="reviewMasterCode"/>
+        <result column="review_master_name" jdbcType="VARCHAR" property="reviewMasterName"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="bill_type_id" jdbcType="INTEGER" property="billTypeId"/>
+        <result column="bill_type_name" jdbcType="VARCHAR" property="billTypeName"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.review.manage.model.ReviewMasterDto" extends="BaseResultMap">
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+    </resultMap>
+
+    <select id="findList" resultMap="Dto" parameterType="com.deer.wms.review.manage.model.ReviewMasterCriteria">
+        select
+        master.memo,
+        master.review_master_id,
+        master.review_master_code,
+        master.review_master_name,
+        master.bill_type_id,
+        master.bill_type_name,
+        master.state,
+        master.ware_id,
+        master.organization_id,
+
+        ware.ware_name,
+        organization.organization_name
+        from review_master master
+        left join ware_info ware on master.ware_id = ware.ware_id
+        left join organization organization on master.organization_id = organization.organization_id
+        where 1=1
+        <if test="wareId != null">
+            and master.ware_id =#{wareId}
+        </if>
+        <if test="organizationId != null">
+            and master.organization_id =#{organizationId}
+        </if>
+        <if test="billTypeId != null  ">
+            and master.bill_type_id =#{billTypeId}
+        </if>
+    </select>
+</mapper>

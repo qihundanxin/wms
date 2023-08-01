@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.AcceptAuditRecordMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.in.AcceptAuditRecord">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="accept_audit_record_id" jdbcType="INTEGER" property="acceptAuditRecordId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="batch_id" jdbcType="INTEGER" property="batchId"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="accept_user_id" jdbcType="INTEGER" property="acceptUserId"/>
+        <result column="accept_user_name" jdbcType="VARCHAR" property="acceptUserName"/>
+        <result column="accept_time" jdbcType="TIMESTAMP" property="acceptTime"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="bill_type" jdbcType="INTEGER" property="billType"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="audit_state" jdbcType="INTEGER" property="auditState"/>
+        <result column="audit_user_id" jdbcType="INTEGER" property="auditUserId"/>
+        <result column="audit_user_name" jdbcType="VARCHAR" property="auditUserName"/>
+        <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.in.AcceptAuditRecordCriteria"
+            resultMap="BaseResultMap">
+        select
+        *
+        from
+        accept_audit_record
+        where 1=1
+        <if test="wareId != null">
+            and ware_id = #{wareId}
+        </if>
+        <if test="organizationId != null">
+            and organization_id = #{organizationId}
+        </if>
+        <if test="itemCodeLike != null and  itemCodeLike !=''">
+            and item_code like #{itemCodeLike}
+        </if>
+        <if test="itemNameLike != null and  itemNameLike !=''">
+            and item_name like #{itemNameLike}
+        </if>
+        <if test="cellCodeLike != null and  cellCodeLike !=''">
+            and cell_code like #{cellCodeLike}
+        </if>
+        <if test="acceptUserNameLike != null and  acceptUserNameLike !=''">
+            and accept_user_name like #{acceptUserNameLike}
+        </if>
+        <if test="auditState != null">
+            and audit_state = #{auditState}
+        </if>
+        order by
+        <if test="acceptTimeSort !=null and  acceptTimeSort == 'ASC'">
+            accept_time ASC,
+        </if>
+        <if test="acceptTimeSort !=null and acceptTimeSort == 'DESC'">
+            accept_time DESC,
+        </if>
+        case when audit_state=0 then 0 else 1 end,
+        accept_time DESC
+
+    </select>
+
+
+</mapper>

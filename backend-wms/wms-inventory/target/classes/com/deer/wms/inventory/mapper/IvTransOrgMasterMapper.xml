@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.IvTransOrgMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.IvTransOrgMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="from_org_id" jdbcType="INTEGER" property="fromOrgId"/>
+        <result column="from_org_name" jdbcType="VARCHAR" property="fromOrgName"/>
+        <result column="to_org_id" jdbcType="INTEGER" property="toOrgId"/>
+        <result column="to_org_name" jdbcType="VARCHAR" property="toOrgName"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="case_state" jdbcType="INTEGER" property="caseState"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+    <select id="findList" parameterType="com.deer.wms.inventory.model.IvTransOrgMasterCriteria"
+            resultMap="BaseResultMap">
+        select *
+        from iv_trans_org_master itom
+        where 1=1
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                itom.ware_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by id desc
+    </select>
+</mapper>

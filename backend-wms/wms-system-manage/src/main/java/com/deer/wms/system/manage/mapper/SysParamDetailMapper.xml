@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.SysParamDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.SysParamDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="sys_param_detail_id" jdbcType="INTEGER" property="sysParamDetailId"/>
+        <result column="sys_param_id" jdbcType="INTEGER" property="sysParamId"/>
+        <result column="detail_value" jdbcType="INTEGER" property="detailValue"/>
+        <result column="detail_name" jdbcType="VARCHAR" property="detailName"/>
+    </resultMap>
+
+
+    <select id="findList" resultMap="BaseResultMap"
+            parameterType="com.deer.wms.system.manage.model.SysParamDetailCriteria">
+        select *
+        from sys_param_detail
+        <where>
+            <if test="sysParamId !=null">
+                sys_param_id = #{sysParamId}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteBySysParamId" parameterType="java.lang.Integer">
+        delete from sys_param_detail where sys_param_id = #{sysParamId}
+    </delete>
+</mapper>

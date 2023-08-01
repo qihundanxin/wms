@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.RequestDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.RequestDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="request_detail_id" jdbcType="INTEGER" property="requestDetailId"/>
+        <result column="item_no" jdbcType="VARCHAR" property="itemNo"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_detail_name" jdbcType="VARCHAR" property="packDetailName"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="request_quantity" jdbcType="DOUBLE" property="requestQuantity"/>
+        <result column="out_quantity" jdbcType="DOUBLE" property="outQuantity"/>
+        <result column="return_quantity" jdbcType="DOUBLE" property="returnQuantity"/>
+        <result column="add_quantity" jdbcType="DOUBLE" property="addQuantity"/>
+    </resultMap>
+</mapper>

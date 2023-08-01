@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.TurnoverTacticDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.TurnoverTacticDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="turnover_tactic_detail_id" jdbcType="INTEGER" property="turnoverTacticDetailId"/>
+        <result column="turnover_code" jdbcType="VARCHAR" property="turnoverCode"/>
+        <result column="batch_tactic_detail_code" jdbcType="VARCHAR" property="batchTacticDetailCode"/>
+        <result column="sort_priority" jdbcType="INTEGER" property="sortPriority"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.TurnoverTacticDetailCriteria"
+            resultMap="BaseResultMap">
+        select
+        *
+        from
+        turnover_tactic_detail
+        where 1=1
+        <if test="turnoverCode != null and turnoverCode != ''">
+            and turnover_code = #{turnoverCode}
+        </if>
+        order by turnover_tactic_detail_id asc
+    </select>
+
+    <delete id="deleteByTurnoverCode" parameterType="java.lang.String">
+    delete from turnover_tactic_detail where turnover_code = #{turnoverCode}
+  </delete>
+</mapper>

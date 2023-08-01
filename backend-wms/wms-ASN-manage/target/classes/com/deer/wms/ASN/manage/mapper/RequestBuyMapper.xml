@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.RequestBuyMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.buy.RequestBuy">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="request_buy_id" jdbcType="INTEGER" property="requestBuyId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="buy_type" jdbcType="INTEGER" property="buyType"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="accept_state" jdbcType="INTEGER" property="acceptState"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="buy_total_prices" jdbcType="DECIMAL" property="buyTotalPrices"/>
+        <result column="service_charge" jdbcType="DECIMAL" property="serviceCharge"/>
+        <result column="other_expenses" jdbcType="DECIMAL" property="otherExpenses"/>
+        <result column="payment_instruction" jdbcType="VARCHAR" property="paymentInstruction"/>
+        <result column="payment_method" jdbcType="VARCHAR" property="paymentMethod"/>
+        <result column="invoice_file_path" jdbcType="VARCHAR" property="invoiceFilePath"/>
+        <result column="supplier_id" jdbcType="INTEGER" property="supplierId"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="expect_time" jdbcType="TIMESTAMP" property="expectTime"/>
+        <result column="po_udf_hs1" jdbcType="VARCHAR" property="poUdfHs1"/>
+        <result column="po_udf_hs2" jdbcType="VARCHAR" property="poUdfHs2"/>
+        <result column="po_udf_hs3" jdbcType="VARCHAR" property="poUdfHs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="bill_source" jdbcType="INTEGER" property="billSource"/>
+        <result column="force_completion_reason" jdbcType="VARCHAR" property="forceCompletionReason"/>
+        <result column="fc_user_id" jdbcType="INTEGER" property="fcUserId"/>
+        <result column="fc_user_name" jdbcType="VARCHAR" property="fcUserName"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ASN.manage.model.buy.RequestBuyDto" extends="BaseResultMap">
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.buy.RequestBuyCriteria" resultMap="Dto">
+        select
+        buy.request_buy_id
+        ,buy.bill_no
+        ,buy.buy_type
+        ,buy.state
+        ,buy.accept_state
+        ,buy.ware_id
+        ,buy.ware_name
+        ,buy.organization_id
+        ,buy.organization_name
+        ,buy.buy_total_prices
+        ,buy.service_charge
+        ,buy.other_expenses
+        ,buy.payment_instruction
+        ,buy.payment_method
+        ,buy.invoice_file_path
+        ,buy.supplier_id
+        ,buy.supplier_name
+        ,buy.create_time
+        ,buy.create_user_id
+        ,buy.create_user_name
+        ,buy.expect_time
+        ,buy.po_udf_hs1
+        ,buy.po_udf_hs2
+        ,buy.po_udf_hs3
+        ,buy.memo
+        ,buy.insert_type
+        ,buy.bill_source
+        ,buy.force_completion_reason
+        ,buy.fc_user_id
+        ,buy.fc_user_name
+        ,buy.version
+        from request_buy buy
+        where 1=1
+        <if test="requestBuyId != null">
+            and buy.request_buy_id = #{requestBuyId}
+        </if>
+
+        <if test="billNo != null and billNo !=''">
+            and buy.bill_no like CONCAT('%', #{billNo}, '%')
+        </if>
+
+        <if test="wareId != null">
+            and buy.ware_id = #{wareId}
+        </if>
+        <if test="organizationId != null">
+            and buy.organization_id = #{organizationId}
+        </if>
+        <if test="supplierId != null">
+            and buy.supplier_id = #{supplierId}
+        </if>
+        <if test="state != null">
+            and buy.state = #{state}
+        </if>
+        <if test="acceptState != null">
+            and buy.accept_state = #{acceptState}
+        </if>
+        <if test="buyType != null">
+            and buy.buy_type = #{buyType}
+        </if>
+        <if test="createUserId != null">
+            and buy.create_user_id = #{createUserId}
+        </if>
+        <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and buy.create_time &gt; #{startCreateTime} and buy.create_time &lt; #{endCreateTime}
+        </if>
+        <if test="startExpectTime != null and startExpectTime != '' and endExpectTime != null and endExpectTime != ''">
+            and buy.expect_time &gt; #{startExpectTime} and buy.expect_time &lt; #{endExpectTime}
+        </if>
+        <if test="insertType != null">
+            and buy.insert_type = #{insertType}
+        </if>
+        <if test="billSource != null">
+            and buy.bill_source = #{billSource}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                buy.ware_name like CONCAT('%', #{keyWord}, '%')
+                or buy.organization_name like CONCAT('%', #{keyWord}, '%')
+                or buy.supplier_name like CONCAT('%', #{keyWord}, '%')
+                or buy.memo like CONCAT('%', #{keyWord}, '%')
+                or buy.create_user_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+        order by
+        <if test="expectTimeSort !=null and  expectTimeSort == 'ASC'">
+            buy.expect_time ASC,
+        </if>
+        <if test="expectTimeSort !=null and expectTimeSort == 'DESC'">
+            buy.expect_time DESC,
+        </if>
+        buy.request_buy_id desc
+
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from request_buy where bill_no =#{billNo}
+
+  </delete>
+
+    <update id="update">
+        update request_buy
+        <set >
+            <if test="billNo != null" >
+                bill_no = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="buyType != null" >
+                buy_type = #{buyType,jdbcType=INTEGER},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="acceptState != null" >
+                accept_state = #{acceptState,jdbcType=INTEGER},
+            </if>
+            <if test="wareId != null" >
+                ware_id = #{wareId,jdbcType=INTEGER},
+            </if>
+            <if test="wareName != null" >
+                ware_name = #{wareName,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationId != null" >
+                organization_id = #{organizationId,jdbcType=INTEGER},
+            </if>
+            <if test="organizationName != null" >
+                organization_name = #{organizationName,jdbcType=VARCHAR},
+            </if>
+            <if test="buyTotalPrices != null" >
+                buy_total_prices = #{buyTotalPrices,jdbcType=DECIMAL},
+            </if>
+            <if test="serviceChargeSetNull != true and serviceCharge != null" >
+                service_charge = #{serviceCharge,jdbcType=DECIMAL},
+            </if>
+            <if test="serviceChargeSetNull == true" >
+                service_charge = NULL,
+            </if>
+            <if test="otherExpensesSetNull != true and otherExpenses != null" >
+                other_expenses = #{otherExpenses,jdbcType=DECIMAL},
+            </if>
+            <if test="otherExpensesSetNull == true" >
+                other_expenses = NULL,
+            </if>
+            <if test="paymentInstruction != null" >
+                payment_instruction = #{paymentInstruction,jdbcType=VARCHAR},
+            </if>
+            <if test="paymentMethod != null" >
+                payment_method = #{paymentMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceFilePath != null" >
+                invoice_file_path = #{invoiceFilePath,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierId != null" >
+                supplier_id = #{supplierId,jdbcType=INTEGER},
+            </if>
+            <if test="supplierName != null" >
+                supplier_name = #{supplierName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null" >
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createUserName != null" >
+                create_user_name = #{createUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="expectTime != null" >
+                expect_time = #{expectTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="poUdfHs1 != null" >
+                po_udf_hs1 = #{poUdfHs1,jdbcType=VARCHAR},
+            </if>
+            <if test="poUdfHs2 != null" >
+                po_udf_hs2 = #{poUdfHs2,jdbcType=VARCHAR},
+            </if>
+            <if test="poUdfHs3 != null" >
+                po_udf_hs3 = #{poUdfHs3,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null" >
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="insertType != null" >
+                insert_type = #{insertType,jdbcType=INTEGER},
+            </if>
+            <if test="billSource != null" >
+                bill_source = #{billSource,jdbcType=INTEGER},
+            </if>
+            <if test="version != null" >
+                version = version + 1,
+            </if>
+        </set>
+        where request_buy_id = #{requestBuyId,jdbcType=INTEGER} and version = #{version}
+    </update>
+
+
+    <select id="findByIdAndVersion" resultMap="Dto">
+        select *
+        from request_buy
+        WHERE request_buy_id =#{requestBuyId} and version =#{version}
+    </select>
+
+</mapper>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.UpperTacticDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.Upper.UpperTacticDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="upper_tactic_detail_id" jdbcType="INTEGER" property="upperTacticDetailId"/>
+        <result column="order_no" jdbcType="INTEGER" property="orderNo"/>
+        <result column="upper_tactic_id" jdbcType="INTEGER" property="upperTacticId"/>
+        <result column="upper_tactic_code" jdbcType="VARCHAR" property="upperTacticCode"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="upper_tactic_type" jdbcType="INTEGER" property="upperTacticType"/>
+        <result column="from_cell_code" jdbcType="VARCHAR" property="fromCellCode"/>
+        <result column="to_cell_code" jdbcType="VARCHAR" property="toCellCode"/>
+        <result column="to_area_code" jdbcType="VARCHAR" property="toAreaCode"/>
+        <result column="is_empty_cell" jdbcType="INTEGER" property="isEmptyCell"/>
+        <result column="no_confused_item" jdbcType="INTEGER" property="noConfusedItem"/>
+        <result column="no_confused_batch" jdbcType="INTEGER" property="noConfusedBatch"/>
+        <result column="is_equal_item" jdbcType="INTEGER" property="isEqualItem"/>
+        <result column="is_equal_batch" jdbcType="INTEGER" property="isEqualBatch"/>
+        <result column="can_item_max" jdbcType="INTEGER" property="canItemMax"/>
+        <result column="can_batch_max" jdbcType="INTEGER" property="canBatchMax"/>
+        <result column="cell_use_type" jdbcType="INTEGER" property="cellUseType"/>
+        <result column="cell_type" jdbcType="INTEGER" property="cellType"/>
+        <result column="cell_state" jdbcType="INTEGER" property="cellState"/>
+        <result column="cell_abc_level" jdbcType="INTEGER" property="cellAbcLevel"/>
+        <result column="cell_pick_type" jdbcType="INTEGER" property="cellPickType"/>
+        <result column="order_type" jdbcType="INTEGER" property="orderType"/>
+        <result column="pack_level" jdbcType="INTEGER" property="packLevel"/>
+        <result column="abc_level" jdbcType="INTEGER" property="abcLevel"/>
+        <result column="shelf_info_id" jdbcType="INTEGER" property="shelfInfoId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+    </resultMap>
+    <resultMap id="Dto" type="com.deer.wms.busine.tactic.model.Upper.UpperTacticDetailDto" extends="BaseResultMap">
+        <result column="shelf_code" jdbcType="VARCHAR" property="shelfCode"/>
+        <result column="shelf_name" jdbcType="VARCHAR" property="shelfName"/>
+        <result column="shelf_describe" jdbcType="VARCHAR" property="shelfDescribe"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.Upper.UpperTacticDetailCriteria"
+            resultMap="Dto">
+        select
+        detail.upper_tactic_detail_id
+        ,detail.order_no
+        ,detail.upper_tactic_id
+        ,detail.upper_tactic_code
+        ,detail.state
+        ,detail.upper_tactic_type
+        ,detail.from_cell_code
+        ,detail.to_cell_code
+        ,detail.to_area_code
+        ,detail.is_empty_cell
+        ,detail.no_confused_item
+        ,detail.no_confused_batch
+        ,detail.is_equal_item
+        ,detail.is_equal_batch
+        ,detail.can_item_max
+        ,detail.can_batch_max
+        ,detail.cell_use_type
+        ,detail.cell_type
+        ,detail.cell_state
+        ,detail.cell_abc_level
+        ,detail.cell_pick_type
+        ,detail.order_type
+        ,detail.pack_level
+        ,detail.abc_level
+        ,detail.shelf_info_id
+        ,detail.ware_id
+
+        ,shelf.shelf_code
+        ,shelf.shelf_name
+        ,shelf.shelf_describe
+        ,ware.ware_name
+
+
+        ,upper.upper_tactic_name
+
+        from upper_tactic_detail detail
+        left join upper_tactic upper on detail.upper_tactic_id = upper.upper_tactic_id
+        left join shelf_info shelf on detail.shelf_info_id = shelf.shelf_info_id
+        left join ware_info ware on detail.ware_id = ware.ware_id
+        where 1=1
+
+        <if test="upperTacticDetailId != null and upperTacticDetailId != ''">
+            and detail.upper_tactic_detail_id = #{upperTacticDetailId}
+        </if>
+        <if test="upperTacticId != null and upperTacticId != ''">
+            and detail.upper_tactic_id = #{upperTacticId}
+        </if>
+        <if test="upperTacticCode != null and upperTacticCode != ''">
+            and detail.upper_tactic_code = #{upperTacticCode}
+        </if>
+
+        <if test="shelfInfoId != null and shelfInfoId != ''">
+            and cell.shelf_info_id = #{shelfInfoId}
+        </if>
+
+        <if test="wareId != null and wareId != ''">
+            and detail.ware_id = #{wareId}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                detail.upper_tactic_code like CONCAT('%', #{keyWord}, '%')
+                or upper.upper_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or ware.ware_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+        order by detail.order_no
+
+    </select>
+
+    <select id="findByAreaCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    detail.upper_tactic_detail_id
+    ,detail.order_no
+    ,detail.upper_tactic_id
+    ,detail.upper_tactic_code
+    ,detail.state
+    ,detail.upper_tactic_type
+    ,detail.from_cell_code
+    ,detail.to_cell_code
+    ,detail.to_area_code
+    ,detail.is_empty_cell
+    ,detail.no_confused_item
+    ,detail.no_confused_batch
+    ,detail.is_equal_item
+    ,detail.is_equal_batch
+    ,detail.can_item_max
+    ,detail.can_batch_max
+    ,detail.cell_use_type
+    ,detail.cell_type
+    ,detail.cell_state
+    ,detail.cell_abc_level
+    ,detail.cell_pick_type
+    ,detail.order_type
+    ,detail.pack_level
+    ,detail.abc_level
+    ,detail.shelf_info_id
+    ,detail.ware_id
+
+    from  upper_tactic_detail detail
+
+    where detail.to_area_code = #{areaCode}
+
+  </select>
+
+    <select id="findByUpperTacticCode" resultMap="Dto" parameterType="java.lang.String">
+    select * from upper_tactic_detail
+    where
+    state =1
+    and
+    upper_tactic_code = #{upperTacticCode}
+    order by  order_no
+  </select>
+
+</mapper>

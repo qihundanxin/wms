@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.DeptMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.dept.Dept">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="dept_id" jdbcType="INTEGER" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="dept_code" jdbcType="VARCHAR" property="deptCode"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.dept.DeptDto" extends="BaseResultMap">
+        <result column="parent_name" jdbcType="VARCHAR" property="parentName"/>
+
+    </resultMap>
+
+    <delete id="deleteByCodeAndCom" parameterType="com.deer.wms.system.manage.model.dept.DeptCriteria">
+        delete from dept
+        where dept_id = #{deptId}
+
+    </delete>
+
+    <select id="findByParentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        d.dept_id,
+        d.dept_name,
+        d.dept_code,
+        d.parent_id,
+        d.memo
+
+        from dept d
+        where d.parent_id = #{parentId}
+
+    </select>
+
+    <select id="findList" resultMap="Dto" parameterType="com.deer.wms.system.manage.model.dept.DeptCriteria">
+        select
+        d.dept_id,
+        d.dept_name,
+        d.dept_code,
+        d.parent_id,
+        d.memo
+
+        from dept d
+        where 1=1
+
+        <if test="deptId != null">
+            and d.dept_id= #{deptId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                d.dept_name like CONCAT('%', #{keyWord}, '%')
+                or d.dept_code like CONCAT('%', #{keyWord}, '%')
+                or d.memo like CONCAT('%', #{keyWord}, '%')
+                or d.dept_id like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+    </select>
+
+    <select id="findByDeptCode" resultMap="Dto">
+        select
+        d.dept_id,
+        d.dept_name,
+        d.dept_code,
+        d.parent_id,
+        d.memo
+
+        from dept d
+        where d.dept_code = #{deptCode}
+
+    </select>
+
+    <select id="findByDeptName" resultMap="Dto">
+        select
+        d.dept_id,
+        d.dept_name,
+        d.dept_code,
+        d.parent_id,
+        d.memo
+
+        from dept d
+        where d.dept_name = #{deptName}
+
+    </select>
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.PickBatchItemMapper">
+    <update id="updateStatusByGroup">
+        update pick_batch_item
+        set status = #{status}
+        where pick_batch_group_no = #{pickBatchGroupNo}
+        and status >= 0
+    </update>
+    
+    <select id="getByPickBatchGroupNo" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchItem">
+        SELECT * FROM `pick_batch_item` 
+        WHERE `pick_batch_group_no` = #{pickBatchGroupNo}
+        AND `status` >= 0
+    </select>
+    
+    <select id="getByPickBatchGroupNos" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchItem">
+        SELECT * FROM `pick_batch_item`
+        WHERE `pick_batch_group_no` in
+        <foreach collection="pickBatchGroupNos" item="pickBatchGroupNo" open="(" separator="," close=")">
+            #{pickBatchGroupNo}
+        </foreach>
+        AND `status` >= 0
+    </select>
+    
+    <select id="getByPickBatchNo" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchItem">
+        SELECT * FROM `pick_batch_item` 
+        WHERE `pick_batch_no` = #{pickBatchNo}
+        AND `status` >= 0
+    </select>
+    
+    <select id="getByDetailId" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchItem">
+        SELECT * FROM `pick_batch_item` 
+        WHERE `pick_batch_detail_id` = #{pickBatchDetailId}
+        AND `status` >= 0
+    </select>
+    
+    <select id="getByQrCode" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchItem">
+        SELECT * FROM `pick_batch_item` 
+        WHERE `qr_code` = #{qrCode} AND `status` >= 0 
+    </select>
+
+    <update id="batchUpdateStatusById">
+        <foreach collection="list" item="item" separator=";">
+            update pick_batch_item
+            set `status` = #{item.status}
+            <if test="item.pickUserId != null">
+                , `pick_user_id` = #{item.pickUserId}
+            </if>
+            <if test="item.pickTime != null">
+                , `pick_time` = #{item.pickTime}
+            </if>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <select id="getPickTotalByUserAndDate" resultType="Double">
+        select count(*) FROM pick_batch_item where
+        create_time &lt; #{endDate}  and create_time >= #{startDate}
+        and pick_user_id = #{userId} and status = 1
+    </select>
+
+    <select id="getExceptionItem" resultType="com.deer.wms.ware.task.model.pickTask.PickBatchItem">
+        SELECT * FROM `pick_batch_item`
+        WHERE `status` = 2
+    </select>
+</mapper>

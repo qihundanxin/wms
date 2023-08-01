@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.BatchTacticDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.Batch.BatchTacticDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="batch_tactic_detail_id" jdbcType="INTEGER" property="batchTacticDetailId"/>
+        <result column="batch_tactic_code" jdbcType="VARCHAR" property="batchTacticCode"/>
+        <result column="detail_code" jdbcType="VARCHAR" property="detailCode"/>
+        <result column="detail_name" jdbcType="VARCHAR" property="detailName"/>
+        <result column="detail_rf_name" jdbcType="VARCHAR" property="detailRfName"/>
+        <result column="is_show" jdbcType="INTEGER" property="isShow"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="is_required" jdbcType="INTEGER" property="isRequired"/>
+        <result column="format" jdbcType="INTEGER" property="format"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.busine.tactic.model.Batch.BatchTacticDetailDto">
+
+
+        <collection property="batchTacticDetailDetails"
+                    ofType="com.deer.wms.busine.tactic.model.Batch.BatchTacticDetailDetail"
+                    javaType="java.util.ArrayList">
+            <result column="batch_tactic_detail_detail_id" jdbcType="INTEGER" property="batchTacticDetailDetailId"/>
+            <result column="batch_tactic_detail_detail_value" jdbcType="VARCHAR"
+                    property="batchTacticDetailDetailValue"/>
+        </collection>
+
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.Batch.BatchTacticDetailCriteria"
+            resultMap="Dto">
+        select
+        detail.batch_tactic_detail_id
+        ,detail.batch_tactic_code
+        ,detail.detail_code
+        ,detail.detail_name
+        ,detail.detail_rf_name
+        ,detail.is_show
+        ,detail.state
+        ,detail.is_required
+        ,detail.format
+
+        ,details.batch_tactic_detail_detail_id
+        ,details.batch_tactic_detail_detail_value
+
+
+        from batch_tactic_detail detail
+        left join batch_tactic_detail_detail details on detail.batch_tactic_detail_id = details.batch_tactic_detail_id
+
+        where 1=1
+
+        <if test="batchTacticDetailId != null and batchTacticDetailId != ''">
+            and detail.batch_tactic_detail_id = #{batchTacticDetailId}
+        </if>
+        <if test="batchTacticCode != null and batchTacticCode != ''">
+            and detail.batch_tactic_code = #{batchTacticCode}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                batch.batch_tactic_code like CONCAT('%', #{keyWord}, '%')
+                or batch.batch_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or detail.state like CONCAT('%', #{keyWord}, '%')
+                or detail.detail_code like CONCAT('%', #{keyWord}, '%')
+                or detail.detail_name like CONCAT('%', #{keyWord}, '%')
+                or detail.is_required like CONCAT('%', #{keyWord}, '%')
+                or detail.format like CONCAT('%', #{keyWord}, '%')
+                or detail.batch_tactic_detail_detail_value like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by detail.batch_tactic_detail_id,details.batch_tactic_detail_detail_id
+
+    </select>
+
+    <select id="findByState" parameterType="java.lang.Integer" resultMap="Dto">
+    select
+    detail.batch_tactic_detail_id
+    ,detail.batch_tactic_code
+    ,detail.detail_code
+    ,detail.detail_name
+    ,detail.detail_rf_name
+    ,detail.state
+    ,detail.is_required
+    ,detail.format
+
+    ,details.batch_tactic_detail_id
+    ,details.batch_tactic_detail_detail_value
+
+
+
+    from batch_tactic_detail detail
+    left join batch_tactic_detail_detail details on detail.batch_tactic_detail_id = details.batch_tactic_detail_id
+
+    where detail.state = #{state}
+
+    order by detail.batch_tactic_detail_id
+
+  </select>
+
+    <delete id="deleteByCode" parameterType="java.lang.String">
+        delete  from batch_tactic_detail
+        where batch_tactic_code = #{batchTacticCode}
+
+  </delete>
+
+    <select id="findByBatchTacticCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    * from batch_tactic_detail
+    where batch_tactic_code = #{batchTacticCode}
+
+  </select>
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.CarrierMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.carrier.Carrier">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="carrier_id" jdbcType="INTEGER" property="carrierId"/>
+        <result column="carrier_code" jdbcType="VARCHAR" property="carrierCode"/>
+        <result column="carrier_name" jdbcType="VARCHAR" property="carrierName"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.carrier.CarrierDto" extends="BaseResultMap">
+        <id column="carrier_detail_id" jdbcType="INTEGER" property="carrierDetailId"/>
+        <result column="car_type" jdbcType="VARCHAR" property="carType"/>
+        <result column="car_no" jdbcType="VARCHAR" property="carNo"/>
+        <result column="driver" jdbcType="VARCHAR" property="driver"/>
+        <result column="driver_phone" jdbcType="VARCHAR" property="driverPhone"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.system.manage.model.carrier.CarrierCriteria" resultMap="Dto">
+        select
+        carrier.carrier_id
+        ,carrier.carrier_code
+        ,carrier.carrier_name
+        ,carrier.link_man
+        ,carrier.link_phone
+        ,carrier.type
+        ,carrier.memo
+
+        ,cd.carrier_detail_id
+        ,cd.car_type
+        ,cd.car_no
+        ,cd.driver
+        ,cd.driver_phone
+
+        from carrier carrier
+        left join carrier_detail cd on carrier.carrier_code = cd.carrier_code
+        where 1=1
+        <if test="carrierId != null">
+            and carrier.carrier_id = #{carrierId}
+        </if>
+        <if test="carrierDetailId != null">
+            and cd.carrier_detail_id = #{carrierDetailId}
+        </if>
+        <if test="carrierCode != null and carrierCode !=''">
+            and carrier.carrier_code = #{carrierCode}
+        </if>
+        <if test="linkMan != null and linkMan !=''">
+            and carrier.link_man = #{linkMan}
+        </if>
+        <if test="linkPhone != null and linkPhone !=''">
+            and carrier.link_phone = #{linkPhone}
+        </if>
+        <if test="type != null and type !=''">
+            and carrier.type = #{type}
+        </if>
+        <if test="carType != null and carType !=''">
+            and cd.car_type = #{carType}
+        </if>
+        <if test="carNo != null and carNo !=''">
+            and cd.car_no = #{carNo}
+        </if>
+        <if test="driver != null and driver !=''">
+            and cd.driver = #{driver}
+        </if>
+        <if test="driverPhone != null and driverPhone !=''">
+            and cd.driver_phone = #{driverPhone}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                carrier.carrier_name like CONCAT('%', #{keyWord}, '%')
+                or carrier.carrier_name like CONCAT('%', #{keyWord}, '%')
+                or carrier.link_man like CONCAT('%', #{keyWord}, '%')
+                or carrier.link_phone like CONCAT('%', #{keyWord}, '%')
+                or cd.car_type like CONCAT('%', #{keyWord}, '%')
+                or cd.car_no like CONCAT('%', #{keyWord}, '%')
+                or cd.driver like CONCAT('%', #{keyWord}, '%')
+                or cd.driver_phone like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+    </select>
+    <select id="findByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+     carrier.carrier_id
+    ,carrier.carrier_code
+    ,carrier.carrier_name
+    ,carrier.link_man
+    ,carrier.link_phone
+    ,carrier.type
+    ,carrier.memo
+
+    from carrier carrier
+    where carrier.carrier_name = #{carrierName}
+
+  </select>
+
+    <select id="findByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+     carrier.carrier_id
+    ,carrier.carrier_code
+    ,carrier.carrier_name
+    ,carrier.link_man
+    ,carrier.link_phone
+    ,carrier.type
+    ,carrier.memo
+
+    from carrier carrier
+    where carrier.carrier_code = #{carrierCode}
+
+  </select>
+</mapper>

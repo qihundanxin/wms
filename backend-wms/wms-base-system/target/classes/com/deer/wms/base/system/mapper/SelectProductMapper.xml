@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.SelectProductMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.SelectProduct">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="select_product_id" jdbcType="INTEGER" property="selectProductId"/>
+        <result column="target_keyword" jdbcType="VARCHAR" property="targetKeyword"/>
+        <result column="paid_order_count" jdbcType="DOUBLE" property="paidOrderCount"/>
+        <result column="click_through_rate" jdbcType="DOUBLE" property="clickThroughRate"/>
+        <result column="l" jdbcType="DOUBLE" property="l"/>
+        <result column="search_popularity" jdbcType="DOUBLE" property="searchPopularity"/>
+        <result column="payment_rate" jdbcType="DOUBLE" property="paymentRate"/>
+    </resultMap>
+
+    <delete id="deleteAll">
+    delete
+    from
+    select_product
+  </delete>
+
+    <select id="selectBy" resultMap="BaseResultMap">
+    select
+    *
+    from
+    select_product
+    ${where}
+  </select>
+</mapper>

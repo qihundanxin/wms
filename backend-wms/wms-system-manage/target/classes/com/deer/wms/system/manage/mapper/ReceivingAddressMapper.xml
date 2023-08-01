@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.ReceivingAddressMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.address.ReceivingAddress">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="receiving_address_id" jdbcType="INTEGER" property="receivingAddressId"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.address.ReceivingAddressDto" extends="BaseResultMap">
+        <result column="customer_name" jdbcType="VARCHAR" property="customerName"/>
+
+    </resultMap>
+
+    <select id="findList" resultMap="Dto"
+            parameterType="com.deer.wms.system.manage.model.address.ReceivingAddressCriteria">
+        select
+        receiving.receiving_address_id
+        ,receiving.customer_id
+        ,receiving.link_man
+        ,receiving.link_phone
+        ,receiving.province
+        ,receiving.city
+        ,receiving.area
+        ,receiving.detail_address
+        ,receiving.state
+
+        ,customer.customer_name
+
+
+        from receiving_address receiving
+        left join customer customer on receiving.customer_id = customer.customer_id
+
+        where 1=1
+        <if test="receivingAddressId != null">
+            and receiving.receiving_address_id= #{receivingAddressId}
+        </if>
+        <if test="customerId != null and customerId !=''">
+            and receiving.customer_id= #{customerId}
+        </if>
+        <if test="state != null and state !=''">
+            and receiving.state= #{state}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                receiving.link_man like CONCAT('%', #{keyWord}, '%')
+                or receiving.link_phone like CONCAT('%', #{keyWord}, '%')
+                or receiving.province like CONCAT('%', #{keyWord}, '%')
+                or receiving.city like CONCAT('%', #{keyWord}, '%')
+                or receiving.area like CONCAT('%', #{keyWord}, '%')
+                or receiving.detail_address like CONCAT('%', #{keyWord}, '%')
+                or customer.customer_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by receiving.state desc
+
+    </select>
+
+    <select id="findByCustomerId" resultMap="Dto" parameterType="java.lang.Integer">
+    select
+    receiving.receiving_address_id
+    ,receiving.customer_id
+    ,receiving.link_man
+    ,receiving.link_phone
+    ,receiving.province
+    ,receiving.city
+    ,receiving.area
+    ,receiving.detail_address
+    ,receiving.state
+
+    ,customer.customer_name
+
+
+    from receiving_address receiving
+    left join customer customer on receiving.customer_id = customer.customer_id
+
+    where customer.customer_id = #{customerId}
+
+  </select>
+</mapper>

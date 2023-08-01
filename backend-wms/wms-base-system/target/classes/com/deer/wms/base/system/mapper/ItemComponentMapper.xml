@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.ItemComponentMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.ItemCombined.ItemComponent">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="combined_item_code" jdbcType="VARCHAR" property="combinedItemCode"/>
+        <result column="component_item_code" jdbcType="VARCHAR" property="componentItemCode"/>
+        <result column="component_item_name" jdbcType="VARCHAR" property="componentItemName"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="work_index" jdbcType="INTEGER" property="workIndex"/>
+        <result column="desc1" jdbcType="VARCHAR" property="desc1"/>
+        <result column="desc2" jdbcType="VARCHAR" property="desc2"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.base.system.model.ItemCombined.ItemComponentCriteria"
+            resultMap="BaseResultMap">
+        select * from item_component ic
+        where 1=1
+        <if test="combinedItemCode != null and combinedItemCode != ''">
+            and ic.combined_item_code = #{combinedItemCode}
+        </if>
+    </select>
+    <delete id="deleteByCombinedId" parameterType="java.lang.String">
+    delete from item_component where combined_item_code = #{itemCode}
+  </delete>
+</mapper>

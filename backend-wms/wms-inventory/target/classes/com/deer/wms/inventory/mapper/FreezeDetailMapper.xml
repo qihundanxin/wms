@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.FreezeDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.freeze.FreezeDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="freeze_detail_id" jdbcType="INTEGER" property="freezeDetailId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="inventory_id" jdbcType="INTEGER" property="inventoryId"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+        <result column="batch_id" jdbcType="INTEGER" property="batchId"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="freeze_quantity" jdbcType="DOUBLE" property="freezeQuantity"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_use_id" jdbcType="INTEGER" property="createUseId"/>
+        <result column="create_use_name" jdbcType="VARCHAR" property="createUseName"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="freeze_describe" jdbcType="VARCHAR" property="freezeDescribe"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.freeze.FreezeDetailDto" extends="BaseResultMap">
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="last_quantity" jdbcType="DOUBLE" property="lastQuantity"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.freeze.FreezeDetailCriteria" resultMap="Dto">
+        select
+        detail.freeze_detail_id
+        ,detail.bill_no
+        ,detail.detail_no
+        ,detail.inventory_id
+        ,detail.item_code
+        ,detail.item_name
+        ,detail.item_type_id
+        ,detail.item_type_name
+        ,detail.batch_id
+        ,detail.batch_name
+        ,detail.cell_code
+        ,detail.box_code
+        ,detail.pack_detail_id
+        ,detail.pack_describe
+        ,detail.trans_ratio
+        ,detail.freeze_quantity
+        ,detail.state
+        ,detail.create_time
+        ,detail.create_use_id
+        ,detail.create_use_name
+        ,detail.memo
+
+        ,inventory.quantity
+        ,inventory.freeze_quantity as last_quantity
+        from freeze_detail detail
+        left join inventory inventory on detail.inventory_id = inventory.inventory_id
+        where 1=1
+        and inventory.state>=0
+        <if test="freezeDetailId != null">
+            and detail.freeze_detail_id = #{freezeDetailId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and detail.bill_no = #{billNo}
+        </if>
+        <if test="detailNo != null and detailNo !=''">
+            and detail.detail_no = #{detailNo}
+        </if>
+        <if test="batchId != null">
+            and detail.batch_id = #{batchId}
+        </if>
+        <if test="createUseId != null">
+            and detail.create_use_id = #{createUseId}
+        </if>
+        <if test="createTime != null and createTime !=''">
+            and detail.create_time = #{createTime}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and detail.item_code = #{itemCode}
+        </if>
+        <if test="itemTypeId != null">
+            and detail.item_type_id = #{itemTypeId}
+        </if>
+        <if test="state != null">
+            and detail.state = #{state}
+        </if>
+        <if test="itemTypeId != null">
+            and detail.item_type_id = #{itemTypeId}
+        </if>
+        <if test="packDetailId != null">
+            and detail.pack_detail_id = #{packDetailId}
+        </if>
+
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                detail.bill_no like CONCAT('%', #{keyWord}, '%')
+                or detail.detail_no like CONCAT('%', #{keyWord}, '%')
+                or detail.batch_name like CONCAT('%', #{keyWord}, '%')
+                or detail.item_name like CONCAT('%', #{keyWord}, '%')
+                or detail.item_type_name like CONCAT('%', #{keyWord}, '%')
+                or detail.cell_code like CONCAT('%', #{keyWord}, '%')
+                or detail.box_code like CONCAT('%', #{keyWord}, '%')
+                or detail.freeze_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.memo like CONCAT('%', #{keyWord}, '%')
+                or detail.create_use_name like CONCAT('%', #{keyWord}, '%')
+                or detail.pack_describe like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by detail.freeze_detail_id desc
+
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+        delete from freeze_detail where bill_no = #{billNo}
+    </delete>
+  
+    <select id="findFreezingByInventory" resultMap="BaseResultMap">
+        select * from freeze_detail where inventory_id = #{inventoryId} and state = 1
+    </select>
+
+    <select id="findListAndMaster" parameterType="com.deer.wms.inventory.model.freeze.FreezeDetailCriteria" resultMap="Dto">
+        select
+        detail.item_code
+        ,detail.bill_no
+        ,detail.state
+        ,detail.item_type_name
+        ,detail.create_use_name
+        ,detail.create_time
+        ,detail.freeze_quantity
+        ,detail.cell_code
+        ,master.freeze_describe
+        ,detail.memo
+
+        ,detail.freeze_detail_id
+        ,detail.inventory_id
+        ,detail.item_name
+        ,detail.item_type_id
+        ,detail.batch_id
+        ,detail.batch_name
+        ,detail.cell_code
+        ,detail.box_code
+        ,detail.pack_detail_id
+        ,detail.pack_describe
+        ,detail.trans_ratio
+        ,detail.create_use_id
+
+        from freeze_detail detail
+        left join freeze_master master on detail.bill_no = master.bill_no
+        where 1=1
+        <if test="freezeDetailId != null">
+            and detail.freeze_detail_id = #{freezeDetailId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and detail.bill_no = #{billNo}
+        </if>
+        <if test="detailNo != null and detailNo !=''">
+            and detail.detail_no = #{detailNo}
+        </if>
+        <if test="batchId != null">
+            and detail.batch_id = #{batchId}
+        </if>
+        <if test="createUseId != null">
+            and detail.create_use_id = #{createUseId}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and detail.item_code = #{itemCode}
+            and detail.item_code = #{itemCode}
+        </if>
+        <if test="itemTypeId != null">
+            and detail.item_type_id = #{itemTypeId}
+        </if>
+        <if test="state != null">
+            and detail.state = #{state}
+        </if>
+        <if test="itemTypeId != null">
+            and detail.item_type_id = #{itemTypeId}
+        </if>
+        <if test="packDetailId != null">
+            and detail.pack_detail_id = #{packDetailId}
+        </if>
+
+        <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and detail.create_time &gt; #{startCreateTime} and detail.create_time &lt; #{endCreateTime}
+        </if>
+
+        <if test="freezeDescribe != null and freezeDescribe !=''">
+            and master.freeze_describe = #{freezeDescribe}
+        </if>
+
+        <if test="wareId != null">
+            and master.ware_id = #{wareId}
+        </if>
+
+        <if test="billNos != null and billNos.size() > 0">
+            and detail.bill_no in
+            <foreach collection="billNos" item="billNoXX" index="index" open="(" separator="," close=")">
+                #{billNoXX}
+            </foreach>
+        </if>
+
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                detail.bill_no like CONCAT('%', #{keyWord}, '%')
+                or detail.detail_no like CONCAT('%', #{keyWord}, '%')
+                or detail.batch_name like CONCAT('%', #{keyWord}, '%')
+                or detail.item_name like CONCAT('%', #{keyWord}, '%')
+                or detail.item_type_name like CONCAT('%', #{keyWord}, '%')
+                or detail.cell_code like CONCAT('%', #{keyWord}, '%')
+                or detail.box_code like CONCAT('%', #{keyWord}, '%')
+                or detail.freeze_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.memo like CONCAT('%', #{keyWord}, '%')
+                or detail.create_use_name like CONCAT('%', #{keyWord}, '%')
+                or detail.pack_describe like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+        order by
+        <if test="sort == 'ASC'">
+            detail.freeze_detail_id ASC,
+        </if>
+        detail.freeze_detail_id DESC
+
+    </select>
+
+</mapper>

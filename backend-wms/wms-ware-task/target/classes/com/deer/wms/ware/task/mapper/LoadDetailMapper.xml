@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.LoadDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.Load.LoadDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="load_master_code" jdbcType="VARCHAR" property="loadMasterCode"/>
+        <result column="pick_task_id" jdbcType="INTEGER" property="pickTaskId"/>
+        <result column="pick_quantity" jdbcType="DOUBLE" property="pickQuantity"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="boxNo" jdbcType="VARCHAR" property="boxNo"/>
+    </resultMap>
+    <resultMap id="Dto" type="com.deer.wms.ware.task.model.Load.LoadDetailDto" extends="BaseResultMap">
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.Load.LoadDetailCriteria" resultMap="Dto">
+        select
+        ld.id
+        ,ld.load_master_code
+        ,ld.pick_task_id
+        ,ld.pick_quantity
+        ,ld.quantity
+        ,ld.pack_detail_id
+        ,ld.pack_describe
+        ,ld.box_no
+
+        ,pt.item_code
+        ,pt.item_name
+
+        from load_detail ld
+        inner join pick_task pt on ld.pick_task_id = pt.pick_task_id
+        inner join so_master sm on pt.so_master_id = sm.so_master_id
+        where 1=1
+        <if test="loadMasterCode != null and loadMasterCode != ''">
+            and ld.load_master_code = #{loadMasterCode}
+        </if>
+        <if test="billNo != null and billNo != ''">
+            and sm.bill_no = #{billNo}
+        </if>
+    </select>
+</mapper>

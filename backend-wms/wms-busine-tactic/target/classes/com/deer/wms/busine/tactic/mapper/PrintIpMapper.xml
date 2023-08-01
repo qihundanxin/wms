@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.PrintIpMapper">
+  <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.PrintIp">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="print_ip_id" jdbcType="INTEGER" property="printIpId" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="ware_id" jdbcType="INTEGER" property="wareId" />
+    <result column="ware_name" jdbcType="VARCHAR" property="wareName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user_id" jdbcType="INTEGER" property="updateUserId" />
+    <result column="update_user_name" jdbcType="VARCHAR" property="updateUserName" />
+  </resultMap>
+
+  <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.busine.tactic.model.PrintIpDto">
+       <collection property="list" ofType="com.deer.wms.busine.tactic.model.PrintDetail">
+         <result column="print_detail_id" jdbcType="INTEGER" property="printDetailId" />
+<!--         <result column="print_ip_id" jdbcType="INTEGER" property="printIpId" />-->
+         <result column="print_ip" jdbcType="VARCHAR" property="printIp" />
+         <result column="printer_index" jdbcType="INTEGER" property="printerIndex" />
+         <result column="print_size" jdbcType="VARCHAR" property="printSize" />
+         <result column="print_top" jdbcType="INTEGER" property="printTop" />
+         <result column="print_left" jdbcType="INTEGER" property="printLeft" />
+         <result column="print_width" jdbcType="INTEGER" property="printWidth" />
+         <result column="print_height" jdbcType="INTEGER" property="printHeight" />
+         <result column="print_fangxiang" jdbcType="INTEGER" property="printFangxiang" />
+         <result column="print_duplex" jdbcType="INTEGER" property="printDuplex" />
+         <result column="type" jdbcType="VARCHAR" property="type" />
+    </collection>
+  </resultMap>
+
+  <select id="findList" resultMap="Dto" parameterType="com.deer.wms.busine.tactic.model.PrintIpCriteria">
+    select
+    pi.*,
+    pd.print_detail_id,
+    pd.print_ip,
+    pd.printer_index,
+    pd.print_size,
+    pd.print_top,
+    pd.print_left,
+    pd.print_width,
+    pd.print_height,
+    pd.print_fangxiang,
+    pd.print_duplex,
+    pd.type
+    from print_ip pi
+    left join print_detail pd on pi.print_ip_id  =pd.print_ip_id
+    where 1=1
+    <if test="ip != null  and ip !=''">
+      and pi.ip=#{ip}
+    </if>
+    <if test="type != null  and type !=''">
+      and pd.type=#{type}
+    </if>
+    <if test="state != null   ">
+      and pi.state=#{state}
+    </if>
+    <if test="wareId != null   ">
+      and pi.ware_id=#{wareId}
+    </if>
+
+  </select>
+
+  <select id="findByIPId" resultMap="Dto" parameterType="java.lang.Integer">
+    select
+    pi.*,
+    pd.print_detail_id,
+    pd.print_ip,
+    pd.printer_index,
+    pd.print_size,
+    pd.print_top,
+    pd.print_left,
+    pd.print_width,
+    pd.print_height,
+    pd.print_fangxiang,
+    pd.print_duplex,
+    pd.type
+    from print_ip pi
+    left join print_detail pd on pi.print_ip_id  =pd.print_ip_id
+    where  pi.print_ip_id = #{id}
+
+
+  </select>
+
+
+</mapper>

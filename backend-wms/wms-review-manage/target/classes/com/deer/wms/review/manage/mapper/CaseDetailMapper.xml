@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.review.manage.dao.CaseDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.review.manage.model.CaseDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="case_detail_id" jdbcType="INTEGER" property="caseDetailId"/>
+        <result column="case_master_id" jdbcType="INTEGER" property="caseMasterId"/>
+        <result column="order_no" jdbcType="INTEGER" property="orderNo"/>
+        <result column="detail_type" jdbcType="INTEGER" property="detailType"/>
+        <result column="task_time" jdbcType="TIMESTAMP" property="taskTime"/>
+        <result column="task_result" jdbcType="INTEGER" property="taskResult"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="review_node_id" jdbcType="INTEGER" property="reviewNodeId"/>
+        <result column="review_node_name" jdbcType="VARCHAR" property="reviewNodeName"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.review.manage.model.CaseDetailDto" extends="BaseResultMap">
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <!--    <result column="review_master_name" jdbcType="VARCHAR" property="reviewMasterName" />-->
+        <!--    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />-->
+        <!--    <result column="review_master_code" jdbcType="VARCHAR" property="reviewMasterCode" />-->
+        <!--    <result column="review_node_name" jdbcType="VARCHAR" property="reviewNodeName" />-->
+        <!--    <result column="ware_name" jdbcType="VARCHAR" property="wareName" />-->
+        <!--    <result column="item_master_name" jdbcType="VARCHAR" property="itemMasterName" />-->
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <!--    <result column="node_user_name" jdbcType="VARCHAR" property="nodeUserName" />-->
+        <!--    <result column="is_now" jdbcType="INTEGER" property="isNow" />-->
+        <collection property="caseUsers" ofType="com.deer.wms.review.manage.model.CaseUser">
+            <result column="case_user_id" jdbcType="INTEGER" property="caseUserId"/>
+            <result column="case_detail_id" jdbcType="INTEGER" property="caseDetailId"/>
+            <result column="user_id" jdbcType="INTEGER" property="userId"/>
+            <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+            <result column="review_result" jdbcType="BIT" property="reviewResult"/>
+            <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="findNowList" resultMap="Dto" parameterType="com.deer.wms.review.manage.model.CaseDetailCriteria">
+        select
+        detail.case_detail_id,
+        detail.case_master_id,
+        detail.order_no,
+        detail.detail_type,
+        detail.task_time,
+        detail.task_result,
+        detail.memo,
+
+        master.bill_no,
+        master.create_time,
+        cu.user_id,
+        cu.user_name,
+        cu.review_result
+
+
+        from case_detail detail
+        left join case_master master on detail.case_master_id = master.case_master_id
+        left join case_user cu on detail.case_detail_id = cu.case_detail_id
+        where cu.review_result =0
+
+
+        <if test="caseMasterId != null">
+            and detail.case_master_id =#{caseMasterId}
+        </if>
+        <if test="billNo != null">
+            and master.bill_no =#{billNo}
+        </if>
+        <if test="userId != null">
+            and cu.user_id = #{userId}
+        </if>
+
+    </select>
+
+    <select id="findList" resultMap="Dto" parameterType="com.deer.wms.review.manage.model.CaseDetailCriteria">
+        select
+        detail.case_detail_id,
+        detail.case_master_id,
+        detail.order_no,
+        detail.detail_type,
+        detail.task_time,
+        detail.task_result,
+        detail.memo,
+
+        master.bill_no,
+        -- (master.review_node_id = reNode.review_node_id) as is_now,
+
+
+        cu.case_user_id,
+        cu.case_detail_id,
+        cu.user_id,
+        cu.user_name,
+        cu.review_result,
+        cu.memo
+
+
+        from case_detail detail
+        left join case_master master on detail.case_master_id = master.case_master_id
+        left join case_user cu on detail.case_detail_id = cu.case_detail_id
+        where 1=1
+
+        <if test="caseMasterId != null">
+            and detail.case_master_id =#{caseMasterId}
+        </if>
+        <if test="billNo != null">
+            and bill.bill_no =#{billNo}
+        </if>
+        <if test="caseDetailId != null">
+            and detail.case_detail_id =#{caseDetailId}
+        </if>
+
+
+    </select>
+
+    <select id="findNoReview" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    *
+    from case_detail
+    where
+    case_master_id = #{caseMasterId}
+    and task_result = 0
+    order by order_no
+  </select>
+
+    <select id="findByMasterId" resultMap="Dto" parameterType="java.lang.Integer">
+    select
+    detail.case_detail_id,
+    detail.case_master_id,
+    detail.order_no,
+    detail.detail_type,
+    detail.task_time,
+    detail.task_result,
+    detail.memo,
+    detail.review_node_id,
+    detail.review_node_name,
+
+    master.bill_no,
+    cu.case_user_id,
+    cu.case_detail_id,
+    cu.user_id,
+    cu.user_name,
+    cu.review_result,
+    cu.memo
+
+
+    from case_detail detail
+    left join case_master master  on detail.case_master_id = master.case_master_id
+    left join case_user cu on detail.case_detail_id = cu.case_detail_id
+    where  detail.case_master_id =#{caseMasterId}
+
+  </select>
+
+
+</mapper>

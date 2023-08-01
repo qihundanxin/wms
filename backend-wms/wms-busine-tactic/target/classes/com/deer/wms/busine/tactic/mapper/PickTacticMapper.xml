@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.PickTacticMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.pickTactic.PickTactic">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="pick_tactic_id" jdbcType="INTEGER" property="pickTacticId"/>
+        <result column="allocation_rule_code" jdbcType="VARCHAR" property="allocationRuleCode"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="up_dismantle" jdbcType="INTEGER" property="upDismantle"/>
+        <result column="down_dismantle" jdbcType="INTEGER" property="downDismantle"/>
+        <result column="whether_dismantle" jdbcType="INTEGER" property="whetherDismantle"/>
+        <result column="clearance_priority" jdbcType="INTEGER" property="clearancePriority"/>
+        <result column="optimal_algorithm" jdbcType="INTEGER" property="optimalAlgorithm"/>
+        <result column="excessive_allocation" jdbcType="INTEGER" property="excessiveAllocation"/>
+        <result column="auto_replenishment" jdbcType="INTEGER" property="autoReplenishment"/>
+        <result column="dynamic_pick_cell" jdbcType="INTEGER" property="dynamicPickCell"/>
+        <result column="storage_choose_EA" jdbcType="INTEGER" property="storageChooseEA"/>
+        <result column="storage_choose_CS" jdbcType="INTEGER" property="storageChooseCS"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.pickTactic.PickTacticCriteria"
+            resultMap="BaseResultMap">
+        select pt.*
+        from pick_tactic pt
+        where 1=1
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                pt.allocation_rule_code like CONCAT('%', #{keyWord}, '%')
+                or pt.description like CONCAT('%', #{keyWord}, '%')
+
+                )
+            </foreach>
+        </if>
+        <if test="allocationRuleCode != null and allocationRuleCode != ''">
+            and pt.allocation_rule_code = #{allocationRuleCode}
+        </if>
+
+    </select>
+
+    <select id="verify" parameterType="com.deer.wms.busine.tactic.model.pickTactic.PickTacticCriteria"
+            resultMap="BaseResultMap">
+    select pt.*
+    from pick_tactic pt
+    where 1=1
+    and pt.allocation_rule_code = #{allocationRuleCode}
+    and pt.pick_tactic_id &lt;&gt; #{pickTacticId}
+    </select>
+</mapper>

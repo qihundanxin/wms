@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.SaleDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.Sale.SaleDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="sale_detail_id" jdbcType="INTEGER" property="saleDetailId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="expect_quantity" jdbcType="DOUBLE" property="expectQuantity"/>
+        <result column="sale_udf_ds1" jdbcType="VARCHAR" property="saleUdfDs1"/>
+        <result column="sale_udf_ds2" jdbcType="VARCHAR" property="saleUdfDs2"/>
+        <result column="sale_udf_ds3" jdbcType="VARCHAR" property="saleUdfDs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.Sale.SaleDetailCriteria"
+            resultMap="BaseResultMap">
+        select * from
+        sale_detail
+        where 1=1
+        <if test="billNo !=null and billNo !=''">
+            and bill_no =#{billNo}
+        </if>
+        <if test="detailNo !=null and detailNo !=''">
+            and detail_no =#{detailNo}
+        </if>
+
+
+    </select>
+</mapper>

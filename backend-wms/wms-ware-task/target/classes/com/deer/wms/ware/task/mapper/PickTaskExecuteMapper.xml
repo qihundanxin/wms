@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.PickTaskExecuteMapper">
+    <select id="selectByQrCode" resultType="com.deer.wms.ware.task.model.pickTask.PickTaskExecute">
+        SELECT * FROM `pick_task_execute` 
+        <where>
+            <if test="qrCode == null">
+                `qr_code` IS NULL
+            </if>
+            <if test="qrCode != null">
+                `qr_code` = #{qrCode}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.OrganizationTacticMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.organization.OrganizationTactic">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="upper_tactic_code" jdbcType="VARCHAR" property="upperTacticCode"/>
+        <result column="upper_tactic_name" jdbcType="VARCHAR" property="upperTacticName"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.organization.OrganizationTacticDto"
+               extends="BaseResultMap">
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="organization_code" jdbcType="VARCHAR" property="organizationCode"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.system.manage.model.organization.OrganizationTacticCriteria"
+            resultMap="Dto">
+        select
+        tactic.id
+        ,tactic.organization_id
+        ,tactic.ware_id
+        ,tactic.upper_tactic_code
+        ,tactic.upper_tactic_name
+
+        ,ware.ware_name
+        ,organization.organization_name
+        ,organization.organization_code
+        ,organization.organization.link_man
+        ,organization.organization.link_phone
+        from organization_tactic tactic
+        left join ware_info ware on tactic.ware_id = ware.ware_id
+        left join organization organization on tactic.organization_id = organization.organization_id
+        where 1=1
+        <if test="organizationId != null and organizationId != ''">
+            and tactic.organization_id = #{organizationId}
+        </if>
+        <if test="wareId != null and wareId != ''">
+            and tactic.ware_id = #{wareId}
+        </if>
+        <if test="upperTacticCode != null and upperTacticCode != ''">
+            and tactic.upper_tactic_code = #{upperTacticCode}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                organization.organization_name like CONCAT('%', #{keyWord}, '%')
+                or organization.organization_code like CONCAT('%', #{keyWord}, '%')
+                or organization.link_man like CONCAT('%', #{keyWord}, '%')
+                or organization.link_phone like CONCAT('%', #{keyWord}, '%')
+                or organization.memo like CONCAT('%', #{keyWord}, '%')
+                or bt.batch_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or bt.upper_tactic_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+    </select>
+</mapper>

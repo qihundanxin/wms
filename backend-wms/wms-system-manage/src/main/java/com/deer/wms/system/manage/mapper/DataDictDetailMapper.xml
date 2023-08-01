@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.DataDictDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.DataDictDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="data_dict_detail_id" jdbcType="INTEGER" property="dataDictDetailId"/>
+        <result column="data_dict_code" jdbcType="VARCHAR" property="dataDictCode"/>
+        <result column="data_dict_name" jdbcType="VARCHAR" property="dataDictName"/>
+        <result column="dict_key" jdbcType="VARCHAR" property="dictKey"/>
+        <result column="dict_value" jdbcType="VARCHAR" property="dictValue"/>
+        <result column="icon_class" jdbcType="VARCHAR" property="iconClass"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.system.manage.model.DataDictDetailCriteria"
+            resultMap="BaseResultMap">
+        select
+        data.data_dict_detail_id
+        ,data.data_dict_name
+        ,data.data_dict_code
+        ,data.dict_key
+        ,data.dict_value
+        ,data.icon_class
+        from data_dict_detail data
+        where 1=1
+        <if test="dataDictCode != null and dataDictCode != ''">
+            AND data.data_dict_code = #{dataDictCode}
+        </if>
+    </select>
+
+    <select id="findBydDataDictCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      data.data_dict_detail_id
+     ,data.data_dict_name
+     ,data.data_dict_code
+     ,data.dict_key
+     ,data.dict_value
+     ,data.icon_class
+    from data_dict_detail data
+    where data_dict_code = #{dataDictCode}
+  </select>
+
+</mapper>

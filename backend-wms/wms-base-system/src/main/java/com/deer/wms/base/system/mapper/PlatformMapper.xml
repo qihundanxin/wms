@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.PlatformMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.Platform.Platform">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="platform_code" jdbcType="VARCHAR" property="platformCode"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="start_time_one" jdbcType="VARCHAR" property="startTimeOne"/>
+        <result column="end_time_one" jdbcType="VARCHAR" property="endTimeOne"/>
+        <result column="start_time_two" jdbcType="VARCHAR" property="startTimeTwo"/>
+        <result column="end_time_two" jdbcType="VARCHAR" property="endTimeTwo"/>
+        <result column="receiving" jdbcType="BIT" property="receiving"/>
+        <result column="delivery" jdbcType="BIT" property="delivery"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.base.system.model.Platform.PlatformDto">
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+    </resultMap>
+
+    <select id="findList" resultMap="Dto" parameterType="com.deer.wms.base.system.model.Platform.PlatformCriteria">
+        select
+        platform.id
+        ,platform.platform_code
+        ,platform.ware_id
+        ,platform.start_time_one
+        ,platform.end_time_one
+        ,platform.start_time_two
+        ,platform.end_time_two
+        ,platform.receiving
+        ,platform.delivery
+
+        ,ware.ware_name
+
+        from platform platform
+        left join ware_info ware on platform.ware_id = ware.ware_id
+        where 1=1
+        <if test="id != null">
+            and platform.id = #{id}
+        </if>
+        <if test="wareId != null">
+            and platform.ware_id = #{wareId}
+        </if>
+        <if test="platformCode != null and platformCode != ''">
+            and platform.platform_code = #{platformCode}
+        </if>
+        <if test="receiving != null and receiving != ''">
+            and platform.receiving = #{receiving}
+        </if>
+        <if test="delivery != null and delivery != ''">
+            and platform.delivery = #{delivery}
+        </if>
+        order by platform.id desc
+
+    </select>
+
+    <select id="findByWareId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        *
+        from platform
+        where ware_id = #{wareId}
+    </select>
+</mapper>

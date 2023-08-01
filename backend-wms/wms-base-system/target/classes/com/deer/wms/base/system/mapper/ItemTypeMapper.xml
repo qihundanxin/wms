@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.ItemTypeMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.Item.ItemType">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="item_type_code" jdbcType="VARCHAR" property="itemTypeCode"/>
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+        <result column="item_type_state" jdbcType="INTEGER" property="itemTypeState"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="batch_tactic_code" jdbcType="VARCHAR" property="batchTacticCode"/>
+        <result column="upper_tactic_code" jdbcType="VARCHAR" property="upperTacticCode"/>
+        <result column="qc_tactic_code" jdbcType="VARCHAR" property="qcTacticCode"/>
+        <result column="pick_tactic_code" jdbcType="VARCHAR" property="pickTacticCode"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.base.system.model.Item.ItemTypeDto" extends="BaseResultMap">
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="batch_tactic_name" jdbcType="VARCHAR" property="batchTacticName"/>
+        <result column="upper_tactic_name" jdbcType="VARCHAR" property="upperTacticName"/>
+        <result column="qc_tactic_name" jdbcType="VARCHAR" property="qcTacticName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <delete id="deleteByCode" parameterType="java.lang.String">
+      delete from item_type
+      where item_type_code = #{itemTypeCode}
+  </delete>
+
+
+    <delete id="deleteByIdAndLowLevel" parameterType="java.lang.Integer">
+      delete from item_type
+      where item_type_id = #{itemTypeId} OR parent_id = #{itemTypeId}
+  </delete>
+
+    <select id="findList" parameterType="com.deer.wms.base.system.model.Item.ItemTypeCriteria" resultMap="Dto">
+        select
+        item_type_id
+        ,itemType.item_type_code
+        ,itemType.item_type_name
+        ,itemType.item_type_state
+        ,itemType.memo
+        ,itemType.create_time
+        ,itemType.parent_id
+        ,itemType.organization_id
+        ,itemType.batch_tactic_code
+        ,itemType.upper_tactic_code
+        ,itemType.qc_tactic_code
+        ,itemType.pick_tactic_code
+
+        ,organization.organization_name
+        ,bt.batch_tactic_name
+        ,ut.upper_tactic_name
+        ,qc.qc_tactic_name
+        ,pt.description
+
+
+        from item_type itemType
+        left join organization organization on itemType.organization_id = organization.organization_id
+        left join batch_tactic bt on bt.batch_tactic_code = itemType.batch_tactic_code
+        left join upper_tactic ut on ut.upper_tactic_code = itemType.upper_tactic_code
+        left join qc_tactic qc on qc.qc_tactic_code = itemType.qc_tactic_code
+        left join pick_tactic pt on pt.allocation_rule_code = itemType.pick_tactic_code
+        where 1=1
+        <if test="organizationId != null and organizationId != ''">
+            and organization.organization_id = #{organizationId}
+        </if>
+        <if test="itemTypeCode != null and itemTypeCode != ''">
+            and itemType.item_type_code = #{itemTypeCode}
+        </if>
+        <if test="batchTacticCode != null and batchTacticCode != ''">
+            and itemType.batch_tactic_code = #{batchTacticCode}
+        </if>
+        <if test="upperTacticCode != null and upperTacticCode != ''">
+            and itemType.upper_tactic_code = #{upperTacticCode}
+        </if>
+        <if test="qcTacticCode != null and qcTacticCode != ''">
+            and itemType.qc_tactic_code = #{qcTacticCode}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                itemType.item_type_code like CONCAT('%', #{keyWord}, '%')
+                or itemType.item_type_name like CONCAT('%', #{keyWord}, '%')
+                or itemType.memo like CONCAT('%', #{keyWord}, '%')
+                or bt.batch_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or ut.upper_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or qc.qc_tactic_name like CONCAT('%', #{keyWord}, '%')
+
+                )
+            </foreach>
+        </if>
+
+        order by itemType.create_time
+    </select>
+
+    <select id="findParentList" resultMap="Dto">
+    select
+    item_type_id
+    ,itemType.item_type_code
+    ,itemType.item_type_name
+    ,itemType.item_type_state
+    ,itemType.memo
+    ,itemType.create_time
+    ,itemType.parent_id
+    ,itemType.organization_id
+
+
+    ,organization.organization_name
+
+
+    from item_type itemType
+    left join organization organization on itemType.organization_id = organization.organization_id
+    where 1=1
+  </select>
+
+    <select id="findByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    item_type_id
+    ,itemType.item_type_code
+    ,itemType.item_type_name
+    ,itemType.item_type_state
+    ,itemType.memo
+    ,itemType.create_time
+    ,itemType.parent_id
+    ,itemType.organization_id
+    from item_type itemType
+    where itemType.item_type_code = #{itemTypeCode} or itemType.item_type_name = #{itemTypeCode}
+  </select>
+
+    <select id="findByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    item_type_id
+    ,itemType.item_type_code
+    ,itemType.item_type_name
+    ,itemType.item_type_state
+    ,itemType.memo
+    ,itemType.create_time
+    ,itemType.parent_id
+    ,itemType.organization_id
+    from item_type itemType
+    where itemType.item_type_name = #{itemTypeName}
+  </select>
+</mapper>

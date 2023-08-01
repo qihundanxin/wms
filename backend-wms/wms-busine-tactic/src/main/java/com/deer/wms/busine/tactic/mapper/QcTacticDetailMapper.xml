@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.QcTacticDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.QC.QcTacticDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="qc_tactic_detail_id" jdbcType="INTEGER" property="qcTacticDetailId"/>
+        <result column="qc_tactic_code" jdbcType="VARCHAR" property="qcTacticCode"/>
+        <result column="asn_type" jdbcType="INTEGER" property="asnType"/>
+        <result column="start_quantity" jdbcType="DOUBLE" property="startQuantity"/>
+        <result column="end_quantity" jdbcType="DOUBLE" property="endQuantity"/>
+        <result column="sample_quantity" jdbcType="DOUBLE" property="sampleQuantity"/>
+        <result column="percentage" jdbcType="DOUBLE" property="percentage"/>
+        <result column="min_quantity" jdbcType="DOUBLE" property="minQuantity"/>
+        <result column="min_pass_rate" jdbcType="DOUBLE" property="minPassRate"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.QC.QcTacticCriteria"
+            resultMap="BaseResultMap">
+        select
+        detail.qc_tactic_detail_id
+        ,detail.qc_tactic_code
+        ,detail.asn_type
+        ,detail.start_quantity
+        ,detail.end_quantity
+        ,detail.sample_quantity
+        ,detail.percentage
+        ,detail.min_quantity
+        ,detail.min_pass_rate
+        from qc_tactic_detail detail
+        where 1=1
+        <if test="qcTacticDetailId != null">
+            and detail.qc_tactic_detail_id = #{qcTacticDetailId}
+        </if>
+        <if test="qcTacticCode != null and qcTacticCode != ''">
+            and detail.qc_tactic_code = #{qcTacticCode}
+        </if>
+        <if test="asnType != null and asnType != ''">
+            and detail.asn_type = #{asnType}
+        </if>
+        <if test="startQuantity != null and startQuantity != ''">
+            and detail.start_quantity = #{startQuantity}
+        </if>
+        <if test="endQuantity != null and endQuantity != ''">
+            and detail.end_quantity = #{endQuantity}
+        </if>
+        <if test="sampleQuantity != null and sampleQuantity != ''">
+            and detail.sample_quantity = #{sampleQuantity}
+        </if>
+        <if test="percentage != null and percentage != ''">
+            and detail.percentage = #{percentage}
+        </if>
+        <if test="minQuantity != null and minQuantity != ''">
+            and detail.min_quantity = #{minQuantity}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                detail.qc_tactic_code like CONCAT('%', #{keyWord}, '%')
+                or detail.qc_tactic_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+    </select>
+
+    <select id="findByQcTacticCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+
+    from qc_tactic_detail
+    where
+    qc_tactic_code = #{qcTacticCode}
+     order by  qc_tactic_detail_id
+  </select>
+</mapper>

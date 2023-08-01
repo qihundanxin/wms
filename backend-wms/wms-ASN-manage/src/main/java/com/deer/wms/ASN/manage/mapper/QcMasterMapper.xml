@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.QcMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.qc.QcMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="qc_master_id" jdbcType="INTEGER" property="qcMasterId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="asn_bill_no" jdbcType="VARCHAR" property="asnBillNo"/>
+        <result column="qc_type" jdbcType="INTEGER" property="qcType"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="qc_udf_hs1" jdbcType="VARCHAR" property="qcUdfHs1"/>
+        <result column="qc_udf_hs2" jdbcType="VARCHAR" property="qcUdfHs2"/>
+        <result column="qc_udf_hs3" jdbcType="VARCHAR" property="qcUdfHs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="bill_source" jdbcType="INTEGER" property="billSource"/>
+        <result column="qc_state" jdbcType="INTEGER" property="qcState"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ASN.manage.model.qc.QcMasterDto" extends="BaseResultMap">
+
+
+    </resultMap>
+
+    <select id="findList" resultMap="BaseResultMap" parameterType="com.deer.wms.ASN.manage.model.qc.QcMasterCriteria">
+        select
+        master.qc_master_id
+        ,master.bill_no
+        ,master.asn_bill_no
+        ,master.qc_type
+        ,master.state
+        ,master.ware_id
+        ,master.ware_name
+        ,master.organization_id
+        ,master.organization_name
+        ,master.create_time
+        ,master.create_user_id
+        ,master.create_user_name
+        ,master.qc_udf_hs1
+        ,master.qc_udf_hs2
+        ,master.qc_udf_hs3
+        ,master.memo
+        ,master.insert_type
+        ,master.bill_source
+        ,master.qc_state
+
+        from qc_master master
+        <where>
+            <if test="wareId != null ">
+                master.ware_id = #{wareId}
+            </if>
+            <if test="organizationId != null ">
+                and master.organization_id = #{organizationId}
+            </if>
+            <if test="billNo != null ">
+                and master.bill_no like CONCAT('%', #{billNo}, '%')
+            </if>
+            <if test="asnBillNo != null ">
+                and master.asn_bill_no like CONCAT('%', #{asnBillNo}, '%')
+            </if>
+            <if test="insertType != null ">
+                and master.insert_type = #{insertType}
+            </if>
+            <if test="billSource != null ">
+                and master.bill_source = #{billSource}
+            </if>
+            <if test="state != null ">
+                and master.state = #{state}
+            </if>
+            <if test="qcState != null ">
+                and master.qc_state = #{qcState}
+            </if>
+            <if test="qcType != null ">
+                and master.qc_type = #{qcType}
+            </if>
+            <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+                and master.create_time &gt; #{startCreateTime} and master.create_time &lt; #{endCreateTime}
+            </if>
+        </where>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                master.bill_no like CONCAT('%', #{keyWord}, '%')
+                or master.asn_bill_no like CONCAT('%', #{keyWord}, '%')
+                or master.create_user_name like CONCAT('%', #{keyWord}, '%')
+                or master.qc_udf_hs1 like CONCAT('%', #{keyWord}, '%')
+                or master.qc_udf_hs2 like CONCAT('%', #{keyWord}, '%')
+                or master.qc_udf_hs3 like CONCAT('%', #{keyWord}, '%')
+                or master.memo like CONCAT('%', #{keyWord}, '%')
+                )
+
+            </foreach>
+        </if>
+        order by master.qc_master_id desc
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from qc_master where bill_no =#{billNo}
+
+  </delete>
+</mapper>

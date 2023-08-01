@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.AllotDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.Allot.AllotDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="allot_detail_id" jdbcType="INTEGER" property="allotDetailId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="expect_quantity" jdbcType="DOUBLE" property="expectQuantity"/>
+        <result column="allotted_quantity" jdbcType="DOUBLE" property="allottedQuantity"/>
+        <result column="pick_quantity" jdbcType="DOUBLE" property="pickQuantity"/>
+        <result column="delivery_quantity" jdbcType="DOUBLE" property="deliveryQuantity"/>
+        <result column="allot_udf_ds1" jdbcType="VARCHAR" property="allotUdfDs1"/>
+        <result column="allot_udf_ds2" jdbcType="VARCHAR" property="allotUdfDs2"/>
+        <result column="allot_udf_ds3" jdbcType="VARCHAR" property="allotUdfDs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="weight" jdbcType="DOUBLE" property="weight"/>
+        <result column="size" jdbcType="DOUBLE" property="size"/>
+        <result column="allot_pack_detail_id" jdbcType="INTEGER" property="allotPackDetailId"/>
+        <result column="allot_pack_describe" jdbcType="VARCHAR" property="allotPackDescribe"/>
+        <result column="allot_trans_ratio" jdbcType="DOUBLE" property="allotTransRatio"/>
+        <result column="pick_pack_detail_id" jdbcType="INTEGER" property="pickPackDetailId"/>
+        <result column="pick_pack_describe" jdbcType="VARCHAR" property="pickPackDescribe"/>
+        <result column="pick_trans_ratio" jdbcType="DOUBLE" property="pickTransRatio"/>
+        <result column="delivery_pack_detail_id" jdbcType="INTEGER" property="deliveryPackDetailId"/>
+        <result column="delivery_pack_describe" jdbcType="VARCHAR" property="deliveryPackDescribe"/>
+        <result column="delivery_trans_ratio" jdbcType="DOUBLE" property="deliveryTransRatio"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ware.task.model.Allot.AllotDetailDto" extends="BaseResultMap">
+        <result column="so_master_id" jdbcType="INTEGER" property="soMasterId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+
+        <collection property="packDetails" ofType="com.deer.wms.ASN.manage.model.buy.PackDetails">
+            <result column="pack_detail_id1" jdbcType="INTEGER" property="packDetailId1"/>
+            <result column="pack_describe1" jdbcType="VARCHAR" property="packDescribe1"/>
+            <result column="trans_ratio1" jdbcType="DOUBLE" property="transRatio1"/>
+        </collection>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.Allot.AllotDetailCriteria" resultMap="Dto">
+        select
+        *
+        ,pd.pack_detail_id as pack_detail_id1
+        ,pd.pack_describe as pack_describe1
+        ,pd.trans_ratio as trans_ratio1
+        from
+        allot_detail detail
+        left join item_info item on item.item_code = detail.item_code
+        left join pack_master pm on item.pack_code = pm.pack_code
+        left join pack_detail pd on pd.pack_code = pm.pack_code
+        where 1=1
+
+        <if test="allotDetailId != null">
+            and detail.allot_detail_id= #{allotDetailId}
+        </if>
+        <if test="state != null ">
+            and detail.state= #{state}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and detail.bill_no= #{billNo}
+        </if>
+        <if test="detailNo != null and detailNo !=''">
+            and detail.detail_no= #{detailNo}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and detail.item_code= #{itemCode}
+        </if>
+        <if test="packDetailId != null">
+            and detail.pack_detail_id= #{packDetailId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                detail.item_name like CONCAT('%', #{keyWord}, '%')
+                or detail.pack_describe like CONCAT('%', #{keyWord}, '%')
+                or detail.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+
+    </select>
+</mapper>

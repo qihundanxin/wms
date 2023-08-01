@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.InCellTaskMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.InCellTask">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="batch_id" jdbcType="INTEGER" property="batchId"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="pre_quantity" jdbcType="DOUBLE" property="preQuantity"/>
+    </resultMap>
+</mapper>

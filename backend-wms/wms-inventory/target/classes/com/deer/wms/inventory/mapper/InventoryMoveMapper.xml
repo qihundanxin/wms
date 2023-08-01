@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.InventoryMoveMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.move.InventoryMove">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="inventory_move_id" jdbcType="INTEGER" property="inventoryMoveId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="reason" jdbcType="VARCHAR" property="reason"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+    </resultMap>
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.move.InventoryMoveDto" extends="BaseResultMap">
+
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.move.InventoryMoveCriteria" resultMap="Dto">
+        select
+        move.inventory_move_id
+        ,move.bill_no
+        ,move.ware_id
+        ,move.ware_name
+        ,move.organization_id
+        ,move.organization_name
+        ,move.insert_type
+        ,move.create_user_id
+        ,move.create_user_name
+        ,move.create_time
+        ,move.reason
+        ,move.state
+        ,move.memo
+        from inventory_move move
+        where 1=1
+        <if test="inventoryMoveId != null">
+            and move.inventory_move_id = #{inventoryMoveId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and move.bill_no = #{billNo}
+        </if>
+        <if test="wareId != null">
+            and move.ware_id = #{wareId}
+        </if>
+        <if test="organizationId != null">
+            and move.organization_id = #{organizationId}
+        </if>
+        <if test="state != null">
+            and move.state = #{state}
+        </if>
+        <if test="createUserId != null">
+            and move.create_user_id = #{createUserId}
+        </if>
+        <if test="createTime != null and createTime !=''">
+            and move.create_time = #{createTime}
+        </if>
+        <if test="insertType != null">
+            and move.insert_type = #{insertType}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                move.bill_no like CONCAT('%', #{keyWord}, '%')
+                or move.ware_name like CONCAT('%', #{keyWord}, '%')
+                or move.organization_name like CONCAT('%', #{keyWord}, '%')
+                or move.memo like CONCAT('%', #{keyWord}, '%')
+                or move.create_user_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+    </select>
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from inventory_move where bill_no = #{billNo}
+
+  </delete>
+</mapper>

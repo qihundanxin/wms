@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.StockTakeMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.stockTake.StockTakeMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="stock_take_master_id" jdbcType="INTEGER" property="stockTakeMasterId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="priority" jdbcType="INTEGER" property="priority"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_code" jdbcType="VARCHAR" property="wareCode"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="dynamic_from_time" jdbcType="TIMESTAMP" property="dynamicFromTime"/>
+        <result column="dynamic_to_time" jdbcType="TIMESTAMP" property="dynamicToTime"/>
+        <result column="item_keywords" jdbcType="VARCHAR" property="itemKeywords"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="from_area_code" jdbcType="VARCHAR" property="fromAreaCode"/>
+        <result column="to_area_code" jdbcType="VARCHAR" property="toAreaCode"/>
+        <result column="from_shelf_code" jdbcType="VARCHAR" property="fromShelfCode"/>
+        <result column="to_shelf_code" jdbcType="VARCHAR" property="toShelfCode"/>
+        <result column="from_cell_code" jdbcType="VARCHAR" property="fromCellCode"/>
+        <result column="to_cell_code" jdbcType="VARCHAR" property="toCellCode"/>
+        <result column="udf_hs1" jdbcType="VARCHAR" property="udfHs1"/>
+        <result column="udf_hs2" jdbcType="VARCHAR" property="udfHs2"/>
+        <result column="udf_hs3" jdbcType="VARCHAR" property="udfHs3"/>
+        <result column="if_random" jdbcType="INTEGER" property="ifRandom"/>
+        <result column="random_num" jdbcType="INTEGER" property="randomNum"/>
+        <result column="case_state" jdbcType="INTEGER" property="caseState"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.stockTake.StockTakeMasterCriteria"
+            resultMap="BaseResultMap">
+        select *
+        from stock_take_master stm
+        where 1=1
+
+        <if test="keyWordList != null">
+            and
+            <foreach close=")" collection="keyWordList" index="index" item="keyWord" open="(" separator="and">
+                (
+                stm.item_name like CONCAT('%', #{keyWord}, '%')
+                or stm.item_code like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        <if test="stockTakeMasterId != null">
+            and stm.stock_take_master_id = #{stockTakeMasterId}
+        </if>
+        <if test="billNo != null">
+            and stm.bill_no = #{billNo}
+        </if>
+        <if test="state != null">
+            and stm.state = #{state}
+        </if>
+        <if test="caseState != null">
+            and stm.case_state = #{caseState}
+        </if>
+        <if test="priority != null">
+            and stm.priority = #{priority}
+        </if>
+        <if test="createUserId != null">
+            and stm.create_user_id = #{createUserId}
+        </if>
+        <if test="type != null">
+            and stm.type = #{type}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and stm.item_code = #{itemCode}
+        </if>
+        <if test="boxCode != null and boxCode !=''">
+            and stm.box_code = #{boxCode}
+        </if>
+        <if test="ifRandom != null ">
+            and stm.if_random = #{ifRandom}
+        </if>
+        <if test="wareId != null ">
+            and stm.ware_id = #{wareId}
+        </if>
+        order by stm.stock_take_master_id desc
+    </select>
+</mapper>

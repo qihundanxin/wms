@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.RouteTacticMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.RouteTactic">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="route" jdbcType="INTEGER" property="route"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="min_weight" jdbcType="DOUBLE" property="minWeight"/>
+        <result column="max_weight" jdbcType="DOUBLE" property="maxWeight"/>
+        <result column="min_size" jdbcType="DOUBLE" property="minSize"/>
+        <result column="max_size" jdbcType="DOUBLE" property="maxSize"/>
+        <result column="carrier_id" jdbcType="INTEGER" property="carrierId"/>
+        <result column="carrier_name" jdbcType="VARCHAR" property="carrierName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.RouteTacticCriteria"
+            resultMap="BaseResultMap">
+        select * from route_tactic rt
+        where 1=1
+        <if test="organizationId != null and organizationId != ''">
+            and rt.organization_id = #{organizationId}
+        </if>
+        <if test="wareId != null and wareId != ''">
+            and rt.ware_id = #{wareId}
+        </if>
+        <if test="state != null and state != ''">
+            and rt.state = #{state}
+        </if>
+    </select>
+</mapper>

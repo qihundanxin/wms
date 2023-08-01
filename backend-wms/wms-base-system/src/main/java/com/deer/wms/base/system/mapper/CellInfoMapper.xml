@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.CellInfoMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.Cell.CellInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="cell_id" jdbcType="INTEGER" property="cellId"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="cell_name" jdbcType="VARCHAR" property="cellName"/>
+        <result column="ground_order" jdbcType="VARCHAR" property="groundOrder"/>
+        <result column="pick_order" jdbcType="VARCHAR" property="pickOrder"/>
+        <result column="cell_type" jdbcType="INTEGER" property="cellType"/>
+        <result column="cell_use_type" jdbcType="INTEGER" property="cellUseType"/>
+        <result column="cell_attribute" jdbcType="VARCHAR" property="cellAttribute"/>
+        <result column="cell_handle" jdbcType="VARCHAR" property="cellHandle"/>
+        <result column="length" jdbcType="DOUBLE" property="length"/>
+        <result column="wide" jdbcType="DOUBLE" property="wide"/>
+        <result column="high" jdbcType="DOUBLE" property="high"/>
+        <result column="cell_abc_level" jdbcType="INTEGER" property="cellAbcLevel"/>
+        <result column="volume_limit" jdbcType="DOUBLE" property="volumeLimit"/>
+        <result column="weight_limit" jdbcType="DOUBLE" property="weightLimit"/>
+        <result column="box_limit" jdbcType="DOUBLE" property="boxLimit"/>
+        <result column="quantity_limit" jdbcType="DOUBLE" property="quantityLimit"/>
+        <result column="sku_limit" jdbcType="DOUBLE" property="skuLimit"/>
+        <result column="pallet_limit" jdbcType="DOUBLE" property="palletLimit"/>
+        <result column="x_coordinate" jdbcType="INTEGER" property="xCoordinate"/>
+        <result column="y_coordinate" jdbcType="INTEGER" property="yCoordinate"/>
+        <result column="z_coordinate" jdbcType="INTEGER" property="zCoordinate"/>
+        <result column="shelf_info_id" jdbcType="INTEGER" property="shelfInfoId"/>
+        <result column="cell_pick_type" jdbcType="INTEGER" property="cellPickType"/>
+        <result column="state" jdbcType="VARCHAR" property="state"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="s_row" jdbcType="INTEGER" property="sRow"/>
+        <result column="s_column" jdbcType="INTEGER" property="sColumn"/>
+        <result column="is_sys" jdbcType="INTEGER" property="isSys"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.base.system.model.Cell.CellInfoDto">
+        <result column="shelf_code" jdbcType="VARCHAR" property="shelfCode"/>
+        <result column="shelf_name" jdbcType="VARCHAR" property="shelfName"/>
+        <result column="shelf_describe" jdbcType="VARCHAR" property="shelfDescribe"/>
+        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="area_name" jdbcType="VARCHAR" property="areaName"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_code" jdbcType="VARCHAR" property="wareCode"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+    </resultMap>
+
+    <delete id="deleteByIds2" parameterType="java.lang.String">
+        delete
+        from cell_info
+        where id in  {#{ids}};
+    </delete>
+
+    <select id="findList" parameterType="com.deer.wms.base.system.model.Cell.CellInfoCriteria" resultMap="Dto">
+        select
+        cell.cell_id
+        ,cell.cell_code
+        ,cell.cell_name
+        ,cell.ground_order
+        ,cell.pick_order
+        ,cell.cell_type
+        ,cell.cell_use_type
+        ,cell.cell_attribute
+        ,cell.cell_handle
+        ,cell.length
+        ,cell.wide
+        ,cell.high
+        ,cell.cell_abc_level
+        ,cell.volume_limit
+        ,cell.sku_limit
+        ,cell.weight_limit
+        ,cell.box_limit
+        ,cell.quantity_limit
+        ,cell.pallet_limit
+        ,cell.x_coordinate
+        ,cell.y_coordinate
+        ,cell.z_coordinate
+        ,cell.shelf_info_id
+        ,cell.cell_pick_type
+        ,cell.state
+        ,cell.status
+        ,cell.s_row
+        ,cell.s_column
+        ,cell.is_sys
+
+
+        ,shelf.shelf_code
+        ,shelf.shelf_name
+        ,shelf.shelf_describe
+        ,area.area_code
+        ,area.area_name
+        ,area.ware_id
+
+
+        from cell_info cell
+        left join shelf_info shelf on cell.shelf_info_id = shelf.shelf_info_id
+        left join area_info area on shelf.area_id = area.area_id
+        where 1=1
+        <if test="shelfCode != null and shelfCode != ''">
+            and shelf.shelf_code = #{shelfCode}
+        </if>
+        <if test="cellId != null">
+            and cell.cell_id = #{cellId}
+        </if>
+        <if test="shelfInfoId != null">
+            and cell.shelf_info_id = #{shelfInfoId}
+        </if>
+        <if test="cellUseType != null">
+            and cell.cell_use_type = #{cellUseType}
+        </if>
+        <if test="cellPickType != null">
+            and cell.cell_pick_type = #{cellPickType}
+        </if>
+        <if test="state != null">
+            and cell.state = #{state}
+        </if>
+        <if test="cellPickType != null">
+            and cell.cell_pick_type = #{cellPickType}
+        </if>
+        <if test="cellAbcLevel != null">
+            and cell.cell_abc_level = #{cellAbcLevel}
+        </if>
+        <if test="cellCode != null">
+            and cell.cell_code = #{cellCode}
+        </if>
+        <if test="wareId != null">
+            and area.ware_id = #{wareId}
+        </if>
+        <if test="xCoordinate != null and xCoordinate !=''">
+            and cell.x_coordinate = #{xCoordinate}
+        </if>
+        <if test="yCoordinate != null and yCoordinate !=''">
+            and cell.y_coordinate = #{yCoordinate}
+        </if>
+        <if test="cellUseTypes != null">
+            and cell.cell_use_type in
+            <foreach collection="cellUseTypes" item="cellUseType" index="index" open="(" separator="," close=")">
+                #{cellUseType}
+            </foreach>
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                cell.cell_code like CONCAT('%', #{keyWord}, '%')
+                or cell.cell_name like CONCAT('%', #{keyWord}, '%')
+            </foreach>
+        </if>
+
+    </select>
+
+    <select id="findByCellUseTypes" parameterType="com.deer.wms.base.system.model.Cell.CellInfoCriteria"
+            resultMap="Dto">
+        select
+        cell.cell_id,
+        cell.cell_code
+        from cell_info cell
+
+        where 1=1
+        <if test="wareId != null">
+            and cell.ware_id = #{wareId}
+        </if>
+        <if test="cellUseTypes != null">
+            and cell.cell_use_type in
+            <foreach collection="cellUseTypes" item="cellUseType" index="index" open="(" separator="," close=")">
+                #{cellUseType}
+            </foreach>
+        </if>
+        order by cell.cell_use_type desc
+
+    </select>
+
+    <select id="findByShelfInfoId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    cell.cell_id
+    ,cell.cell_code
+    ,cell.cell_name
+    ,cell.ground_order
+    ,cell.pick_order
+    ,cell.cell_type
+    ,cell.cell_use_type
+    ,cell.cell_attribute
+    ,cell.cell_handle
+    ,cell.length
+    ,cell.wide
+    ,cell.high
+    ,cell.cell_abc_level
+    ,cell.volume_limit
+    ,cell.weight_limit
+    ,cell.box_limit
+    ,cell.quantity_limit
+    ,cell.pallet_limit
+    ,cell.x_coordinate
+    ,cell.y_coordinate
+    ,cell.z_coordinate
+    ,cell.s_row
+    ,cell.s_column
+    ,cell.shelf_info_id
+    ,cell.cell_pick_type
+    ,cell.state
+    ,cell.status
+
+
+
+    from cell_info cell
+    where cell.shelf_info_id = #{shelfInfoId}
+        order by cell.s_column desc ,cell.s_row
+  </select>
+
+    <delete id="deleteByShelfId" parameterType="java.lang.Integer">
+    delete from cell_info
+    where shelf_info_id = #{shelfInfoId}
+
+  </delete>
+
+    <select id="findByCodeAndWareId" resultMap="Dto">
+    select
+     cell.*
+
+    from cell_info cell
+
+    where cell.ware_id = #{wareId} and cell.cell_code = #{cellCode}
+
+  </select>
+
+    <select id="getSysCell" resultMap="BaseResultMap">
+    select
+     cell.cell_id
+    ,cell.cell_code
+    ,cell.ware_id
+    ,cell.cell_use_type
+    from cell_info cell
+
+
+    where cell.ware_id = #{wareId} and cell.cell_use_type = #{type} and cell.is_sys=1
+    limit 1
+  </select>
+
+    <select id="getNewInCell" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select
+    cell.cell_code
+    from
+    cell_info cell
+
+    left join inventory inven
+        on cell.cell_code = inven.cell_code
+        and inven.ware_id = #{wareId}
+    left join sjc_upper_task task
+        on cell.cell_code =task.to_cell_code
+        and task.state=0
+        and task.ware_id = #{wareId}
+    where
+        cell.ware_id =#{wareId}
+        and  cell.cell_use_type = 2
+        and (inven.inventory_id is null or inven.quantity=0)
+        and (task.sjc_upper_task_id is null  )
+        and inven.state>=0
+    order by cell.cell_id
+    limit 1
+
+  </select>
+
+    <select id="getSjcTasks" resultType="java.lang.Integer">
+    select
+    count(1)
+    from
+    sjc_upper_task task
+    left join cell_info cell on cell.cell_code = task.to_cell_code
+
+    where
+    cell.ware_id =#{wareId}
+    and cell.cell_code = #{cellCode}
+    and task.state =0
+
+
+  </select>
+
+    <select id="getInventorys" resultType="java.lang.Integer">
+    select
+    count(1)
+    from
+    inventory  inven
+    left join cell_info cell on cell.cell_code = inven.cell_code
+
+    where
+    cell.ware_id =#{wareId}
+    and cell.ware_id = #{wareId}
+    and cell.cell_code = #{cellCode}
+
+
+
+  </select>
+  
+  <select id="findByCode" resultType="com.deer.wms.base.system.model.Cell.CellInfo">
+    SELECT * FROM `cell_info`
+    WHERE cell_code = #{cellCode}
+  </select>
+
+    <select id="selectCellSku" resultType="java.lang.String">
+        select
+        item_code
+        from
+        inventory
+        where
+        ware_id =#{wareId}
+        and
+        cell_code = #{cellCode}
+    </select>
+    <select id="validatorChongfu" parameterType="com.deer.wms.system.manage.model.ValidatorCellInfoModel" resultType="java.lang.Integer">
+        select
+        count(1)
+        from cell_info
+        <where>
+            <if test="cellId != null">
+                AND cell_id != #{cellId}
+            </if>
+            <if test="cellCode != null">
+                AND cell_code = #{cellCode}
+            </if>
+            <if test="cellName != null">
+                AND cell_name = #{cellName}
+            </if>
+        </where>
+    </select>
+
+    <select id="findCellInfo" parameterType="com.deer.wms.base.system.model.Cell.CellInfo" resultMap="BaseResultMap">
+        select * from cell_info
+        <where>
+            <if test="wareId != null">
+                and ware_id = #{wareId}
+            </if>
+            <if test="cellId != null">
+                and cell_id = #{cellId}
+            </if>
+            <if test="cellCode != null and cellCode != '' ">
+                and cell_code = #{cellCode}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.InventoryMoveDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.move.InventoryMoveDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="inventory_move_detail_id" jdbcType="INTEGER" property="inventoryMoveDetailId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="inventory_id" jdbcType="INTEGER" property="inventoryId"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+        <result column="from_ware_id" jdbcType="INTEGER" property="fromWareId"/>
+        <result column="from_ware_name" jdbcType="VARCHAR" property="fromWareName"/>
+        <result column="from_organization_id" jdbcType="INTEGER" property="fromOrganizationId"/>
+        <result column="from_organization_name" jdbcType="VARCHAR" property="fromOrganizationName"/>
+        <result column="from_batch_id" jdbcType="INTEGER" property="fromBatchId"/>
+        <result column="from_batch_name" jdbcType="VARCHAR" property="fromBatchName"/>
+        <result column="from_box_code" jdbcType="VARCHAR" property="fromBoxCode"/>
+        <result column="from_cell_code" jdbcType="VARCHAR" property="fromCellCode"/>
+        <result column="from_pack_detail_id" jdbcType="INTEGER" property="fromPackDetailId"/>
+        <result column="from_pack_describe" jdbcType="VARCHAR" property="fromPackDescribe"/>
+        <result column="from_quantity" jdbcType="DOUBLE" property="fromQuantity"/>
+        <result column="to_ware_id" jdbcType="INTEGER" property="toWareId"/>
+        <result column="to_ware_name" jdbcType="VARCHAR" property="toWareName"/>
+        <result column="to_organization_id" jdbcType="INTEGER" property="toOrganizationId"/>
+        <result column="to_organization_name" jdbcType="VARCHAR" property="toOrganizationName"/>
+        <result column="to_batch_id" jdbcType="INTEGER" property="toBatchId"/>
+        <result column="to_batch_name" jdbcType="VARCHAR" property="toBatchName"/>
+        <result column="to_box_code" jdbcType="VARCHAR" property="toBoxCode"/>
+        <result column="to_cell_code" jdbcType="VARCHAR" property="toCellCode"/>
+        <result column="to_pack_detail_id" jdbcType="INTEGER" property="toPackDetailId"/>
+        <result column="to_pack_describe" jdbcType="VARCHAR" property="toPackDescribe"/>
+        <result column="to_quantity" jdbcType="DOUBLE" property="toQuantity"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.move.InventoryMoveDetailDto" extends="BaseResultMap">
+
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.move.InventoryMoveDetailCriteria" resultMap="Dto">
+        select
+        detail.inventory_move_detail_id
+        ,detail.bill_no
+        ,detail.detail_no
+        ,detail.state
+        ,detail.inventory_id
+        ,detail.item_code
+        ,detail.item_name
+        ,detail.item_type_id
+        ,detail.item_type_name
+        ,detail.from_ware_id
+        ,detail.from_ware_name
+        ,detail.from_organization_id
+        ,detail.from_organization_name
+        ,detail.from_batch_id
+        ,detail.from_batch_name
+        ,detail.from_box_code
+        ,detail.from_cell_code
+        ,detail.from_pack_detail_id
+        ,detail.from_pack_describe
+        ,detail.from_quantity
+        ,detail.to_ware_id
+        ,detail.to_ware_name
+        ,detail.to_organization_id
+        ,detail.to_organization_name
+        ,detail.to_batch_id
+        ,detail.to_batch_name
+        ,detail.to_box_code
+        ,detail.to_cell_code
+        ,detail.to_pack_detail_id
+        ,detail.to_pack_describe
+        ,detail.to_quantity
+        ,detail.memo
+        from inventory_move_detail detail
+        where 1=1
+        <if test="inventoryMoveDetailId != null">
+            and detail.inventory_move_detail_id = #{inventoryMoveDetailId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and detail.bill_no = #{billNo}
+        </if>
+        <if test="detailNo != null and detailNo !=''">
+            and detail.detail_no = #{detailNo}
+        </if>
+        <if test="state != null">
+            and detail.state = #{state}
+        </if>
+        <if test="inventoryId != null">
+            and detail.inventory_id = #{inventoryId}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and detail.item_code = #{itemCode}
+        </if>
+        <if test="itemTypeId != null ">
+            and detail.item_type_id = #{itemTypeId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                detail.bill_no like CONCAT('%', #{keyWord}, '%')
+                or detail.detail_no like CONCAT('%', #{keyWord}, '%')
+                or detail.to_ware_name like CONCAT('%', #{keyWord}, '%')
+                or detail.to_batch_name like CONCAT('%', #{keyWord}, '%')
+                or detail.to_organization_name like CONCAT('%', #{keyWord}, '%')
+                or detail.item_name like CONCAT('%', #{keyWord}, '%')
+                or detail.item_type_name like CONCAT('%', #{keyWord}, '%')
+                or detail.to_cell_code like CONCAT('%', #{keyWord}, '%')
+                or detail.to_box_code like CONCAT('%', #{keyWord}, '%')
+                or detail.to_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.memo like CONCAT('%', #{keyWord}, '%')
+                or detail.to_pack_describe like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from inventory_move_detail where bill_no = #{billNo}
+
+  </delete>
+
+</mapper>

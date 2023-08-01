@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.SerialNoMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.SerialNo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="serial_no_id" jdbcType="INTEGER" property="serialNoId"/>
+        <result column="serial_no" jdbcType="VARCHAR" property="serialNo"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="task_id" jdbcType="INTEGER" property="taskId"/>
+        <result column="inventory_id" jdbcType="INTEGER" property="inventoryId"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.SerialNoDto" extends="BaseResultMap">
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="batch_id" jdbcType="INTEGER" property="batchId"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="product_date" jdbcType="VARCHAR" property="productDate"/>
+        <result column="ex_date" jdbcType="VARCHAR" property="exDate"/>
+        <result column="in_date" jdbcType="VARCHAR" property="inDate"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.SerialNoCriteria" resultMap="Dto">
+        select
+        serial.*,
+        inv.ware_id,
+        inv.ware_name,
+        inv.organization_id,
+        inv.organization_name,
+        inv.item_code,
+        inv.item_name,
+        inv.batch_id,
+        inv.batch_name,
+        inv.pack_detail_id,
+        inv.pack_describe,
+        inv.quantity,
+        batch.product_date,
+        batch.ex_date,
+        batch.in_date
+        from serial_no serial
+        left join inventory inv on inv.inventory_id = serial.inventory_id
+        left join item_batch batch on batch.batch_id = inv.batch_id
+        where 1=1
+        and inv.state>=0
+        <if test="inventoryId != null and inventoryId != ''">
+            and serial.inventory_id = #{inventoryId}
+        </if>
+        <if test="type != null and type != ''">
+            and serial.type = #{type}
+        </if>
+        <if test="wareId != null and wareId != ''">
+            and inv.ware_id = #{wareId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                serial.itemCode like CONCAT('%', #{keyWord}, '%')
+                or serial.item_name like CONCAT('%', #{keyWord}, '%')
+
+                )
+            </foreach>
+        </if>
+    </select>
+
+    <select id="findInventoryList" parameterType="com.deer.wms.inventory.model.SerialNoCriteria" resultMap="Dto">
+        select
+        b.*,
+        inv.ware_id,
+        inv.ware_name,
+        inv.organization_id,
+        inv.organization_name,
+        inv.item_code,
+        inv.item_name,
+        inv.batch_id,
+        inv.batch_name,
+        inv.pack_detail_id,
+        inv.pack_describe,
+        inv.quantity,
+        batch.product_date,
+        batch.ex_date,
+        batch.in_date
+        from (
+        select
+        max(serial.serial_no_id) as serial_no_id
+        from serial_no serial
+        group by serial.serial_no,serial.inventory_id
+        ) a
+        inner join serial_no b on b.serial_no_id = a.serial_no_id
+        left join inventory inv on inv.inventory_id = b.inventory_id
+        left join item_batch batch on batch.batch_id = inv.batch_id
+        where 1=1
+        and inv.state>=0
+        <if test="inventoryId != null and inventoryId != ''">
+            and serial.inventory_id = #{inventoryId}
+        </if>
+        <if test="type != null and type != ''">
+            and serial.type = #{type}
+        </if>
+        <if test="wareId != null and wareId != ''">
+            and inv.ware_id = #{wareId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                serial.itemCode like CONCAT('%', #{keyWord}, '%')
+                or serial.item_name like CONCAT('%', #{keyWord}, '%')
+
+                )
+            </foreach>
+        </if>
+    </select>
+</mapper>

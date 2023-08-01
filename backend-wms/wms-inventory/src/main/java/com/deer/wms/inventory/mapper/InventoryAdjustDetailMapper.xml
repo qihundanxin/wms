@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.InventoryAdjustDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.InventoryAdjustDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="adjust_detail_id" jdbcType="INTEGER" property="adjustDetailId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="inventory_id" jdbcType="INTEGER" property="inventoryId"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="batch_id" jdbcType="INTEGER" property="batchId"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="lpn" jdbcType="VARCHAR" property="lpn"/>
+        <result column="differ_quantity" jdbcType="DOUBLE" property="differQuantity"/>
+        <result column="adjust_quantity" jdbcType="DOUBLE" property="adjustQuantity"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="create_use_id" jdbcType="INTEGER" property="createUseId"/>
+        <result column="create_use_name" jdbcType="VARCHAR" property="createUseName"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="adjust_time" jdbcType="VARCHAR" property="adjustTime"/>
+        <result column="adjust_user_id" jdbcType="INTEGER" property="adjustUserId"/>
+        <result column="adjust_user_name" jdbcType="VARCHAR" property="adjustUserName"/>
+        <result column="syn_erp" jdbcType="INTEGER" property="synErp"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.InventoryAdjustDetailDto" extends="BaseResultMap">
+        <result column="reason" jdbcType="VARCHAR" property="reason"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.InventoryAdjustDetailCriteria" resultMap="Dto">
+        SELECT
+        iad.*,
+        ia.reason,
+        ia.ware_id,
+        ia.ware_name,
+        ia.organization_id,
+        ia.organization_name,
+        inv.trans_ratio
+        FROM
+        inventory_adjust_detail iad
+        left join inventory_adjust ia
+        on ia.bill_no = iad.bill_no
+        left join inventory inv
+        on inv.inventory_id = iad.inventory_id
+        where 1=1
+        and inv.state>=0
+        <if test="billNo != null and billNo != ''">
+            and iad.bill_no = #{billNo}
+        </if>
+        <if test="adjustDetailId != null and adjustDetailId != ''">
+            and iad.adjust_detail_id = #{adjustDetailId}
+        </if>
+        <if test="state != null">
+            and iad.state = #{state}
+        </if>
+        <if test="synErp != null">
+            and iad.syn_erp = #{synErp}
+        </if>
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from inventory_adjust_detail where bill_no = #{billNo}
+  </delete>
+</mapper>

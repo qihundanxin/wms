@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.OrganizationMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.organization.Organization">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="organization_code" jdbcType="VARCHAR" property="organizationCode"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="organization_status" jdbcType="VARCHAR" property="organizationStatus"/>
+        <result column="state" jdbcType="VARCHAR" property="state"/>
+        <result column="batch_tactic_code" jdbcType="VARCHAR" property="batchTacticCode"/>
+        <result column="upper_tactic_code" jdbcType="VARCHAR" property="upperTacticCode"/>
+        <result column="qc_tactic_code" jdbcType="VARCHAR" property="qcTacticCode"/>
+        <result column="so_merge_tactic_code" jdbcType="VARCHAR" property="soMergeTacticCode"/>
+        <result column="pick_tactic_code" jdbcType="VARCHAR" property="pickTacticCode"/>
+
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.system.manage.model.organization.OrganizationDto">
+
+        <result column="batch_tactic_name" jdbcType="VARCHAR" property="batchTacticName"/>
+        <result column="upper_tactic_name" jdbcType="VARCHAR" property="upperTacticName"/>
+        <result column="qc_tactic_name" jdbcType="VARCHAR" property="qcTacticName"/>
+        <result column="so_merge_tactic_name" jdbcType="VARCHAR" property="soMergeTacticName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <delete id="deleteByCodeAndCom" parameterType="com.deer.wms.system.manage.model.organization.OrganizationCriteria">
+        delete from organization
+        where organization_id = #{organizationId}
+
+    </delete>
+
+    <select id="findList" parameterType="com.deer.wms.system.manage.model.organization.OrganizationCriteria"
+            resultMap="Dto">
+        select
+        DISTINCT
+        organization.organization_id,
+        organization.organization_name,
+        organization.organization_code,
+        organization.link_man,
+        organization.link_phone,
+        organization.memo,
+        organization.create_time,
+        organization.address,
+        organization.organization_status,
+        organization.state,
+        organization.batch_tactic_code,
+        organization.upper_tactic_code,
+        organization.qc_tactic_code,
+        organization.so_merge_tactic_code,
+        organization.pick_tactic_code,
+        bt.batch_tactic_name,
+        ut.upper_tactic_name,
+        qc.qc_tactic_name,
+        so.so_merge_tactic_name,
+        pt.description
+        from organization organization
+        left join user_organization uo on organization.organization_id = uo.organization_id
+        left join batch_tactic bt on bt.batch_tactic_code = organization.batch_tactic_code
+        left join upper_tactic ut on ut.upper_tactic_code = organization.upper_tactic_code
+        left join qc_tactic qc on qc.qc_tactic_code = organization.qc_tactic_code
+        left join so_merge_tactic so on so.so_merge_tactic_code = organization.so_merge_tactic_code
+        left join pick_tactic pt on pt.allocation_rule_code = organization.pick_tactic_code
+        where 1=1
+
+        <if test="organizationId != null and organizationId != ''">
+            and organization.organization_id = #{organizationId}
+        </if>
+        <if test="batchTacticCode != null and batchTacticCode != ''">
+            and organization.batch_tactic_code = #{batchTacticCode}
+        </if>
+        <if test="upperTacticCode != null and upperTacticCode != ''">
+            and organization.upper_tactic_code = #{upperTacticCode}
+        </if>
+        <if test="qcTacticCode != null and qcTacticCode != ''">
+            and organization.qc_tactic_code = #{qcTacticCode}
+        </if>
+        <if test="soMergeTacticCode != null and soMergeTacticCode != ''">
+            and organization.so_merge_tactic_code = #{soMergeTacticCode}
+        </if>
+        <if test="userId != null  ">
+            and uo.user_id = #{userId}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                organization.organization_name like CONCAT('%', #{keyWord}, '%')
+                or organization.address like CONCAT('%', #{keyWord}, '%')
+                or organization.organization_code like CONCAT('%', #{keyWord}, '%')
+                or organization.link_man like CONCAT('%', #{keyWord}, '%')
+                or organization.link_phone like CONCAT('%', #{keyWord}, '%')
+                or organization.memo like CONCAT('%', #{keyWord}, '%')
+                or bt.batch_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or ut.upper_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or qc.qc_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or so.so_merge_tactic_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        ORDER BY create_time desc
+
+
+    </select>
+
+    <select id="findByOrganizationCode" resultMap="Dto">
+        select
+        organization.organization_id,
+        organization.organization_name,
+        organization.organization_code,
+        organization.link_man,
+        organization.link_phone,
+        organization.memo,
+        organization.create_time,
+        organization.address,
+        organization.organization_status,
+        organization.state
+
+        from organization organization
+        where
+        organization.organization_code = #{organizationCode}
+
+    </select>
+
+    <select id="findByOrganizationName" resultMap="Dto">
+        select
+        organization.organization_id,
+        organization.organization_name,
+        organization.organization_code,
+        organization.link_man,
+        organization.link_phone,
+        organization.memo,
+        organization.create_time,
+        organization.address,
+        organization.organization_status,
+        organization.state
+
+        from organization organization
+        where
+        organization.organization_name = #{organizationName}
+
+    </select>
+</mapper>

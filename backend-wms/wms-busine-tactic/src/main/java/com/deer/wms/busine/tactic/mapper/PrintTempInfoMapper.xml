@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.PrintTempInfoMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.PrintTempInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="temp_id" jdbcType="INTEGER" property="tempId"/>
+        <result column="temp_name" jdbcType="VARCHAR" property="tempName"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="file_name" jdbcType="VARCHAR" property="fileName"/>
+        <result column="sj_type" jdbcType="INTEGER" property="sjType"/>
+        <result column="ship_code" jdbcType="VARCHAR" property="shipCode"/>
+        <result column="temp_size_type" jdbcType="VARCHAR" property="tempSizeType"/>
+        <result column="height" jdbcType="INTEGER" property="height"/>
+        <result column="width" jdbcType="INTEGER" property="width"/>
+        <result column="temp_html" jdbcType="LONGVARCHAR" property="tempHtml"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+    </resultMap>
+
+    <select id="findByWare" resultMap="BaseResultMap">
+    select
+    *
+    from
+    print_temp_info
+    where
+    ware_id = #{wareId} and type = #{type}
+    and
+    state =1
+    limit 1
+  </select>
+
+    <select id="findByWareAndShip" resultMap="BaseResultMap">
+    select
+    *
+    from
+    print_temp_info
+    where
+    ware_id = #{wareId} and type = '快递面单' and ship_code = #{shipCode}
+    and
+    state =1
+    limit 1
+  </select>
+
+    <select id="findList" resultMap="BaseResultMap"
+            parameterType="com.deer.wms.busine.tactic.model.PrintTempInfoCriteria">
+        select
+        *
+        from
+        print_temp_info
+        where 1=1
+        <if test="wareId != null">
+            and ware_id = #{wareId}
+        </if>
+        <if test="type != null and type != ''">
+            and type = #{type}
+        </if>
+
+    </select>
+</mapper>

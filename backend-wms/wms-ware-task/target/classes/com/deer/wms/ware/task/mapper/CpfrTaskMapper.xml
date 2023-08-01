@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.CpfrTaskMapper">
+  <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.CpfrTask">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="cpfr_task_id" jdbcType="INTEGER" property="cpfrTaskId" />
+    <result column="ware_id" jdbcType="INTEGER" property="wareId" />
+    <result column="ware_name" jdbcType="VARCHAR" property="wareName" />
+    <result column="organization_id" jdbcType="INTEGER" property="organizationId" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+    <result column="item_code" jdbcType="VARCHAR" property="itemCode" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="quantity" jdbcType="DOUBLE" property="quantity" />
+    <result column="from_cell_code" jdbcType="VARCHAR" property="fromCellCode" />
+    <result column="to_cell_code" jdbcType="VARCHAR" property="toCellCode" />
+    <result column="commit_cell_code" jdbcType="VARCHAR" property="commitCellCode" />
+    <result column="commit_user_id" jdbcType="INTEGER" property="commitUserId" />
+    <result column="commit_user_name" jdbcType="VARCHAR" property="commitUserName" />
+    <result column="commit_time" jdbcType="VARCHAR" property="commitTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="fromInventoryId" jdbcType="INTEGER" property="type" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+
+
+  <update id="cancel">
+    UPDATE
+    cpfr_task task
+    left join inventory inven on task.from_inventory_id = inven.inventory_id
+    set
+    task.state =-1
+    where inven.quantity &lt; task.quantity
+  </update>
+
+  <select id="findSame" resultMap="BaseResultMap" >
+    select
+    *
+    from cpfr_task
+    where
+    state=0
+    and ware_id  =#{wareId}
+    and organization_id  =#{organizationId}
+    and item_code  =#{itemCode}
+    and from_inventory_id  =#{fromInventoryId}
+    and to_cell_code  =#{toCellCode}
+  </select>
+
+  <update id="update" parameterType="com.deer.wms.ware.task.model.CpfrTask">
+    update cpfr_task
+    <set>
+
+      <if test="wareId != null">
+        ware_id = #{wareId,jdbcType=INTEGER},
+      </if>
+      <if test="wareName != null">
+        ware_name = #{wareName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="organizationName != null">
+        organization_name = #{organizationName,jdbcType=VARCHAR},
+      </if>
+
+      <if test="itemCode != null">
+        item_code = #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=DOUBLE},
+      </if>
+
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+
+      <if test="type != null">
+        `type` = #{type,jdbcType=INTEGER},
+      </if>
+
+      <if test="fromInventoryId != null">
+        from_inventory_id = #{fromInventoryId,jdbcType=INTEGER},
+      </if>
+
+      <if test="toCellCode != null">
+        to_cell_code = #{toCellCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fromCellCode != null">
+        from_cell_code = #{fromCellCode,jdbcType=VARCHAR},
+      </if>
+
+      <if test="commitTime != null">
+        commit_time = #{commitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commitUserId != null">
+        commit_user_id = #{commitUserId,jdbcType=INTEGER},
+      </if>
+      <if test="commitUserName != null">
+        commit_user_name = #{commitUserName,jdbcType=VARCHAR},
+      </if>
+
+
+
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        version = version + 1,
+      </if>
+    </set>
+    where cpfr_task_id = #{cpfrTaskId,jdbcType=INTEGER} and version = #{version}
+  </update>
+
+
+</mapper>

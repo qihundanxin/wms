@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- @author xuesinuo -->
+<mapper namespace="com.deer.wms.project.root.log.operation.dao.LogDataOperationMapper">
+    <insert id="save">
+        INSERT INTO `log_data_operation`(
+            `ware_id`, `module`, `operation`, `operation_code`, `operation_id`, 
+            `before_data`, `after_data`, `message`, `timer`, `operation_user_id`,
+            `operation_user_name`, `operation_datetime`, `uuid`
+        ) VALUES (
+            #{wareId}, #{module}, #{operation}, #{operationCode}, #{operationId},
+            #{beforeData}, #{afterData}, #{message}, #{timer}, #{operationUserId}, 
+            #{operationUserName}, #{operationDatetime}, #{uuid}
+        ) 
+    </insert>
+</mapper>

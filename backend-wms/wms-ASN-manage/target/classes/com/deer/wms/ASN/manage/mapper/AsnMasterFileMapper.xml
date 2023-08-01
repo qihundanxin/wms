@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.AsnMasterFileMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.file.AsnMasterFile">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="asn_master_file_id" jdbcType="INTEGER" property="asnMasterFileId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="bill_type" jdbcType="INTEGER" property="billType"/>
+        <result column="request_buy_bill_no" jdbcType="VARCHAR" property="requestBuyBillNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="order_no" jdbcType="INTEGER" property="orderNo"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="asn_state" jdbcType="INTEGER" property="asnState"/>
+        <result column="expect_time" jdbcType="TIMESTAMP" property="expectTime"/>
+        <result column="asn_udf_hs1" jdbcType="VARCHAR" property="asnUdfHs1"/>
+        <result column="asn_udf_hs2" jdbcType="VARCHAR" property="asnUdfHs2"/>
+        <result column="asn_udf_hs3" jdbcType="VARCHAR" property="asnUdfHs3"/>
+        <result column="supplier_id" jdbcType="INTEGER" property="supplierId"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="carrier_code" jdbcType="VARCHAR" property="carrierCode"/>
+        <result column="quality_state" jdbcType="INTEGER" property="qualityState"/>
+        <result column="platform_code" jdbcType="VARCHAR" property="platformCode"/>
+        <result column="salesman" jdbcType="VARCHAR" property="salesman"/>
+        <result column="loading_place" jdbcType="VARCHAR" property="loadingPlace"/>
+        <result column="delivery_place" jdbcType="VARCHAR" property="deliveryPlace"/>
+        <result column="traffic_describe" jdbcType="VARCHAR" property="trafficDescribe"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="file_time" jdbcType="TIMESTAMP" property="fileTime"/>
+        <result column="file_user_id" jdbcType="INTEGER" property="fileUserId"/>
+        <result column="file_user_name" jdbcType="VARCHAR" property="fileUserName"/>
+        <result column="bill_source" jdbcType="INTEGER" property="billSource"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="is_serial_no" jdbcType="INTEGER" property="isSerialNo"/>
+        <result column="is_print" jdbcType="INTEGER" property="isPrint"/>
+        <result column="asn_type" jdbcType="INTEGER" property="asnType"/>
+
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ASN.manage.model.file.AsnMasterFileDto" extends="BaseResultMap">
+        <result column="carrier_name" jdbcType="VARCHAR" property="carrierName"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+
+        <result column="car_type" jdbcType="VARCHAR" property="carType"/>
+        <result column="car_no" jdbcType="VARCHAR" property="carNo"/>
+        <result column="driver" jdbcType="VARCHAR" property="driver"/>
+        <result column="driver_phone" jdbcType="VARCHAR" property="driverPhone"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.file.AsnMasterFileCriteria" resultMap="Dto">
+        select
+        master.asn_master_file_id
+        ,master.bill_no
+        ,master.bill_type
+        ,master.request_buy_bill_no
+        ,master.state
+        ,master.order_no
+        ,master.ware_id
+        ,master.ware_name
+        ,master.organization_id
+        ,master.organization_name
+        ,master.create_time
+        ,master.create_user_id
+        ,master.create_user_name
+        ,master.asn_state
+        ,master.expect_time
+        ,master.supplier_id
+        ,master.supplier_name
+        ,master.carrier_code
+        ,master.quality_state
+        ,master.platform_code
+        ,master.salesman
+        ,master.loading_place
+        ,master.delivery_place
+        ,master.traffic_describe
+        ,master.asn_udf_hs1
+        ,master.asn_udf_hs2
+        ,master.asn_udf_hs3
+        ,master.insert_type
+        ,master.file_time
+        ,master.file_user_id
+        ,master.file_user_name
+        ,master.bill_source
+        ,master.memo
+        ,master.is_serial_no
+        ,master.is_print
+        ,master.asn_type
+
+
+        ,carrier.carrier_name
+        ,carrier.link_man
+        ,carrier.link_phone
+        ,carrier.type
+        ,cd.car_type
+        ,cd.car_no
+        ,cd.driver
+        ,cd.driver_phone
+
+        from asn_master_file master
+        left join carrier carrier on carrier.carrier_code = master.carrier_code
+        left join carrier_detail cd on master.carrier_code = cd.carrier_code
+        where 1=1
+
+        <if test="asnMasterFileId != null">
+            and master.asn_master_file_id = #{asnMasterFileId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and master.bill_no = #{billNo}
+        </if>
+        <if test="wareId != null">
+            and master.ware_id = #{wareId}
+        </if>
+        <if test="organizationId != null">
+            and master.organization_id = #{organizationId}
+        </if>
+        <if test="supplierId != null">
+            and master.supplier_id = #{supplierId}
+        </if>
+        <if test="state != null">
+            and master.state = #{state}
+        </if>
+        <if test="asnState != null">
+            and master.asn_state = #{asnState}
+        </if>
+        <if test="createUserId != null">
+            and master.create_user_id = #{createUserId}
+        </if>
+        <if test="createTime != null and createTime !=''">
+            and master.create_time = #{createTime}
+        </if>
+        <if test="expectTime != null and expectTime !=''">
+            and master.expect_time = #{expectTime}
+        </if>
+        <if test="billType != null">
+            and master.bill_type = #{billType}
+        </if>
+        <if test="insertType != null">
+            and master.insert_type = #{insertType}
+        </if>
+        <if test="carrierCode != null and carrierCode !=''">
+            and master.carrier_code = #{carrierCode}
+        </if>
+        <if test="orderNo != null">
+            and master.order_no = #{orderNo}
+        </if>
+        <if test="requestBuyBillNo != null and requestBuyBillNo !=''">
+            and master.request_buy_bill_no = #{requestBuyBillNo}
+        </if>
+        <if test="carrierName != null and carrierName !=''">
+            and carrier.carrier_name = #{carrierName}
+        </if>
+        <if test="linkMan != null and linkMan !=''">
+            and carrier.link_man = #{linkMan}
+        </if>
+        <if test="linkPhone != null and linkPhone !=''">
+            and carrier.link_phone = #{linkPhone}
+        </if>
+        <if test="type != null and type !=''">
+            and carrier.type = #{type}
+        </if>
+        <if test="carType != null and carType !=''">
+            and cd.car_type = #{carType}
+        </if>
+        <if test="carNo != null and carNo !=''">
+            and cd.car_no = #{carNo}
+        </if>
+        <if test="driver != null and driver !=''">
+            and cd.driver = #{driver}
+        </if>
+        <if test="driverPhone != null and driverPhone !=''">
+            and cd.driver_phone = #{driverPhone}
+        </if>
+        <if test="fileTime != null and fileTime !=''">
+            and master.file_time = #{fileTime}
+        </if>
+        <if test="fileUserId != null and fileUserId !=''">
+            and master.file_user_id = #{fileUserId}
+        </if>
+        <if test="asnType != null ">
+            and master.asn_type = #{asnType}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                master.bill_no like CONCAT('%', #{keyWord}, '%')
+                or master.ware_name like CONCAT('%', #{keyWord}, '%')
+                or master.organization_name like CONCAT('%', #{keyWord}, '%')
+                or master.supplier_name like CONCAT('%', #{keyWord}, '%')
+                or master.memo like CONCAT('%', #{keyWord}, '%')
+                or master.create_user_name like CONCAT('%', #{keyWord}, '%')
+                or carrier.carrier_name like CONCAT('%', #{keyWord}, '%')
+                or carrier.link_man like CONCAT('%', #{keyWord}, '%')
+                or carrier.link_phone like CONCAT('%', #{keyWord}, '%')
+                or cd.car_type like CONCAT('%', #{keyWord}, '%')
+                or cd.car_no like CONCAT('%', #{keyWord}, '%')
+                or cd.driver like CONCAT('%', #{keyWord}, '%')
+                or cd.driver_phone like CONCAT('%', #{keyWord}, '%')
+                or master.create_user_name like CONCAT('%', #{keyWord}, '%')
+                or master.file_user_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        group by master.bill_no
+        order by master.asn_master_file_id desc
+
+    </select>
+</mapper>

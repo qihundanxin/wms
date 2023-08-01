@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.ShipBoxDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.ShipBoxDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="ship_box_detail_id" jdbcType="INTEGER" property="shipBoxDetailId"/>
+        <result column="ship_bill_code" jdbcType="VARCHAR" property="shipBillCode"/>
+        <result column="ship_box_id" jdbcType="INTEGER" property="shipBoxId"/>
+    </resultMap>
+
+    <select id="findList" resultMap="BaseResultMap" parameterType="com.deer.wms.ware.task.model.ShipBoxDetailCriteria">
+        select
+        *
+        from ship_box_detail detail
+        left join ship_box box on detail.ship_box_id = box.ship_box_id
+        where 1=1
+        <if test="shipBoxId != null">
+            and detail.ship_box_id = #{shipBoxId}
+        </if>
+        <if test="shipBoxCode != null">
+            and box.ship_box_code = #{shipBoxCode}
+        </if>
+    </select>
+</mapper>

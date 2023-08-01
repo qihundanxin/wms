@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.ItemInfoMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.Item.ItemInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_bar_code" jdbcType="VARCHAR" property="itemBarCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="item_type_code" jdbcType="VARCHAR" property="itemTypeCode"/>
+        <result column="upper_limit" jdbcType="INTEGER" property="upperLimit"/>
+        <result column="floor_limit" jdbcType="INTEGER" property="floorLimit"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="default_price" jdbcType="DOUBLE" property="defaultPrice"/>
+        <result column="weight" jdbcType="VARCHAR" property="weight"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="pack_code" jdbcType="VARCHAR" property="packCode"/>
+        <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="supplier_id" jdbcType="INTEGER" property="supplierId"/>
+        <result column="batch_tactic_code" jdbcType="VARCHAR" property="batchTacticCode"/>
+        <result column="upper_tactic_code" jdbcType="VARCHAR" property="upperTacticCode"/>
+        <result column="qc_tactic_code" jdbcType="VARCHAR" property="qcTacticCode"/>
+        <result column="abc_level" jdbcType="INTEGER" property="abcLevel"/>
+        <result column="item_status" jdbcType="VARCHAR" property="itemStatus"/>
+        <result column="pick_tactic_code" jdbcType="VARCHAR" property="pickTacticCode"/>
+        <result column="turnover_tactic_code" jdbcType="VARCHAR" property="turnoverTacticCode"/>
+        <result column="category_id" jdbcType="VARCHAR" property="categoryId"/>
+        <result column="category_id2" jdbcType="VARCHAR" property="categoryId2"/>
+        <result column="en_category" jdbcType="VARCHAR" property="enCategory"/>
+        <result column="en_product" jdbcType="VARCHAR" property="enProduct"/>
+        <result column="brand" jdbcType="VARCHAR" property="brand"/>
+        <result column="item_desc" jdbcType="VARCHAR" property="itemDesc"/>
+        <result column="short_desc" jdbcType="VARCHAR" property="shortDesc"/>
+        <result column="stock" jdbcType="BIGINT" property="stock"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="item_length" jdbcType="VARCHAR" property="itemLength"/>
+        <result column="item_width" jdbcType="VARCHAR" property="itemWidth"/>
+        <result column="item_height" jdbcType="VARCHAR" property="itemHeight"/>
+        <result column="pound" jdbcType="VARCHAR" property="pound"/>
+        <result column="weighting" jdbcType="BIT" property="weighting"/>
+        <result column="unpacking" jdbcType="BIT" property="unpacking"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.base.system.model.Item.ItemInfoDto">
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+        <result column="pack_name" jdbcType="VARCHAR" property="packName"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode"/>
+        <result column="batch_tactic_name" jdbcType="VARCHAR" property="batchTacticName"/>
+        <result column="upper_tactic_name" jdbcType="VARCHAR" property="upperTacticName"/>
+        <result column="qc_tactic_name" jdbcType="VARCHAR" property="qcTacticName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="turnover_description" jdbcType="VARCHAR" property="turnoverDescription"/>
+
+        <collection property="upcs" ofType="com.deer.wms.base.system.model.ItemUpc">
+            <result column="item_upc_id" jdbcType="INTEGER" property="itemUpcId" />
+            <result column="upc" jdbcType="VARCHAR" property="upc" />
+            <result column="item_code" jdbcType="VARCHAR" property="itemCode" />
+            <result column="item_id" jdbcType="INTEGER" property="itemId" />
+            <result column="organization_id" jdbcType="INTEGER" property="organizationId" />
+            <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+            <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+            <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+            <result column="state" jdbcType="INTEGER" property="state" />
+        </collection>
+
+        <collection property="packDetails" ofType="com.deer.wms.base.system.model.Pack.PackDetail">
+
+            <id column="pack_detail_id1" jdbcType="INTEGER" property="packDetailId"/>
+            <result column="pack_describe1" jdbcType="VARCHAR" property="packDescribe"/>
+
+            <result column="trans_ratio1" jdbcType="DOUBLE" property="transRatio"/>
+        </collection>
+    </resultMap>
+
+    <select id="findByCode" resultMap="Dto">
+        select
+        item.*
+        ,iupc.upc
+        ,pd.pack_detail_id as pack_detail_id1
+        ,pd.pack_describe as pack_describe1
+        ,pd.trans_ratio as trans_ratio1
+        from
+        item_info item
+        left join item_upc iupc on item.id = iupc.item_id
+        left join pack_detail pd on item.pack_code = pd.pack_code and pd.state=1
+        where
+
+        (item.item_code = #{itemCode}
+        or iupc.upc = #{itemCode})
+        and item.organization_id = #{organizationId}
+
+
+
+    </select>
+
+    <select id="findByItemCode" resultMap="BaseResultMap">
+        select
+        *
+        from item_info
+        where
+         item_code = #{itemCode}
+    </select>
+
+    <select id="findList" parameterType="com.deer.wms.base.system.model.Item.ItemInfoCriteria" resultMap="Dto">
+        select
+        item.id
+        ,item.category_id
+        ,item.category_id2
+        ,item.en_category
+        ,item.en_product
+        ,item.brand
+        ,item.item_desc
+        ,item.short_desc
+        ,item.stock
+        ,item.status
+        ,item.url
+        ,item.item_code
+        ,item.item_bar_code
+        ,item.item_name
+        ,item.item_type_code
+        ,item.upper_limit
+        ,item.floor_limit
+        ,item.memo
+        ,item.img_url
+        ,item.default_price
+        ,item.weight
+        ,item.spec
+        ,item.model
+        ,item.organization_id
+        ,item.pack_code
+        ,item.item_type_id
+        ,item.supplier_id
+        ,item.batch_tactic_code
+        ,item.upper_tactic_code
+        ,item.qc_tactic_code
+        ,item.abc_level
+        ,item.item_status
+        ,item.pick_tactic_code
+        ,item.turnover_tactic_code
+        ,item.item_length
+        ,item.item_width
+        ,item.item_height
+        ,item.pound
+        ,item.weighting
+        ,item.unpacking
+        ,type.item_type_name
+        ,pm.pack_name
+        ,organization.organization_name
+        ,supplier.supplier_name
+        ,supplier.supplier_code
+        ,bt.batch_tactic_name
+        ,ut.upper_tactic_name
+        ,qc.qc_tactic_name
+
+
+        ,iupc.item_upc_id
+
+        ,iupc.upc
+
+
+        from item_info item
+        left join item_upc iupc on item.id = iupc.item_id
+
+        left join item_type type on item.item_type_id = type.item_type_id
+        left join pack_master pm on item.pack_code = pm.pack_code
+        left join organization organization on item.organization_id = organization.organization_id
+        left join supplier_manage supplier on supplier.supplier_id = item.supplier_id
+        left join batch_tactic bt on bt.batch_tactic_code = item.batch_tactic_code
+        left join upper_tactic ut on ut.upper_tactic_code = item.upper_tactic_code
+        left join qc_tactic qc on qc.qc_tactic_code = item.qc_tactic_code
+       -- left join pick_tactic pt on pt.allocation_rule_code = item.pick_tactic_code
+      --  left join turnover_tactic tt on tt.turnover_code = item.turnover_tactic_code
+        where 1=1
+        <if test="organizationId != null and organizationId != ''">
+            and organization.organization_id = #{organizationId}
+        </if>
+        <if test="packCode != null and packCode != ''">
+            and pm.pack_code = #{packCode}
+        </if>
+        <if test="itemTypeCode != null and itemTypeCode != ''">
+            and item.item_type_code = #{itemTypeCode}
+        </if>
+        <if test="itemTypeId != null and itemTypeId != ''">
+            and item.item_type_id = #{itemTypeId}
+        </if>
+        <if test="supplierId != null and supplierId != ''">
+            and supplier.supplier_id = #{supplierId}
+        </if>
+        <if test="batchTacticCode != null and batchTacticCode != ''">
+            and item.batch_tactic_code = #{batchTacticCode}
+        </if>
+        <if test="upperTacticCode != null and upperTacticCode != ''">
+            and item.upper_tactic_code = #{upperTacticCode}
+        </if>
+        <if test="qcTacticCode != null and qcTacticCode != ''">
+            and item.qc_tactic_code = #{qcTacticCode}
+        </if>
+        <if test="abcLevel != null and abcLevel != ''">
+            and item.abc_level = #{abcLevel}
+        </if>
+        <if test="itemCode != null and abcLevel != ''">
+            and
+            (item.item_code = #{itemCode}
+            or iupc.upc = #{itemCode})
+        </if>
+        <if test="itemStatus != null and itemStatus != ''">
+            and item.item_status = #{itemStatus}
+        </if>
+        <if test="noUpc != null  ">
+            and iupc.item_id is null
+        </if>
+        <if test="weighting != null">
+            and item.weighting = #{weighting}
+        </if>
+        <if test="unpacking != null">
+            and item.unpacking = #{unpacking}
+        </if>
+        <if test="ids != null and ids.size != 0">
+            and item.id in
+            <foreach collection="ids" item="idxx" index="index" open="(" separator="," close=")">
+                #{idxx}
+            </foreach>
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                item.item_code like CONCAT('%', #{keyWord}, '%')
+                or item.item_name like CONCAT('%', #{keyWord}, '%')
+                or item.memo like CONCAT('%', #{keyWord}, '%')
+                or item.spec like CONCAT('%', #{keyWord}, '%')
+                or item.model like CONCAT('%', #{keyWord}, '%')
+                or item.default_price like CONCAT('%', #{keyWord}, '%')
+                or item.pack_code like CONCAT('%', #{keyWord}, '%')
+                or organization.organization_name like CONCAT('%', #{keyWord}, '%')
+                or type.item_type_name like CONCAT('%', #{keyWord}, '%')
+                or pm.pack_name like CONCAT('%', #{keyWord}, '%')
+                or bt.batch_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or ut.upper_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or qc.qc_tactic_name like CONCAT('%', #{keyWord}, '%')
+
+                )
+            </foreach>
+        </if>
+        order by item.id
+
+
+    </select>
+
+
+    <select id="selectItem" parameterType="com.deer.wms.base.system.model.Item.ItemInfoCriteria" resultMap="Dto">
+        select
+        item.id
+        ,item.item_code
+        ,item.pack_code
+
+        ,item.item_name
+        ,item.item_type_code
+
+        ,item.memo
+        ,item.img_url
+
+        ,item.spec
+        ,item.model
+        ,item.organization_id
+
+        ,iupc.item_upc_id
+
+        ,iupc.item_id
+        ,iupc.upc
+        ,item.item_height
+        ,item.item_width
+        ,item.item_height
+        ,item.pound
+        ,pm.pack_name
+      --  ,iupc.create_time
+      --  ,iupc.create_user_id
+      --  ,iupc.create_user_name
+       -- ,iupc.state
+      --  ,iupc.organization_id
+
+
+        from item_info item
+        left join item_upc iupc on item.id = iupc.item_id
+        left join pack_master pm on item.pack_code = pm.pack_code
+
+        where 1=1
+        <if test="organizationId != null and organizationId != ''">
+            and item.organization_id = #{organizationId}
+        </if>
+
+        <if test="itemTypeCode != null and itemTypeCode != ''">
+            and item.item_type_code = #{itemTypeCode}
+        </if>
+        <if test="itemTypeId != null and itemTypeId != ''">
+            and item.item_type_id = #{itemTypeId}
+        </if>
+
+        <if test="abcLevel != null and abcLevel != ''">
+            and item.abc_level = #{abcLevel}
+        </if>
+        <if test="itemCode != null and itemCode != ''">
+            and
+
+            (
+            item.item_code = #{itemCode}
+            or iupc.upc = #{itemCode}
+            )
+        </if>
+        <if test="itemStatus != null and itemStatus != ''">
+            and item.item_status = #{itemStatus}
+        </if>
+        <if test="ids != null and ids.size != 0">
+            and item.id in
+            <foreach collection="ids" item="idxx" index="index" open="(" separator="," close=")">
+                #{idxx}
+            </foreach>
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                 item.item_code like CONCAT('%', #{keyWord}, '%')
+                or item.item_name like CONCAT('%', #{keyWord}, '%')
+                or item.memo like CONCAT('%', #{keyWord}, '%')
+                or item.spec like CONCAT('%', #{keyWord}, '%')
+                or item.model like CONCAT('%', #{keyWord}, '%')
+                or iupc.upc like CONCAT('%', #{keyWord}, '%')
+
+
+            </foreach>
+        </if>
+        order by item.id
+
+
+    </select>
+
+
+    <select id="deleteByCode" parameterType="java.lang.String">
+    delete from item_info where item_code = #{itemCode}
+
+  </select>
+
+    <select id="itemInfoFindByItemTypeId" resultMap="Dto">
+        select item.id
+             , item.category_id
+             , item.category_id2
+             , item.en_category
+             , item.en_product
+             , item.brand
+             , item.item_desc
+             , item.short_desc
+             , item.stock
+             , item.status
+             , item.url
+             , item.item_code
+             , item.item_bar_code
+             , item.item_name
+             , item.item_type_code
+             , item.upper_limit
+             , item.floor_limit
+             , item.memo
+             , item.default_price
+             , item.weight
+
+    ,item.spec
+    ,item.model
+    ,item.organization_id
+    ,item.pack_code
+    ,item.item_type_id
+    ,item.supplier_id
+    ,item.batch_tactic_code
+    ,item.item_length
+    ,item.item_width
+    ,item.item_height
+    ,item.pound
+
+    ,type.item_type_name
+    ,pm.pack_name
+    ,organization.organization_name
+    ,supplier.supplier_name
+    ,supplier.supplier_code
+
+    from item_info item
+    left join item_type type on item.item_type_id = type.item_type_id
+    left join pack_master pm on item.pack_code = pm.pack_code
+    left join organization organization on item.organization_id = organization.organization_id
+    left join supplier_manage supplier on supplier.supplier_id = item.supplier_id
+
+    where item.item_type_id =#{itemTypeId}
+
+  </select>
+
+    <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    item.id
+        ,item.category_id
+        ,item.category_id2
+        ,item.en_category
+        ,item.en_product
+        ,item.brand
+        ,item.item_desc
+        ,item.short_desc
+        ,item.stock
+        ,item.status
+        ,item.url
+    ,item.item_code
+    ,item.item_bar_code
+    ,item.item_name
+    ,item.item_type_code
+    ,item.upper_limit
+    ,item.floor_limit
+    ,item.memo
+    ,item.default_price
+    ,item.weight
+    ,item.supplier_code
+    ,item.spec
+    ,item.model
+    ,item.organization_id
+    ,item.pack_code
+    ,item.item_type_id
+    ,item.supplier_id
+    ,item.batch_tactic_code
+    ,item.item_length
+    ,item.item_width
+    ,item.item_height
+    ,item.pound
+
+
+    from item_info item
+
+    where item.item_name = #{itemName}
+
+  </select>
+
+    <select id="selectItemWeightAndSpec" resultType="com.deer.wms.base.system.model.Item.ItemInfo">
+        select * from item_info item where item.item_code = #{itemCode} and item.organization_id = #{organizationId}
+    </select>
+
+    <select id="findBySkuOrUpc" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select item.*
+        from item_info item
+        left join item_upc iupc on iupc.item_id = item.id
+        where item.item_code = #{code}
+        or item.item_bar_code = #{code}
+        or iupc.upc = #{code}
+    </select>
+    
+    <select id="findItemByIdOrCode" resultMap="Dto">
+        select
+        item.*
+        ,organization.organization_name
+        ,supplier.supplier_name
+        from item_info item
+        left join supplier_manage supplier on supplier.supplier_id = item.supplier_id
+        left join organization organization on item.organization_id = organization.organization_id
+        <where>
+            <if test="id != null">
+                and item.id = #{id}
+            </if>
+            <if test="itemCode != null and itemCode != '' ">
+                and item.item_code = #{itemCode}
+            </if>
+        </where>
+    </select>
+
+</mapper>

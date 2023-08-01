@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.RequestBuyDetailFileMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.file.RequestBuyDetailFile">
+        <!--
+          WARNING - @mbg.generated
+        -->
+
+        <id column="request_buy_detail_id" jdbcType="INTEGER" property="requestBuyDetailId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="expect_quantity" jdbcType="DOUBLE" property="expectQuantity"/>
+        <result column="accept_quantity" jdbcType="DOUBLE" property="acceptQuantity"/>
+        <result column="asn_quantity" jdbcType="DOUBLE" property="asnQuantity"/>
+        <result column="accept_time" jdbcType="TIMESTAMP" property="acceptTime"/>
+        <result column="batch_tactic_code" jdbcType="VARCHAR" property="batchTacticCode"/>
+        <result column="po_udf_ds1" jdbcType="VARCHAR" property="poUdfDs1"/>
+        <result column="po_udf_ds2" jdbcType="VARCHAR" property="poUdfDs2"/>
+        <result column="po_udf_ds3" jdbcType="VARCHAR" property="poUdfDs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+    </resultMap>
+    <resultMap id="Dto" type="com.deer.wms.ASN.manage.model.file.RequestBuyDetailFileDto" extends="BaseResultMap">
+        <result column="batch_tactic_name" jdbcType="VARCHAR" property="batchTacticName"/>
+        <result column="upper_tactic_name" jdbcType="VARCHAR" property="upperTacticName"/>
+        <result column="pack_code" jdbcType="VARCHAR" property="packCode"/>
+        <result column="pack_name" jdbcType="VARCHAR" property="packName"/>
+        <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.file.RequestBuyDetailFileCriteria"
+            resultMap="Dto">
+        select
+        detail.request_buy_detail_id
+        ,detail.bill_no
+        ,detail.detail_no
+        ,detail.item_code
+        ,detail.item_name
+        ,detail.pack_detail_id
+        ,detail.pack_describe
+        ,detail.state
+        ,detail.expect_quantity
+        ,detail.accept_quantity
+        ,detail.asn_quantity
+        ,detail.accept_time
+        ,detail.batch_tactic_code
+        ,detail.po_udf_ds1
+        ,detail.po_udf_ds2
+        ,detail.po_udf_ds3
+        ,detail.memo
+
+
+        ,item.spec
+        ,item.model
+
+
+        ,pm.pack_code
+        ,pm.pack_name
+        ,type.item_type_id
+        ,type.item_type_name
+
+
+        ,tactic.batch_tactic_name
+        ,upper.upper_tactic_name
+        from request_buy_detail detail
+        left join batch_tactic tactic on detail.batch_tactic_code = tactic.batch_tactic_code
+        left join item_info item on item.item_code = detail.item_code
+        left join pack_master pm on item.pack_code = pm.pack_code
+        left join item_type type on item.item_type_id = type.item_type_id
+        left join upper_tactic upper on item.upper_tactic_code = upper.upper_tactic_code
+        where 1=1
+        <if test="requestBuyDetailId != null">
+            and detail.request_buy_deatil_id = #{requestBuyDetailId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and detail.bill_no = #{billNo}
+        </if>
+        <if test="detailNo != null">
+            and detail.detail_no = #{detailNo}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and detail.item_code = #{itemCode}
+        </if>
+        <if test="packDetailId != null">
+            and detail.pack_detail_id = #{packDetailId}
+        </if>
+        <if test="state != null">
+            and detail.state = #{state}
+        </if>
+        <if test="expectQuantity != null and expectQuantity !=''">
+            and detail.expect_quantity = #{expectQuantity}
+        </if>
+        <if test="acceptQuantity != null and acceptQuantity !=''">
+            and detail.accept_quantity = #{acceptQuantity}
+        </if>
+        <if test="acceptTime != null and acceptTime !=''">
+            and detail.accept_time = #{acceptTime}
+        </if>
+        <if test="batchTacticCode != null">
+            and detail.batch_tactic_code = #{batchTacticCode}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                detail.bill_no like CONCAT('%', #{keyWord}, '%')
+                or detail.detailNo like CONCAT('%', #{keyWord}, '%')
+                or detail.supplier_name like CONCAT('%', #{keyWord}, '%')
+                or detail.item_name like CONCAT('%', #{keyWord}, '%')
+                or detail.pack_describe like CONCAT('%', #{keyWord}, '%')
+                or detail.state like CONCAT('%', #{keyWord}, '%')
+                or detail.expect_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.accept_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.asn_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.accept_time like CONCAT('%', #{keyWord}, '%')
+                or tactic.batch_tactic_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by detail.detail_no
+
+    </select>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.PrintDetailMapper">
+  <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.PrintDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="print_detail_id" jdbcType="INTEGER" property="printDetailId" />
+    <result column="print_ip_id" jdbcType="INTEGER" property="printIpId" />
+    <result column="print_ip" jdbcType="VARCHAR" property="printIp" />
+    <result column="printer_index" jdbcType="INTEGER" property="printerIndex" />
+    <result column="print_size" jdbcType="VARCHAR" property="printSize" />
+    <result column="print_top" jdbcType="INTEGER" property="printTop" />
+    <result column="print_left" jdbcType="INTEGER" property="printLeft" />
+    <result column="print_width" jdbcType="INTEGER" property="printWidth" />
+    <result column="print_height" jdbcType="INTEGER" property="printHeight" />
+    <result column="print_fangxiang" jdbcType="INTEGER" property="printFangxiang" />
+    <result column="print_duplex" jdbcType="INTEGER" property="printDuplex" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+</mapper>

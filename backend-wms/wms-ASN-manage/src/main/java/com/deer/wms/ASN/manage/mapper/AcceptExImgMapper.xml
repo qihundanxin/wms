@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.AcceptExImgMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.AcceptExImg">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="accept_ex_img_id" jdbcType="INTEGER" property="acceptExImgId"/>
+        <result column="accept_ex_id" jdbcType="INTEGER" property="acceptExId"/>
+        <result column="ex_img_url" jdbcType="VARCHAR" property="exImgUrl"/>
+        <result column="ship_bill_code" jdbcType="VARCHAR" property="shipBillCode"/>
+    </resultMap>
+
+    <select id="findByAcceptExId" resultType="java.lang.String">
+    select
+    ex_img_url
+    from accept_ex_img
+    where accept_ex_id  =#{acceptExId}
+  </select>
+
+    <select id="findList" resultMap="BaseResultMap" parameterType="com.deer.wms.ASN.manage.model.AcceptExImgCriteria">
+        select
+        *
+        from
+        accept_ex_img
+        where accept_ex_id is null
+        <if test="shipBillCode != null and shipBillCode!= '' ">
+            and ship_bill_code =#{shipBillCode}
+        </if>
+        <if test="acceptExId != null">
+            and accept_ex_img =#{acceptExId}
+        </if>
+
+
+    </select>
+
+    <select id="findByShipBillCode2" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        *
+        from
+        accept_ex_img
+        where accept_ex_id is null
+        <if test="shipBillCode != null and shipBillCode!= '' ">
+            and ship_bill_code =#{shipBillCode}
+        </if>
+
+
+    </select>
+</mapper>

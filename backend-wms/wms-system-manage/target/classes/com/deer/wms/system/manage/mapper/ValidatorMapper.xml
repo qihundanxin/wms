@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.ValidatorMapper">
+    <select id="findKey" parameterType="java.lang.String" resultType="java.lang.String">
+        select
+            k.column_name
+        from information_schema.tables t
+        join information_schema.columns c
+            on c.table_schema=t.table_schema and c.table_name=t.table_name
+        left join 
+            (select table_schema,table_name,column_name from information_schema.key_column_usage where
+            constraint_name='primary') k
+            on c.table_schema=k.table_schema and c.table_name=k.table_name
+        where
+            t.table_schema='new_wms'
+            and t.table_name =#{tableName}
+        GROUP BY t.table_name
+    </select>
+
+    <select id="findPrimaryKey" parameterType="com.deer.wms.system.manage.model.ValidatorModel"
+        resultType="java.lang.String">
+        SELECT column_name FROM INFORMATION_SCHEMA.`KEY_COLUMN_USAGE`
+        WHERE table_name = #{tableName}
+        and table_schema = #{tableSchema}
+        AND constraint_name='PRIMARY'
+    </select>
+
+    <select id="findAddValidator" parameterType="com.deer.wms.system.manage.model.ValidatorModel"
+        resultType="java.lang.Integer">
+        select
+        count(1)
+        from ${tableName}
+        where ${fieldName} = #{fieldValue}
+    </select>
+
+    <select id="findUpdateValidator" parameterType="com.deer.wms.system.manage.model.ValidatorModel"
+        resultType="java.lang.Integer">
+        select
+        count(1)
+        from ${tableName}
+        where ${fieldName} = #{fieldValue}
+        and ${idName} != #{idValue}
+    </select>
+
+    <select id="getNextId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+        auto_increment
+        from information_schema.`TABLES`
+        where table_name=#{tableName} and TABLE_SCHEMA=#{dbName}
+    </select>
+
+</mapper>

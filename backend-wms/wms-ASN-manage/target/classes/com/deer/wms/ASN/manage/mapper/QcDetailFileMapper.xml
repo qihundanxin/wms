@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.QcDetailFileMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.file.QcDetailFile">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="qc_detail_file_id" jdbcType="INTEGER" property="qcDetailFileId"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="asn_detail_no" jdbcType="VARCHAR" property="asnDetailNo"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="expect_quantity" jdbcType="DOUBLE" property="expectQuantity"/>
+        <result column="qc_quantity" jdbcType="DOUBLE" property="qcQuantity"/>
+        <result column="check_quantity" jdbcType="DOUBLE" property="checkQuantity"/>
+        <result column="qc_udf_ds1" jdbcType="VARCHAR" property="qcUdfDs1"/>
+        <result column="qc_udf_ds2" jdbcType="VARCHAR" property="qcUdfDs2"/>
+        <result column="qc_udf_ds3" jdbcType="VARCHAR" property="qcUdfDs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.file.QcDetailFileCriteria"
+            resultMap="BaseResultMap">
+        select
+        detail.qc_detail_file_id
+        ,detail.detail_no
+        ,detail.asn_detail_no
+        ,detail.bill_no
+        ,detail.state
+        ,detail.item_code
+        ,detail.item_name
+        ,detail.pack_detail_id
+        ,detail.pack_describe
+        ,detail.expect_quantity
+        ,detail.qc_quantity
+        ,detail.check_quantity
+        ,detail.qc_udf_ds1
+        ,detail.qc_udf_ds2
+        ,detail.qc_udf_ds3
+        ,detail.memo
+
+        from qc_detail_file detail
+        <where>
+            <if test="billNo != null and billNo != ''">
+                detail.bill_no =#{billNo}
+            </if>
+            <if test="detailNo != null and detailNo != ''">
+                and detail.detail_no =#{detailNo}
+            </if>
+            <if test="asnDetailNo != null and asnDetailNo != ''">
+                and detail.asn_detail_no =#{asnDetailNo}
+            </if>
+            <if test="qcDetailFileId != null">
+                and detail.qc_detail_file_id =#{qcDetailFileId}
+            </if>
+        </where>
+        order by detail.qc_detail_file_id
+
+    </select>
+</mapper>

@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.user.UserInfo">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="icon_url" jdbcType="VARCHAR" property="iconUrl"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="is_admin" jdbcType="BIT" property="isAdmin"/>
+        <result column="account_status" jdbcType="VARCHAR" property="accountStatus"/>
+        <result column="state" jdbcType="VARCHAR" property="state"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="dept_id" jdbcType="TIMESTAMP" property="deptId"/>
+        <result column="job_number" jdbcType="VARCHAR" property="jobNumber"/>
+        <result column="user_type" jdbcType="INTEGER" property="userType"/>
+    </resultMap>
+
+    <!-- 用户详细信息字段映射定义 -->
+    <resultMap id="UserDetailMap" type="com.deer.wms.system.manage.model.user.UserDetail">
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="icon_url" jdbcType="VARCHAR" property="iconUrl"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="linkman_address" jdbcType="VARCHAR" property="linkmanAddress"/>
+        <result column="linkman_phone" jdbcType="VARCHAR" property="linkmanPhone"/>
+        <result column="dept_id" jdbcType="INTEGER" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="is_admin" jdbcType="INTEGER" property="isAdmin"/>
+        <result column="job_number" jdbcType="VARCHAR" property="jobNumber"/>
+        <result column="user_type" jdbcType="VARCHAR" property="userType"/>
+        <collection property="roleIds" ofType="java.lang.Integer">
+            <result column="role_id"/>
+        </collection>
+        <collection property="roleNames" ofType="java.lang.String">
+            <result column="role_name"/>
+        </collection>
+
+        <collection property="organizationIds" ofType="java.lang.Integer">
+            <result column="organization_id"/>
+        </collection>
+        <collection property="organizationNames" ofType="java.lang.String">
+            <result column="organization_name"/>
+        </collection>
+
+        <collection property="wareIds" ofType="java.lang.Integer">
+            <result column="ware_id"/>
+        </collection>
+        <collection property="wareNames" ofType="java.lang.String">
+            <result column="ware_name"/>
+        </collection>
+    </resultMap>
+
+    <!-- 账户详细信息视图类字段映射 -->
+    <resultMap id="UserInfoDetailVOMap" type="com.deer.wms.system.manage.model.user.UserInfoDetailVO">
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="modify_time" jdbcType="VARCHAR" property="modifyTime"/>
+        <result column="job_number" jdbcType="VARCHAR" property="jobNumber"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="user_type" jdbcType="VARCHAR" property="userType"/>
+
+        <collection property="roleIds" ofType="java.lang.Integer">
+            <result column="role_id"/>
+        </collection>
+        <collection property="roleNames" ofType="java.lang.String">
+            <result column="role_name"/>
+        </collection>
+
+        <collection property="organizationIds" ofType="java.lang.Integer">
+            <result column="organization_id"/>
+        </collection>
+        <collection property="organizationNames" ofType="java.lang.String">
+            <result column="organization_name"/>
+        </collection>
+
+        <collection property="wareIds" ofType="java.lang.Integer">
+            <result column="ware_id"/>
+        </collection>
+        <collection property="wareNames" ofType="java.lang.String">
+            <result column="ware_name"/>
+        </collection>
+    </resultMap>
+
+    <!-- 账户信息列表视图类字段映射 -->
+    <resultMap id="UserListVOMap" type="com.deer.wms.system.manage.model.user.UserListVO">
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="is_admin" jdbcType="BIT" property="isAdmin"/>
+        <result column="account_status" jdbcType="VARCHAR" property="accountStatus"/>
+        <result column="register_time" jdbcType="VARCHAR" property="registerTime"/>
+        <result column="job_number" jdbcType="VARCHAR" property="jobNumber"/>
+        <result column="dept_id" jdbcType="INTEGER" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="user_type" jdbcType="VARCHAR" property="userType"/>
+
+        <collection property="roleNames" ofType="java.lang.String">
+            <result column="role_name"/>
+        </collection>
+        <collection property="wareNames" ofType="java.lang.String">
+            <result column="ware_name"/>
+        </collection>
+        <collection property="organizationNames" ofType="java.lang.String">
+            <result column="organization_name"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.user.UserInfoDto" extends="BaseResultMap">
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+
+    </resultMap>
+
+    <select id="findUserByWareId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        u.*
+        from user_info u
+        inner  join ware_user wu on  u.user_id = wu.user_id
+        where wu.ware_id =#{wareId}
+    </select>
+
+    <!-- 查询账户信息列表 -->
+    <select id="selectUserFormList" resultMap="UserListVOMap">
+        SELECT
+        u.user_id
+        , u.mobile
+        , u.user_name
+        , u.gender
+        , u.email
+        , u.password
+        , u.account
+        , u.user_type
+        , role.role_name
+        , u.is_admin
+        , u.account_status
+        , u.job_number
+        , u.state
+        , date_format(u.create_time, '%Y-%m-%d %H:%i:%s') AS register_time
+
+        ,u.dept_id
+        ,d.dept_name
+        ,wi.ware_name
+        ,organization.organization_name
+
+
+        FROM user_info u
+        LEFT JOIN user_role ur ON ur.user_id = u.user_id
+        LEFT JOIN role role ON role.role_id = ur.role_id
+        LEFT JOIN dept d on u.dept_id = d.dept_id
+        LEFT JOIN ware_user wu on wu.user_id = u.user_id
+        LEFT JOIN ware_info wi on wi.ware_id = wu.ware_id
+        LEFT JOIN user_organization uo ON uo.user_id = u.user_id
+        LEFT JOIN organization organization ON uo.user_organization_id = organization.organization_id
+        WHERE u.state = 'normal'
+
+        <if test="roleName != null and roleName != ''">
+            AND role.role_name = #{roleName}
+        </if>
+        <if test="accountStatus != null and accountStatus != ''">
+            AND u.account_status = #{accountStatus}
+        </if>
+        <if test="wareId != null and wareId != ''">
+            AND wi.ware_id = #{wareId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+
+                (
+                u.user_name like CONCAT('%', #{keyWord}, '%')
+                or u.account like CONCAT('%', #{keyWord}, '%')
+                or u.password like CONCAT('%', #{keyWord}, '%')
+                or d.dept_name like CONCAT('%', #{keyWord}, '%')
+                or u.job_number like CONCAT('%', #{keyWord}, '%')
+                or u.mobile like CONCAT('%', #{keyWord}, '%')
+                or u.email like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        <if test="organizationId != null and organizationId != ''">
+            AND organization.organization_id = #{organizationId}
+        </if>
+        <if test="deptId != null and deptId !=''">
+            AND d.dept_id = #{deptId}
+        </if>
+        ORDER BY convert(u.user_name using gbk) asc
+    </select>
+
+    <!-- 查询指定登录账号的用户详细信息 -->
+    <select id="selectUserDetailByAccount" resultMap="UserDetailMap">
+        SELECT
+            u.user_id
+          , u.user_name
+          , u.account
+          , u.gender
+          , u.mobile
+          , u.email
+          , u.dept_id
+          ,u.is_admin
+          ,u.job_number
+          ,u.url
+          , IFNULL(u.icon_url, '') AS icon_url
+          ,u.url
+          , role.role_id
+          , role.role_name
+          ,d.dept_name
+          ,wi.ware_id
+          ,wi.ware_name
+          ,organization.organization_id
+          ,organization.organization_name
+        FROM user_info u
+        LEFT JOIN user_role ur ON ur.user_id = u.user_id
+        LEFT JOIN role ON role.role_id = ur.role_id
+        LEFT JOIN dept d on u.dept_id = d.dept_id
+        LEFT JOIN ware_user wu on wu.user_id = u.user_id
+        LEFT JOIN ware_info wi on wi.ware_id = wu.ware_id
+        LEFT JOIN user_organization uo ON uo.user_id = u.user_id
+        LEFT JOIN organization organization ON uo.user_organization_id = organization.organization_id
+        WHERE u.state = 'normal'
+        AND u.account = #{account}
+    </select>
+
+    <!--  查询指定用户的详细信息 -->
+    <select id="selectUserInfoDetailVOByUserId" resultMap="UserInfoDetailVOMap">
+        SELECT
+             role.role_name
+            , role.role_id
+            , uc.user_name AS create_user_name
+            , ui.user_id
+            , ui.mobile
+            , ui.user_name
+            , ui.email
+            , ui.gender
+            , ui.dept_id
+            , ui.job_number
+            , date_format(ui.create_time, '%Y-%m-%d %H:%i:%s') AS create_time
+            , date_format(ui.modify_time, '%Y-%m-%d %H:%i:%s') AS modify_time
+            , d.dept_name
+            , wi.ware_id
+            , wi.ware_name
+            , organization.organization_id
+            , organization.organization_name
+        FROM user_info ui
+        LEFT JOIN dept d ON ui.dept_id = d.dept_id
+        LEFT JOIN user_info uc ON uc.user_id = ui.create_user_id
+        LEFT JOIN user_role ur ON ur.user_id = ui.user_id
+        LEFT JOIN role ON role.role_id = ur.role_id
+        LEFT JOIN ware_user wu on wu.user_id = ui.user_id
+        LEFT JOIN ware_info wi on wi.ware_id = wu.ware_id
+        LEFT JOIN user_organization uo ON uo.user_id = ui.user_id
+        LEFT JOIN organization organization ON uo.organization_id = organization.organization_id
+
+        WHERE ui.user_id = #{userId}
+
+    </select>
+
+    <!-- 更新用户的邮箱地址  -->
+    <update id="updateUserInfoById" parameterType="com.deer.wms.system.manage.model.user.UserInfo">
+        update user_info
+        set user_id=#{userId}
+        <if test="email != null and email != ''">
+            ,email = #{email}
+        </if>
+        <if test="iconUrl != null and iconUrl != ''">
+            ,icon_url = #{iconUrl}
+        </if>
+        where user_id=#{userId}
+    </update>
+
+    <!-- 根据用户名、手机号、邮箱 查找用户信息  -->
+    <select id="selectUserInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT * from user_info
+
+        where account=#{account} or mobile =#{account} or email = #{account}
+        and state='normal' and account_status = 'enable'
+        limit 1
+
+    </select>
+
+    <select id="findByAccount" parameterType="java.lang.String" resultMap="Dto">
+      select
+      ui.*,
+      d.dept_name
+      from user_info ui
+      left join dept d on ui.dept_id = d.dept_id
+      where account = #{account}
+    </select>
+
+    <select id="findByDeptId" parameterType="java.lang.Integer" resultMap="Dto">
+      select
+      ui.*,
+      d.dept_name
+      from user_info ui
+      left join dept d on ui.dept_id = d.dept_id
+      where d.dept_id = #{deptId}
+    </select>
+
+    <update id="updateUserInfoAccountStatus" parameterType="java.lang.String">
+        update user_info
+        set account_status = #{accountStatus} where is_admin = 0
+    </update>
+
+    <delete id="deleteByUserId" parameterType="java.lang.Integer">
+    delete  from user_info where user_id = #{userId}
+  </delete>
+
+    <select id="findList" parameterType="com.deer.wms.system.manage.model.user.UserInfoCriteria" resultMap="Dto">
+        select
+        u.user_id,
+        u.account,
+        u.password,
+        u.user_name,
+        u.gender,
+        u.mobile,
+        u.email,
+        u.account_status,
+        u.url,
+        u.url_name,
+        u.state,
+        u.is_admin,
+        u.create_time,
+        u.dept_id,
+        u.job_number,
+        u.create_user_id,
+
+        d.dept_name
+        from user_info u
+        left join dept d on u.dept_id = d.dept_id
+
+        where state='normal'
+
+        <if test="userId !=null">
+            and u.user_id = #{userId}
+        </if>
+        <if test='isAdmin ==0'>
+            and u.is_admin !=1
+        </if>
+        <if test="deptId != null and deptId != ''">
+            and u.dept_id = #{deptId}
+        </if>
+        <if test="accountStatus != null and accountStatus != ''">
+            and u.account_status = #{accountStatus}
+        </if>
+        <if test="state != null and state != ''">
+            and u.state = #{state}
+        </if>
+        <if test="userType != null and userType != ''">
+            and u.user_type = #{userType}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+
+                (
+                u.user_name like CONCAT('%', #{keyWord}, '%')
+                or u.account like CONCAT('%', #{keyWord}, '%')
+                or u.password like CONCAT('%', #{keyWord}, '%')
+                or d.dept_name like CONCAT('%', #{keyWord}, '%')
+                or u.job_number like CONCAT('%', #{keyWord}, '%')
+                or u.mobile like CONCAT('%', #{keyWord}, '%')
+                or u.email like CONCAT('%', #{keyWord}, '%')
+                or u.account_status like CONCAT('%', #{keyWord}, '%')
+                or u.state like CONCAT('%', #{keyWord}, '%')
+                or u.gender like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+        ORDER BY convert(u.user_name using gbk) asc
+    </select>
+
+    <select id="findAny" parameterType="com.deer.wms.system.manage.model.user.UserInfoCriteria" resultMap="Dto">
+        select
+        u.user_id,
+        u.account,
+        u.password,
+        u.user_name,
+        u.gender,
+        u.mobile,
+        u.email,
+        u.account_status,
+        u.state,
+        u.is_admin,
+        u.create_time,
+        u.dept_id,
+        u.job_number,
+
+
+        d.dept_name
+
+
+        from user_info u
+        left join dept d on u.dept_id = d.dept_id
+
+        where state='normal'
+        <if test="deptId != null and deptId != ''">
+            and u.dept_id = #{deptId}
+        </if>
+        <if test="accountStatus != null and accountStatus != ''">
+            and u.account_status = #{accountStatus}
+        </if>
+        <if test="state != null and state != ''">
+            and u.state = #{state}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+
+                (
+                u.user_name like CONCAT('%', #{keyWord}, '%')
+                or u.account like CONCAT('%', #{keyWord}, '%')
+                or u.password like CONCAT('%', #{keyWord}, '%')
+                or d.dept_name like CONCAT('%', #{keyWord}, '%')
+                or u.job_number like CONCAT('%', #{keyWord}, '%')
+                or u.mobile like CONCAT('%', #{keyWord}, '%')
+                or u.email like CONCAT('%', #{keyWord}, '%')
+                or u.account_status like CONCAT('%', #{keyWord}, '%')
+                or u.state like CONCAT('%', #{keyWord}, '%')
+                or u.gender like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+        ORDER BY convert(u.user_name using gbk) asc
+    </select>
+
+
+</mapper>

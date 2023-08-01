@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.AsnDetailFileMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.file.AsnDetailFile">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="asn_detail_file_id" jdbcType="INTEGER" property="asnDetailFileId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="request_detail_detail_no" jdbcType="VARCHAR" property="requestDetailDetailNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="expect_quantity" jdbcType="DOUBLE" property="expectQuantity"/>
+        <result column="accept_quantity" jdbcType="DOUBLE" property="acceptQuantity"/>
+        <result column="accept_time" jdbcType="TIMESTAMP" property="acceptTime"/>
+        <result column="asn_udf_ds1" jdbcType="VARCHAR" property="asnUdfDs1"/>
+        <result column="asn_udf_ds2" jdbcType="VARCHAR" property="asnUdfDs2"/>
+        <result column="asn_udf_ds3" jdbcType="VARCHAR" property="asnUdfDs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="upper_quantity" jdbcType="DOUBLE" property="upperQuantity"/>
+    </resultMap>
+    <resultMap id="Dto" type="com.deer.wms.ASN.manage.model.file.AsnDetailFileDto" extends="BaseResultMap">
+        <result column="pack_code" jdbcType="VARCHAR" property="packCode"/>
+        <result column="pack_name" jdbcType="VARCHAR" property="packName"/>
+        <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="supplier_id" jdbcType="INTEGER" property="supplierId"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <!--
+
+            <collection property="packDetails"  ofType="com.deer.wms.ASN.manage.model.buy.PackDetails">
+              <result column="pack_detail_id1" jdbcType="INTEGER" property="packDetailId1" />
+              <result column="pack_describe1" jdbcType="VARCHAR" property="packDescribe1" />
+            </collection>
+        -->
+
+    </resultMap>
+
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.file.AsnDetailFileCriteria"
+            resultMap="Dto">
+        select
+        detail.asn_detail_file_id
+        ,detail.bill_no
+        ,detail.request_detail_detail_no
+        ,detail.state
+        ,detail.item_code
+        ,detail.item_name
+        ,detail.pack_detail_id
+        ,detail.pack_describe
+        ,detail.expect_quantity
+        ,detail.accept_quantity
+        ,detail.accept_time
+        ,detail.asn_udf_ds1
+        ,detail.asn_udf_ds2
+        ,detail.asn_udf_ds3
+        ,detail.memo
+        ,detail.upper_quantity
+
+        ,item.spec
+        ,item.model
+        ,pm.pack_code
+        ,pm.pack_name
+        ,type.item_type_id
+        ,type.item_type_name
+        ,pd.pack_detail_id as pack_detail_id1
+        ,pd.pack_describe as pack_describe1
+
+        ,master.supplier_id
+        ,master.supplier_name
+        ,master.organization_id
+        ,master.organization_name
+        from asn_detail_file detail
+        left join item_info item on item.item_code = detail.item_code
+        left join pack_master pm on item.pack_code = pm.pack_code
+        left join pack_detail pd on pd.pack_code = pm.pack_code
+        left join item_type type on item.item_type_id = type.item_type_id
+        left join asn_master master on master.bill_no = detail.bill_no
+        where 1=1
+        <if test="asnDetailFileId != null">
+            and detail.asn_detail_file_id = #{asnDetailFileId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and detail.bill_no = #{billNo}
+        </if>
+        <if test="detailNo != null">
+            and detail.detail_no = #{detailNo}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and detail.item_code = #{itemCode}
+        </if>
+        <if test="packDetailId != null">
+            and detail.pack_detail_id = #{packDetailId}
+        </if>
+        <if test="state != null">
+            and detail.state = #{state}
+        </if>
+        <if test="expectQuantity != null and expectQuantity !=''">
+            and detail.expect_quantity = #{expectQuantity}
+        </if>
+        <if test="acceptQuantity != null and acceptQuantity !=''">
+            and detail.accept_quantity = #{acceptQuantity}
+        </if>
+        <if test="acceptTime != null and acceptTime !=''">
+            and detail.accept_time = #{acceptTime}
+        </if>
+        <if test="supplierId != null ">
+            and master.supplier_id = #{supplierId}
+        </if>
+        <if test="organizationId != null ">
+            and master.organization_id = #{organizationId}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                detail.bill_no like CONCAT('%', #{keyWord}, '%')
+                or detail.detail_no like CONCAT('%', #{keyWord}, '%')
+                or detail.supplier_name like CONCAT('%', #{keyWord}, '%')
+                or detail.item_name like CONCAT('%', #{keyWord}, '%')
+                or detail.pack_describe like CONCAT('%', #{keyWord}, '%')
+                or detail.state like CONCAT('%', #{keyWord}, '%')
+                or detail.expect_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.accept_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.accept_time like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by detail.asn_detail_file_id desc
+
+
+    </select>
+</mapper>

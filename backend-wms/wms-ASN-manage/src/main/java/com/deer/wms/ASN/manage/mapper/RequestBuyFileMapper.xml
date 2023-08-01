@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.RequestBuyFileMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.file.RequestBuyFile">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="request_buy_file_id" jdbcType="INTEGER" property="requestBuyFileId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="buy_type" jdbcType="INTEGER" property="buyType"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="accept_state" jdbcType="INTEGER" property="acceptState"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="supplier_id" jdbcType="INTEGER" property="supplierId"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="expect_time" jdbcType="TIMESTAMP" property="expectTime"/>
+        <result column="po_udf_hs1" jdbcType="VARCHAR" property="poUdfHs1"/>
+        <result column="po_udf_hs2" jdbcType="VARCHAR" property="poUdfHs2"/>
+        <result column="po_udf_hs3" jdbcType="VARCHAR" property="poUdfHs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="file_time" jdbcType="TIMESTAMP" property="fileTime"/>
+        <result column="file_user_id" jdbcType="INTEGER" property="fileUserId"/>
+        <result column="file_user_name" jdbcType="VARCHAR" property="fileUserName"/>
+    </resultMap>
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.file.RequestBuyFileCriteria"
+            resultMap="BaseResultMap">
+        select
+        buy.request_buy_file_id
+        ,buy.bill_no
+        ,buy.buy_type
+        ,buy.state
+        ,buy.accept_state
+        ,buy.ware_id
+        ,buy.ware_name
+        ,buy.organization_id
+        ,buy.organization_name
+        ,buy.supplier_id
+        ,buy.supplier_name
+        ,buy.create_time
+        ,buy.create_user_id
+        ,buy.create_user_name
+        ,buy.expect_time
+        ,buy.po_udf_hs1
+        ,buy.po_udf_hs2
+        ,buy.po_udf_hs3
+        ,buy.memo
+        ,buy.insert_type
+        ,buy.file_time
+        ,buy.file_user_id
+        ,buy.file_user_name
+        from request_buy_file buy
+        where 1=1
+        <if test="requestBuyFileId != null">
+            and buy.request_buy_file_id = #{requestBuyFileId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and buy.bill_no = #{billNo}
+        </if>
+        <if test="wareId != null">
+            and buy.ware_id = #{wareId}
+        </if>
+        <if test="organizationId != null">
+            and buy.organization_id = #{organizationId}
+        </if>
+        <if test="supplierId != null">
+            and buy.supplier_id = #{supplierId}
+        </if>
+        <if test="state != null">
+            and buy.state = #{state}
+        </if>
+        <if test="acceptState != null">
+            and buy.accept_state = #{acceptState}
+        </if>
+        <if test="createUserId != null">
+            and buy.create_user_id = #{createUserId}
+        </if>
+        <if test="createTime != null and createTime !=''">
+            and buy.create_time = #{createTime}
+        </if>
+        <if test="expectTime != null and expectTime !=''">
+            and buy.expect_time = #{expectTime}
+        </if>
+        <if test="fileTime != null and fileTime !=''">
+            and buy.file_time = #{fileTime}
+        </if>
+        <if test="fileUserId != null and fileUserId !=''">
+            and buy.file_user_id = #{fileUserId}
+        </if>
+        <if test="insertType != null">
+            and buy.insert_type = #{insertType}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                buy.bill_no like CONCAT('%', #{keyWord}, '%')
+                or buy.ware_name like CONCAT('%', #{keyWord}, '%')
+                or buy.organization_name like CONCAT('%', #{keyWord}, '%')
+                or buy.supplier_name like CONCAT('%', #{keyWord}, '%')
+                or buy.memo like CONCAT('%', #{keyWord}, '%')
+                or buy.create_user_name like CONCAT('%', #{keyWord}, '%')
+                or buy.file_user_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+
+    </select>
+</mapper>

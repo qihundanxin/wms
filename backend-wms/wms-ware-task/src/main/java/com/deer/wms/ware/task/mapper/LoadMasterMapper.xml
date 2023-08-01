@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.LoadMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.Load.LoadMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="license_plate_no" jdbcType="VARCHAR" property="licensePlateNo"/>
+        <result column="vehicle_type" jdbcType="INTEGER" property="vehicleType"/>
+        <result column="driver_name" jdbcType="VARCHAR" property="driverName"/>
+        <result column="loader_name" jdbcType="VARCHAR" property="loaderName"/>
+        <result column="load_start" jdbcType="TIMESTAMP" property="loadStart"/>
+        <result column="load_finish" jdbcType="TIMESTAMP" property="loadFinish"/>
+        <result column="size_limit" jdbcType="DOUBLE" property="sizeLimit"/>
+        <result column="weight_limit" jdbcType="DOUBLE" property="weightLimit"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="wave_id" jdbcType="INTEGER" property="waveId"/>
+        <result column="desc1" jdbcType="VARCHAR" property="desc1"/>
+        <result column="desc2" jdbcType="VARCHAR" property="desc2"/>
+        <result column="desc3" jdbcType="VARCHAR" property="desc3"/>
+        <result column="desc4" jdbcType="VARCHAR" property="desc4"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.Load.LoadMasterCriteria"
+            resultMap="BaseResultMap">
+        select *
+        from load_master lm
+        where 1=1
+        <if test="code != null and code != ''">
+            and lm.code like CONCAT('%', #{code}, '%')
+        </if>
+    </select>
+</mapper>

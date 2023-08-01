@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.BatchTacticMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.Batch.BatchTactic">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="batch_tactic_id" jdbcType="INTEGER" property="batchTacticId"/>
+        <result column="batch_tactic_code" jdbcType="VARCHAR" property="batchTacticCode"/>
+        <result column="batch_tactic_name" jdbcType="VARCHAR" property="batchTacticName"/>
+        <result column="is_sys" jdbcType="INTEGER" property="isSys"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.busine.tactic.model.Batch.BatchTacticDto">
+
+        <collection property="batchTacticDetails" ofType="com.deer.wms.busine.tactic.model.Batch.BatchTacticDetailDto"
+                    javaType="java.util.ArrayList">
+            <result column="batch_tactic_detail_id" jdbcType="INTEGER" property="batchTacticDetailId"/>
+            <result column="batch_tactic_code" jdbcType="VARCHAR" property="batchTacticCode"/>
+            <result column="detail_code" jdbcType="VARCHAR" property="detailCode"/>
+            <result column="detail_name" jdbcType="VARCHAR" property="detailName"/>
+            <result column="detail_rf_name" jdbcType="VARCHAR" property="detailRfName"/>
+            <result column="state" jdbcType="INTEGER" property="state"/>
+            <result column="is_required" jdbcType="INTEGER" property="isRequired"/>
+            <result column="format" jdbcType="INTEGER" property="format"/>
+            <collection property="batchTacticDetailDetails"
+                        ofType="com.deer.wms.busine.tactic.model.Batch.BatchTacticDetailDetail"
+                        javaType="java.util.ArrayList">
+                <result column="batch_tactic_detail_detail_value" jdbcType="VARCHAR"
+                        property="batchTacticDetailDetailValue"/>
+
+            </collection>
+        </collection>
+        <collection property="batchTacticDetailDetails"
+                    ofType="com.deer.wms.busine.tactic.model.Batch.BatchTacticDetailDetail"
+                    javaType="java.util.ArrayList">
+            <result column="batch_tactic_detail_detail_value" jdbcType="VARCHAR"
+                    property="batchTacticDetailDetailValue"/>
+            <result column="detail_code" jdbcType="VARCHAR" property="detailCode"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.Batch.BatchTacticCriteria"
+            resultMap="BaseResultMap">
+        select
+        batch.*
+
+        from batch_tactic batch
+
+        where 1=1
+
+        <if test="batchTacticId != null and batchTacticId != ''">
+            and batch.batch_tactic_id = #{batchTacticId}
+        </if>
+        <if test="batchTacticCode != null and batchTacticCode != ''">
+            and batch.batch_tactic_code = #{batchTacticCode}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                batch.batch_tactic_code like CONCAT('%', #{keyWord}, '%')
+                or batch.batch_tactic_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+    </select>
+
+    <select id="findByState" resultMap="Dto">
+    select
+    batch.*
+
+    ,detail.batch_tactic_detail_id
+    ,detail.batch_tactic_code
+    ,detail.detail_code
+    ,detail.detail_name
+    ,detail.detail_rf_name
+    ,detail.state
+    ,detail.is_required
+    ,detail.format
+
+    ,details.batch_tactic_detail_detail_value
+    ,details.detail_code
+
+
+
+    from batch_tactic batch
+    left join batch_tactic_detail detail on batch.batch_tactic_code = detail.batch_tactic_code
+    left join batch_tactic_detail_detail details on detail.batch_tactic_detail_id = details.batch_tactic_detail_id
+
+    where batch.batch_tactic_id = #{batchTacticId}
+    and detail.state = #{state}
+
+    order by detail.batch_tactic_detail_id
+
+  </select>
+
+    <select id="findByOrganizationOrItemInfo" resultMap="Dto">
+        select
+        batch.*
+
+        ,detail.batch_tactic_detail_id
+        ,detail.batch_tactic_code
+        ,detail.detail_code
+        ,detail.detail_name
+        ,detail.detail_rf_name
+        ,detail.state
+        ,detail.is_required
+        ,detail.format
+
+        ,details.batch_tactic_detail_detail_value
+        ,details.detail_code
+
+        ,item.item_code
+       -- ,organization.organization_id
+
+        from batch_tactic batch
+        left join batch_tactic_detail detail on batch.batch_tactic_code = detail.batch_tactic_code
+        left join batch_tactic_detail_detail details on detail.batch_tactic_detail_id = details.batch_tactic_detail_id
+        left join item_info item on batch.batch_tactic_code = item.batch_tactic_code
+      --  left join organization organization on batch.batch_tactic_code = organization.batch_tactic_code
+
+
+        where item.item_code = #{itemCode} and item.organization_id = #{organizationId}
+        order by detail.batch_tactic_detail_id
+
+    </select>
+
+    <select id="findByOrganizationOrItemInfo2" resultMap="Dto">
+        select
+        batch.*
+
+        ,detail.batch_tactic_detail_id
+        ,detail.batch_tactic_code
+        ,detail.detail_code
+        ,detail.detail_name
+        ,detail.detail_rf_name
+        ,detail.state
+        ,detail.is_required
+        ,detail.format
+
+        ,details.batch_tactic_detail_detail_value
+        ,details.detail_code
+
+        ,item.item_code
+        ,organization.organization_id
+
+        from batch_tactic batch
+        inner join batch_tactic_detail detail on batch.batch_tactic_code = detail.batch_tactic_code and detail.state=1
+        left join batch_tactic_detail_detail details on detail.batch_tactic_detail_id = details.batch_tactic_detail_id
+        left join item_info item on batch.batch_tactic_code = item.batch_tactic_code
+        left join organization organization on batch.batch_tactic_code = organization.batch_tactic_code
+
+        where detail.state=1
+
+
+        <if test="itemCode != null and itemCode !=''  ">
+            and item.item_code = #{itemCode}
+        </if>
+        <if test="organizationId != null and organizationId !='' and itemCode ==null and itemCode ==''">
+            and organization.organization_id = #{organizationId}
+        </if>
+
+
+        order by detail.batch_tactic_detail_id
+
+    </select>
+
+
+    <select id="findByBatchTacticCode" resultMap="Dto">
+    select
+    batch.*
+
+    ,detail.batch_tactic_detail_id
+    ,detail.batch_tactic_code
+    ,detail.detail_code
+    ,detail.detail_name
+    ,detail.detail_rf_name
+    ,detail.state
+    ,detail.is_required
+    ,detail.format
+
+    ,details.batch_tactic_detail_detail_value
+    ,details.detail_code
+
+
+    from batch_tactic batch
+    left join batch_tactic_detail detail on batch.batch_tactic_code = detail.batch_tactic_code and detail.state=1
+    left join batch_tactic_detail_detail details on detail.batch_tactic_detail_id = details.batch_tactic_detail_id
+
+
+
+
+    where  batch.batch_tactic_code = #{batchTacticCode}
+
+    order by detail.batch_tactic_detail_id
+
+  </select>
+
+    <select id="findByIsSys" resultMap="Dto">
+    select
+    batch.*
+
+    ,detail.batch_tactic_detail_id
+    ,detail.batch_tactic_code
+    ,detail.detail_code
+    ,detail.detail_name
+    ,detail.detail_rf_name
+    ,detail.state
+    ,detail.is_required
+    ,detail.format
+
+    ,details.batch_tactic_detail_detail_value
+    ,details.detail_code
+
+
+    from batch_tactic batch
+    left join batch_tactic_detail detail on batch.batch_tactic_code = detail.batch_tactic_code
+    left join batch_tactic_detail_detail details on detail.batch_tactic_detail_id = details.batch_tactic_detail_id
+
+
+
+
+    where  batch.is_sys = 1
+
+    order by detail.batch_tactic_detail_id
+
+  </select>
+
+
+</mapper>

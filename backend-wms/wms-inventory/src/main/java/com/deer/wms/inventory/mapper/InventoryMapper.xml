@@ -1,0 +1,1182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.InventoryMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.Inventory.Inventory">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="inventory_id" jdbcType="INTEGER" property="inventoryId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="batch_id" jdbcType="INTEGER" property="batchId"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="lpn" jdbcType="VARCHAR" property="lpn"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="allot_quantity" jdbcType="DOUBLE" property="allotQuantity"/>
+        <result column="freeze_quantity" jdbcType="DOUBLE" property="freezeQuantity"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="qc_state" jdbcType="INTEGER" property="qcState"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="allot_pack_detail_id" jdbcType="INTEGER" property="allotPackDetailId"/>
+        <result column="allot_pack_describe" jdbcType="VARCHAR" property="allotPackDescribe"/>
+        <result column="allot_trans_ratio" jdbcType="DOUBLE" property="allotTransRatio"/>
+        <result column="freeze_pack_detail_id" jdbcType="INTEGER" property="freezePackDetailId"/>
+        <result column="freeze_pack_describe" jdbcType="VARCHAR" property="freezePackDescribe"/>
+        <result column="freeze_trans_ratio" jdbcType="DOUBLE" property="freezeTransRatio"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="cell_use_type" jdbcType="INTEGER" property="cellUseType"/>
+        <result column="upc" jdbcType="VARCHAR" property="upc"/>
+        <result column="recovery_time" jdbcType="TIMESTAMP" property="recoveryTime"/>
+        <result column="recovery_user_id" jdbcType="INTEGER" property="recoveryUserId"/>
+        <result column="recovery_user_name" jdbcType="VARCHAR" property="recoveryUserName"/>
+        <result column="recovery_reason" jdbcType="VARCHAR" property="recoveryReason"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="ware_entry_time" jdbcType="TIMESTAMP" property="wareEntryTime"/>
+    </resultMap>
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.Inventory.InventoryDto" extends="BaseResultMap">
+        <result column="can_pick_quantity" jdbcType="DOUBLE" property="canPickQuantity"/>
+        <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+
+        <result column="pack_code" jdbcType="VARCHAR" property="packCode"/>
+        <result column="pack_name" jdbcType="VARCHAR" property="packName"/>
+        <result column="sum_quantity" jdbcType="DOUBLE" property="sumQuantity"/>
+        <collection property="upcs" ofType="com.deer.wms.base.system.model.ItemUpc">
+            <result column="upc2" jdbcType="VARCHAR" property="upc"/>
+        </collection>
+
+        <!--    <collection property="packDetails"  ofType="com.deer.wms.ASN.manage.model.buy.PackDetails">-->
+        <!--      <result column="pack_detail_id1" jdbcType="INTEGER" property="packDetailId1" />-->
+        <!--      <result column="pack_describe1" jdbcType="VARCHAR" property="packDescribe1" />-->
+        <!--      <result column="trans_ratio1" jdbcType="DOUBLE" property="transRatio1" />-->
+        <!--    </collection>-->
+    </resultMap>
+
+    <resultMap id="inventorySelectDto" type="com.deer.wms.inventory.model.Inventory.InventorySelectDto"
+               extends="BaseResultMap">
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="cell_name" jdbcType="VARCHAR" property="cellName"/>
+        <result column="shelf_name" jdbcType="VARCHAR" property="shelfName"/>
+        <result column="shelf_code" jdbcType="VARCHAR" property="shelfCode"/>
+        <result column="area_name" jdbcType="VARCHAR" property="areaName"/>
+        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+    </resultMap>
+
+    <resultMap id="inventorySumList" type="com.deer.wms.inventory.model.Inventory.InventorySumListDto"
+               extends="BaseResultMap">
+        <result column="pack_code" jdbcType="VARCHAR" property="packCode"/>
+        <result column="pack_name" jdbcType="VARCHAR" property="packName"/>
+        <result column="one" jdbcType="DOUBLE" property="one"/>
+        <result column="two" jdbcType="DOUBLE" property="two"/>
+        <result column="three" jdbcType="DOUBLE" property="three"/>
+    </resultMap>
+
+    <resultMap id="cellUseTypeList" type="com.deer.wms.inventory.model.Inventory.CellUseTypeList"
+               extends="BaseResultMap">
+        <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+        <result column="cell_use_type" jdbcType="INTEGER" property="cellUseType"/>
+        <result column="pack_code" jdbcType="VARCHAR" property="packCode"/>
+        <result column="pack_name" jdbcType="VARCHAR" property="packName"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria" resultType="com.deer.wms.inventory.model.Inventory.InventoryDto">
+        select * from inventory
+        <where>
+            <if test="idMin != null">
+                and inventory_id &gt;= #{idMin}
+            </if>
+            <if test="idMax != null">
+                and inventory_id &lt; #{idMax}
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code = #{itemCode}
+            </if>
+            <if test="wareId != null">
+                and ware_id = #{wareId}
+            </if>
+            <if test="inventoryId != null">
+                and inventory_id = #{inventoryId}
+            </if>
+            <if test="batchId != null and batchId != ''">
+                and batch_id = #{batchId}
+            </if>
+            <if test="organizationId != null and organizationId != ''">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="freezeQuantity != null">
+                and freeze_quantity = #{freezeQuantity}
+            </if>
+            <if test="itemName != null and itemName != ''">
+                and item_name like CONCAT('%', #{itemName}, '%')
+            </if>
+            <if test="cellCode != null and cellCode != ''">
+                and cell_code like CONCAT('%', #{cellCode}, '%')
+            </if>
+            <if test="eqCellCode != null and eqCellCode != ''">
+                and cell_code = #{eqCellCode}
+            </if>
+            <if test="eqBatchName != null and eqBatchName != ''">
+                and batch_name = #{eqBatchName}
+            </if>
+            <if test="boxCode != null and boxCode != ''">
+                and box_code = #{boxCode}
+            </if>
+            <if test="cellUseType != null">
+                and cell_use_type = #{cellUseType}
+            </if>
+            <if test="upc != null">
+                and upc = #{upc}
+            </if>
+            <if test="lpn != null and lpn != ''">
+                and lpn = #{lpn}
+            </if>
+            <if test="qcState != null">
+                and qc_state = #{qcState}
+            </if>
+            <if test="keyWordList != null">
+                and
+                <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                    (
+                    ware_name like CONCAT('%', #{keyWord}, '%')
+                    or batch_name like CONCAT('%', #{keyWord}, '%')
+                    or item_code like CONCAT('%', #{keyWord}, '%')
+                    or upc like CONCAT('%', #{keyWord}, '%')
+                    or item_name like CONCAT('%', #{keyWord}, '%')
+                    or organization_name like CONCAT('%', #{keyWord}, '%')
+                    or box_code like CONCAT('%', #{keyWord}, '%')
+                    or lpn like CONCAT('%', #{keyWord}, '%')
+                    )
+                </foreach>
+            </if>
+            <if test="startRecoveryTime != null and endRecoveryTime != null">
+                and recovery_time &gt; #{startRecoveryTime} and recovery_time &lt; #{endRecoveryTime}
+            </if>
+            <if test="startModifyTime != null and endModifyTime != null">
+                and modify_time &gt; #{startModifyTime} and modify_time &lt; #{endModifyTime}
+            </if>
+            <if test="state != null and state==-2">
+                and state = -2
+            </if>
+            <if test="state == null || state!=-2">
+                and state>=0
+            </if>
+            <if test="cellUseTypeNotEq != null">
+                and cell_use_type != #{cellUseTypeNotEq}
+            </if>
+        </where>
+        <if test="sort!=null and sort!=''">
+            order by
+            <if test="sort=='quantityASC'">
+                quantity asc,
+            </if>
+            <if test="sort=='quantityDESC'">
+                quantity desc,
+            </if>
+            <if test="sort=='allotQuantityASC'">
+                allot_quantity asc,
+            </if>
+            <if test="sort=='allotQuantityDESC'">
+                allot_quantity desc,
+            </if>
+            <if test="sort=='freezeQuantityASC'">
+                freeze_quantity asc,
+            </if>
+            <if test="sort=='freezeQuantityDESC'">
+                freeze_quantity desc,
+            </if>
+            <if test="sort=='batchNameASC'">
+                batch_name asc,
+            </if>
+            <if test="sort=='cellUseTypeUseful'">
+                case
+                    when cell_use_type = 1 then 1
+                    when cell_use_type = 2 then 2
+                    when cell_use_type = 0 then 3
+                    when cell_use_type = 3 then 4
+                    when cell_use_type = 5 then 5
+                    when cell_use_type = -1 then 6
+                    else 10000
+                end asc,
+                batch_name desc,
+            </if>
+            inventory_id desc
+        </if>
+    </select>
+
+    <select id="findSummaryList" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria" resultType="com.deer.wms.inventory.model.Inventory.InventoryDto">
+        select
+        inventory_id,
+        ware_id,
+        ware_name,
+        organization_id,
+        organization_name,
+        item_code,
+        item_name,
+        batch_id,
+        batch_name,
+        cell_code,
+        box_code,
+        lpn,
+        pack_detail_id,
+        pack_describe,
+
+        SUM(quantity) as quantity,
+        SUM(allot_quantity) as allot_quantity,
+        SUM(freeze_quantity) as freeze_quantity,
+
+        state,
+        qc_state,
+        trans_ratio,
+        allot_pack_detail_id,
+        allot_pack_describe,
+        allot_trans_ratio,
+        freeze_pack_detail_id,
+        freeze_pack_describe,
+        freeze_trans_ratio,
+        img_url,
+        spec,
+        model,
+        bill_no,
+        version,
+        cell_use_type,
+        upc,
+        recovery_time,
+        recovery_user_id,
+        recovery_user_name,
+        recovery_reason,
+        modify_time
+        from inventory
+        <where>
+            <if test="idMin != null">
+                and inventory_id &gt;= #{idMin}
+            </if>
+            <if test="idMax != null">
+                and inventory_id &lt; #{idMax}
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code = #{itemCode}
+            </if>
+            <if test="wareId != null">
+                and ware_id = #{wareId}
+            </if>
+            <if test="inventoryId != null">
+                and inventory_id = #{inventoryId}
+            </if>
+            <if test="organizationId != null and organizationId != ''">
+                and organization_id = #{organizationId}
+            </if>
+            <if test="freezeQuantity != null">
+                and freeze_quantity = #{freezeQuantity}
+            </if>
+            <if test="itemName != null and itemName != ''">
+                and item_name like CONCAT('%', #{itemName}, '%')
+            </if>
+            <if test="cellCode != null and cellCode != ''">
+                and cell_code like CONCAT('%', #{cellCode}, '%')
+            </if>
+            <if test="eqCellCode != null and eqCellCode != ''">
+                and cell_code = #{eqCellCode}
+            </if>
+            <if test="boxCode != null and boxCode != ''">
+                and box_code = #{boxCode}
+            </if>
+            <if test="cellUseType != null">
+                and cell_use_type = #{cellUseType}
+            </if>
+            <if test="upc != null">
+                and upc = #{upc}
+            </if>
+            <if test="lpn != null and lpn != ''">
+                and lpn = #{lpn}
+            </if>
+            <if test="qcState != null">
+                and qc_state = #{qcState}
+            </if>
+            <if test="keyWordList != null">
+                and
+                <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                    (
+                    ware_name like CONCAT('%', #{keyWord}, '%')
+                    or batch_name like CONCAT('%', #{keyWord}, '%')
+                    or item_code like CONCAT('%', #{keyWord}, '%')
+                    or upc like CONCAT('%', #{keyWord}, '%')
+                    or item_name like CONCAT('%', #{keyWord}, '%')
+                    or organization_name like CONCAT('%', #{keyWord}, '%')
+                    or box_code like CONCAT('%', #{keyWord}, '%')
+                    or lpn like CONCAT('%', #{keyWord}, '%')
+                    )
+                </foreach>
+            </if>
+            <if test="startRecoveryTime != null and endRecoveryTime != null">
+                and recovery_time &gt; #{startRecoveryTime} and recovery_time &lt; #{endRecoveryTime}
+            </if>
+            <if test="startModifyTime != null and endModifyTime != null">
+                and modify_time &gt; #{startModifyTime} and modify_time &lt; #{endModifyTime}
+            </if>
+            <if test="state != null and state==-2">
+                and state = -2
+            </if>
+            <if test="state == null || state!=-2">
+                and state>=0
+            </if>
+            <if test="cellUseTypeNotEq != null">
+                and cell_use_type != #{cellUseTypeNotEq}
+            </if>
+        </where>
+        GROUP BY cell_code, item_code
+        <if test="sort!=null and sort!=''">
+            order by
+            <if test="sort=='quantityASC'">
+                quantity asc,
+            </if>
+            <if test="sort=='quantityDESC'">
+                quantity desc,
+            </if>
+            <if test="sort=='allotQuantityASC'">
+                allot_quantity asc,
+            </if>
+            <if test="sort=='allotQuantityDESC'">
+                allot_quantity desc,
+            </if>
+            <if test="sort=='freezeQuantityASC'">
+                freeze_quantity asc,
+            </if>
+            <if test="sort=='freezeQuantityDESC'">
+                freeze_quantity desc,
+            </if>
+            <if test="sort=='batchNameASC'">
+                batch_name asc,
+            </if>
+            <if test="sort=='cellUseTypeUseful'">
+                case
+                when cell_use_type = 1 then 1
+                when cell_use_type = 2 then 2
+                when cell_use_type = 0 then 3
+                when cell_use_type = 3 then 4
+                when cell_use_type = 5 then 5
+                when cell_use_type = -1 then 6
+                else 10000
+                end asc,
+                batch_name desc,
+            </if>
+            inventory_id desc
+        </if>
+    </select>
+
+    <select id="cellCount" resultType="java.lang.Integer">
+        select count(*)
+        from
+        inventory
+        <where>
+            ware_id=#{wareId}
+            and cell_code=#{cellCode}
+            <!-- and quantity>0 -->
+            and state>=0
+        </where>
+    </select>
+
+    <select id="findSameInventory" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultMap="BaseResultMap">
+        select *
+        from inventory
+        where ware_id = #{wareId}
+        and cell_code = #{cellCode}
+        <if test="boxCode!=null and boxCode != ''">
+            and box_code = #{boxCode}
+        </if>
+
+        and pack_detail_id = #{packDetailId}
+        and item_code = #{itemCode}
+        and batch_id = #{batchId}
+        and trans_ratio = #{transRatio}
+        and state>=0
+        limit 1
+    </select>
+
+    <select id="findBatchId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from inventory
+        where batch_id = #{batchId}
+        and state>=0
+    </select>
+
+    <select id="getStockInventory" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultMap="BaseResultMap">
+        select *
+        from inventory
+        where ware_id = #{wareId}
+          and cell_code = #{cellCode}
+          and box_code = #{boxCode}
+          and organization_id = #{organizationId}
+          and item_code = #{itemCode}
+          and state>=0
+    </select>
+
+    <select id="getAsnInventory" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultMap="BaseResultMap">
+        select *
+        from inventory
+        where ware_id = #{wareId}
+          and cell_code = #{cellCode}
+          and box_code = #{boxCode}
+          and pack_detail_id = #{packDetailId}
+          and item_code = #{itemCode}
+          and batch_id = #{batchId}
+          and state>=0
+    </select>
+
+    <select id="findBatchInventory" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultMap="BaseResultMap">
+        select *
+        from inventory
+        where ware_id = #{wareId}
+          and item_code = #{itemCode}
+          and organization_id = #{organizationId}
+          and state>=0
+
+
+    </select>
+
+    <select id="findBaoKuan" resultMap="BaseResultMap">
+         select *
+        from inventory
+        where ware_id = #{wareId}
+          and bao_kuan = 1
+          and state>=0
+
+    </select>
+
+    <!--    在定时任务分配库存时使用-->
+    <select id="findCanBeOutOfStock" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultMap="inventorySelectDto">
+        select
+        inventory.inventory_id
+        ,inventory.ware_id
+        ,inventory.ware_name
+        ,inventory.organization_id
+        ,inventory.organization_name
+        ,inventory.item_code
+        ,inventory.item_name
+        ,inventory.spec
+        ,inventory.model
+        ,inventory.img_url
+        ,inventory.batch_id
+        ,inventory.batch_name
+        ,inventory.cell_code
+        ,inventory.box_code
+        ,inventory.lpn
+        ,inventory.pack_detail_id
+        ,inventory.pack_describe
+        ,inventory.quantity
+        ,inventory.allot_quantity
+        ,inventory.freeze_quantity
+        ,inventory.state
+        ,inventory.qc_state
+        ,inventory.version
+        ,type.item_type_id
+        ,type.item_type_name
+        ,cell.cell_use_type
+        ,item.spec
+        ,item.model
+        ,pm.pack_code
+        ,pm.pack_name,
+        cell.cell_code,
+        cell.cell_name,
+        shelf.shelf_name,
+        shelf.shelf_code,
+        area.area_name,
+        area.area_code
+        from inventory inventory
+        left join item_info item on inventory.item_code = item.item_code
+        left join pack_master pm on item.pack_code = pm.pack_code
+        left join item_type type on item.item_type_id = type.item_type_id
+        inner join cell_info cell on inventory.cell_code = cell.cell_code
+        left join shelf_info shelf on shelf.shelf_info_id = cell.shelf_info_id
+        left join area_info area on area.area_id = shelf.area_id
+        left join item_batch batch on batch.batch_id = inventory.batch_id
+        where cell.cell_use_type = 1
+        and inventory.ware_id = #{wareId}
+        and inventory.organization_id = #{organizationId}
+        and inventory.item_code = #{itemCode}
+        and inventory.state>=0
+        <if test="batchId != null and batchId != ''">
+            and inventory.batch_id = #{batchId}
+        </if>
+        <if test="cellCode != null and cellCode != ''">
+            and inventory.cell_code = #{cellCode}
+        </if>
+        <!-- 2022-4 berwin add   在定时任务分配库存时使用-->
+        <if test="cellUseType != null">
+            and inventory.cell_use_type = #{cellUseType}
+        </if>
+        and (inventory.quantity-inventory.allot_quantity-inventory.freeze_quantity)>0
+
+    </select>
+
+    <select id="canOut" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultMap="Dto">
+        select
+        inventory.inventory_id
+        ,inventory.ware_id
+        ,inventory.ware_name
+        ,inventory.organization_id
+        ,inventory.organization_name
+        ,item.item_code
+        ,item.item_name
+        ,item.img_url
+        ,inventory.batch_id
+        ,inventory.batch_name
+        ,inventory.box_code
+        ,inventory.lpn
+        ,inventory.pack_detail_id
+        ,inventory.pack_describe
+        ,ifnull(sum(inventory.quantity),0) as quantity
+        ,ifnull(sum(if(cell.cell_use_type=1,inventory.quantity,0)),0) as can_pick_quantity
+        ,ifnull(sum(inventory.allot_quantity),0) as allot_quantity
+        ,ifnull(sum(inventory.freeze_quantity),0) as freeze_quantity
+        ,inventory.state
+        ,inventory.qc_state
+
+        ,item.spec
+        ,item.model
+        ,item.pack_code
+
+        from  item_info item
+        left join inventory inventory
+        on inventory.item_code = item.item_code
+        and inventory.ware_id =#{wareId}
+        and inventory.organization_id =item.organization_id
+        left join cell_info cell on  inventory.cell_code = cell.cell_code
+        where 1=1
+        and (cell.cell_use_type =1  or cell.cell_use_type=2)
+        and inventory.state>=0
+        <if test="itemCode != null and itemCode != ''">
+            and item.item_code = #{itemCode}
+        </if>
+        <if test="itemName != null and itemName != ''">
+            and item.item_name like CONCAT('%', #{itemName}, '%')
+        </if>
+        <if test="organizationId != null  ">
+            and item.organization_id = #{organizationId}
+        </if>
+        <if test="cellCode != null and cellCode != ''">
+            and inventory.cell_code like #{cellCode}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                inventory.ware_name like CONCAT('%', #{keyWord}, '%')
+                or inventory.batch_name like CONCAT('%', #{keyWord}, '%')
+                or item.item_code like CONCAT('%', #{keyWord}, '%')
+                or item.item_name like CONCAT('%', #{keyWord}, '%')
+                or inventory.box_code like CONCAT('%', #{keyWord}, '%')
+                or inventory.lpn like CONCAT('%', #{keyWord}, '%')
+
+
+                )
+            </foreach>
+        </if>
+
+        GROUP BY item.id ,inventory.ware_id,inventory.organization_id
+        <if test="hasInventoryLimit != null and hasInventoryLimit == 1">
+            having (quantity-allot_quantity-freeze_quantity) &gt; 0
+        </if>
+
+    </select>
+
+    <select id="findPickCellCode"     resultType="java.lang.String">
+
+        select
+        inventory.cell_code
+        from
+        inventory inventory
+        where inventory.cell_use_type = 1
+        and inventory.item_code =#{itemCode}
+        and inventory.ware_id =#{wareId}
+        and inventory.organization_id =#{organizationId}
+        and inventory.state>=0
+        limit 1
+
+    </select>
+
+    <select id="canBh" resultMap="BaseResultMap" >
+        select
+        inventory.*
+        from
+        inventory inventory
+        left join cpfr_task task on inventory.inventory_id  =task.from_inventory_id and task.state=0
+        where inventory.cell_use_type =2
+        and inventory.item_code =#{itemCode}
+        and inventory.ware_id =#{wareId}
+        and inventory.organization_id =#{organizationId}
+        and inventory.state>=0
+        group by inventory.inventory_id
+        having
+        (
+            sum(DISTINCT case when  inventory.inventory_id  then inventory.quantity else 0 end )
+            -
+            sum(DISTINCT case when  task.cpfr_task_id  then task.quantity else 0 end )
+        )>0
+
+    </select>
+
+    <select id="findSame" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultMap="inventorySumList">
+        select
+
+        item.item_code
+        ,item.item_name
+        ,item.pack_code
+        ,inventory.pack_detail_id
+        ,inventory.pack_describe
+        ,inventory.quantity
+        ,inventory.inventory_id
+        ,ifnull(sum(inventory.quantity),0) as one
+        ,ifnull(sum(inventory.allot_quantity),0) as two
+        ,ifnull(sum(inventory.freeze_quantity),0) as three
+        from item_info item
+        left join inventory inventory
+        on item.item_code = inventory.item_code
+        where 1=1
+        and inventory.ware_id = #{wareId}
+        and inventory.organization_id = #{organizationId}
+        and inventory.state>=0
+        <if test="itemOrgId != null and itemOrgId != ''">
+            and item.organization_id = #{itemOrgId}
+        </if>
+
+        <if test="batchId != null and batchId != ''">
+            and inventory.batch_id = #{batchId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                item.item_code like CONCAT('%', #{keyWord}, '%')
+                or item.item_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+        <if test="itemCode != null and itemCode != ''">
+            and (item.item_code = #{itemCode} or inventory.upc = #{itemCode})
+        </if>
+        GROUP BY item.id ,inventory.ware_id,inventory.organization_id
+        <if test="hasInventoryLimit != null and hasInventoryLimit == 1">
+            having sum(inventory.quantity) &gt; 0
+        </if>
+
+        ORDER BY inventory.quantity desc
+
+    </select>
+
+    <select id="findByCellCode" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultMap="BaseResultMap">
+        select *
+        from inventory
+        where 1=1
+        <if test="cellCode">
+            and cell_code = #{cellCode}
+        </if>
+        <if test="wareId != null and wareId != ''">
+            and ware_id = #{wareId}
+        </if>
+        <if test="states != null">
+            and state in
+            <foreach collection="states" item="statesX" index="index" open="(" separator="," close=")">
+                #{statesX}
+            </foreach>
+        </if>
+
+    </select>
+
+    <select id="findByCellCodeAndState" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultMap="BaseResultMap">
+        select *
+        from inventory
+        where 1=1
+        <if test="cellCode">
+            and cell_code = #{cellCode}
+        </if>
+        <if test="wareId != null and wareId != ''">
+            and ware_id = #{wareId}
+        </if>
+        <if test="states != null">
+            and state in
+            <foreach collection="states" item="statesX" index="index" open="(" separator="," close=")">
+                #{statesX}
+            </foreach>
+        </if>
+
+    </select>
+
+    <select id="checkList" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultMap="BaseResultMap">
+        select *
+        from inventory iv
+        inner join pick_task pt on iv.inventory_id = pt.inventory_id
+        inner join so_master sm on pt.so_master_id = sm.so_master_id
+        inner join wave_detail wd on sm.so_master_id = wd.so_master_id
+        where 1=1
+        and iv.state>=0
+        and (pt.pick_quantity - pt.review_quantity) &gt; 0
+        <if test="billNo != null and billNo != ''">
+            and sm.bill_no = #{billNo}
+        </if>
+        <if test="itemCode != null and itemCode != ''">
+            and iv.item_code = #{itemCode}
+        </if>
+        <if test="waveCode != null and waveCode != ''">
+            and wd.wave_master_code = #{waveCode}
+        </if>
+    </select>
+    <select id="inventorySafetyList" parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria"
+            resultType="com.deer.wms.inventory.model.Inventory.InventorySafetyReport">
+        select isf.ware_id as wareId,
+        isf.ware_name as wareName,
+        isf.organization_id as organizationId,
+        isf.organization_name as organizationName,
+        isf.item_code as itemCode,
+        isf.item_name as itemName,
+        isf.pack_detail_id as packDetailId,
+        isf.pack_describe as packDescribe,
+        sum(ifnull(iv.quantity,0)) as quantity,
+        isf.ceiling,
+        isf.floor,
+        if(sum(ifnull(iv.quantity,0)) &gt; isf.ceiling, '超储', (if(sum(ifnull(iv.quantity,0)) &lt; isf.floor, '短缺',
+        '正常'))) as state
+
+        from inventory_safety isf
+        left join inventory iv on iv.item_code = isf.item_code
+        and iv.ware_id = isf.ware_id
+        and iv.organization_id = isf.organization_id
+        where 1=1
+        and iv.state>=0
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                isf.ware_name like CONCAT('%', #{keyWord}, '%')
+                or isf.item_code like CONCAT('%', #{keyWord}, '%')
+                or isf.item_name like CONCAT('%', #{keyWord}, '%')
+                or isf.ware_name like CONCAT('%', #{keyWord}, '%')
+                or isf.organization_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        group by isf.id
+        <if test="inventorySafetyState == 1">
+            having sum(ifnull(iv.quantity,0)) &gt; max(isf.ceiling)
+        </if>
+        <if test="inventorySafetyState == -1">
+            having sum(ifnull(iv.quantity,0)) &lt; max(isf.floor)
+        </if>
+    </select>
+
+
+    <select id="findByItemWareOrgGroupByItem" resultType="java.lang.Double">
+        select sum(quantity)
+        from inventory
+        where item.item_code = inventory.item_code
+          and inventory.ware_id = #{wareId}
+          and inventory.organization_id = #{organizationId}
+          and inventory.state>=0
+    </select>
+
+    <select id="findGroupByWareOrgItem" resultType="com.deer.wms.inventory.model.Inventory.GroupByWareOrgItem"
+            parameterType="com.deer.wms.inventory.model.Inventory.InventoryCriteria">
+        SELECT
+        inven1.ware_id as wareId,
+        inven1.ware_name as wareName,
+
+        inven1.organization_id as organizationId,
+        inven1.organization_name as organizationName,
+        inven1.item_name as itemName,
+        inven1.item_code as itemCode,
+        cell.cell_code,
+        cell.cell_use_type,
+        SUM(inven1.quantity) totalQuantity,
+        SUM(IFNULL(inven0.quantity,0)) as totalAcceptQuantity,
+        SUM(IFNULL(inven3.quantity,0)) as totalOutQuantity,
+        SUM(IFNULL(inven4.quantity,0)) as totalSjcQuantity,
+        SUM(IFNULL(inven2.quantity,0)) as totalCcwQuantity,
+        SUM(inven1.allot_quantity) as totalAllotQuantity,
+        SUM(inven1.freeze_quantity) as totalFreezeQuantity,
+        SUM(inven1.quantity)
+        -SUM(IFNULL(inven0.quantity,0))
+        -SUM(IFNULL(inven2.quantity,0))
+        -SUM(IFNULL(inven3.quantity,0))
+        -SUM(IFNULL(inven1.allot_quantity,0))
+        -SUM(IFNULL(inven1.freeze_quantity,0)) as canAllotQuantity
+        from inventory inven1
+        inner JOIN cell_info cell on inven1.cell_code = cell.cell_code
+        LEFT JOIN inventory inven2 on inven1.inventory_id = inven2.inventory_id and cell.cell_use_type =2
+        LEFT JOIN inventory inven0 on inven1.inventory_id = inven0.inventory_id and cell.cell_use_type =0
+        LEFT JOIN inventory inven3 on inven1.inventory_id = inven3.inventory_id and cell.cell_use_type =3
+        LEFT JOIN inventory inven4 on inven1.inventory_id = inven4.inventory_id and cell.cell_use_type =4
+
+        where 1=1
+        and inven1.state>=0
+        and cell.cell_use_type >= 0
+        <if test="wareId != null">
+            and inven1.ware_id = #{wareId}
+        </if>
+        <if test="organizationId != null">
+            and inven1.organization_id = #{organizationId}
+        </if>
+        <if test="itemCode != null and itemCode != ''">
+            and inven1.item_code = #{itemCode}
+        </if>
+        <if test="keyWordList != null">
+
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                inven1.ware_name like CONCAT('%', #{keyWord}, '%')
+                or inven1.organization_name like CONCAT('%', #{keyWord}, '%')
+                or inven1.customer_name like CONCAT('%', #{keyWord}, '%')
+                or inven1.item_name like CONCAT('%', #{keyWord}, '%')
+                or inven1.item_code like CONCAT('%', #{keyWord}, '%')
+
+                )
+            </foreach>
+        </if>
+        <if test="itemName != null and itemName !=''">
+            and inven1.item_name like CONCAT('%', #{itemName}, '%')
+        </if>
+
+        GROUP BY inven1.ware_id,inven1.organization_id, inven1.item_code
+
+    </select>
+
+    <select id="getAccept" resultMap="BaseResultMap">
+        select
+        *
+        from inventory
+      --  left join cell_info cell on  inven.cell_code = cell.cell_code
+        where inventory_id = #{inventoryId}
+        and ware_id = #{wareId}
+        and cell_use_type = 0
+        and state>=0
+    </select>
+
+
+    <resultMap id="BoxInfoToCombine" type="com.deer.wms.inventory.model.combinePallet.BoxInfoToCombine">
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="weight" jdbcType="DOUBLE" property="weight"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+    </resultMap>
+    <select id="palletsToCombine" resultMap="BoxInfoToCombine">
+        select box_code, iv.item_code, iv.batch_name, sum(iv.quantity), ii.weight, cell_code
+        from inventory iv
+        inner join item_info ii on ii.item_code = iv.item_code
+        inner join combine_pallet_tactic t on t.id = 1
+        where 1=1
+        and iv.state>=0
+        group by iv.box_code
+        having sum(quantity)/#{maxQuantity} &lt; max(t.quantity_limit)
+        and (sum(quantity)*max(ii.weight))/#{maxWeight} &lt; max(t.weight_limit)
+        order by iv.box_code,max(iv.item_code), max(iv.batch_name)
+    </select>
+    <select id="inventoriesWithBoxCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select *
+        from inventory
+        where box_code = #{boxCode}
+        and state>=0
+    </select>
+
+
+    <select id="findSameItemCell" resultType="java.lang.String">
+        select
+        cell.cell_code
+        from inventory inven
+        inner join cell_info cell on inven.cell_code = cell.cell_code
+        where
+        item_code = #{itemCode}
+        and ware_id = #{wareId}
+        and organization_id = #{orgId}
+        and cell.cell_use_type = 2
+        and inven.state>=0
+        order by inven.quantity
+        limit 1
+
+    </select>
+
+    <delete id="sendOut">
+        delete
+        from
+        inventory
+        where
+        bill_no = #{billNo}
+        and ware_id = #{wareId}
+    </delete>
+
+    <delete id="deleteByIdVersion">
+        delete from inventory
+        where inventory_id = #{id} and version = #{version}
+    </delete>
+
+
+    <select id="findByItemWareOrg" resultMap="BaseResultMap">
+        select
+        *
+        from inventory
+        where
+        item_code  =#{itemCode}
+        and ware_id = #{wareId}
+        and organization_id = #{orgId}
+        and cell_code = #{cellCode}
+        and state>=0
+        limit 1;
+
+    </select>
+
+    <select id="getInventoryByFromInfo" resultMap="BaseResultMap">
+        select i.*
+        from inventory i
+        inner join cell_info ci on ci.cell_code = i.cell_code
+        left join shelf_info si on ci.shelf_info_id = si.shelf_info_id
+        left join area_info ai on si.area_id = ai.area_id
+        where
+        ci.state = 'enable'
+        and i.ware_id = #{wareId}
+        and ai.ware_id = #{wareId}
+        and i.organization_id = #{organizationId}
+        and ci.cell_use_type in(1,2)
+        and i.state>=0
+        <if test="fromAreaCode != null and fromAreaCode != ''">
+            and ai.area_code = #{fromAreaCode}
+        </if>
+        <if test="fromShelfCode != null and fromShelfCode != ''">
+            and si.shelf_code = #{fromShelfCode}
+        </if>
+        <if test="fromCellCode != null and fromCellCode != ''">
+            and ci.cell_code = #{fromCellCode}
+        </if>
+        <if test="itemCode != null and itemCode != ''">
+            and i.item_code = #{itemCode}
+        </if>
+        <if test="randomNum != null and randomNum > 0">
+            limit #{randomNum}
+        </if>
+    </select>
+
+    <select id="getInventoryByCellType" resultMap="Dto">
+     select i.*,sum(i.quantity) sum_quantity
+        from inventory i
+--         left join cell_info ci on ci.cell_code = i.cell_code
+        where
+        i.ware_id = #{wareId}
+        and i.organization_id = #{orgId}
+        and i.item_code = #{itemCode}
+--      and ci.state = 'enable'
+        and i.state>=0
+        group by i.cell_code
+    </select>
+
+    <update id="addAllotQuantity" >
+        update inventory
+        set allot_quantity  =allot_quantity + #{quantity}, debug_memo  = 'addAllotQuantity'
+        where inventory_id  =#{id}
+    </update>
+
+    <update id="update">
+        update inventory
+        <set>
+            <if test="wareId != null">
+                ware_id = #{wareId,jdbcType=INTEGER},
+            </if>
+            <if test="wareName != null">
+                ware_name = #{wareName,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationId != null">
+                organization_id = #{organizationId,jdbcType=INTEGER},
+            </if>
+            <if test="organizationName != null">
+                organization_name = #{organizationName,jdbcType=VARCHAR},
+            </if>
+            <if test="itemCode != null">
+                item_code = #{itemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="itemName != null">
+                item_name = #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test="model != null">
+                model = #{model,jdbcType=VARCHAR},
+            </if>
+            <if test="spec != null">
+                spec = #{spec,jdbcType=VARCHAR},
+            </if>
+            <if test="imgUrl != null">
+                img_url = #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="batchId != null">
+                batch_id = #{batchId,jdbcType=INTEGER},
+            </if>
+            <if test="batchName != null">
+                batch_name = #{batchName,jdbcType=VARCHAR},
+            </if>
+            <if test="cellCode != null">
+                cell_code = #{cellCode,jdbcType=VARCHAR},
+            </if>
+            <if test="cellUseType != null">
+                cell_use_type = #{cellUseType,jdbcType=VARCHAR},
+            </if>
+            <if test="boxCode != null">
+                box_code = #{boxCode,jdbcType=VARCHAR},
+            </if>
+            <if test="lpn != null">
+                lpn = #{lpn,jdbcType=VARCHAR},
+            </if>
+            <if test="packDetailId != null">
+                pack_detail_id = #{packDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="packDescribe != null">
+                pack_describe = #{packDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="transRatio != null">
+                trans_ratio = #{transRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity,jdbcType=DOUBLE},
+            </if>
+            <if test="allotQuantity != null">
+                allot_quantity = #{allotQuantity,jdbcType=DOUBLE},
+                debug_memo = concat(concat( concat( 'update : Quantity' ,  #{quantity,jdbcType=DOUBLE} ), ' allotQuantity' ) ,  #{allotQuantity,jdbcType=DOUBLE} ) ,
+            </if>
+            <if test="allotPackDetailId != null">
+                allot_pack_detail_id = #{allotPackDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="allotPackDescribe != null">
+                 allot_pack_describe = #{allotPackDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="allotTransRatio != null">
+                allot_trans_ratio = #{allotTransRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="freezeQuantity != null">
+                freeze_quantity = #{freezeQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="freezePackDetailId != null">
+                freeze_pack_detail_id = #{freezePackDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="freezePackDescribe != null">
+                freeze_pack_describe = #{freezePackDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="freezeTransRatio != null">
+                freeze_trans_ratio = #{freezeTransRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="qcState != null">
+                qc_state = #{qcState,jdbcType=INTEGER},
+            </if>
+            <if test="billNo != null">
+                bill_no = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="baoKuan != null">
+                bao_kuan = #{baoKuan,jdbcType=INTEGER},
+            </if>
+            <if test="recoveryTime != null">
+                recovery_time = #{recoveryTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="recoveryUserId != null">
+                recovery_user_id = #{recoveryUserId,jdbcType=INTEGER},
+            </if>
+            <if test="recoveryUserName != null and recoveryUserName !=''">
+                recovery_user_name = #{recoveryUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="recoveryReason != null and recoveryReason !=''">
+                recovery_reason = #{recoveryReason,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                version = version + 1,
+            </if>
+        </set>
+        where inventory_id = #{inventoryId,jdbcType=INTEGER}
+        and version = #{version}
+
+    </update>
+
+    <select id="findListByMinId" resultType="com.deer.wms.inventory.model.Inventory.Inventory">
+        SELECT * FROM `inventory`
+        WHERE `inventory_id` >= #{minId}
+        LIMIT ${limit}
+    </select>
+
+    <select id="findSummarySameInventory" resultMap="BaseResultMap">
+        select *
+        from inventory
+        where ware_id = #{wareId}
+        and cell_code = #{cellCode}
+        <if test="boxCode!=null and boxCode != ''">
+            and box_code = #{boxCode}
+        </if>
+
+        and pack_detail_id = #{packDetailId}
+        and item_code = #{itemCode}
+        and trans_ratio = #{transRatio}
+        and state>=0
+        limit 1
+    </select>
+
+    <select id="findInvToBeModified" resultMap="BaseResultMap">
+        SELECT *
+        FROM inventory
+        <where>
+            <if test="wareId != null">
+                and ware_id = #{wareId}
+            </if>
+            <if test="formCellCode != null and formCellCode != ''">
+                and cell_code = #{formCellCode}
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code = #{itemCode}
+            </if>
+        </where>
+    </select>
+    
+    <select id="findRecommendedForPick" resultType="com.deer.wms.inventory.model.Inventory.InventorySelectDto">
+        SELECT i.*,
+        cell.cell_code,
+        cell.cell_name,
+        shelf.shelf_code,
+        shelf.shelf_name,
+        area.area_name,
+        area.area_code
+        FROM `inventory` AS i
+        LEFT JOIN `cell_info` AS cell ON i.cell_code = cell.cell_code
+        LEFT JOIN `shelf_info` AS shelf ON shelf.shelf_info_id = cell.shelf_info_id
+        LEFT JOIN `area_info` AS area ON area.area_id = shelf.area_id
+        <where>
+            i.`ware_id` = #{wareId}
+            AND i.`cell_code` = #{cellCode}
+            AND i.`item_code` = #{itemCode}
+            AND i.`organization_id` = #{orgId}
+            AND i.`batch_name` = 'Recommended'
+            AND i.`state` >= 0
+        </where>
+        ORDER BY `inventory_id` DESC 
+        LIMIT 1
+    </select>
+</mapper>

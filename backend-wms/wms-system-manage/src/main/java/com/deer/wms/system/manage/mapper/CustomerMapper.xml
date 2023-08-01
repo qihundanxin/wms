@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.customer.Customer">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="customer_code" jdbcType="VARCHAR" property="customerCode"/>
+        <result column="customer_name" jdbcType="VARCHAR" property="customerName"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="carrier_id" jdbcType="INTEGER" property="carrierId"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.customer.CustomerDto" extends="BaseResultMap">
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="carrier_name" jdbcType="VARCHAR" property="carrierName"/>
+    </resultMap>
+
+    <select id="findList" resultMap="Dto" parameterType="com.deer.wms.system.manage.model.customer.CustomerCriteria">
+        select
+        customer.customer_id
+        ,customer.customer_code
+        ,customer.customer_name
+        ,customer.address
+        ,customer.link_man
+        ,customer.link_phone
+        ,customer.carrier_id
+        ,customer.organization_id
+
+        ,organization.organization_name
+        ,carrier.carrier_name
+
+
+        from customer customer
+        left join organization organization on organization.organization_id = customer.organization_id
+        left join carrier carrier on customer.carrier_id = carrier.carrier_id
+        where 1=1
+        <if test="customerId != null and customerId !=''">
+            and customer.customer_id = #{customerId}
+        </if>
+        <if test="customerName != null and customerName !=''">
+            and customer.customerName = #{customerName}
+        </if>
+        <if test="organizationId != null and organizationId !=''">
+            and organization.organization_id = #{organizationId}
+        </if>
+        <if test="carrierId != null and carrierId !=''">
+            and carrier.carrier_id = #{carrierId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                organization.organization_name like CONCAT('%', #{keyWord}, '%')
+                or customer.customer_name like CONCAT('%', #{keyWord}, '%')
+                or customer.link_man like CONCAT('%', #{keyWord}, '%')
+                or customer.link_phone like CONCAT('%', #{keyWord}, '%')
+                or carrier.carrier_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+    </select>
+
+
+    <select id="findByCustomerCode" resultMap="Dto" parameterType="java.lang.String">
+       select
+     customer.customer_id
+    ,customer.customer_code
+    ,customer.customer_name
+    ,customer.address
+    ,customer.link_man
+    ,customer.link_phone
+    ,customer.carrier_id
+    ,customer.organization_id
+
+    ,organization.organization_name
+    ,carrier.carrier_name
+
+
+
+    from  customer customer
+    left join organization organization on organization.organization_id = customer.organization_id
+    left join carrier carrier on customer.carrier_id = carrier.carrier_id
+    where  customer.customer_code = #{customerCode}
+
+    </select>
+
+    <select id="findByCustomerName" resultMap="Dto" parameterType="java.lang.String">
+       select
+     customer.customer_id
+    ,customer.customer_code
+    ,customer.customer_name
+    ,customer.address
+    ,customer.link_man
+    ,customer.link_phone
+    ,customer.carrier_id
+    ,customer.organization_id
+
+    ,organization.organization_name
+    ,carrier.carrier_name
+
+
+
+    from  customer customer
+    left join organization organization on organization.organization_id = customer.organization_id
+    left join carrier carrier on customer.carrier_id = carrier.carrier_id
+    where  customer.customer_name = #{customerName}
+
+    </select>
+
+</mapper>

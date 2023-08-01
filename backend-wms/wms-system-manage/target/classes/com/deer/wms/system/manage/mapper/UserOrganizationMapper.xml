@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.UserOrganizationMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.organization.UserOrganization">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="user_organization_id" jdbcType="INTEGER" property="userOrganizationId"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.organization.UserOrganizationDto"
+               extends="BaseResultMap">
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+    </resultMap>
+
+    <select id="findList" resultMap="Dto"
+            parameterType="com.deer.wms.system.manage.model.organization.UserOrganizationCriteria">
+        select
+        uo.user_organization_id,
+        uo.organization_id,
+        uo.user_id,
+
+        organization.organization_name,
+
+        u.user_name
+
+        from user_organization uo
+        left join organization organization on organization.organization_id = uo.organization_id
+        left join user_info u on uo.user_id = u.user_id
+        where 1=1
+        <if test="wareId != null">
+            and uo.ware_id = #{wareId}
+        </if>
+    </select>
+
+    <delete id="deleteByUserId" parameterType="java.lang.Integer">
+    delete  from user_organization where user_id = #{userId}
+  </delete>
+
+    <delete id="deleteByOrganizationId" parameterType="java.lang.Integer">
+    delete  from user_organization where organization_id = #{organizationId}
+  </delete>
+
+</mapper>

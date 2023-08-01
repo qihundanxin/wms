@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.PageSetMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.PageSet.PageSet">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="page_set_code" jdbcType="VARCHAR" property="pageSetCode"/>
+        <result column="page_set_name" jdbcType="VARCHAR" property="pageSetName"/>
+        <result column="value" jdbcType="VARCHAR" property="value"/>
+        <result column="table_name" jdbcType="VARCHAR" property="tableName"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.base.system.model.PageSet.PageSetDto">
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.base.system.model.PageSet.PageSetCriteria" resultMap="Dto">
+        select
+        page.page_set_code
+        ,page.page_set_name
+        ,page.value
+        ,page.table_name
+        from page_set page
+        where 1=1
+        <if test="tableName != null and tableName != ''">
+            and page.table_name = #{tableName}
+        </if>
+
+    </select>
+
+</mapper>

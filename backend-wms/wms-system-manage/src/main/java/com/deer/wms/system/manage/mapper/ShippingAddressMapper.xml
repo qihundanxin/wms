@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.ShippingAddressMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.address.ShippingAddress">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="shipping_address_id" jdbcType="INTEGER" property="shippingAddressId"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.address.ShippingAddressDto" extends="BaseResultMap">
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+
+    </resultMap>
+
+    <select id="findList" resultMap="Dto"
+            parameterType="com.deer.wms.system.manage.model.address.ShippingAddressCriteria">
+        select
+        shipping.shipping_address_id
+        ,shipping.link_man
+        ,shipping.link_phone
+        ,shipping.province
+        ,shipping.city
+        ,shipping.area
+        ,shipping.detail_address
+        ,shipping.organization_id
+        ,shipping.ware_id
+        ,shipping.state
+
+        ,organization.organization_name
+        ,ware.ware_name
+
+
+        from shipping_address shipping
+        left join organization organization on shipping.organization_id = organization.organization_id
+        left join ware_info ware on shipping.ware_id = ware.ware_id
+        where 1=1
+
+        <if test="shippingAddressId != null">
+            and shipping.shipping_address_id= #{shippingAddressId}
+        </if>
+        <if test="wareId != null">
+            and ware.ware_id= #{wareId}
+        </if>
+        <if test="organizationId != null">
+            and organization.organization_id= #{organizationId}
+        </if>
+        <if test="state != null">
+            and shipping.state= #{state}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                shipping.link_man like CONCAT('%', #{keyWord}, '%')
+                or shipping.link_phone like CONCAT('%', #{keyWord}, '%')
+                or shipping.province like CONCAT('%', #{keyWord}, '%')
+                or shipping.city like CONCAT('%', #{keyWord}, '%')
+                or shipping.area like CONCAT('%', #{keyWord}, '%')
+                or shipping.detail_address like CONCAT('%', #{keyWord}, '%')
+                or organization.organization_name like CONCAT('%', #{keyWord}, '%')
+                or ware.ware_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+        order by shipping.state desc
+
+    </select>
+
+    <select id="findByOrganizationIdAndWareId" resultMap="Dto">
+        select
+        shipping.shipping_address_id
+        ,shipping.link_man
+        ,shipping.link_phone
+        ,shipping.province
+        ,shipping.city
+        ,shipping.area
+        ,shipping.detail_address
+        ,shipping.organization_id
+        ,shipping.ware_id
+        ,shipping.state
+
+        ,organization.organization_name
+        ,ware.ware_name
+
+
+        from shipping_address shipping
+        left join organization organization on shipping.organization_id = organization.organization_id
+        left join ware_info ware on shipping.ware_id = ware.ware_id
+        where
+        shipping.organization_id = #{organizationId} and shipping.ware_id = #{wareId}
+    </select>
+
+    <select id="findDefaultByOrganizationIdAndWareId" resultMap="Dto">
+        select
+        shipping.shipping_address_id
+        ,shipping.link_man
+        ,shipping.link_phone
+        ,shipping.province
+        ,shipping.city
+        ,shipping.area
+        ,shipping.detail_address
+        ,shipping.organization_id
+        ,shipping.ware_id
+        ,shipping.state
+
+        ,organization.organization_name
+        ,ware.ware_name
+
+
+        from shipping_address shipping
+        left join organization organization on shipping.organization_id = organization.organization_id
+        left join ware_info ware on shipping.ware_id = ware.ware_id
+        where shipping.state = 1
+        and shipping.organization_id = #{organizationId} and shipping.ware_id = #{wareId}
+    </select>
+
+    <select id="findByThree" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from shipping_address
+        where organization_id = #{organizationId}
+        and ware_id = #{wareId}
+        and state =#{state}
+
+    </select>
+</mapper>

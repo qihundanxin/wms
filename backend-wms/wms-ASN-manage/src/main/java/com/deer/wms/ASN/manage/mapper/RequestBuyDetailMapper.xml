@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.RequestBuyDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.buy.RequestBuyDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="request_buy_detail_id" jdbcType="INTEGER" property="requestBuyDetailId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="expect_quantity" jdbcType="DOUBLE" property="expectQuantity"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="accept_quantity" jdbcType="DOUBLE" property="acceptQuantity"/>
+        <result column="accept_pack_detail_id" jdbcType="INTEGER" property="acceptPackDetailId"/>
+        <result column="accept_pack_describe" jdbcType="VARCHAR" property="acceptPackDescribe"/>
+        <result column="accept_trans_ratio" jdbcType="DOUBLE" property="acceptTransRatio"/>
+        <result column="asn_quantity" jdbcType="DOUBLE" property="asnQuantity"/>
+        <result column="asn_pack_detail_id" jdbcType="INTEGER" property="asnPackDetailId"/>
+        <result column="asn_pack_describe" jdbcType="VARCHAR" property="asnPackDescribe"/>
+        <result column="asn_trans_ratio" jdbcType="DOUBLE" property="asnTransRatio"/>
+        <result column="accept_time" jdbcType="TIMESTAMP" property="acceptTime"/>
+        <result column="batch_tactic_code" jdbcType="VARCHAR" property="batchTacticCode"/>
+        <result column="po_udf_ds1" jdbcType="VARCHAR" property="poUdfDs1"/>
+        <result column="po_udf_ds2" jdbcType="VARCHAR" property="poUdfDs2"/>
+        <result column="po_udf_ds3" jdbcType="VARCHAR" property="poUdfDs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="price_in" jdbcType="DECIMAL" property="priceIn"/>
+        <result column="tax_rate_in" jdbcType="DECIMAL" property="taxRateIn"/>
+
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ASN.manage.model.buy.RequestBuyDetailDto" extends="BaseResultMap">
+        <result column="batch_tactic_name" jdbcType="VARCHAR" property="batchTacticName"/>
+        <result column="upper_tactic_name" jdbcType="VARCHAR" property="upperTacticName"/>
+        <result column="pack_code" jdbcType="VARCHAR" property="packCode"/>
+        <result column="pack_name" jdbcType="VARCHAR" property="packName"/>
+        <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+
+        <collection property="packDetails" ofType="com.deer.wms.ASN.manage.model.buy.PackDetails">
+            <result column="pack_detail_id1" jdbcType="INTEGER" property="packDetailId1"/>
+            <result column="pack_describe1" jdbcType="VARCHAR" property="packDescribe1"/>
+            <result column="trans_ratio1" jdbcType="DOUBLE" property="transRatio1"/>
+
+        </collection>
+
+
+    </resultMap>
+    <update id="updateDetail">
+        update request_buy_detail
+        <set >
+            <if test="billNo != null" >
+                bill_no = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="detailNo != null" >
+                detail_no = #{detailNo,jdbcType=VARCHAR},
+            </if>
+            <if test="itemCode != null" >
+                item_code = #{itemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="itemName != null" >
+                item_name = #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test="imgUrl != null" >
+                img_url = #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="expectQuantity != null" >
+                expect_quantity = #{expectQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="packDetailId != null" >
+                pack_detail_id = #{packDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="packDescribe != null" >
+                pack_describe = #{packDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="transRatio != null" >
+                trans_ratio = #{transRatio,jdbcType=DOUBLE},
+            </if>
+            <if test=" acceptQuantity != null" >
+                accept_quantity = #{acceptQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="acceptPackDetailId != null" >
+                accept_pack_detail_id = #{acceptPackDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="acceptPackDescribe != null" >
+                accept_pack_describe = #{acceptPackDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="acceptTransRatio != null" >
+                accept_trans_ratio = #{acceptTransRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="asnQuantity != null" >
+                asn_quantity = #{asnQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="asnPackDetailId != null" >
+                asn_pack_detail_id = #{asnPackDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="asnPackDescribe != null" >
+                asn_pack_describe = #{asnPackDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="asnTransRatio != null" >
+                asn_trans_ratio = #{asnTransRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="acceptTime != null" >
+                accept_time = #{acceptTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="batchTacticCode != null" >
+                batch_tactic_code = #{batchTacticCode,jdbcType=VARCHAR},
+            </if>
+            <if test="poUdfDs1 != null" >
+                po_udf_ds1 = #{poUdfDs1,jdbcType=VARCHAR},
+            </if>
+            <if test="poUdfDs2 != null" >
+                po_udf_ds2 = #{poUdfDs2,jdbcType=VARCHAR},
+            </if>
+            <if test="poUdfDs3 != null" >
+                po_udf_ds3 = #{poUdfDs3,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null" >
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="priceInSetNull != true and priceIn != null" >
+                price_in = #{priceIn,jdbcType=DECIMAL},
+            </if>
+            <if test="priceInSetNull == true" >
+                price_in = NULL,
+            </if>
+            <if test="taxRateInSetNull != true and taxRateIn != null" >
+                tax_rate_in = #{taxRateIn,jdbcType=DECIMAL},
+            </if>
+            <if test="taxRateInSetNull == true" >
+                tax_rate_in = NULL,
+            </if>
+        </set>
+        where request_buy_detail_id = #{requestBuyDetailId,jdbcType=INTEGER}
+    </update>
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.buy.RequestBuyDetailCriteria" resultMap="Dto">
+        select
+        detail.request_buy_detail_id
+        ,detail.bill_no
+        ,detail.detail_no
+        ,detail.item_code
+        ,detail.item_name
+        ,detail.img_url
+        ,detail.pack_detail_id
+        ,detail.pack_describe
+        ,detail.trans_ratio
+        ,detail.state
+        ,detail.expect_quantity
+        ,detail.accept_quantity
+        ,detail.asn_quantity
+        ,detail.accept_time
+        ,detail.batch_tactic_code
+        ,detail.po_udf_ds1
+        ,detail.po_udf_ds2
+        ,detail.po_udf_ds3
+        ,detail.accept_pack_detail_id
+        ,detail.accept_pack_describe
+        ,detail.accept_trans_ratio
+        ,detail.asn_pack_detail_id
+        ,detail.asn_pack_describe
+        ,detail.asn_trans_ratio
+        ,detail.price_in
+        ,detail.tax_rate_in
+
+
+        ,item.spec
+        ,item.model
+
+
+        ,pm.pack_code
+        ,pm.pack_name
+        ,type.item_type_id
+        ,type.item_type_name
+        ,pd.pack_detail_id as pack_detail_id1
+        ,pd.pack_describe as pack_describe1
+        ,pd.trans_ratio as trans_ratio1
+
+
+        ,tactic.batch_tactic_name
+        ,upper.upper_tactic_name
+        from request_buy_detail detail
+        left join batch_tactic tactic on detail.batch_tactic_code = tactic.batch_tactic_code
+        left join item_info item on item.item_code = detail.item_code
+        left join pack_master pm on item.pack_code = pm.pack_code
+        left join pack_detail pd on pd.pack_code = pm.pack_code
+        left join item_type type on item.item_type_id = type.item_type_id
+        left join upper_tactic upper on item.upper_tactic_code = upper.upper_tactic_code
+        where 1=1
+        <if test="requestBuyDetailId != null">
+            and detail.request_buy_detail_id = #{requestBuyDetailId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and detail.bill_no = #{billNo}
+        </if>
+        <if test="detailNo != null">
+            and detail.detail_no = #{detailNo}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and detail.item_code = #{itemCode}
+        </if>
+        <if test="packDetailId != null">
+            and detail.pack_detail_id = #{packDetailId}
+        </if>
+        <if test="state != null">
+            and detail.state = #{state}
+        </if>
+        <if test="expectQuantity != null and expectQuantity !=''">
+            and detail.expect_quantity = #{expectQuantity}
+        </if>
+        <if test="acceptQuantity != null and acceptQuantity !=''">
+            and detail.accept_quantity = #{acceptQuantity}
+        </if>
+        <if test="acceptTime != null and acceptTime !=''">
+            and detail.accept_time = #{acceptTime}
+        </if>
+        <if test="batchTacticCode != null">
+            and detail.batch_tactic_code = #{batchTacticCode}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                detail.bill_no like CONCAT('%', #{keyWord}, '%')
+                or detail.detailNo like CONCAT('%', #{keyWord}, '%')
+                or detail.supplier_name like CONCAT('%', #{keyWord}, '%')
+                or detail.item_name like CONCAT('%', #{keyWord}, '%')
+                or name like CONCAT('%', #{keyWord}, '%')
+                or detail.state like CONCAT('%', #{keyWord}, '%')
+                or detail.expect_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.accept_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.asn_quantity like CONCAT('%', #{keyWord}, '%')
+                or detail.accept_time like CONCAT('%', #{keyWord}, '%')
+                or tactic.batch_tactic_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by detail.detail_no,pack_detail_id1
+
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from request_buy_detail
+    where bill_no =#{billNo}
+
+  </delete>
+
+    <select id="findByBillNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      *
+    from request_buy_detail
+    where bill_no = #{billNo}
+  </select>
+
+    <select id="findByDetailNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      *
+    from request_buy_detail
+    where detail_no = #{detailNo}
+
+  </select>
+</mapper>

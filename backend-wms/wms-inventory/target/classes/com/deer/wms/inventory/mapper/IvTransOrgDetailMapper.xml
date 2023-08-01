@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.IvTransOrgDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.IvTransOrgDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="master_id" jdbcType="INTEGER" property="masterId"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="inventory_id" jdbcType="INTEGER" property="inventoryId"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+    </resultMap>
+    <select id="findList" parameterType="com.deer.wms.inventory.model.IvTransOrgDetailCriteria"
+            resultMap="BaseResultMap">
+    select *
+    from iv_trans_org_detail itod
+    where 1=1
+    and itod.master_id = #{masterId}
+  </select>
+</mapper>

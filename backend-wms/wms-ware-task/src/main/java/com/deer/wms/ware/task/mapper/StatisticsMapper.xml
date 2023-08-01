@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.StatisticsMapper">
+
+    <select id="topSoStatistics" resultType="com.deer.wms.ware.task.model.statistics.TopStatisticsDto">
+        select count(1) soCount, count(if(state = 8, 1, null)) shippedCount,
+        count(if(state = 6, 1, null)) unShippedCount,
+        count(if(state = 3, 1, null)) oosCount
+        from so_master
+        where ware_id =
+        #{request.wareId} and create_time > #{request.startTime}
+    </select>
+
+    <select id="topAcceptStatistics" resultType="com.deer.wms.ware.task.model.statistics.TopStatisticsDto">
+        select count(1) acceptCount
+        from accept_record
+        where ware_id =
+        #{request.wareId} and accept_time > #{request.startTime}
+    </select>
+
+    <select id="topAcceptExStatistics" resultType="com.deer.wms.ware.task.model.statistics.TopStatisticsDto">
+        select count(1) qcCount
+        from accept_ex
+        where ware_id =
+        #{request.wareId} and create_time > #{request.startTime}
+    </select>
+
+    <select id="getInboundCountByDate" resultType="com.deer.wms.ware.task.model.statistics.StatByDateDto">
+        select sum(quantity) inBoundCount, date(accept_time) date
+        from
+        accept_record
+        where ware_id = #{request.wareId} and accept_time > #{request.startTime}
+        group by date(accept_time)
+    </select>
+
+    <select id="getOutboundCountByDate" resultType="com.deer.wms.ware.task.model.statistics.StatByDateDto">
+        select sum(order_quantity) outBoundCount, date(create_time)
+        date
+        from so_master join so_detail on so_master.so_master_id = so_detail.so_master_id
+        where ware_id =
+        #{request.wareId} and create_time > #{request.startTime}
+        group by date(create_time)
+    </select>
+
+    <select id="getCellStat" resultType="java.util.HashMap">
+        select count(inventory_id) cellCount, cell_info.cell_code cellCode
+        from
+        cell_info left join inventory on cell_info.cell_code = inventory.cell_code
+        and inventory.quantity -
+        inventory.freeze_quantity - inventory.allot_quantity > 0
+        where cell_info.ware_id = #{request.wareId}
+        and
+        inventory.state>=0
+        group by cell_info.cell_code
+    </select>
+
+    <select id="getPickupStat" resultType="java.util.HashMap">
+        select count(pick_time) pickedUpCount, count(1) pickupTotal
+        from
+        pick_task
+        where ware_id = #{request.wareId} and create_time > #{request.startTime}
+    </select>
+
+    <select id="getReturnStat" resultType="java.util.HashMap">
+        select count(if(asn_state in (3, 4, 5), 1, 0)) returnedCount, count(1)
+        returnTotal
+        from asn_master
+        where ware_id = #{request.wareId} and asn_type = 44 and expect_time >
+        #{request.startTime}
+    </select>
+
+    <select id="getInboundStat" resultType="java.util.HashMap">
+        select count(if(asn_state in (3, 4, 5), 1, 0)) acceptedCount, count(1)
+        receiveTotal
+        from asn_master
+        where ware_id = #{request.wareId} and expect_time > #{request.startTime}
+    </select>
+
+    <select id="getSoCount" resultType="int">
+        SELECT COUNT(*) AS count FROM `so_master`
+        <where>
+            AND `ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND `create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND `create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getOosCount" resultType="int">
+        SELECT COUNT(*) AS count FROM `so_master`
+        <where>
+            AND `state`=3
+            AND `ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND `create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND `create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getWaitPickupTotal" resultType="int">
+        SELECT COUNT(*) AS count FROM `so_master`
+        <where>
+            AND (`state`=4 OR `state`=5)
+            AND `ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND `create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND `create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getWaitShippedCount" resultType="int">
+        SELECT COUNT(*) AS count FROM `so_master`
+        <where>
+            AND `state`=7
+            AND `ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND `create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND `create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getAsnCount" resultType="int">
+        SELECT COUNT(*) AS count FROM `asn_master`
+        <where>
+            AND `ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND `create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND `create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getUnQcCount" resultType="int">
+        SELECT COUNT(*) AS count FROM `asn_master`
+        <where>
+            AND `asn_state` IN (0,1,2)
+            AND `ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND `create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND `create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getCellCode" resultType="string">
+        SELECT `cell_code` AS count FROM `cell_info`
+        <where>
+            AND `ware_id`=#{wareId}
+            AND `cell_use_type` IN (1,2)
+        </where>
+    </select>
+
+    <select id="getCellUsedCode" resultType="string">
+        SELECT `cell_code` FROM `inventory`
+        <where>
+            AND `ware_id`=#{param.wareId}
+            AND `cell_use_type` IN (1,2)
+            AND `quantity` > 0
+            <if test="cellCodes != null and cellCodes.size > 0">
+                AND `cell_code` IN 
+                <foreach collection="cellCodes" item="cellCode" open="(" separator="," close=")">
+                    #{cellCode}
+                </foreach>
+            </if>
+        </where>
+        GROUP BY `cell_code`
+    </select>
+
+    <select id="getReceiveTotal" resultType="int">
+        SELECT COUNT(*) AS count FROM `asn_master`
+        <where>
+            AND (`asn_type` IS NULL OR `asn_type` IN (24,25))
+            AND `ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND `create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND `create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getAcceptedCount" resultType="int">
+        SELECT COUNT(*) AS count FROM `asn_master`
+        <where>
+            AND `asn_state` IN (3,4,5)
+            AND (`asn_type` IS NULL OR `asn_type` IN (24,25))
+            AND `ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND `create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND `create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getReturnTotal" resultType="int">
+        SELECT COUNT(*) AS count FROM `asn_master`
+        <where>
+            AND `asn_type`=44
+            AND `ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND `create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND `create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getReturnedCount" resultType="int">
+        SELECT COUNT(*) AS count FROM `asn_master`
+        <where>
+            AND `asn_state` IN (3,4,5)
+            AND `asn_type`=44
+            AND `ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND `create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND `create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getPickupTotal" resultType="int">
+        SELECT COUNT(*) AS count FROM `pick_task` pt
+        LEFT JOIN `so_master` sm ON pt.so_master_id = sm.so_master_id
+        <where>
+            AND pt.`ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND sm.`create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND sm.`create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getPickedCount" resultType="int">
+        SELECT COUNT(*) AS count FROM `pick_task` pt
+        LEFT JOIN `so_master` sm ON pt.so_master_id = sm.so_master_id
+        <where>
+            AND pt.`state` IN (2,3,4,5)
+            AND pt.`ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND sm.`create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND sm.`create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSoQty" resultType="double">
+        SELECT sum(sd.`order_quantity`) AS qty
+        FROM `so_master` sm
+        LEFT JOIN `so_detail` sd ON sm.`bill_no`=sd.`bill_no`
+        <where>
+            AND sm.`ware_id`=#{wareId}
+            <if test="startTime != null">
+                AND sm.`create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND sm.`create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getAsnQty" resultType="double">
+        SELECT sum(ad.`accept_quantity`) AS qty 
+        FROM `asn_master` am
+        LEFT JOIN `asn_detail` ad ON am.`bill_no`=ad.`bill_no`
+        <where>
+            AND am.`ware_id`=#{wareId}
+            AND (am.`asn_type` IS NULL OR am.`asn_type` IN (24,25))
+            <if test="startTime != null">
+                AND am.`create_time` &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND am.`create_time` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ureport.dao.ReportOperateDetailMapper">
+  <resultMap id="BaseResultMap" type="com.deer.wms.ureport.model.ReportOperateDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="report_operate_detail_id" jdbcType="INTEGER" property="reportOperateDetailId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="bill_no" jdbcType="INTEGER" property="billNo" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="item_code" jdbcType="VARCHAR" property="itemCode" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="ware_id" jdbcType="INTEGER" property="wareId" />
+    <result column="ware_name" jdbcType="VARCHAR" property="wareName" />
+    <result column="report_operate_id" jdbcType="INTEGER" property="reportOperateId" />
+  </resultMap>
+
+  <select id="findList" resultMap="BaseResultMap" parameterType="com.deer.wms.ureport.model.ReportOperateDetailCriteria">
+    select
+    *
+    from report_operate_detail
+    where 1=1
+    <if test="wareId != null">
+      and ware_id  =#{wareId}
+    </if>
+    <if test="itemCode != null and itemCode != ''">
+      and item_code  =#{itemCode}
+    </if>
+    <if test="startTime != null and startTime !=''">
+      and create_time &gt;= #{startTime}
+    </if>
+    <if test="endTime != null and endTime !=''">
+      and create_time &lt;= #{endTime}
+    </if>
+    <if test="userId != null">
+      and create_user_id  =#{userId}
+    </if>
+    <if test="userName != null and userName != ''">
+      and create_user_name  =#{userName}
+    </if>
+    <if test="reportOperateId != null">
+      and report_operate_id  =#{reportOperateId}
+    </if>
+  </select>
+</mapper>

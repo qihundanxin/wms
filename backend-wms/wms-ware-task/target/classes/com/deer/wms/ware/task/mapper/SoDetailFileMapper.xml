@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.SoDetailFileMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.SO.SoDetailFile">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="so_detail_file_id" jdbcType="INTEGER" property="soDetailFileId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="order_quantity" jdbcType="DOUBLE" property="orderQuantity"/>
+        <result column="expect_allotted_quantity" jdbcType="DOUBLE" property="expectAllottedQuantity"/>
+        <result column="allotted_quantity" jdbcType="DOUBLE" property="allottedQuantity"/>
+        <result column="pick_quantity" jdbcType="DOUBLE" property="pickQuantity"/>
+        <result column="delivery_quantity" jdbcType="DOUBLE" property="deliveryQuantity"/>
+        <result column="so_udf_ds1" jdbcType="VARCHAR" property="soUdfDs1"/>
+        <result column="so_udf_ds2" jdbcType="VARCHAR" property="soUdfDs2"/>
+        <result column="so_udf_ds3" jdbcType="VARCHAR" property="soUdfDs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="merge_no" jdbcType="VARCHAR" property="mergeNo"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.SO.SoDetailFileCriteria"
+            resultMap="BaseResultMap">
+        select
+        sd.so_detail_file_id
+        ,sd.bill_no
+        ,sd.detail_no
+        ,sd.state
+        ,sd.item_code
+        ,sd.item_name
+        ,sd.pack_detail_id
+        ,sd.pack_describe
+        ,sd.order_quantity
+        ,sd.expect_allotted_quantity
+        ,sd.allotted_quantity
+        ,sd.pick_quantity
+        ,sd.delivery_quantity
+        ,sd.so_udf_ds1
+        ,sd.so_udf_ds2
+        ,sd.so_udf_ds3
+        ,sd.memo
+        ,sd.merge_no
+
+        from so_detail_file sd
+        where 1=1
+
+        <if test="soDetailFileId != null">
+            and sd.so_detail_file_id= #{soDetailFileId}
+        </if>
+        <if test="state != null ">
+            and sd.state= #{state}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and sd.bill_no= #{billNo}
+        </if>
+        <if test="mergeNo != null and mergeNo !=''">
+            and sd.merge_no= #{mergeNo}
+        </if>
+        <if test="detailNo != null and detailNo !=''">
+            and sd.detail_no= #{detailNo}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and sd.item_code= #{itemCode}
+        </if>
+        <if test="packDetailId != null">
+            and sd.pack_detail_id= #{packDetailId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                sd.item_name like CONCAT('%', #{keyWord}, '%')
+                or sd.pack_describe like CONCAT('%', #{keyWord}, '%')
+                or sd.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+
+    </select>
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.CarrierDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.carrier.CarrierDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="carrier_detail_id" jdbcType="INTEGER" property="carrierDetailId"/>
+        <result column="carrier_code" jdbcType="VARCHAR" property="carrierCode"/>
+        <result column="car_type" jdbcType="VARCHAR" property="carType"/>
+        <result column="car_no" jdbcType="VARCHAR" property="carNo"/>
+        <result column="driver" jdbcType="VARCHAR" property="driver"/>
+        <result column="driver_phone" jdbcType="VARCHAR" property="driverPhone"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.system.manage.model.carrier.CarrierDetailCriteria"
+            resultMap="BaseResultMap">
+        select
+        cd.carrier_detail_id
+        ,cd.car_type
+        ,cd.car_no
+        ,cd.driver
+        ,cd.driver_phone
+        ,cd.memo
+        from carrier_detail cd
+        where 1=1
+        <if test="carrierCode != null and carrierCode !=''">
+            and cd.carrier_code = #{carrierCode}
+        </if>
+    </select>
+</mapper>

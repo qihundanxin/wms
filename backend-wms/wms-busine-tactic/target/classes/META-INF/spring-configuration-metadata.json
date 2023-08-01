@@ -1,0 +1,47 @@
+{
+  "groups": [
+    {
+      "name": "passquan",
+      "type": "com.deer.wms.busine.tactic.config.PassQuanConfig",
+      "sourceType": "com.deer.wms.busine.tactic.config.PassQuanConfig"
+    },
+    {
+      "name": "passquan.path",
+      "type": "com.deer.wms.busine.tactic.config.PassQuanConfig$PassQuanPathConfig",
+      "sourceType": "com.deer.wms.busine.tactic.config.PassQuanConfig$PassQuanPathConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "passquan.heads",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "sourceType": "com.deer.wms.busine.tactic.config.PassQuanConfig"
+    },
+    {
+      "name": "passquan.host",
+      "type": "java.lang.String",
+      "sourceType": "com.deer.wms.busine.tactic.config.PassQuanConfig"
+    },
+    {
+      "name": "passquan.path.get-replay-orderids",
+      "type": "java.lang.String",
+      "sourceType": "com.deer.wms.busine.tactic.config.PassQuanConfig$PassQuanPathConfig"
+    },
+    {
+      "name": "passquan.path.get-sku",
+      "type": "java.lang.String",
+      "sourceType": "com.deer.wms.busine.tactic.config.PassQuanConfig$PassQuanPathConfig"
+    },
+    {
+      "name": "passquan.path.get-unfinished-order",
+      "type": "java.lang.String",
+      "sourceType": "com.deer.wms.busine.tactic.config.PassQuanConfig$PassQuanPathConfig"
+    },
+    {
+      "name": "passquan.path.replay",
+      "type": "java.lang.String",
+      "sourceType": "com.deer.wms.busine.tactic.config.PassQuanConfig$PassQuanPathConfig"
+    }
+  ],
+  "hints": []
+}

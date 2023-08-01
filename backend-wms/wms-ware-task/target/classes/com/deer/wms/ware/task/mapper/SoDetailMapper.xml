@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.SoDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.SO.SoDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="so_detail_id" jdbcType="INTEGER" property="soDetailId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="detail_index" jdbcType="INTEGER" property="detailIndex"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="order_quantity" jdbcType="DOUBLE" property="orderQuantity"/>
+        <result column="expect_allotted_quantity" jdbcType="DOUBLE" property="expectAllottedQuantity"/>
+        <result column="allotted_quantity" jdbcType="DOUBLE" property="allottedQuantity"/>
+        <result column="pick_quantity" jdbcType="DOUBLE" property="pickQuantity"/>
+        <result column="delivery_quantity" jdbcType="DOUBLE" property="deliveryQuantity"/>
+        <result column="check_quantity" jdbcType="DOUBLE" property="checkQuantity"/>
+        <result column="so_udf_ds1" jdbcType="VARCHAR" property="soUdfDs1"/>
+        <result column="so_udf_ds2" jdbcType="VARCHAR" property="soUdfDs2"/>
+        <result column="so_udf_ds3" jdbcType="VARCHAR" property="soUdfDs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="merge_no" jdbcType="VARCHAR" property="mergeNo"/>
+        <result column="weight" jdbcType="DOUBLE" property="weight"/>
+        <result column="size" jdbcType="DOUBLE" property="size"/>
+        <result column="allot_pack_detail_id" jdbcType="INTEGER" property="allotPackDetailId"/>
+        <result column="allot_pack_describe" jdbcType="VARCHAR" property="allotPackDescribe"/>
+        <result column="allot_trans_ratio" jdbcType="DOUBLE" property="allotTransRatio"/>
+        <result column="pick_pack_detail_id" jdbcType="INTEGER" property="pickPackDetailId"/>
+        <result column="pick_pack_describe" jdbcType="VARCHAR" property="pickPackDescribe"/>
+        <result column="pick_trans_ratio" jdbcType="DOUBLE" property="pickTransRatio"/>
+        <result column="delivery_pack_detail_id" jdbcType="INTEGER" property="deliveryPackDetailId"/>
+        <result column="delivery_pack_describe" jdbcType="VARCHAR" property="deliveryPackDescribe"/>
+        <result column="delivery_trans_ratio" jdbcType="DOUBLE" property="deliveryTransRatio"/>
+        <result column="bom_split" jdbcType="INTEGER" property="bomSplit"/>
+        <result column="allot_detail_no" jdbcType="VARCHAR" property="allotDetailNo"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ware.task.model.SO.SoDetailDto" extends="BaseResultMap">
+        <result column="so_master_id" jdbcType="INTEGER" property="soMasterId"/>
+        <result column="shop" jdbcType="VARCHAR" property="shop"/>
+        <result column="ship_bill_code" jdbcType="VARCHAR" property="shipBillCode"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="so_structure" jdbcType="INTEGER" property="soStructure"/>
+        <result column="shop_daily_count" jdbcType="INTEGER" property="shopDailyCount"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="master_state" jdbcType="INTEGER" property="masterState"/>
+
+        <result column="up_dismantle" jdbcType="INTEGER" property="upDismantle"/>
+        <result column="down_dismantle" jdbcType="INTEGER" property="downDismantle"/>
+        <result column="whether_dismantle" jdbcType="INTEGER" property="whetherDismantle"/>
+        <result column="clearance_priority" jdbcType="INTEGER" property="clearancePriority"/>
+        <result column="optimal_algorithm" jdbcType="INTEGER" property="optimalAlgorithm"/>
+        <result column="excessive_allocation" jdbcType="INTEGER" property="excessiveAllocation"/>
+        <result column="auto_replenishment" jdbcType="INTEGER" property="autoReplenishment"/>
+        <result column="dynamic_pick_cell" jdbcType="INTEGER" property="dynamicPickCell"/>
+        <result column="storage_choose_EA" jdbcType="INTEGER" property="storageChooseEA"/>
+        <result column="storage_choose_CS" jdbcType="INTEGER" property="storageChooseCS"/>
+        <result column="turnover_tactic_code" jdbcType="VARCHAR" property="turnoverTacticCode"/>
+        <result column="x" jdbcType="INTEGER" property="x"/>
+        <result column="y" jdbcType="INTEGER" property="y"/>
+        <result column="seeding_cell_code" jdbcType="VARCHAR" property="seedingCellCode"/>
+
+        <collection property="packDetails" ofType="com.deer.wms.ASN.manage.model.buy.PackDetails">
+            <result column="pack_detail_id1" jdbcType="INTEGER" property="packDetailId1"/>
+            <result column="pack_describe1" jdbcType="VARCHAR" property="packDescribe1"/>
+            <result column="trans_ratio1" jdbcType="DOUBLE" property="transRatio1"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="SoDayList" type="com.deer.wms.ware.task.model.SO.SoDayList" extends="BaseResultMap">
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="actual_delivery_time" jdbcType="TIMESTAMP" property="actualDeliveryTime"/>
+
+    </resultMap>
+
+    <update id="updateState">
+        update
+        so_detail
+        set
+        state= #{state}
+        ,version = version + 1
+        where
+        so_detail_id  =#{soDetailId}
+    </update>
+    <update id="updateState2">
+        update
+        so_detail
+        set
+        state= #{newState}
+        ,version = version + 1
+        where
+        so_detail_id  =#{id}
+        and state= #{oldState}
+    </update>
+
+
+    <update id="cancel">
+    update
+    so_detail
+    set
+        state=-1
+    ,allotted_quantity =0
+    ,pick_quantity=0
+    ,delivery_quantity=0
+    ,check_quantity=0
+    ,version = version + 1
+    where bill_no = #{billNo}
+  </update>
+
+    <update id="update">
+        update so_detail
+        <set>
+            <if test="billNo != null">
+                bill_no = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="detailNo != null">
+                detail_no = #{detailNo,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="itemCode != null">
+                item_code = #{itemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="itemName != null">
+                item_name = #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test="spec != null">
+                spec = #{spec,jdbcType=VARCHAR},
+            </if>
+            <if test="model != null">
+                model = #{model,jdbcType=VARCHAR},
+            </if>
+            <if test="imgUrl != null">
+                img_url = #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="packDetailId != null">
+                pack_detail_id = #{packDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="packDescribe != null">
+                pack_describe = #{packDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="transRatio != null">
+                trans_ratio = #{transRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="orderQuantity != null">
+                order_quantity = #{orderQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="expectAllottedQuantity != null">
+                expect_allotted_quantity = #{expectAllottedQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="allottedQuantity != null">
+                allotted_quantity = #{allottedQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="pickQuantity != null">
+                pick_quantity = #{pickQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="checkQuantity != null">
+                check_quantity = #{checkQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="deliveryQuantity != null">
+                delivery_quantity = #{deliveryQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="soUdfDs1 != null">
+                so_udf_ds1 = #{soUdfDs1,jdbcType=VARCHAR},
+            </if>
+            <if test="soUdfDs2 != null">
+                so_udf_ds2 = #{soUdfDs2,jdbcType=VARCHAR},
+            </if>
+            <if test="soUdfDs3 != null">
+                so_udf_ds3 = #{soUdfDs3,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="mergeNo != null">
+                merge_no = #{mergeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=DOUBLE},
+            </if>
+            <if test="size != null">
+                size = #{size,jdbcType=DOUBLE},
+            </if>
+            <if test="allotPackDetailId != null">
+                allot_pack_detail_id = #{allotPackDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="allotPackDescribe != null">
+                allot_pack_describe = #{allotPackDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="allotTransRatio != null">
+                allot_trans_ratio = #{allotTransRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="pickPackDetailId != null">
+                pick_pack_detail_id = #{pickPackDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="pickPackDescribe != null">
+                pick_pack_describe = #{pickPackDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="pickTransRatio != null">
+                pick_trans_ratio = #{pickTransRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="deliveryPackDetailId != null">
+                delivery_pack_detail_id = #{deliveryPackDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="deliveryPackDescribe != null">
+                delivery_pack_describe = #{deliveryPackDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="deliveryTransRatio != null">
+                delivery_trans_ratio = #{deliveryTransRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="bomSplit != null">
+                bom_split = #{bomSplit,jdbcType=INTEGER},
+            </if>
+            <if test="allotDetailNo != null">
+                allot_detail_no = #{allotDetailNo,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                version = version + 1,
+            </if>
+        </set>
+        where so_detail_id = #{soDetailId,jdbcType=INTEGER} and version = #{version}
+    </update>
+
+    <select id="getSeedingYdYpByWaveMasterId" resultMap="Dto">
+    select
+    sm.bill_no,
+    sm.state,
+    sm.ship_bill_code,
+    sm.shop,
+    sm.so_master_id,
+    sd.item_code,
+    sd.item_name,
+    sd.img_url,
+    sd.order_quantity,
+    sd.check_quantity,
+    sd.pick_quantity,
+    sd.version
+    from so_detail sd
+    left join so_master sm on sm.bill_no = sd.bill_no
+    left join wave_master wm on sm.wave_master_id  =wm.wave_id
+    where
+    sm.so_structure=1
+    and wm.wave_id  =#{waveMasterId}
+    and sm.ware_id = #{wareId}
+  </select>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.SO.SoDetailCriteria" resultMap="Dto">
+        select
+        sd.so_detail_id
+        ,sd.bill_no
+        ,sd.detail_no
+        ,sd.detail_index
+        ,sd.state
+        ,sd.item_code
+        ,sd.item_name
+        ,sd.img_url
+        ,sd.pack_detail_id
+        ,sd.pack_describe
+        ,sd.trans_ratio
+        ,sd.order_quantity
+        ,sd.expect_allotted_quantity
+        ,sd.allotted_quantity
+        ,sd.pick_quantity
+        ,sd.delivery_quantity
+        ,sd.check_quantity
+        ,sd.so_udf_ds1
+        ,sd.so_udf_ds2
+        ,sd.so_udf_ds3
+        ,sd.memo
+        ,sd.merge_no
+        ,sd.weight
+        ,sd.size
+        ,sd.allot_pack_detail_id
+        ,sd.allot_pack_describe
+        ,sd.allot_trans_ratio
+        ,sd.pick_pack_detail_id
+        ,sd.pick_pack_describe
+        ,sd.pick_trans_ratio
+        ,sd.delivery_pack_detail_id
+        ,sd.delivery_pack_describe
+        ,sd.delivery_trans_ratio
+        ,sd.bom_split
+        ,sd.allot_detail_no
+        ,sd.version
+        ,pd.pack_detail_id as pack_detail_id1
+        ,pd.pack_describe as pack_describe1
+        ,pd.trans_ratio as trans_ratio1
+
+        from so_detail sd
+         left join item_info item on item.item_code = sd.item_code
+        left join pack_detail pd on pd.pack_code = item.pack_code and pd.state=1
+        where 1=1
+        <if test="soDetailId != null">
+            and sd.so_detail_id= #{soDetailId}
+        </if>
+        <if test="state != null ">
+            and sd.state= #{state}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and sd.bill_no= #{billNo}
+        </if>
+        <if test="mergeNo != null and mergeNo !=''">
+            and sd.merge_no= #{mergeNo}
+        </if>
+        <if test="allotDetailNo != null and allotDetailNo !=''">
+            and sd.allot_detail_no= #{allotDetailNo}
+        </if>
+        <if test="detailNo != null and detailNo !=''">
+            and sd.detail_no= #{detailNo}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and sd.item_code= #{itemCode}
+        </if>
+        <if test="packDetailId != null">
+            and sd.pack_detail_id= #{packDetailId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                sd.item_name like CONCAT('%', #{keyWord}, '%')
+                or sd.pack_describe like CONCAT('%', #{keyWord}, '%')
+                or sd.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        <if test="bomSplit != null and bomSplit != ''">
+            and sd.bom_split = #{bomSplit}
+        </if>
+        order by sd.so_detail_id desc,pack_detail_id1
+
+    </select>
+
+    <select id="findByBillNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      sd.so_detail_id
+    ,sd.bill_no
+    ,sd.detail_no
+    ,sd.detail_index
+    ,sd.state
+    ,sd.item_code
+    ,sd.item_name
+    ,item.img_url
+    ,sd.pack_detail_id
+    ,sd.pack_describe
+    ,sd.trans_ratio
+    ,sd.order_quantity
+    ,sd.expect_allotted_quantity
+    ,sd.allotted_quantity
+    ,sd.pick_quantity
+    ,sd.delivery_quantity
+    ,sd.check_quantity
+    ,sd.so_udf_ds1
+    ,sd.so_udf_ds2
+    ,sd.so_udf_ds3
+    ,sd.memo
+    ,sd.merge_no
+    ,sd.weight
+    ,sd.size
+    ,sd.allot_pack_detail_id
+    ,sd.allot_pack_describe
+    ,sd.allot_trans_ratio
+    ,sd.pick_pack_detail_id
+    ,sd.pick_pack_describe
+    ,sd.pick_trans_ratio
+    ,sd.delivery_pack_detail_id
+    ,sd.delivery_pack_describe
+    ,sd.delivery_trans_ratio
+    ,sd.bom_split
+    ,sd.allot_detail_no
+    ,sd.version
+
+    from so_detail sd
+    left join pick_task pt on sd.so_detail_id = pt.so_detail_id
+    left join item_info item on item.item_code = sd.item_code
+    where bill_no =#{billNo} 
+    ORDER BY  pt.cell_code
+  </select>
+
+    <select id="findSelfByBillNo" parameterType="java.lang.String" resultType="com.deer.wms.ware.task.model.SO.SoDetail">
+        select *
+        from so_detail
+        where bill_no =#{billNo}
+    </select>
+    
+   <select id="pickupfindByBillNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      sd.so_detail_id
+    ,sd.bill_no
+    ,sd.detail_no
+    ,sd.detail_index
+    ,sd.state
+    ,sd.item_code
+    ,sd.item_name
+    ,item.img_url
+    ,sd.pack_detail_id
+    ,sd.pack_describe
+    ,sd.trans_ratio
+    ,sd.order_quantity
+    ,sd.expect_allotted_quantity
+    ,sd.allotted_quantity
+    ,sd.pick_quantity
+    ,sd.delivery_quantity
+    ,sd.check_quantity
+    ,sd.so_udf_ds1
+    ,sd.so_udf_ds2
+    ,sd.so_udf_ds3
+    ,sd.memo
+    ,sd.merge_no
+    ,sd.weight
+    ,sd.size
+    ,sd.allot_pack_detail_id
+    ,sd.allot_pack_describe
+    ,sd.allot_trans_ratio
+    ,sd.pick_pack_detail_id
+    ,sd.pick_pack_describe
+    ,sd.pick_trans_ratio
+    ,sd.delivery_pack_detail_id
+    ,sd.delivery_pack_describe
+    ,sd.delivery_trans_ratio
+    ,sd.bom_split
+    ,sd.allot_detail_no
+    ,sd.version
+
+    from so_detail sd
+    left join pick_task pt on sd.so_detail_id = pt.so_detail_id
+    left join item_info item on item.item_code = sd.item_code
+    where bill_no =#{billNo} and pt.state >=0 
+    ORDER BY  pt.cell_code
+  </select>
+  
+    <!--  这里查询缺货状态的（创建补货任务使用）  -->
+    <select id="findQhQuantity" resultType="com.deer.wms.ware.task.model.SO.SoDetailQh">
+    select
+        sd.bill_no
+        ,sd.item_code as itemCode
+        ,sd.item_name as itemName
+        ,sd.img_url as imgUrl
+        ,(
+        -sum(DISTINCT case when  task.cpfr_task_id  then task.quantity else 0 end )
+        -
+        sum(DISTINCT case when  inven1.inventory_id  then inven1.quantity-inven1.allot_quantity-inven1.freeze_quantity else 0 end )
+        +
+        sum(DISTINCT  case when  sd.so_detail_id  then sd.order_quantity-sd.allotted_quantity else 0 end )
+        )  as qhQuantity
+        ,sm.ware_id as wareId
+
+        ,sum(DISTINCT  case when  task.cpfr_task_id  then task.quantity else 0 end )  as hasBhQuantity
+        ,sum(DISTINCT case when  inven1.inventory_id  then inven1.quantity-inven1.allot_quantity-inven1.freeze_quantity else 0 end ) as canAllotQuantity
+        ,sum(DISTINCT case when  sd.so_detail_id  then sd.order_quantity-sd.allotted_quantity else 0 end )  as billQhQuantity
+        ,sum(DISTINCT case when  inven2.inventory_id  then inven2.quantity else 0 end )  as ccwQuantity
+        ,sm.ware_name as wareName
+        ,sm.organization_id as organizationId
+        ,sm.organization_name as organizationName
+    from so_detail sd
+    left join so_master sm on sm.bill_no = sd.bill_no
+    left join inventory1 inven1 on inven1.cell_use_type=1 and  sd.item_code = inven1.item_code and sm.ware_id = inven1.ware_id and sm.organization_id = inven1.organization_id
+    left join inventory2 inven2 on inven2.cell_use_type=2 and   sd.item_code = inven2.item_code and sm.ware_id = inven2.ware_id and sm.organization_id = inven2.organization_id
+    left join cpfr_task_ing task on task.state=0 and   sd.item_code = task.item_code and sm.ware_id = task.ware_id and sm.organization_id = task.organization_id
+    where
+        ((sd.order_quantity - sd.allotted_quantity) > 0 and sd.state=1) and sm.state =3
+
+    GROUP BY sd.item_code ,sm.ware_id,sm.organization_id
+    having
+
+        (
+            -sum(DISTINCT case when  task.cpfr_task_id  then task.quantity else 0 end )
+            -
+            sum(DISTINCT case when  inven1.inventory_id  then inven1.quantity-inven1.allot_quantity-inven1.freeze_quantity else 0 end )
+            +
+            sum(DISTINCT case when  sd.so_detail_id  then sd.order_quantity-sd.allotted_quantity else 0 end )
+        )>0
+
+        and
+            sum(DISTINCT case when  inven2.inventory_id  then inven2.quantity else 0 end )  >0
+
+
+
+
+
+
+  </select>
+
+
+     <!--  这里查询缺货状态的  berwin >= -->
+    <select id="findUndistributedSoDetail" resultMap="Dto">
+    select
+      sd.*
+      ,sm.so_master_id
+      ,sm.ware_id
+      ,sm.ware_name
+      ,sm.organization_id
+       ,sm.organization_name
+    from so_detail sd
+    inner join so_master sm on sm.bill_no = sd.bill_no
+    left join inventory1 inventory1
+    on sd.item_code = inventory1.item_code
+    and sm.ware_id = inventory1.ware_id
+    and sm.organization_id = inventory1.organization_id
+    where
+    ((sd.order_quantity - sd.allotted_quantity) &gt; 0 or sd.state=0) and sm.state =3
+    and    sm.ware_id = #{wareId}
+    group by
+    sd.so_detail_id
+    ,sd.item_code
+    ,sm.ware_id
+    ,sm.organization_id
+    having
+    (
+            sum(DISTINCT case when  inventory1.inventory_id  then inventory1.quantity-inventory1.allot_quantity-inventory1.freeze_quantity else 0 end )
+            -
+            sum(DISTINCT case when  sd.so_detail_id  then sd.order_quantity-sd.allotted_quantity else 0 end )
+        )>=0
+    order  by sm.priority  desc, sm.order_time, sm.so_master_id
+
+
+  </select>
+
+
+    <!--  这里查询从未被分配定时器执行过的的  -->
+    <select id="findUndistributedSoDetail2" resultMap="Dto">
+    select
+      sd.*
+      ,sm.so_master_id
+      ,sm.ware_id
+      ,sm.ware_name
+      ,sm.organization_id
+       ,sm.organization_name
+    from so_detail sd
+    inner join so_master sm on sm.bill_no = sd.bill_no
+    where
+    ((sd.order_quantity - sd.allotted_quantity) &gt; 0 and sd.state=0)   and sm.state !=-1 and sm.state !=3
+        or (
+        ((sd.order_quantity - sd.allotted_quantity) &gt; 0   and sd.state=2)   and sm.state =1
+        )
+        and    sm.ware_id = #{wareId}
+    order  by sm.priority  desc, sm.order_time, sm.so_master_id
+
+
+  </select>
+
+
+    <!--  这里查询订单SKU订单数量增加的（修改）  -->
+    <select id="findUndistributedSoDetail3" resultMap="Dto">
+    select
+      sd.*
+      ,sm.so_master_id
+      ,sm.ware_id
+      ,sm.ware_name
+      ,sm.organization_id
+       ,sm.organization_name
+    from so_detail sd
+    inner join so_master sm on sm.bill_no = sd.bill_no
+    where
+     ((sd.order_quantity - sd.allotted_quantity) &gt; 0
+         or sd.order_quantity =0)
+        and sm.state &gt; 3
+        and sd.state != -1
+        and    sm.ware_id = #{wareId}
+    order  by sm.priority  desc, sm.order_time, sm.so_master_id
+
+
+  </select>
+
+    <!--  这里查询订单SKU订单数量减少的（修改）  -->
+    <select id="findUndistributedSoDetail4" resultMap="Dto">
+    select
+      sd.*
+      ,sm.so_master_id
+      ,sm.ware_id
+      ,sm.ware_name
+      ,sm.organization_id
+       ,sm.organization_name
+    from so_detail sd
+    inner join so_master sm on sm.bill_no = sd.bill_no
+    where
+     (sd.allotted_quantity-sd.order_quantity ) &gt; 0 and sm.state &gt;= 3
+        and    sm.ware_id = #{wareId}
+    order  by sm.priority  desc, sm.order_time, sm.so_master_id
+  </select>
+
+    <!--berwin  这里查询订单SKU订单数量减少到0的（修改）  -->
+    <select id="findUndistributedSoDetail5" resultMap="Dto">
+    select
+      sd.*
+      ,sm.so_master_id
+      ,sm.ware_id
+      ,sm.ware_name
+      ,sm.organization_id
+       ,sm.organization_name
+    from so_detail sd
+    inner join so_master sm on sm.bill_no = sd.bill_no
+    where
+      sd.allotted_quantity = 0 AND sd.order_quantity = 0 and sm.state &gt;= 3  and sd.state != -1
+        and    sm.ware_id = #{wareId}
+    order  by sm.priority  desc, sm.order_time, sm.so_master_id
+  </select>
+  
+   
+    <select id="findBaoKuanByItemCode" resultMap="Dto">
+    select
+      sd.*,
+      sm.so_master_id,
+      sm.ware_id,
+      sm.ware_name,
+      sm.organization_id,
+      sm.organization_name,
+      sm.so_structure
+
+    from so_detail sd
+    left join so_master sm on sm.bill_no = sd.bill_no
+    left join item_info ii on ii.item_code = sd.item_code
+    where sd.allotted_quantity = 0 and sm.state != -1
+    and sm.ware_id = #{wareId} and sm.organization_id = #{orgId} and sd.item_code = #{itemCode}
+    order by sm.priority desc ,sm.order_time,sm.so_master_id
+
+  </select>
+
+    <select id="findByMasterId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from so_detail sd
+        inner join so_master sm on sd.bill_no = sm.bill_no
+        where 1=1
+        <if test="soId != null and soId != ''">
+            and sm.so_master_id = #{soId}
+        </if>
+    </select>
+
+    <select id="findPickUPOrderByMasterId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        sd.detail_index,
+        sd.bill_no,
+        sd.item_code ,
+        sd.item_name ,
+        sd.allotted_quantity,
+        sd.order_quantity,
+        if(pt.pick_quantity IS NULL ,sd.order_quantity,pt.pick_quantity) quantity,
+        if(pt.pick_quantity IS NULL ,sd.order_quantity,pt.pick_quantity) pick_quantity,
+        pt.ware_name wareName,
+        if(pt.cell_code is NULL ,'',pt.cell_code) spec
+        from so_detail sd
+        left join pick_task pt on sd.so_detail_id = pt.so_detail_id
+        where 1=1  
+        <if test="soId != null and soId != ''">
+            and sd.so_master_id = #{soId} 
+        </if>
+        ORDER BY  pt.cell_code 
+    </select>
+    
+    <select id="findDayList" parameterType="com.deer.wms.ware.task.model.SO.SoDetailCriteria" resultMap="SoDayList">
+        select
+        sd.item_code
+        ,sd.item_name
+        ,sd.pack_detail_id
+        ,sd.pack_describe
+        ,sd.memo
+        ,sum(delivery_quantity) as delivery_quantity
+
+        ,sm.ware_id
+        ,sm.ware_name
+        ,sm.organization_id
+        ,sm.organization_name
+        ,date(actual_delivery_time) as actual_delivery_time
+        from so_detail sd
+        left join so_master sm on sm.bill_no = sd.bill_no
+        where 1=1
+
+        <if test="itemCode != null and itemCode !=''">
+            and sd.item_code= #{itemCode}
+        </if>
+        <if test="packDetailId != null">
+            and sd.pack_detail_id= #{packDetailId}
+        </if>
+        <if test="packDescribe != null and packDescribe !=''">
+            and sd.pack_describe= #{packDescribe}
+        </if>
+        <if test="wareId != null ">
+            and sm.ware_id= #{wareId}
+        </if>
+        <if test="organizationId != null ">
+            and sm.organization_id= #{organizationId}
+        </if>
+        <if test="startActualDeliveryTime != null and startActualDeliveryTime != '' and endActualDeliveryTime != null and endActualDeliveryTime != ''">
+            and actual_delivery_time &gt; #{startActualDeliveryTime} and sm.actual_delivery_time &lt;
+            #{endActualDeliveryTime}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                sd.item_name like CONCAT('%', #{keyWord}, '%')
+                or sd.pack_describe like CONCAT('%', #{keyWord}, '%')
+                or sd.memo like CONCAT('%', #{keyWord}, '%')
+                or sm.organization_name like CONCAT('%', #{keyWord}, '%')
+                or sm.ware_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        group by sm.ware_id,sm.organization_id, sd.item_code,sd.pack_detail_id,date(actual_delivery_time)
+        order by sd.item_code desc, date(actual_delivery_time)desc
+    </select>
+
+    <select id="findLogItemsByBillNos" resultType="com.deer.wms.ware.task.model.Return.SoLogItemDto">
+        select
+        sd.bill_no billNo,
+        sd.item_code itemCode,
+        sd.item_name itemName,
+        1 status,
+        sd.order_quantity quantity,
+        sd.allotted_quantity deliveryQuantity,
+        pt.ware_name wareName,
+        pt.cell_code cellCode
+        from so_detail sd
+        left join pick_task pt on sd.so_detail_id = pt.so_detail_id
+        where 1=1
+        and sd.bill_no in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+    <resultMap id="WaveDetail" type="com.deer.wms.ware.task.model.SO.SoDetailDto" extends="BaseResultMap">
+        <result column="so_master_id" jdbcType="INTEGER" property="soMasterId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="ship_bill_code" jdbcType="VARCHAR" property="shipBillCode"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="so_structure" jdbcType="INTEGER" property="soStructure"/>
+
+        <result column="up_dismantle" jdbcType="INTEGER" property="upDismantle"/>
+        <result column="down_dismantle" jdbcType="INTEGER" property="downDismantle"/>
+        <result column="whether_dismantle" jdbcType="INTEGER" property="whetherDismantle"/>
+        <result column="clearance_priority" jdbcType="INTEGER" property="clearancePriority"/>
+        <result column="optimal_algorithm" jdbcType="INTEGER" property="optimalAlgorithm"/>
+        <result column="excessive_allocation" jdbcType="INTEGER" property="excessiveAllocation"/>
+        <result column="auto_replenishment" jdbcType="INTEGER" property="autoReplenishment"/>
+        <result column="dynamic_pick_cell" jdbcType="INTEGER" property="dynamicPickCell"/>
+        <result column="storage_choose_EA" jdbcType="INTEGER" property="storageChooseEA"/>
+        <result column="storage_choose_CS" jdbcType="INTEGER" property="storageChooseCS"/>
+        <result column="turnover_tactic_code" jdbcType="VARCHAR" property="turnoverTacticCode"/>
+
+        <collection property="packDetails" ofType="com.deer.wms.ASN.manage.model.buy.PackDetails">
+            <result column="pack_detail_id1" jdbcType="INTEGER" property="packDetailId1"/>
+            <result column="pack_describe1" jdbcType="VARCHAR" property="packDescribe1"/>
+            <result column="trans_ratio1" jdbcType="DOUBLE" property="transRatio1"/>
+        </collection>
+    </resultMap>
+
+    <select id="findDetailsByWaveId" resultMap="Dto">
+    select
+    detail.bill_no,
+    detail.order_quantity as orderQuantity,
+    version,
+    cell.seeding_cell_code  as  seedingCellCode,
+    cell.x,
+    cell.y
+    from
+    so_detail detail
+    inner join so_master master on detail.bill_no  = master.bill_no
+    left join seeding_cell cell on master.bill_no = cell.bill_no
+    where
+    master.ware_id = #{wareId} and master.state !=-1
+    and master.wave_master_id  =#{waveId}
+    and detail.order_quantity>detail.check_quantity
+
+  </select>
+
+    <select id="getSeedingByItemCode" resultMap="Dto">
+    select
+    detail.bill_no,
+    detail.so_detail_id,
+    detail.order_quantity,
+    detail.check_quantity,
+    detail.version,
+    master.seeding_cell_code
+    from
+    so_detail detail
+    inner join so_master master on detail.bill_no  = master.bill_no
+
+    where
+    master.ware_id = #{wareId}
+    and master.state =6
+
+    and master.wave_master_id  =#{waveId}
+    and detail.item_code  =#{itemCode}
+    and detail.order_quantity>detail.check_quantity
+  </select>
+  <select id="findForUpdatePickTask" resultMap="Dto">
+    select sd.*
+      ,sm.so_master_id
+      ,sm.ware_id
+      ,sm.ware_name
+      ,sm.organization_id
+      ,sm.organization_name
+    from so_detail sd
+           inner join so_master sm on sm.bill_no = sd.bill_no
+           left join inventory1 inv on sd.item_code = inv.item_code and sm.ware_id = inv.ware_id and
+                                      sm.organization_id = inv.organization_id and inv.cell_use_type = 1
+    where sm.ware_id = #{wareId}
+      <if test="dateTime != null">
+        and sm.create_time > #{dateTime}
+      </if>
+      and sm.state >= 0
+      and sd.state >= 0
+      and ((sd.order_quantity != sd.allotted_quantity) or (sd.order_quantity = 0 and sd.allotted_quantity = 0))
+    group by sd.so_detail_id
+    <!-- 
+       having
+      (sum(distinct sd.order_quantity - sd.allotted_quantity) > 0 and
+       ifnull(sum(inv.quantity - inv.allot_quantity - inv.freeze_quantity), 0) >=
+       sum(distinct sd.order_quantity - sd.allotted_quantity))
+        or (0 > sum(distinct sd.order_quantity - sd.allotted_quantity))
+        or (sum(sd.order_quantity) = 0 and sum(sd.allotted_quantity) = 0)
+        or (sum(sd.state) = 0)
+        limit 500
+      -->
+  </select>
+
+
+    <!-- ForChaoticState: 为混乱的状态数据定制的查询方式 详见SC-174 -->
+    <select id="findListAndMaster4ChaoticState" parameterType="com.deer.wms.ware.task.model.SO.SoDetailCriteria"
+            resultMap="Dto">
+        select
+        case when sm.state &lt; 0 then -1
+        when sm.state = 8 then 6
+        else sd.state end as state,
+        sd.*,
+        sm.shop_daily_count,
+        sm.create_time,
+        sm.so_structure,
+        sm.state as master_state
+        from so_detail sd
+        left join
+        so_master sm on sd.bill_no = sm.bill_no
+        where 1=1
+        and sd.state != -1
+        <if test="wareId != null">
+            and sm.ware_id = #{wareId}
+        </if>
+        <if test="soDetailId != null">
+            and sd.so_detail_id= #{soDetailId}
+        </if>
+        <if test="state != null ">
+            <choose>
+                <when test="state == -1">
+                    and (sm.state &lt; 0 or sd.state= #{state})
+                </when>
+                <when test="state == 6">
+                    and (sm.state = 8 or sd.state= #{state})
+                </when>
+                <otherwise>
+                    and sd.state= #{state}
+                </otherwise>
+            </choose>
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and sd.bill_no= #{billNo}
+        </if>
+        <if test="mergeNo != null and mergeNo !=''">
+            and sd.merge_no= #{mergeNo}
+        </if>
+        <if test="allotDetailNo != null and allotDetailNo !=''">
+            and sd.allot_detail_no= #{allotDetailNo}
+        </if>
+        <if test="detailNo != null and detailNo !=''">
+            and sd.detail_no= #{detailNo}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and sd.item_code= #{itemCode}
+        </if>
+        <if test="packDetailId != null">
+            and sd.pack_detail_id= #{packDetailId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                sd.item_name like CONCAT('%', #{keyWord}, '%')
+                or sd.pack_describe like CONCAT('%',
+                #{keyWord}, '%')
+                or sd.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        <if test="bomSplit != null and bomSplit != ''">
+            and sd.bom_split = #{bomSplit}
+        </if>
+        <if
+                test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and sm.create_time &gt; #{startCreateTime} and sm.create_time &lt; #{endCreateTime}
+        </if>
+        <if test="billNos != null and billNos.size() > 0">
+            and sm.bill_no in
+            <foreach collection="billNos" item="billNoXX" index="index" open="(" separator="," close=")">
+                #{billNoXX}
+            </foreach>
+        </if>
+        order by sd.so_detail_id desc
+    </select>
+
+
+
+    <select id="findListAndMaster" parameterType="com.deer.wms.ware.task.model.SO.SoDetailCriteria" resultMap="Dto">
+        select
+        sd.*,sm.shop_daily_count,sm.create_time,sm.so_structure,sm.state as master_state
+        from so_detail sd
+        left join so_master sm on sd.bill_no = sm.bill_no
+        where 1=1
+        <if test="wareId != null">
+            and sm.ware_id = #{wareId}
+        </if>
+        <if test="soDetailId != null">
+            and sd.so_detail_id= #{soDetailId}
+        </if>
+        <if test="state != null ">
+            and sd.state= #{state}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and sd.bill_no= #{billNo}
+        </if>
+        <if test="mergeNo != null and mergeNo !=''">
+            and sd.merge_no= #{mergeNo}
+        </if>
+        <if test="allotDetailNo != null and allotDetailNo !=''">
+            and sd.allot_detail_no= #{allotDetailNo}
+        </if>
+        <if test="detailNo != null and detailNo !=''">
+            and sd.detail_no= #{detailNo}
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and sd.item_code= #{itemCode}
+        </if>
+        <if test="packDetailId != null">
+            and sd.pack_detail_id= #{packDetailId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                sd.item_name like CONCAT('%', #{keyWord}, '%')
+                or sd.pack_describe like CONCAT('%', #{keyWord}, '%')
+                or sd.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        <if test="bomSplit != null and bomSplit != ''">
+            and sd.bom_split = #{bomSplit}
+        </if>
+        <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and sm.create_time &gt; #{startCreateTime} and sm.create_time &lt; #{endCreateTime}
+        </if>
+        <if test="masterState != null ">
+            and sm.state= #{masterState}
+        </if>
+        <if test="billNos != null and billNos.size() > 0">
+            and sm.bill_no in
+            <foreach collection="billNos" item="billNoXX" index="index" open="(" separator="," close=")">
+                #{billNoXX}
+            </foreach>
+        </if>
+        order by sd.so_detail_id desc
+
+    </select>
+
+
+    <select id="findByBillNoAndItemCode" resultMap="Dto">
+        select * from so_detail
+        where bill_no =#{billNo} and item_code =#{itemCode}
+    </select>
+</mapper>

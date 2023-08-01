@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.BatchTacticDetailDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.Batch.BatchTacticDetailDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="batch_tactic_detail_detail_id" jdbcType="INTEGER" property="batchTacticDetailDetailId"/>
+        <result column="batch_tactic_detail_id" jdbcType="INTEGER" property="batchTacticDetailId"/>
+        <result column="batch_tactic_detail_detail_value" jdbcType="VARCHAR" property="batchTacticDetailDetailValue"/>
+        <result column="detail_code" jdbcType="VARCHAR" property="detailCode"/>
+    </resultMap>
+
+    <delete id="deleteByCodeAndId">
+        delete  from batch_tactic_detail_detail
+        where detail_code = #{detailCode} and batch_tactic_detail_id = #{batchTacticDetailId}
+
+  </delete>
+
+
+</mapper>

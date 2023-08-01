@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.StockTakeTaskMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.stockTake.StockTakeTask">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="stock_take_task_id" jdbcType="INTEGER" property="stockTakeTaskId"/>
+        <result column="stock_take_master_id" jdbcType="INTEGER" property="stockTakeMasterId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="inventory_id" jdbcType="INTEGER" property="inventoryId"/>
+        <result column="task_quantity" jdbcType="DOUBLE" property="taskQuantity"/>
+        <result column="task_quantity2" jdbcType="DOUBLE" property="taskQuantity2"/>
+        <result column="actual_quantity" jdbcType="DOUBLE" property="actualQuantity"/>
+        <result column="actual_quantity2" jdbcType="DOUBLE" property="actualQuantity2"/>
+        <result column="task_user_id" jdbcType="INTEGER" property="taskUserId"/>
+        <result column="task_user_id2" jdbcType="INTEGER" property="taskUserId2"/>
+        <result column="task_user_name" jdbcType="VARCHAR" property="taskUserName"/>
+        <result column="task_user_name2" jdbcType="VARCHAR" property="taskUserName2"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="task_time" jdbcType="TIMESTAMP" property="taskTime"/>
+        <result column="task_time2" jdbcType="TIMESTAMP" property="taskTime2"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="differ_quantity" jdbcType="DOUBLE" property="differQuantity"/>
+        <result column="differ_quantity2" jdbcType="DOUBLE" property="differQuantity2"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.stockTake.StockTakeTaskDto" extends="BaseResultMap">
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="batch_id" jdbcType="INTEGER" property="batchId"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+        <result column="lpn" jdbcType="VARCHAR" property="lpn"/>
+        <collection property="upcs" ofType="com.deer.wms.base.system.model.ItemUpc">
+            <result column="upc1" jdbcType="VARCHAR" property="upc"/>
+        </collection>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.stockTake.StockTakeTaskCriteria" resultMap="Dto">
+        select task.*,
+        master.ware_name,
+        master.organization_name,
+        inventory.item_code,
+        inventory.item_name,
+        master.from_area_code,
+        master.from_shelf_code,
+        inventory.quantity,
+        inventory.batch_id,
+        inventory.batch_name,
+        inventory.cell_code,
+        master.box_code,
+        inventory.pack_detail_id,
+        inventory.pack_describe,
+        inventory.trans_ratio,
+        inventory.lpn,
+        iupc.upc as upc1
+        from stock_take_task task
+        left join stock_take_master master on master.stock_take_master_id = task.stock_take_master_id
+        inner join inventory inventory on inventory.inventory_id = task.inventory_id
+        inner join cell_info cell on cell.cell_code = inventory.cell_code and cell.ware_id = inventory.ware_id
+        inner join shelf_info shelf on shelf.shelf_info_id = cell.shelf_info_id
+        left join item_upc iupc on inventory.organization_id = iupc.organization_id and inventory.item_code = iupc.item_code
+        where 1=1
+        <if test="masterBillNo != null and masterBillNo != ''">
+            and master.bill_no = #{masterBillNo}
+        </if>
+        <if test="areaCode != null and areaCode != ''">
+            and shelf.area_code = #{areaCode}
+        </if>
+        <if test="shelfCode != null and shelfCode != ''">
+            and shelf.shelf_code = #{shelfCode}
+        </if>
+        <if test="cellCode != null and cellCode != ''">
+            and cell.cell_code = #{cellCode}
+        </if>
+        <if test="itemCode != null and itemCode != ''">
+            and inventory.item_code = #{itemCode}
+        </if>
+        <if test="boxCode != null and boxCode != ''">
+            and inventory.box_code = #{boxCode}
+        </if>
+        <if test="wareId != null">
+            and master.ware_id = #{wareId}
+        </if>
+        <if test="stockTakeTaskId != null">
+            and task.stock_take_task_id = #{stockTakeTaskId}
+        </if>
+        <if test="stockTakeMasterId != null">
+            and task.stock_take_master_id = #{stockTakeMasterId}
+        </if>
+        <if test="inventoryId != null">
+            and task.inventory_id = #{inventoryId}
+        </if>
+        <if test="billNo != null">
+            and task.bill_no = #{billNo}
+        </if>
+        <if test="taskUserId != null">
+            and task.task_user_id = #{taskUserId}
+        </if>
+        <if test="type != null">
+            and task.type = #{type}
+        </if>
+        <if test="state != null">
+            and task.state = #{state}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                task.bill_no like CONCAT('%', #{keyWord}, '%')
+                or inventory.item_code like CONCAT('%', #{keyWord}, '%')
+                or iupc.upc like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by task.create_time desc
+    </select>
+
+
+    <select id="findPDAList" parameterType="com.deer.wms.inventory.model.stockTake.StockTakeTaskCriteria" resultMap="Dto">
+        select task.*,
+        master.ware_name,
+        master.organization_name,
+        inventory.item_code,
+        inventory.item_name,
+        inventory.img_url,
+
+        inventory.quantity,
+
+        inventory.batch_name,
+        inventory.cell_code,
+
+        inventory.pack_describe,
+        inventory.trans_ratio,
+
+        iupc.upc as upc1
+        from stock_take_task task
+        left join stock_take_master master on master.stock_take_master_id = task.stock_take_master_id
+        inner join inventory inventory on inventory.inventory_id = task.inventory_id
+        inner join cell_info cell on cell.cell_code = inventory.cell_code and cell.ware_id = inventory.ware_id
+        inner join shelf_info shelf on shelf.shelf_info_id = cell.shelf_info_id
+        left join item_upc iupc on inventory.organization_id = iupc.organization_id and inventory.item_code = iupc.item_code
+        <where>
+        <if test="masterBillNo != null and masterBillNo != ''">
+            and master.bill_no = #{masterBillNo}
+        </if>
+<!--        <if test="areaCode != null and areaCode != ''">-->
+<!--            and shelf.area_code = #{areaCode}-->
+<!--        </if>-->
+<!--        <if test="shelfCode != null and shelfCode != ''">-->
+<!--            and shelf.shelf_code = #{shelfCode}-->
+<!--        </if>-->
+<!--        <if test="cellCode != null and cellCode != ''">-->
+<!--            and cell.cell_code = #{cellCode}-->
+<!--        </if>-->
+        <if test="itemCode != null and itemCode != ''">
+            and
+            (
+            inventory.item_code = #{itemCode}
+            or iupc.upc = #{itemCode}
+            )
+
+        </if>
+        <if test="boxCode != null and boxCode != ''">
+            and inventory.box_code = #{boxCode}
+        </if>
+        <if test="wareId != null">
+            and master.ware_id = #{wareId}
+        </if>
+        <if test="stockTakeTaskId != null">
+            and task.stock_take_task_id = #{stockTakeTaskId}
+        </if>
+        <if test="stockTakeMasterId != null">
+            and task.stock_take_master_id = #{stockTakeMasterId}
+        </if>
+        <if test="inventoryId != null">
+            and task.inventory_id = #{inventoryId}
+        </if>
+        <if test="billNo != null">
+            and task.bill_no = #{billNo}
+        </if>
+        <if test="taskUserId != null">
+            and task.task_user_id = #{taskUserId}
+        </if>
+        <if test="type != null">
+            and task.type = #{type}
+        </if>
+        <if test="state != null">
+            and task.state = #{state}
+        </if>
+        <if test="state == null">
+            and ( task.state =1 or task.state =2 )
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                task.bill_no like CONCAT('%', #{keyWord}, '%')
+                or master.item_code like CONCAT('%', #{keyWord}, '%')
+                or iupc.upc like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        </where>
+        group by task.stock_take_task_id
+        order by inventory.cell_code desc
+    </select>
+
+    <select id="findByPdId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        * from Stock_take_task
+        where stock_take_master_id  =#{pdId}
+    </select>
+</mapper>

@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "ureport.mysql.provider",
+      "type": "com.deer.wms.ureport.MySQLProvider",
+      "sourceType": "com.deer.wms.ureport.MySQLProvider"
+    }
+  ],
+  "properties": [
+    {
+      "name": "ureport.mysql.provider.report-files",
+      "type": "java.util.List<com.bstek.ureport.provider.report.ReportFile>",
+      "sourceType": "com.deer.wms.ureport.MySQLProvider"
+    }
+  ],
+  "hints": []
+}

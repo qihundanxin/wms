@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.ErpRecordMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.ErpRecord">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="erp_record_id" jdbcType="INTEGER" property="erpRecordId"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="request_time" jdbcType="TIMESTAMP" property="requestTime"/>
+        <result column="return_time" jdbcType="TIMESTAMP" property="returnTime"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="msg" jdbcType="VARCHAR" property="msg"/>
+        <result column="param" jdbcType="LONGVARCHAR" property="param"/>
+    </resultMap>
+
+    <select id="findList" resultMap="BaseResultMap" parameterType="com.deer.wms.inventory.model.ErpRecordCriteria">
+        select
+        *
+        from erp_record
+        where 1=1
+        <if test="state != null">
+            and state =#{state}
+        </if>
+        <if test="type != null">
+            and `type` =#{type}
+        </if>
+        order by erp_record_id desc
+    </select>
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.SoMergeTacticMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.SoMergeTactic">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="so_merge_tactic_id" jdbcType="INTEGER" property="soMergeTacticId"/>
+        <result column="so_merge_tactic_code" jdbcType="VARCHAR" property="soMergeTacticCode"/>
+        <result column="so_merge_tactic_name" jdbcType="VARCHAR" property="soMergeTacticName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="bill_source" jdbcType="INTEGER" property="billSource"/>
+        <result column="so_type" jdbcType="INTEGER" property="soType"/>
+        <result column="delivery_time" jdbcType="INTEGER" property="deliveryTime"/>
+        <result column="expect_time_fm" jdbcType="INTEGER" property="expectTimeFm"/>
+        <result column="expect_time_to" jdbcType="INTEGER" property="expectTimeTo"/>
+        <result column="so_udf_hs1" jdbcType="INTEGER" property="soUdfHs1"/>
+        <result column="so_udf_hs2" jdbcType="INTEGER" property="soUdfHs2"/>
+        <result column="so_udf_hs3" jdbcType="INTEGER" property="soUdfHs3"/>
+        <result column="memo" jdbcType="INTEGER" property="memo"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.SoMergeTacticCriteria"
+            resultMap="BaseResultMap">
+        select
+        *
+        from
+        so_merge_tactic so
+        where 1=1
+        <if test="soMergeTacticId != null">
+            and so.so_merge_tactic_id = #{soMergeTacticId}
+        </if>
+        <if test="soMergeTacticCode != null and soMergeTacticCode != ''">
+            and so.so_merge_tactic_code = #{soMergeTacticCode}
+        </if>
+        <if test="organizationId != null">
+            and so.organization_id = #{organizationId}
+        </if>
+        <if test="billSource != null">
+            and so.bill_source = #{billSource}
+        </if>
+        <if test="soType != null">
+            and so.so_type = #{soType}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                so.so_merge_tactic_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+
+    </select>
+</mapper>

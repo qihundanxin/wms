@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.WareInfoMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.ware.WareInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_code" jdbcType="VARCHAR" property="wareCode"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="duty_user_id" jdbcType="INTEGER" property="dutyUserId"/>
+        <result column="country" jdbcType="VARCHAR" property="country"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+    
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.ware.WareInfoDto" extends="BaseResultMap">
+        <result column="duty_user_name" jdbcType="INTEGER" property="dutyUserName"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+
+        <collection property="wareUserIds" ofType="java.lang.Integer">
+            <result column="ware_user_id"/>
+        </collection>
+
+        <collection property="wareUserNames" ofType="java.lang.String">
+            <result column="ware_user_name"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="Dto2" type="com.deer.wms.system.manage.model.ware.WareInfoDto2" extends="BaseResultMap">
+        <result column="duty_user_name" jdbcType="INTEGER" property="dutyUserName"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+
+    </resultMap>
+
+    <delete id="deleteByCodeAndCom" parameterType="com.deer.wms.system.manage.model.ware.WareInfoCriteria">
+        delete from ware_info
+        where ware_id = #{wareId}
+
+    </delete>
+
+	<update id="updateStatus" parameterType="java.lang.String">
+        update  ware_info set status = #{status}
+        where ware_id = #{wareId}
+
+    </update>
+
+    <select id="findAllByStatus" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        ware.ware_id,
+        ware.ware_code,
+        ware.ware_name,
+        ware.add_time,
+        ware.memo,
+        ware.duty_user_id,
+        ware.country,
+        ware.province,
+        ware.city,
+        ware.area,
+        ware.detail_address,
+        ware.status
+
+        from ware_info ware
+
+        where 1=1 and status = 0
+        ORDER BY add_time desc
+    </select>
+    
+    <select id="findList" parameterType="com.deer.wms.system.manage.model.ware.WareInfoCriteria" resultMap="Dto">
+        select
+        ware.ware_id,
+        ware.ware_code,
+        ware.ware_name,
+        ware.add_time,
+        ware.memo,
+        ware.duty_user_id,
+        ware.country,
+        ware.province,
+        ware.city,
+        ware.area,
+        ware.detail_address,
+        ware.status,
+
+        u.user_name as duty_user_name,
+        u.mobile as link_phone,
+
+        (select ui.user_name from user_info ui where ui.user_id = wu.user_id) as ware_user_name,
+        (select ui.user_id from user_info ui where ui.user_id = wu.user_id) as ware_user_id
+
+
+        from ware_info ware
+        left join user_info u on ware.duty_user_id = u.user_id
+        left join ware_user wu on ware.ware_id = wu.ware_id
+        left join user_info ui on wu.user_id = ui.user_id
+        where 1=1
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                ware.ware_name LIKE CONCAT('%', #{keyWord}, '%')
+                or ware.ware_code LIKE CONCAT('%', #{keyWord}, '%')
+                or u.user_name LIKE CONCAT('%', #{keyWord}, '%')
+                or ware.province LIKE CONCAT('%', #{keyWord}, '%')
+                or ware.city LIKE CONCAT('%', #{keyWord}, '%')
+                or ware.area LIKE CONCAT('%', #{keyWord}, '%')
+                or ware.detail_address LIKE CONCAT('%', #{keyWord}, '%')
+                or ware.memo LIKE CONCAT('%', #{keyWord}, '%')
+            </foreach>
+        </if>
+        <if test=" wareId != null and wareId != ''">
+            and ware.ware_id = #{wareId}
+        </if>
+        <if test="userId != null and userId != ''">
+            and (wu.user_id = #{userId} or ware.duty_user_id = #{userId})
+        </if>
+        ORDER BY add_time desc
+    </select>
+
+    <select id="findSome" parameterType="com.deer.wms.system.manage.model.ware.WareInfoCriteria" resultMap="Dto2">
+        select
+        ware.ware_id,
+        ware.ware_code,
+        ware.ware_name,
+        ware.add_time,
+        ware.memo,
+        ware.duty_user_id,
+        ware.country,
+        ware.province,
+        ware.city,
+        ware.area,
+        ware.detail_address,
+        ware.status,
+
+        u.user_name as duty_user_name,
+        u.mobile as link_phone
+
+
+        from ware_info ware
+        left join user_info u on ware.duty_user_id = u.user_id
+
+        where 1=1
+        <if test=" wareId != null and wareId != ''">
+            and ware.ware_id = #{wareId}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                <if test="keyWord != null and keyWord  != ''">
+                    (
+                    ware.ware_name LIKE CONCAT('%', #{keyWord}, '%')
+                    or ware.memo LIKE CONCAT('%', #{keyWord}, '%')
+                    or ware.ware_code LIKE CONCAT('%', #{keyWord}, '%')
+                    or ware.province LIKE CONCAT('%', #{keyWord}, '%')
+                    or ware.city LIKE CONCAT('%', #{keyWord}, '%')
+                    or ware.area LIKE CONCAT('%', #{keyWord}, '%')
+                    or ware.detail_address LIKE CONCAT('%', #{keyWord}, '%')
+                    )
+                </if>
+            </foreach>
+
+        </if>
+        <if test="userId !=null">
+
+            and ware.duty_user_id = #{userId}
+        </if>
+        ORDER BY add_time desc
+    </select>
+
+    <select id="findByName" parameterType="java.lang.String" resultMap="Dto2">
+    select
+    ware.ware_id,
+    ware.ware_code,
+    ware.ware_name,
+    ware.add_time,
+    ware.memo,
+    ware.duty_user_id,
+    ware.country,
+    ware.province,
+    ware.city,
+    ware.area,
+    ware.detail_address,
+
+    u.user_name as duty_user_name,
+    u.mobile as link_phone
+
+
+    from ware_info ware
+    left join user_info u on ware.duty_user_id = u.user_id
+
+    where ware.ware_name = #{wareName}
+  </select>
+
+    <select id="searchAllWareId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select ware_id from ware_info
+    </select>
+
+
+</mapper>

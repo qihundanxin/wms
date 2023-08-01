@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.PickBatchMapper">
+
+    <update id="updateStatusByGroup" >
+        update pick_batch
+        set status = #{status}
+        where pick_batch_group_no = #{pickBatchGroupNo}
+        and status >= 0
+    </update>
+
+    <select id="getByNo" resultType="com.deer.wms.ware.task.model.pickTask.PickBatch">
+        SELECT * FROM `pick_batch`
+        WHERE `pick_batch_no` = #{pickBatchNo}
+        AND `status` >= 0
+    </select>
+    
+    <select id="getByNos" resultType="com.deer.wms.ware.task.model.pickTask.PickBatch">
+        SELECT * FROM `pick_batch`
+        <where>
+            AND `pick_batch_no` IN
+            <foreach collection="pickBatchNos" item="pickBatchNo" open="(" separator="," close=")">
+                #{pickBatchNo}
+            </foreach>
+            AND status >= 0
+        </where>
+    </select>
+    
+    <select id="findList" resultType="com.deer.wms.ware.task.model.pickTask.PickBatch">
+        SELECT * FROM `pick_batch`
+        <where>
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="pickBatchGroupNo != null">
+                AND `pick_batch_group_no` = #{pickBatchGroupNo}
+            </if>
+            <if test="pickBatchNo != null">
+                AND `pick_batch_no` = #{pickBatchNo}
+            </if>
+            <if test="status != null">
+                AND `status` = #{status}
+            </if>
+            <if test="status == null">
+                AND `status` >= 0
+            </if>
+            <if test="createUserId != null">
+                AND `create_user_id` = #{createUserId}
+            </if>
+            <if test="pickUserId != null">
+                AND `pick_user_id` = #{pickUserId}
+            </if>
+            <if test="wholesale != null">
+                AND `wholesale` = #{wholesale}
+            </if>
+            <if test="taskTimeFrom != null">
+                AND `task_time` >= #{taskTimeFrom}
+            </if>
+            <if test="taskTimeTo != null">
+                AND `task_time` &lt; #{taskTimeTo}
+            </if>
+            <if test="createTimeFrom != null">
+                AND `create_time` >= #{createTimeFrom}
+            </if>
+            <if test="createTimeTo != null">
+                AND `create_time` &lt; #{createTimeTo}
+            </if>
+        </where>
+        <if test="sorts != null and sorts.size() > 0">
+            order by
+            <foreach collection="sorts" item="sort">
+                <if test="sort == 'appSelect'">
+                    case `status`
+                    when 1 then 0
+                    when 0 then 1
+                    when 2 then 2
+                    end asc,
+                    case when `status` = 0 or `status` = 1 then task_time end asc,
+                    case when `status` = 2 then pick_time end desc
+                </if>
+            </foreach>
+        </if>
+    </select>
+
+    <select id="findPickBatchByDate" resultType="com.deer.wms.ware.task.model.pickTask.PickBatch">
+        SELECT
+        *
+        FROM pick_batch
+        where
+        create_time &lt; #{endDate}
+        and
+        create_time >= #{startDate}
+        and status >= 0
+    </select>
+
+    <select id="findListByDateAndState" resultType="com.deer.wms.ware.task.model.pickTask.PickBatch">
+        SELECT
+        *
+        FROM pick_batch
+        where
+        create_time &lt; #{endDate}
+        and
+        create_time >= #{startDate}
+        and pick_user_id = #{userId}
+        <if test="status != null ">
+            and status = #{status}
+        </if>
+        <if test="status == null ">
+            and status >= 0
+        </if>
+    </select>
+</mapper>

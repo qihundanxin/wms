@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.PrinterInfoMapper">
+  <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.PrinterInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="ware_id" jdbcType="INTEGER" property="wareId" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="port" jdbcType="VARCHAR" property="port" />
+    <result column="printer_index" jdbcType="VARCHAR" property="printerIndex" />
+    <result column="page" jdbcType="VARCHAR" property="page" />
+    <result column="fx" jdbcType="VARCHAR" property="fx" />
+    <result column="ds" jdbcType="VARCHAR" property="ds" />
+    <result column="pda_default" jdbcType="VARCHAR" property="pdaDefault" />
+  </resultMap>
+
+  <select id="findPdaDefault" resultMap="BaseResultMap">
+    select * from printer_info
+    where ware_id = #{wareId}
+    and pda_default = '1'
+    limit 1
+  </select>
+
+  <update id="changePda"  >
+    update printer_info set pda_default  =#{pdaDefault} where id  =#{id};
+    update printer_info set pda_default  =#{pdaDefault2} where ware_id  =#{wareId} and id  != #{id};
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap" parameterType="com.deer.wms.base.system.model.PrinterInfoCriteria">
+    select * from printer_info
+    where 1=1
+    <if test="wareId != null">
+      and ware_id = #{wareId}
+    </if>
+  </select>
+</mapper>

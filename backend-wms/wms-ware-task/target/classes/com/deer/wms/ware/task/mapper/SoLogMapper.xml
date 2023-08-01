@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.deer.wms.ware.task.dao.SoLogMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.SoLog">
+        <id column="so_log_id" property="soLogId" jdbcType="INTEGER"/>
+        <result column="so_master_id" property="soMasterId" jdbcType="INTEGER"/>
+        <result column="ware_id" property="wareId" jdbcType="INTEGER"/>
+        <result column="ware_name" property="wareName" jdbcType="VARCHAR"/>
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+        <result column="pick_cell_code" property="pickCellCode" jdbcType="VARCHAR"/>
+        <result column="sort_cell_code" property="sortCellCode" jdbcType="VARCHAR"/>
+        <result column="weight" property="weight" jdbcType="DOUBLE"/>
+        <result column="shop" property="shop" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="so_structure" property="soStructure" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user_id" property="createUserId" jdbcType="INTEGER"/>
+        <result column="create_user_name" property="createUserName" jdbcType="VARCHAR"/>
+        <result column="pick_time" property="pickTime" jdbcType="TIMESTAMP"/>
+        <result column="pick_user_id" property="pickUserId" jdbcType="INTEGER"/>
+        <result column="pick_user_name" property="pickUserName" jdbcType="VARCHAR"/>
+        <result column="out_time" property="outTime" jdbcType="TIMESTAMP"/>
+        <result column="out_user_id" property="outUserId" jdbcType="INTEGER"/>
+        <result column="out_user_name" property="outUserName" jdbcType="VARCHAR"/>
+        <result column="ship_code" property="shipCode" jdbcType="VARCHAR"/>
+        <result column="ship_bill_code" property="shipBillCode" jdbcType="VARCHAR"/>
+        <result column="log_create_time" property="logCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="end_status" property="endStatus" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ware.task.model.Return.SoLogDto" extends="BaseResultMap">
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    so_log_id, so_master_id, ware_id, ware_name, bill_no, pick_cell_code, sort_cell_code, 
+    weight, shop, status, so_structure, create_time, create_user_id, create_user_name, 
+    pick_time, pick_user_id, pick_user_name, out_time, out_user_id, out_user_name, ship_code, 
+    ship_bill_code, log_create_time, end_status
+  </sql>
+
+    <insert id="insertUnique">
+        insert into so_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="soLogId != null">
+                so_log_id,
+            </if>
+            <if test="soMasterId != null">
+                so_master_id,
+            </if>
+            <if test="wareId != null">
+                ware_id,
+            </if>
+            <if test="wareName != null">
+                ware_name,
+            </if>
+            <if test="billNo != null">
+                bill_no,
+            </if>
+            <if test="pickCellCode != null">
+                pick_cell_code,
+            </if>
+            <if test="sortCellCode != null">
+                sort_cell_code,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+            <if test="shop != null">
+                shop,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="soStructure != null">
+                so_structure,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createUserName != null">
+                create_user_name,
+            </if>
+            <if test="pickTime != null">
+                pick_time,
+            </if>
+            <if test="pickUserId != null">
+                pick_user_id,
+            </if>
+            <if test="pickUserName != null">
+                pick_user_name,
+            </if>
+            <if test="outTime != null">
+                out_time,
+            </if>
+            <if test="outUserId != null">
+                out_user_id,
+            </if>
+            <if test="outUserName != null">
+                out_user_name,
+            </if>
+            <if test="shipCode != null">
+                ship_code,
+            </if>
+            <if test="shipBillCode != null">
+                ship_bill_code,
+            </if>
+            <if test="logCreateTime != null">
+                log_create_time,
+            </if>
+            <if test="endStatus != null">
+                end_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="soLogId != null">
+                #{soLogId,jdbcType=INTEGER},
+            </if>
+            <if test="soMasterId != null">
+                #{soMasterId,jdbcType=INTEGER},
+            </if>
+            <if test="wareId != null">
+                #{wareId,jdbcType=INTEGER},
+            </if>
+            <if test="wareName != null">
+                #{wareName,jdbcType=VARCHAR},
+            </if>
+            <if test="billNo != null">
+                #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="pickCellCode != null">
+                #{pickCellCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sortCellCode != null">
+                #{sortCellCode,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=DOUBLE},
+            </if>
+            <if test="shop != null">
+                #{shop,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="soStructure != null">
+                #{soStructure,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createUserName != null">
+                #{createUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="pickTime != null">
+                #{pickTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="pickUserId != null">
+                #{pickUserId,jdbcType=INTEGER},
+            </if>
+            <if test="pickUserName != null">
+                #{pickUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="outTime != null">
+                #{outTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="outUserId != null">
+                #{outUserId,jdbcType=INTEGER},
+            </if>
+            <if test="outUserName != null">
+                #{outUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="shipCode != null">
+                #{shipCode,jdbcType=VARCHAR},
+            </if>
+            <if test="shipBillCode != null">
+                #{shipBillCode,jdbcType=VARCHAR},
+            </if>
+            <if test="logCreateTime != null">
+                #{logCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endStatus != null">
+                #{endStatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        end_status = values(end_status),ship_bill_code=values(ship_bill_code),ship_code=values(ship_code)
+        ,out_user_name=values(out_user_name),out_user_id=values(out_user_id),out_time=values(out_time)
+        ,pick_user_name=values(pick_user_name),pick_user_id=values(pick_user_id),pick_time=values(pick_time)
+        ,create_user_name=values(create_user_name),create_user_id=values(create_user_id),create_time=values(create_time),so_structure=values(so_structure)
+        ,status=values(status),shop=values(shop),weight=values(weight),sort_cell_code=values(sort_cell_code),pick_cell_code=values(pick_cell_code)
+        ,bill_no=values(bill_no)
+    </insert>
+
+    <select id="getMaxLogDate" resultType="java.util.Date">
+     select max(log_create_time) from so_log;
+  </select>
+
+    <select id="findList" resultMap="Dto">
+        select
+        sl.*
+        from so_log sl
+        left join so_detail sd on sl.bill_no = sd.bill_no
+        <where>
+            <if test="itemCode != null and itemCode != ''">
+                and sd.item_code like CONCAT('%', #{itemCode}, '%')
+            </if>
+            <if test="itemName != null and itemName != ''">
+                and sd.item_name like CONCAT('%', #{itemName}, '%')
+            </if>
+        </where>
+        group by sl.bill_no
+        order by sl.end_status desc,sl.create_time desc
+    </select>
+
+</mapper>

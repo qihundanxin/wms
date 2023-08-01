@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "name": "file",
+      "type": "com.deer.wms.file.configurer.FileSetting",
+      "sourceType": "com.deer.wms.file.configurer.FileSetting"
+    }
+  ],
+  "properties": [
+    {
+      "name": "file.download-path",
+      "type": "java.lang.String",
+      "sourceType": "com.deer.wms.file.configurer.FileSetting"
+    },
+    {
+      "name": "file.model-path",
+      "type": "java.lang.String",
+      "sourceType": "com.deer.wms.file.configurer.FileSetting"
+    },
+    {
+      "name": "file.pdf-path",
+      "type": "java.lang.String",
+      "sourceType": "com.deer.wms.file.configurer.FileSetting"
+    },
+    {
+      "name": "file.static-file-dir",
+      "type": "java.lang.String",
+      "sourceType": "com.deer.wms.file.configurer.FileSetting"
+    },
+    {
+      "name": "file.temp-path",
+      "type": "java.lang.String",
+      "sourceType": "com.deer.wms.file.configurer.FileSetting"
+    }
+  ],
+  "hints": []
+}

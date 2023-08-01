@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.InventoryTransactMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.Inventory.InventoryTransact">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="inventory_transact_id" jdbcType="INTEGER" property="inventoryTransactId"/>
+        <result column="transact_type" jdbcType="INTEGER" property="transactType"/>
+        <result column="bill_type" jdbcType="INTEGER" property="billType"/>
+        <result column="detail_no" jdbcType="VARCHAR" property="detailNo"/>
+        <result column="reason" jdbcType="VARCHAR" property="reason"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="from_organization_id" jdbcType="INTEGER" property="fromOrganizationId"/>
+        <result column="from_organization_name" jdbcType="VARCHAR" property="fromOrganizationName"/>
+        <result column="from_batch_id" jdbcType="INTEGER" property="fromBatchId"/>
+        <result column="from_batch_name" jdbcType="VARCHAR" property="fromBatchName"/>
+        <result column="from_box_code" jdbcType="VARCHAR" property="fromBoxCode"/>
+        <result column="from_cell_code" jdbcType="VARCHAR" property="fromCellCode"/>
+        <result column="from_pack_describe" jdbcType="VARCHAR" property="fromPackDescribe"/>
+        <result column="from_pack_detail_id" jdbcType="INTEGER" property="fromPackDetailId"/>
+        <result column="from_trans_ratio" jdbcType="DOUBLE" property="fromTransRatio"/>
+        <result column="from_quantity" jdbcType="DOUBLE" property="fromQuantity"/>
+        <result column="to_organization_id" jdbcType="INTEGER" property="toOrganizationId"/>
+        <result column="to_organization_name" jdbcType="VARCHAR" property="toOrganizationName"/>
+        <result column="to_batch_id" jdbcType="INTEGER" property="toBatchId"/>
+        <result column="to_batch_name" jdbcType="VARCHAR" property="toBatchName"/>
+        <result column="to_box_code" jdbcType="VARCHAR" property="toBoxCode"/>
+        <result column="to_cell_code" jdbcType="VARCHAR" property="toCellCode"/>
+        <result column="to_pack_detail_id" jdbcType="VARCHAR" property="toPackDetailId"/>
+        <result column="to_pack_describe" jdbcType="VARCHAR" property="toPackDescribe"/>
+        <result column="to_trans_ratio" jdbcType="DOUBLE" property="toTransRatio"/>
+        <result column="to_quantity" jdbcType="DOUBLE" property="toQuantity"/>
+        <result column="to_ware_id" jdbcType="INTEGER" property="toWareId"/>
+        <result column="to_ware_name" jdbcType="VARCHAR" property="toWareName"/>
+        <result column="from_inventory_id" jdbcType="INTEGER" property="fromInventoryId"/>
+        <result column="to_inventory_id" jdbcType="INTEGER" property="toInventoryId"/>
+        <result column="transact_imgs" jdbcType="VARCHAR" property="transactImgs"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.Inventory.InventoryTransactDto" extends="BaseResultMap">
+        <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.Inventory.InventoryTransactCriteria"
+            resultMap="Dto">
+        select
+        transact.inventory_transact_id
+        ,transact.transact_type
+        ,transact.bill_type
+        ,transact.detail_no
+        ,transact.reason
+        ,transact.state
+        ,transact.create_user_id
+        ,transact.create_user_name
+        ,transact.create_time
+        ,transact.item_code
+        ,transact.item_name
+        ,transact.ware_id
+        ,transact.ware_name
+        ,transact.from_organization_id
+        ,transact.from_organization_name
+        ,transact.from_batch_id
+        ,transact.from_batch_name
+        ,transact.from_box_code
+        ,transact.from_cell_code
+        ,transact.from_pack_describe
+        ,transact.from_pack_detail_id
+        ,transact.from_quantity
+        ,transact.to_organization_id
+        ,transact.to_organization_name
+        ,transact.to_batch_id
+        ,transact.to_batch_name
+        ,transact.to_box_code
+        ,transact.to_cell_code
+        ,transact.to_pack_detail_id
+        ,transact.to_pack_describe
+        ,transact.to_quantity
+        ,transact.to_ware_id
+        ,transact.to_ware_name
+        ,transact.transact_imgs
+        ,type.item_type_id
+        ,type.item_type_name
+
+        from inventory_transact transact
+        left join item_info item on item.item_code = transact.item_code
+        left join item_type type on item.item_type_id = type.item_type_id
+        where 1=1
+        <if test="inventoryTransactId != null">
+            and transact.inventory_transact_id = #{inventoryTransactId}
+        </if>
+        <if test="transactType != null">
+            and transact.transact_type = #{transactType}
+        </if>
+        <if test="billType != null">
+            and transact.bill_type = #{billType}
+        </if>
+        <if test="state != null">
+            and transact.state = #{state}
+        </if>
+        <if test="createUserId != null">
+            and transact.create_user_id = #{createUserId}
+        </if>
+        <if test="reason != null and reason !=''">
+            and transact.reason like CONCAT('%', #{reason}, '%')
+        </if>
+        <if test="itemCode != null and itemCode !=''">
+            and transact.item_code like CONCAT('%', #{itemCode}, '%')
+        </if>
+        <if test="itemName != null and itemName !=''">
+            and transact.item_name like CONCAT('%', #{itemName}, '%')
+        </if>
+        <if test="detailNo != null and detailNo !=''">
+            and transact.detail_no like CONCAT('%', #{detailNo}, '%')
+        </if>
+        <if test="fromBatchId != null">
+            and transact.from_batch_id =#{fromBatchId}
+        </if>
+        <if test="fromBatchName != null and fromBatchName !=''">
+            and transact.from_batch_name like CONCAT('%', #{fromBatchName}, '%')
+        </if>
+        <if test="fromBoxCode != null and fromBoxCode !=''">
+            and transact.from_box_code like CONCAT('%', #{fromBoxCode}, '%')
+        </if>
+        <if test="fromCellCode != null and fromCellCode !=''">
+            and transact.from_cell_code like CONCAT('%', #{fromCellCode}, '%')
+        </if>
+        <if test="fromPackDescribe != null and fromPackDescribe !=''">
+            and transact.from_pack_describe like CONCAT('%', #{fromPackDescribe}, '%')
+        </if>
+        <if test="fromPackDetailId != null">
+            and transact.from_pack_detail_id = #{fromPackDetailId}
+        </if>
+        <if test="fromQuantity != null">
+            and transact.from_quantity = #{fromQuantity}
+        </if>
+        <if test="toBatchId != null">
+            and transact.to_batch_id =#{toBatchId}
+        </if>
+        <if test="toBatchName != null and toBatchName !=''">
+            and transact.to_batch_name like CONCAT('%', #{toBatchName}, '%')
+        </if>
+        <if test="toBoxCode != null and toBoxCode !=''">
+            and transact.to_box_code like CONCAT('%', #{toBoxCode}, '%')
+        </if>
+        <if test="toCellCode != null and toCellCode !=''">
+            and transact.to_cell_code like CONCAT('%', #{toCellCode}, '%')
+        </if>
+        <if test="toPackDescribe != null and toPackDescribe !=''">
+            and transact.to_pack_describe like CONCAT('%', #{toPackDescribe}, '%')
+        </if>
+        <if test="toPackDetailId != null">
+            and transact.to_pack_detail_id = #{toPackDetailId}
+        </if>
+        <if test="toQuantity != null">
+            and transact.to_quantity = #{toQuantity}
+        </if>
+        <if test="wareId != null ">
+            and transact.ware_id = #{wareId}
+        </if>
+        <if test="toWareId != null ">
+            and transact.to_ware_id = #{toWareId}
+        </if>
+        <if test="createUserName != null and createUserName !=''">
+            and transact.create_user_name = #{createUserName}
+        </if>
+        <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and transact.create_time &gt; #{startCreateTime} and transact.create_time &lt; #{endCreateTime}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                transact.detail_no like CONCAT('%', #{keyWord}, '%')
+                or transact.item_name like CONCAT('%', #{keyWord}, '%')
+                or transact.ware_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by transact.create_time desc
+
+    </select>
+    
+    <select id="findClosePickCellTansactBySku" resultType="com.deer.wms.inventory.model.Inventory.ClosePickCellTansactResult">
+        SELECT 
+        it.*
+        -- , ci1.`cell_use_type` AS 'from_cell_use_type'
+        , ci2.`cell_use_type` AS 'to_cell_use_type' 
+        FROM `inventory_transact` it
+        -- LEFT JOIN `cell_info` ci1 ON ci1.`cell_code` = it.`from_cell_code`
+        LEFT JOIN `cell_info` ci2 ON ci2.`cell_code` = it.`to_cell_code`
+        WHERE 
+        it.`item_code` = #{itemCode}
+        AND it.`ware_id` = #{wareId}
+        AND it.`state` = 1 AND ( 
+            -- ci1.`cell_use_type` = 1 OR 
+            ci2.`cell_use_type` = 1 )
+        ORDER BY it.`create_time` DESC
+        LIMIT 1
+        
+    </select>
+    
+</mapper>

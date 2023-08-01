@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.AreaInfoMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.Area.AreaInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="area_id" jdbcType="INTEGER" property="areaId"/>
+        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="area_name" jdbcType="VARCHAR" property="areaName"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="priority_level" jdbcType="INTEGER" property="priorityLevel"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="is_box_replenish" jdbcType="BIT" property="isBoxReplenish"/>
+        <result column="is_scattered_replenish" jdbcType="BIT" property="isScatteredReplenish"/>
+        <result column="pick_transit_cell" jdbcType="VARCHAR" property="pickTransitCell"/>
+        <result column="storage_transit_cell" jdbcType="VARCHAR" property="storageTransitCell"/>
+        <result column="area_centre" jdbcType="VARCHAR" property="areaCentre"/>
+        <result column="is_sys" jdbcType="INTEGER" property="isSys"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="Dto" type="com.deer.wms.base.system.model.Area.AreaInfoDto">
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+
+    </resultMap>
+    <select id="findList" parameterType="com.deer.wms.base.system.model.Area.AreaInfoCriteria" resultMap="Dto">
+        select
+        area.area_id
+        ,area.area_code
+        ,area.area_name
+        ,area.add_time
+        ,area.memo
+        ,area.priority_level
+        ,area.ware_id
+        ,area.type
+        ,area.is_box_replenish
+        ,area.is_scattered_replenish
+        ,area.pick_transit_cell
+        ,area.storage_transit_cell
+        ,area.area_centre
+        ,area.is_sys
+
+        ,ware.ware_name
+
+
+        from area_info area
+        left join ware_info ware on area.ware_id = ware.ware_id
+
+        where 1=1
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (ware.ware_name like CONCAT('%', #{keyWord}, '%')
+                or area.area_name like CONCAT('%', #{keyWord}, '%')
+                or area.area_code like CONCAT('%', #{keyWord}, '%')
+                or area.type like CONCAT('%', #{keyWord}, '%'))
+            </foreach>
+        </if>
+
+        <if test="wareId != null ">
+            AND ware.ware_id =#{wareId}
+        </if>
+        <if test="areaId != null ">
+            AND area.area_id =#{areaId}
+        </if>
+        <if test="type != null">
+            AND area.type =#{type}
+        </if>
+
+    </select>
+
+    <select id="findByCode" parameterType="java.lang.String" resultMap="Dto">
+    select
+     area.area_id
+    ,area.area_code
+    ,area.area_name
+    ,area.add_time
+    ,area.memo
+    ,area.priority_level
+    ,area.ware_id
+    ,area.type
+    ,area.is_box_replenish
+    ,area.is_scattered_replenish
+    ,area.pick_transit_cell
+    ,area.storage_transit_cell
+    ,area.area_centre
+
+
+    from area_info area
+    where area.area_code = #{areaCode}
+
+
+  </select>
+
+    <select id="findByName" parameterType="java.lang.String" resultMap="Dto">
+    select
+     area.area_id
+    ,area.area_code
+    ,area.area_name
+    ,area.add_time
+    ,area.memo
+    ,area.priority_level
+    ,area.ware_id
+    ,area.type
+    ,area.is_box_replenish
+    ,area.is_scattered_replenish
+    ,area.pick_transit_cell
+    ,area.storage_transit_cell
+    ,area.area_centre
+
+
+    from area_info area
+    where area.area_name = #{areaName}
+
+
+  </select>
+
+    <select id="validatorChongfu" parameterType="Map" resultType="java.lang.Integer">
+        select
+        count(1)
+        from area_info
+        where
+        ware_id = #{wareId}
+        <if test="areaCode != null">
+            AND area_code = #{areaCode}
+        </if>
+        <if test="areaName != null">
+            AND area_name = #{areaName}
+        </if>
+    </select>
+
+    <select id="findByWareIdAndCode" resultType="com.deer.wms.base.system.model.Area.AreaInfoDto">
+        select * from area_info where ware_id = #{wareId} AND area_code = #{areaCode}
+    </select>
+
+</mapper>

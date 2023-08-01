@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.PickTaskExMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.PickTaskEx">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="pick_task_ex_id" jdbcType="INTEGER" property="pickTaskExId"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="org_id" jdbcType="INTEGER" property="orgId"/>
+        <result column="pick_task_id" jdbcType="INTEGER" property="pickTaskId"/>
+        <result column="total_quantity" jdbcType="DOUBLE" property="totalQuantity"/>
+        <result column="pick_quantity" jdbcType="DOUBLE" property="pickQuantity"/>
+        <result column="ex_quantity" jdbcType="DOUBLE" property="exQuantity"/>
+        <result column="freeze_quantity" jdbcType="DOUBLE" property="freezeQuantity"/>
+        <result column="wave_master_id" jdbcType="INTEGER" property="waveMasterId"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="create_user_id" jdbcType="TIMESTAMP" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="state" jdbcType="TIMESTAMP" property="state"/>
+        <result column="inventory_id" jdbcType="INTEGER" property="inventoryId"/>
+        <result column="commit_quantity" jdbcType="DOUBLE" property="commitQuantity"/>
+        <result column="commit_user_id" jdbcType="INTEGER" property="commitUserId"/>
+        <result column="commit_user_name" jdbcType="VARCHAR" property="commitUserName"/>
+        <result column="commit_time" jdbcType="TIMESTAMP" property="commitTime"/>
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.PickTaskExCriteria" resultMap="BaseResultMap">
+        select
+        *
+        from pick_task_ex
+        where 1=1
+        <if test="state != null">
+            and state = #{state}
+        </if>
+        <if test="wareId != null">
+            and ware_id = #{wareId}
+        </if>
+        <if test="orgId != null">
+            and org_id = #{orgId}
+        </if>
+        <if test="cellCode != null and cellCode !=''">
+            and cell_code = #{cellCode}
+        </if>
+        <if test="itemCode != null and itemCode != ''">
+            and item_code = #{itemCode}
+        </if>
+        <if test="itemName != null and itemName !=''">
+            and item_name like CONCAT('%', #{itemName}, '%')
+        </if>
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+    select
+    *
+    from pick_task_ex where pick_task_ex_id  =#{id}
+  </select>
+
+
+    <update id="update">
+        update pick_task_ex
+        <set>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="inventoryId != null">
+                inventory_id = #{inventoryId,jdbcType=INTEGER},
+            </if>
+            <if test="commitQuantity != null">
+                commit_quantity = #{commitQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="commitUserId != null">
+                commit_user_id = #{commitUserId,jdbcType=INTEGER},
+            </if>
+            <if test="commitUserName != null">
+                commit_user_name = #{commitUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="commitTime != null">
+                commit_time = #{commitTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where pick_task_ex_id = #{pickTaskExId,jdbcType=INTEGER}
+    </update>
+
+<!--    <select id="findList" resultMap="BaseResultMap" parameterType="com.deer.wms.ware.task.model.PickTaskExCriteria">-->
+<!--        select-->
+<!--        *-->
+<!--        from pick_task_ex-->
+<!--        where ware_id = #{wareId}-->
+<!--        <if test="state!=null">-->
+<!--            and state  =#{state}-->
+<!--        </if>-->
+<!--         <if test="cellCode!=null">-->
+<!--            and cell_code  =#{cellCode}-->
+<!--        </if>-->
+
+<!--    </select>-->
+</mapper>

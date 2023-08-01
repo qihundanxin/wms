@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ureport.dao.UreportFileMapper">
+    <resultMap type="com.deer.wms.ureport.model.UreportFile" id="ureportFile">
+        <id column="id_" jdbcType="BIGINT" property="id"/>
+        <result column="file_name" jdbcType="VARCHAR" property="fileName"/>
+        <result column="content" jdbcType="BLOB" property="content"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <select id="checkExistByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from ureport_file  where file_name = #{name}
+    </select>
+
+
+    <delete id="deleteReportFileByName" parameterType="java.lang.String">
+        delete from ureport_file  where file_name = #{name}
+    </delete>
+
+
+</mapper>

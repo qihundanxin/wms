@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.AcceptRecordFileMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.in.AcceptRecordFile">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="accept_record_file_id" jdbcType="INTEGER" property="acceptRecordFileId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="batch_id" jdbcType="INTEGER" property="batchId"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="accept_user_id" jdbcType="INTEGER" property="acceptUserId"/>
+        <result column="accept_user_name" jdbcType="VARCHAR" property="acceptUserName"/>
+        <result column="accept_time" jdbcType="TIMESTAMP" property="acceptTime"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="expect_quantity" jdbcType="DOUBLE" property="expectQuantity"/>
+        <result column="bill_type" jdbcType="INTEGER" property="billType"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="asn_detail_no" jdbcType="VARCHAR" property="asnDetailNo"/>
+        <result column="request_detail_no" jdbcType="VARCHAR" property="requestDetailNo"/>
+        <result column="file_time" jdbcType="TIMESTAMP" property="fileTime"/>
+        <result column="file_user_id" jdbcType="INTEGER" property="fileUserId"/>
+        <result column="file_user_name" jdbcType="VARCHAR" property="fileUserName"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.in.AcceptRecordFileCriteria"
+            resultMap="BaseResultMap">
+        select
+        accept_record_id
+        ,accept.ware_id
+        ,accept.ware_name
+        ,accept.batch_id
+        ,accept.batch_name
+        ,accept.organization_id
+        ,accept.organization_name
+        ,accept.item_code
+        ,accept.item_name
+        ,accept.accept_user_id
+        ,accept.accept_user_name
+        ,accept.accept_time
+        ,accept.box_code
+        ,accept.cell_code
+        ,accept.pack_detail_id
+        ,accept.pack_describe
+        ,accept.quantity
+        ,accept.expect_quantity
+        ,accept.bill_type
+        ,accept.memo
+        ,accept.asn_detail_no
+        ,accept.request_detail_detail_no
+        ,accept.file_time
+        ,accept.file_user_id
+        ,accept.file_user_name
+
+        from accept_record_file accept
+        where 1=1
+        <if test="acceptRecordId != null">
+            and accept.accept_record_id = #{acceptRecordId}
+        </if>
+        <if test="wareId != null">
+            and accept.ware_id = #{wareId}
+        </if>
+        <if test="batchId != null">
+            and accept.batch_id = #{batchId}
+        </if>
+        <if test="organizationId != null">
+            and accept.organization_id = #{organizationId}
+        </if>
+        <if test="itemCode != null and  itemCode !=''">
+            and accept.item_code = #{itemCode}
+        </if>
+        <if test="acceptUserId != null">
+            and accept.accept_user_id = #{acceptUserId}
+        </if>
+        <if test="acceptTime != null">
+            and accept.accept_time = #{acceptTime}
+        </if>
+        <if test="boxCode != null and  boxCode !=''">
+            and accept.box_code = #{boxCode}
+        </if>
+        <if test="cellCode != null and  cellCode !=''">
+            and accept.cell_code = #{cellCode}
+        </if>
+        <if test="packDetailId != null">
+            and accept.pack_detail_id = #{packDetailId}
+        </if>
+        <if test="packDescribe != null">
+            and accept.pack_describe = #{packDescribe}
+        </if>
+        <if test="billType != null">
+            and accept.bill_type = #{billType}
+        </if>
+        <if test="asnDetailNo != null and asnDetailNo !=''">
+            and accept.asn_detail_no = #{asnDetailNo}
+        </if>
+        <if test="requestDetailDetailNo != null and requestDetailDetailNo !=''">
+            and accept.request_detail_detail_no = #{requestDetailDetailNo}
+        </if>
+        <if test="fileUserId != null ">
+            and accept.file_user_id = #{fileUserId}
+        </if>
+        <if test="fileTime != null and fileTime !=''">
+            and accept.file_time = #{fileTime}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                accept.ware_name like CONCAT('%', #{keyWord}, '%')
+                or accept.batch_name like CONCAT('%', #{keyWord}, '%')
+                or accept.organization_name like CONCAT('%', #{keyWord}, '%')
+                or accept.item_name like CONCAT('%', #{keyWord}, '%')
+                or accept.accept_user_name like CONCAT('%', #{keyWord}, '%')
+                or accept.memo like CONCAT('%', #{keyWord}, '%')
+                or accept.asn_detail_no like CONCAT('%', #{keyWord}, '%')
+                or accept.request_detail_detail_no like CONCAT('%', #{keyWord}, '%')
+                or accept.file_user_name like CONCAT('%', #{keyWord}, '%')
+
+                )
+            </foreach>
+        </if>
+
+        group by accept.asn_detail_no
+        order by accept.accept_time
+    </select>
+</mapper>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.ItemBatchMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.Inventory.ItemBatch">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="batch_id" jdbcType="INTEGER" property="batchId"/>
+        <result column="batch_name" jdbcType="VARCHAR" property="batchName"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="product_date" jdbcType="TIMESTAMP" property="productDate"/>
+        <result column="ex_date" jdbcType="TIMESTAMP" property="exDate"/>
+        <result column="in_date" jdbcType="TIMESTAMP" property="inDate"/>
+        <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode"/>
+        <result column="supplier_batch" jdbcType="VARCHAR" property="supplierBatch"/>
+        <result column="qc_state" jdbcType="INTEGER" property="qcState"/>
+        <result column="cost_price" jdbcType="DOUBLE" property="costPrice"/>
+        <result column="sale_price" jdbcType="DOUBLE" property="salePrice"/>
+        <result column="detail_no" jdbcType="INTEGER" property="detailNo"/>
+        <result column="batch_attribute_1" jdbcType="VARCHAR" property="batchAttribute1"/>
+        <result column="batch_attribute_2" jdbcType="VARCHAR" property="batchAttribute2"/>
+        <result column="memo1" jdbcType="VARCHAR" property="memo1"/>
+        <result column="memo2" jdbcType="VARCHAR" property="memo2"/>
+        <result column="memo3" jdbcType="VARCHAR" property="memo3"/>
+        <result column="order_type" jdbcType="INTEGER" property="orderType"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.Inventory.ItemBatchDto" extends="BaseResultMap">
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="itemTypeId" jdbcType="INTEGER" property="itemTypeId"/>
+        <result column="itemTypeName" jdbcType="VARCHAR" property="itemTypeName"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.Inventory.ItemBatchCriteria" resultMap="Dto">
+        select
+        batch.batch_id
+        ,batch.batch_name
+        ,batch.item_code
+        ,batch.organization_id
+        ,batch.product_date
+        ,batch.ex_date
+        ,batch.in_date
+        ,batch.supplier_code
+        ,batch.supplier_batch
+        ,batch.qc_state
+        ,batch.cost_price
+        ,batch.sale_price
+        ,batch.detail_no
+        ,batch.batch_attribute_1
+        ,batch.batch_attribute_2
+        ,batch.memo1
+        ,batch.memo2
+        ,batch.memo3
+        ,batch.order_type
+
+        ,item.item_name
+        ,organization.organization_name
+        ,supplier.supplier_name
+        ,type.item_type_id
+        ,type.item_type_name
+
+
+        from item_batch batch
+        left join item_info item on batch.item_code = item.item_code
+        left join item_type type on item.item_type_id = type.item_type_id
+        left join organization organization on batch.organization_id = organization.organization_id
+        left join supplier_manage supplier on batch.supplier_code = supplier.supplier_code
+        where 1=1
+        <if test="batchId != null">
+            and batch.batch_id = #{batchId}
+        </if>
+        <if test="batchName != null and batchName != ''">
+            and batch.batch_name = #{batchName}
+        </if>
+        <if test="organizationId != null">
+            and organization.organization_id = #{organizationId}
+        </if>
+        <if test="supplierCode != null and supplierCode != ''">
+            and batch.supplier_code = #{supplierCode}
+        </if>
+        <if test="itemCode != null and itemCode != ''">
+            and batch.item_code = #{itemCode}
+        </if>
+        <if test="itemTypeId != null and itemTypeId != ''">
+            and type.item_type_id = #{itemTypeId}
+        </if>
+        <if test="productDate != null and productDate != ''">
+            and batch.product_date = #{productDate}
+        </if>
+        <if test="exDate != null and exDate != ''">
+            and batch.ex_date = #{exDate}
+        </if>
+        <if test="inDate != null and inDate != ''">
+            and batch.in_date = #{inDate}
+        </if>
+        <if test="supplierCode != null and supplierCode != ''">
+            and batch.supplier_code = #{supplierCode}
+        </if>
+        <if test="supplierBatch != null and supplierBatch != ''">
+            and batch.supplier_batch = #{supplierBatch}
+        </if>
+        <if test="qcState != null and qcState != ''">
+            and batch.qc_state = #{qcState}
+        </if>
+        <if test="costPrice != null and costPrice != ''">
+            and batch.cost_price = #{costPrice}
+        </if>
+        <if test="salePrice != null and salePrice != ''">
+            and batch.sale_price = #{salePrice}
+        </if>
+        <if test="detailNo != null and detailNo != ''">
+            and batch.detail_no = #{detailNo}
+        </if>
+        <if test="batchAttribute1 != null and batchAttribute1 != ''">
+            and batch.batch_attribute_1 = #{batchAttribute1}
+        </if>
+        <if test="batchAttribute2 != null and batchAttribute2 != ''">
+            and batch.batch_attribute_2 = #{batchAttribute2}
+        </if>
+        <if test="memo1 != null and memo1 != ''">
+            and batch.memo1 = #{memo1}
+        </if>
+        <if test="memo2 != null and memo2 != ''">
+            and batch.memo2 = #{memo2}
+        </if>
+        <if test="memo3 != null and memo3 != ''">
+            and batch.memo3 = #{memo3}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                batch.item_code like CONCAT('%', #{keyWord}, '%')
+                or batch.batch_name like CONCAT('%', #{keyWord}, '%')
+                or item.item_name like CONCAT('%', #{keyWord}, '%')
+                or type.item_type_name like CONCAT('%', #{keyWord}, '%')
+                or organization.organization_name like CONCAT('%', #{keyWord}, '%')
+                or batch.supplier_batch like CONCAT('%', #{keyWord}, '%')
+                or supplier.supplier_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+    </select>
+
+    <select id="findByOrganizationIdAndItemCode" resultMap="Dto">
+     select
+     batch.batch_id
+    ,batch.batch_name
+    ,batch.item_code
+    ,batch.organization_id
+    ,batch.product_date
+    ,batch.ex_date
+    ,batch.in_date
+    ,batch.supplier_code
+    ,batch.supplier_batch
+    ,batch.qc_state
+    ,batch.cost_price
+    ,batch.sale_price
+    ,batch.detail_no
+    ,batch.batch_attribute_1
+    ,batch.batch_attribute_2
+    ,batch.memo1
+    ,batch.memo2
+    ,batch.memo3
+    ,batch.order_type
+
+    ,item.item_name
+    ,organization.organization_name
+    ,supplier.supplier_name
+
+
+    from item_batch batch
+    left join item_info item on batch.item_code = item.item_code
+    left join organization organization on batch.organization_id = organization.organization_id
+    left join supplier_manage supplier on batch.supplier_code = supplier.supplier_code
+    where
+    batch.organization_id = #{organizationId} and batch.item_code = #{itemCode}
+
+  </select>
+</mapper>

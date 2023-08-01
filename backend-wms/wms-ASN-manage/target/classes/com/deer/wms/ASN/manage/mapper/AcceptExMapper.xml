@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.AcceptExMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.AcceptEx">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="accept_ex_id" jdbcType="INTEGER" property="acceptExId"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="in_quantity" jdbcType="DOUBLE" property="inQuantity"/>
+        <result column="order_quantity" jdbcType="DOUBLE" property="orderQuantity"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="reason" jdbcType="INTEGER" property="reason"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="ship_bill_no" jdbcType="VARCHAR" property="shipBillNo"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="bill_detail_no" jdbcType="VARCHAR" property="billDetailNo"/>
+        <result column="fangan" jdbcType="VARCHAR" property="fangan"/>
+        <result column="ReturnExpressBillUrl" jdbcType="VARCHAR" property="return_express_bill_url"/>
+        <result column="ReturnShipCode" jdbcType="VARCHAR" property="return_ship_code"/>
+        <result column="ReturnShipBillCode" jdbcType="VARCHAR" property="return_ship_bill_code"/>
+        <result column="ReturnLinkMan" jdbcType="VARCHAR" property="return_link_man"/>
+        <result column="ReturnLinkPhone" jdbcType="VARCHAR" property="return_link_phone"/>
+        <result column="ReturnCountry" jdbcType="VARCHAR" property="return_country"/>
+        <result column="ReturnProvince" jdbcType="VARCHAR" property="return_province"/>
+        <result column="ReturnCity" jdbcType="VARCHAR" property="return_city"/>
+        <result column="ReturnArea" jdbcType="VARCHAR" property="return_area"/>
+        <result column="ReturnDetailAddress" jdbcType="VARCHAR" property="return_detail_address"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="return_state" jdbcType="INTEGER" property="returnState"/>
+        <result column="return_time" jdbcType="INTEGER" property="returnTime"/>
+        <result column="return_user_name" jdbcType="INTEGER" property="returnUserName"/>
+        <result column="return_user_id" jdbcType="INTEGER" property="returnUserId"/>
+
+
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ASN.manage.model.AcceptExDto" extends="BaseResultMap">
+        <!--    <collection property="imgUrls"  ofType="com.deer.wms.ASN.manage.model.AcceptExImg">-->
+        <!--      <id column="accept_ex_img_id" jdbcType="INTEGER" property="acceptExImgId" />-->
+        <!--      <result column="accept_ex_id" jdbcType="INTEGER" property="acceptExId" />-->
+        <!--      <result column="ex_img_url" jdbcType="VARCHAR" property="exImgUrl" />-->
+        <!--      <result column="ship_bill_code" jdbcType="VARCHAR" property="shipBillCode" />-->
+        <!--    </collection>-->
+
+        <collection property="packDetails" ofType="com.deer.wms.ASN.manage.model.buy.PackDetails">
+            <result column="pack_detail_id1" jdbcType="INTEGER" property="packDetailId1"/>
+            <result column="pack_describe1" jdbcType="VARCHAR" property="packDescribe1"/>
+            <result column="trans_ratio1" jdbcType="DOUBLE" property="transRatio1"/>
+        </collection>
+    </resultMap>
+
+    <select id="findList" resultMap="Dto" parameterType
+            ="com.deer.wms.ASN.manage.model.AcceptExCriteria">
+        select
+        ex.*
+        ,pd.pack_detail_id as pack_detail_id1
+        ,pd.pack_describe as pack_describe1
+        ,pd.trans_ratio as trans_ratio1
+
+        from accept_ex ex
+        left join asn_master asn on ex.bill_no = asn.bill_no
+        left join item_info item on ex.item_code = item.item_code and ex.organization_id = item.organization_id
+        left join pack_detail pd on pd.pack_code = item.pack_code and pd.state =1
+        where 1=1
+        <if test="state!=null">
+            and ex.state = #{state}
+        </if>
+        <if test="type!=null">
+            and ex.type = #{type}
+        </if>
+        <if test="reason!=null">
+            and ex.reason = #{reason}
+        </if>
+        <if test="wareId!=null">
+            and ex.ware_id = #{wareId}
+        </if>
+        <if test="organizationId!=null">
+            and ex.organization_id = #{organizationId}
+        </if>
+        <if test="shipBillNo!=null and shipBillNo != ''">
+            and ex.ship_bill_no = #{shipBillNo}
+        </if>
+        <if test="billNo!=null and billNo != ''">
+            and ex.bill_no = #{billNo}
+        </if>
+        <if test="itemCode!=null and itemCode!=''">
+            and ex.item_code = #{itemCode}
+        </if>
+        order by ex.state ,ex.create_time desc
+    </select>
+
+    <select id="findCanTongBu" resultMap="BaseResultMap">
+    select
+    *
+    from accept_ex
+    where state = 0;
+  </select>
+</mapper>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.deer.wms.ASN.manage.dao.AcceptLogMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.AcceptLog">
+        <id column="accept_log_id" property="acceptLogId" jdbcType="INTEGER"/>
+        <result column="ware_id" property="wareId" jdbcType="INTEGER"/>
+        <result column="ware_name" property="wareName" jdbcType="VARCHAR"/>
+        <result column="item_code" property="itemCode" jdbcType="VARCHAR"/>
+        <result column="item_name" property="itemName" jdbcType="VARCHAR"/>
+        <result column="item_original_name" property="itemOriginalName" jdbcType="VARCHAR"/>
+        <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="spec" property="spec" jdbcType="VARCHAR"/>
+        <result column="model" property="model" jdbcType="VARCHAR"/>
+        <result column="batch_id" property="batchId" jdbcType="INTEGER"/>
+        <result column="batch_name" property="batchName" jdbcType="VARCHAR"/>
+        <result column="cell_code" property="cellCode" jdbcType="VARCHAR"/>
+        <result column="bill_type" property="billType" jdbcType="INTEGER"/>
+        <result column="accept_type" property="acceptType" jdbcType="INTEGER"/>
+        <result column="qc_type" property="qcType" jdbcType="INTEGER"/>
+        <result column="accept_state" property="acceptState" jdbcType="INTEGER"/>
+        <result column="accept_user_id" property="acceptUserId" jdbcType="INTEGER"/>
+        <result column="accept_user_name" property="acceptUserName" jdbcType="VARCHAR"/>
+        <result column="accept_time" property="acceptTime" jdbcType="TIMESTAMP"/>
+        <result column="up_user_id" property="upUserId" jdbcType="INTEGER"/>
+        <result column="up_user_name" property="upUserName" jdbcType="VARCHAR"/>
+        <result column="up_time" property="upTime" jdbcType="TIMESTAMP"/>
+        <result column="expect_quantity" property="expectQuantity" jdbcType="DOUBLE"/>
+        <result column="quantity" property="quantity" jdbcType="DOUBLE"/>
+        <result column="ex_quantity" property="exQuantity" jdbcType="DOUBLE"/>
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="accept_record_id" property="acceptRecordId" jdbcType="INTEGER"/>
+        <result column="end_status" property="endStatus" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    accept_log_id, ware_id, ware_name, item_code, item_name, item_original_name, img_url, 
+    spec, model, batch_id, batch_name, cell_code, bill_type, accept_type, qc_type, accept_state, 
+    accept_user_id, accept_user_name, accept_time, up_user_id, up_user_name, up_time, 
+    expect_quantity, quantity, ex_quantity, bill_no, create_time,accept_record_id,end_status
+  </sql>
+
+    <insert id="insertUnique" parameterType="com.deer.wms.ASN.manage.model.AcceptLog">
+        insert into accept_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="acceptLogId != null">
+                accept_log_id,
+            </if>
+            <if test="wareId != null">
+                ware_id,
+            </if>
+            <if test="wareName != null">
+                ware_name,
+            </if>
+            <if test="itemCode != null">
+                item_code,
+            </if>
+            <if test="itemName != null">
+                item_name,
+            </if>
+            <if test="itemOriginalName != null">
+                item_original_name,
+            </if>
+            <if test="imgUrl != null">
+                img_url,
+            </if>
+            <if test="spec != null">
+                spec,
+            </if>
+            <if test="model != null">
+                model,
+            </if>
+            <if test="batchId != null">
+                batch_id,
+            </if>
+            <if test="batchName != null">
+                batch_name,
+            </if>
+            <if test="cellCode != null">
+                cell_code,
+            </if>
+            <if test="billType != null">
+                bill_type,
+            </if>
+            <if test="acceptType != null">
+                accept_type,
+            </if>
+            <if test="qcType != null">
+                qc_type,
+            </if>
+            <if test="acceptState != null">
+                accept_state,
+            </if>
+            <if test="acceptUserId != null">
+                accept_user_id,
+            </if>
+            <if test="acceptUserName != null">
+                accept_user_name,
+            </if>
+            <if test="acceptTime != null">
+                accept_time,
+            </if>
+            <if test="upUserId != null">
+                up_user_id,
+            </if>
+            <if test="upUserName != null">
+                up_user_name,
+            </if>
+            <if test="upTime != null">
+                up_time,
+            </if>
+            <if test="expectQuantity != null">
+                expect_quantity,
+            </if>
+            <if test="quantity != null">
+                quantity,
+            </if>
+            <if test="exQuantity != null">
+                ex_quantity,
+            </if>
+            <if test="billNo != null">
+                bill_no,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="acceptRecordId != null">
+                accept_record_id,
+            </if>
+            <if test="endStatus != null">
+                end_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="acceptLogId != null">
+                #{acceptLogId,jdbcType=INTEGER},
+            </if>
+            <if test="wareId != null">
+                #{wareId,jdbcType=INTEGER},
+            </if>
+            <if test="wareName != null">
+                #{wareName,jdbcType=VARCHAR},
+            </if>
+            <if test="itemCode != null">
+                #{itemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="itemName != null">
+                #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test="itemOriginalName != null">
+                #{itemOriginalName,jdbcType=VARCHAR},
+            </if>
+            <if test="imgUrl != null">
+                #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="spec != null">
+                #{spec,jdbcType=VARCHAR},
+            </if>
+            <if test="model != null">
+                #{model,jdbcType=VARCHAR},
+            </if>
+            <if test="batchId != null">
+                #{batchId,jdbcType=INTEGER},
+            </if>
+            <if test="batchName != null">
+                #{batchName,jdbcType=VARCHAR},
+            </if>
+            <if test="cellCode != null">
+                #{cellCode,jdbcType=VARCHAR},
+            </if>
+            <if test="billType != null">
+                #{billType,jdbcType=INTEGER},
+            </if>
+            <if test="acceptType != null">
+                #{acceptType,jdbcType=INTEGER},
+            </if>
+            <if test="qcType != null">
+                #{qcType,jdbcType=INTEGER},
+            </if>
+            <if test="acceptState != null">
+                #{acceptState,jdbcType=INTEGER},
+            </if>
+            <if test="acceptUserId != null">
+                #{acceptUserId,jdbcType=INTEGER},
+            </if>
+            <if test="acceptUserName != null">
+                #{acceptUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="acceptTime != null">
+                #{acceptTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="upUserId != null">
+                #{upUserId,jdbcType=INTEGER},
+            </if>
+            <if test="upUserName != null">
+                #{upUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="upTime != null">
+                #{upTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="expectQuantity != null">
+                #{expectQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=DOUBLE},
+            </if>
+            <if test="exQuantity != null">
+                #{exQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="billNo != null">
+                #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="acceptRecordId != null">
+                #{acceptRecordId,jdbcType=INTEGER},
+            </if>
+            <if test="endStatus != null">
+                #{endStatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        end_status = values(end_status),ex_quantity=values(ex_quantity),quantity=values(quantity)
+        ,expect_quantity=values(expect_quantity),up_time=values(up_time),up_user_name=values(up_user_name)
+        ,up_user_id=values(up_user_id),accept_time=values(accept_time),accept_user_name=values(accept_user_name)
+        ,accept_user_id=values(accept_user_id),accept_state=values(accept_state),qc_type=values(qc_type),accept_type=values(accept_type)
+        ,bill_type=values(bill_type),cell_code=values(cell_code)
+    </insert>
+
+    <select id="getLogMaxDate" resultType="java.util.Date">
+    select max(create_time) from accept_log;
+  </select>
+
+    <select id="findList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from accept_log
+        <where>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code like CONCAT('%', #{itemCode}, '%')
+            </if>
+            <if test="itemName != null and itemName != ''">
+                and item_name like CONCAT('%', #{itemName}, '%')
+            </if>
+        </where>
+        order by accept_time
+    </select>
+
+</mapper>

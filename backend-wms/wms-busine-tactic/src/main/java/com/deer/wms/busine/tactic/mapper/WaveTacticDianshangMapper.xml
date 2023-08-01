@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.WaveTacticDianshangMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.WaveTacticDianshang">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="wave_tactic_id" jdbcType="INTEGER" property="waveTacticId"/>
+        <result column="wave_tactic_code" jdbcType="VARCHAR" property="waveTacticCode"/>
+        <result column="wave_tactic_name" jdbcType="VARCHAR" property="waveTacticName"/>
+        <result column="priority_level" jdbcType="INTEGER" property="priorityLevel"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="carrier_id" jdbcType="INTEGER" property="carrierId"/>
+        <result column="so_type" jdbcType="VARCHAR" property="soType"/>
+        <result column="so_structure" jdbcType="INTEGER" property="soStructure"/>
+        <result column="so_deadline" jdbcType="TIMESTAMP" property="soDeadline"/>
+        <result column="so_count_limit" jdbcType="INTEGER" property="soCountLimit"/>
+        <result column="item_count" jdbcType="INTEGER" property="itemCount"/>
+        <result column="is_seeding" jdbcType="INTEGER" property="isSeeding"/>
+        <result column="max_wait_time" jdbcType="INTEGER" property="maxWaitTime"/>
+        <result column="last_time" jdbcType="TIMESTAMP" property="lastTime"/>
+
+
+    </resultMap>
+
+    <resultMap id="Dto" extends="BaseResultMap" type="com.deer.wms.busine.tactic.model.WaveTacticDianshangDto">
+
+    </resultMap>
+
+    <select id="findList" resultMap="Dto" parameterType="com.deer.wms.busine.tactic.model.WaveTacticDianshangCriteria">
+        select
+        wtd.*,
+        ware.ware_name as wareName,
+        customer.customer_name as customerName,
+        carrier.carrier_name as carrierName,
+        ddd.dict_value as soTyName
+        from
+        wave_tactic_dianshang wtd
+        left join ware_info ware on wtd.ware_id = ware.ware_id
+        left join customer customer on wtd.customer_id = customer.customer_id
+        left join carrier carrier on wtd.carrier_id = carrier.carrier_id
+        left join data_dict_detail ddd on wtd.so_type = ddd.data_dict_detail_id and ddd.data_dict_code = 'soBillType'
+        <where>
+            <if test="wareId != null">
+                wtd.ware_id = #{wareId}
+            </if>
+            <if test="state != null">
+                and wtd.state = #{state}
+            </if>
+        </where>
+        order by priority_level desc
+    </select>
+</mapper>

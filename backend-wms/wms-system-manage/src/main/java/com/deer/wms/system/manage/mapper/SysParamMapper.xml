@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.SysParamMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.SysParam">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="sys_param_id" jdbcType="INTEGER" property="sysParamId"/>
+        <result column="param_code" jdbcType="VARCHAR" property="paramCode"/>
+        <result column="param_name" jdbcType="VARCHAR" property="paramName"/>
+        <result column="value" jdbcType="VARCHAR" property="value"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="module_code" jdbcType="VARCHAR" property="moduleCode"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.system.manage.model.SysParamDto" extends="BaseResultMap">
+
+    </resultMap>
+
+    <select id="findList" resultMap="Dto" parameterType="com.deer.wms.system.manage.model.SysParamCriteria">
+        select
+        param.sys_param_id
+        ,param.param_code
+        ,param.param_name
+        ,param.value
+        ,param.memo
+        ,param.type
+        ,param.module_code
+        from sys_param param
+        where 1=1
+        <if test="moduleCode != null and moduleCode != ''">
+            and param.module_code = #{moduleCode}
+        </if>
+        <if test="paramCode != null and paramCode != ''">
+            and param.param_code = #{paramCode}
+        </if>
+        <if test="memo != null and memo != ''">
+            and param.memo = #{memo}
+        </if>
+    </select>
+
+    <select id="findByCode" resultMap="Dto" parameterType="java.lang.String">
+     select
+     param.sys_param_id
+    ,param.param_code
+    ,param.param_name
+    ,param.value
+    ,param.memo
+    ,param.type
+    ,param.module_code
+    from sys_param param
+    where param.param_code = #{paramCode}
+  </select>
+
+    <select id="findByName" resultMap="Dto" parameterType="java.lang.String">
+     select
+     param.sys_param_id
+    ,param.param_code
+    ,param.param_name
+    ,param.value
+    ,param.memo
+    ,param.type
+    ,param.module_code
+    from sys_param param
+    where param.param_name = #{paramName}
+  </select>
+
+
+    <select id="findByMemo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    *
+    from sys_param
+    where memo  =  #{memo}
+  </select>
+
+</mapper>

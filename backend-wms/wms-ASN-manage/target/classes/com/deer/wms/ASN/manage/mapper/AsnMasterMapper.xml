@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.AsnMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.asn.AsnMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="asn_master_id" jdbcType="INTEGER" property="asnMasterId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="bill_type" jdbcType="INTEGER" property="billType"/>
+        <result column="request_buy_bill_no" jdbcType="VARCHAR" property="requestBuyBillNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="order_no" jdbcType="INTEGER" property="orderNo"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="ware_code" jdbcType="VARCHAR" property="wareCode"/>
+        <result column="organization_code" jdbcType="VARCHAR" property="organizationCode"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="asn_state" jdbcType="INTEGER" property="asnState"/>
+        <result column="expect_time" jdbcType="TIMESTAMP" property="expectTime"/>
+        <result column="asn_udf_hs1" jdbcType="VARCHAR" property="asnUdfHs1"/>
+        <result column="asn_udf_hs2" jdbcType="VARCHAR" property="asnUdfHs2"/>
+        <result column="asn_udf_hs3" jdbcType="VARCHAR" property="asnUdfHs3"/>
+        <result column="supplier_id" jdbcType="INTEGER" property="supplierId"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="carrier_code" jdbcType="VARCHAR" property="carrierCode"/>
+        <result column="quality_state" jdbcType="INTEGER" property="qualityState"/>
+        <result column="platform_code" jdbcType="VARCHAR" property="platformCode"/>
+        <result column="salesman" jdbcType="VARCHAR" property="salesman"/>
+        <result column="loading_place" jdbcType="VARCHAR" property="loadingPlace"/>
+        <result column="delivery_place" jdbcType="VARCHAR" property="deliveryPlace"/>
+        <result column="traffic_describe" jdbcType="VARCHAR" property="trafficDescribe"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="bill_source" jdbcType="INTEGER" property="billSource"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="is_serial_no" jdbcType="INTEGER" property="isSerialNo"/>
+        <result column="is_print" jdbcType="INTEGER" property="isPrint"/>
+        <result column="asn_type" jdbcType="INTEGER" property="asnType"/>
+        <result column="allot_bill_no" jdbcType="VARCHAR" property="allotBillNo"/>
+        <result column="qc_state" jdbcType="INTEGER" property="qcState"/>
+        <result column="is_deleted" jdbcType="CHAR" property="isDeleted"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="so_bill_no" jdbcType="VARCHAR" property="soBillNo"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ASN.manage.model.asn.AsnMasterDto" extends="BaseResultMap">
+        <result column="carrier_name" jdbcType="VARCHAR" property="carrierName"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+
+        <result column="car_type" jdbcType="VARCHAR" property="carType"/>
+        <result column="car_no" jdbcType="VARCHAR" property="carNo"/>
+        <result column="driver" jdbcType="VARCHAR" property="driver"/>
+        <result column="driver_phone" jdbcType="VARCHAR" property="driverPhone"/>
+
+        <result column="accept_time" jdbcType="TIMESTAMP" property="acceptTime"/>
+        <result column="length" jdbcType="INTEGER" property="length"/>
+        <result column="height" jdbcType="INTEGER" property="height"/>
+        <result column="width" jdbcType="INTEGER" property="width"/>
+        <result column="weight" jdbcType="INTEGER" property="weight"/>
+        <result column="detailNames" jdbcType="VARCHAR" property="detailNames"/>
+
+        <collection property="detailList" ofType="com.deer.wms.ASN.manage.model.asn.AsnDetail">
+
+            <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+            <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        </collection>
+    </resultMap>
+
+    <update id="update">
+        update asn_master
+        <set >
+            <if test="billNo != null" >
+                bill_no = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="billType != null" >
+                bill_type = #{billType,jdbcType=INTEGER},
+            </if>
+            <if test="requestBuyBillNo != null" >
+                request_buy_bill_no = #{requestBuyBillNo,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="orderNo != null" >
+                order_no = #{orderNo,jdbcType=INTEGER},
+            </if>
+            <if test="wareId != null" >
+                ware_id = #{wareId,jdbcType=INTEGER},
+            </if>
+            <if test="wareCode != null" >
+                ware_code = #{wareCode,jdbcType=VARCHAR},
+            </if>
+            <if test="wareName != null" >
+                ware_name = #{wareName,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationId != null" >
+                organization_id = #{organizationId,jdbcType=INTEGER},
+            </if>
+            <if test="organizationCode != null" >
+                organization_code = #{organizationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationName != null" >
+                organization_name = #{organizationName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null" >
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createUserName != null" >
+                create_user_name = #{createUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="asnState != null" >
+                asn_state = #{asnState,jdbcType=INTEGER},
+            </if>
+            <if test="expectTime != null" >
+                expect_time = #{expectTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="asnUdfHs1 != null" >
+                asn_udf_hs1 = #{asnUdfHs1,jdbcType=VARCHAR},
+            </if>
+            <if test="asnUdfHs2 != null" >
+                asn_udf_hs2 = #{asnUdfHs2,jdbcType=VARCHAR},
+            </if>
+            <if test="asnUdfHs3 != null" >
+                asn_udf_hs3 = #{asnUdfHs3,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierId != null" >
+                supplier_id = #{supplierId,jdbcType=INTEGER},
+            </if>
+            <if test="supplierName != null" >
+                supplier_name = #{supplierName,jdbcType=VARCHAR},
+            </if>
+            <if test="carrierCode != null" >
+                carrier_code = #{carrierCode,jdbcType=VARCHAR},
+            </if>
+            <if test="qualityState != null" >
+                quality_state = #{qualityState,jdbcType=INTEGER},
+            </if>
+            <if test="platformCode != null" >
+                platform_code = #{platformCode,jdbcType=VARCHAR},
+            </if>
+            <if test="salesman != null" >
+                salesman = #{salesman,jdbcType=VARCHAR},
+            </if>
+            <if test="loadingPlace != null" >
+                loading_place = #{loadingPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="deliveryPlace != null" >
+                delivery_place = #{deliveryPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="trafficDescribe != null" >
+                traffic_describe = #{trafficDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="insertType != null" >
+                insert_type = #{insertType,jdbcType=INTEGER},
+            </if>
+            <if test="billSource != null" >
+                bill_source = #{billSource,jdbcType=INTEGER},
+            </if>
+            <if test="isSerialNo != null" >
+                is_serial_no = #{isSerialNo,jdbcType=INTEGER},
+            </if>
+            <if test="isPrint != null" >
+                is_print = #{isPrint,jdbcType=INTEGER},
+            </if>
+            <if test="memo != null" >
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="asnType != null" >
+                asn_type = #{asnType,jdbcType=INTEGER},
+            </if>
+            <if test="allotBillNo != null" >
+                allot_bill_no = #{allotBillNo,jdbcType=VARCHAR},
+            </if>
+            <if test="qcState != null" >
+                qc_state = #{qcState,jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null" >
+                is_deleted = #{isDeleted,jdbcType=CHAR},
+            </if>
+            <if test="version != null" >
+                version = version + 1,
+            </if>
+        </set>
+        where asn_master_id = #{asnMasterId,jdbcType=INTEGER} and version = #{version}
+    </update>
+
+
+  <select id="findList" parameterType="com.deer.wms.ASN.manage.model.asn.AsnMasterCriteria" resultMap="Dto">
+        select
+        master.asn_master_id
+        ,master.bill_no
+        ,master.bill_type
+        ,master.request_buy_bill_no
+        ,master.state
+        ,master.order_no
+        ,master.ware_id
+        ,master.ware_name
+        ,master.organization_id
+        ,master.organization_name
+        ,master.create_time
+        ,master.create_user_id
+        ,master.create_user_name
+        ,master.asn_state
+        ,master.expect_time
+        ,master.supplier_id
+        ,master.supplier_name
+        ,master.carrier_code
+        ,master.quality_state
+        ,master.platform_code
+        ,master.salesman
+        ,master.loading_place
+        ,master.delivery_place
+        ,master.traffic_describe
+        ,master.asn_udf_hs1
+        ,master.asn_udf_hs2
+        ,master.asn_udf_hs3
+        ,master.insert_type
+        ,master.bill_source
+        ,master.memo
+        ,master.is_serial_no
+        ,master.is_print
+        ,master.asn_type
+        ,master.allot_bill_no
+        ,master.qc_state
+        ,master.version
+        ,master.so_bill_no
+
+        ,carrier.carrier_id
+        ,carrier.carrier_name
+        ,carrier.link_man
+        ,carrier.link_phone
+        ,carrier.type
+        ,cd.car_type
+        ,cd.car_no
+        ,cd.driver
+        ,cd.driver_phone
+
+        from asn_master master
+        left join carrier carrier on carrier.carrier_code = master.carrier_code
+        left join carrier_detail cd on master.carrier_code = cd.carrier_code
+        where 1=1
+        and master.is_deleted = 'n'
+        <if test="asnMasterId != null">
+            and master.asn_master_id = #{asnMasterId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and master.bill_no like CONCAT('%', #{billNo}, '%')
+        </if>
+        <if test="allotBillNo != null and allotBillNo !=''">
+            and master.allot_bill_no like CONCAT('%', #{allotBillNo}, '%')
+        </if>
+        <if test="wareId != null">
+            and master.ware_id = #{wareId}
+        </if>
+        <if test="organizationId != null">
+            and master.organization_id = #{organizationId}
+        </if>
+        <if test="supplierId != null">
+            and master.supplier_id = #{supplierId}
+        </if>
+      <if test="isAccept != null">
+          and master.asn_state &lt; 3
+      </if>
+        <if test="carrierId != null">
+            and carrier.carrier_id = #{carrierId}
+        </if>
+        <if test="state != null">
+            and master.state = #{state}
+        </if>
+        <if test="asnState != null">
+            and master.asn_state = #{asnState}
+        </if>
+        <if test="createUserId != null">
+            and master.create_user_id = #{createUserId}
+        </if>
+        <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and master.create_time &gt; #{startCreateTime} and master.create_time &lt; #{endCreateTime}
+        </if>
+        <if test="startExpectTime != null and startExpectTime != '' and endExpectTime != null and endExpectTime != ''">
+            and master.expect_time &gt; #{startExpectTime} and master.expect_time &lt; #{endExpectTime}
+        </if>
+
+        <if test="insertType != null">
+            and master.insert_type = #{insertType}
+        </if>
+        <if test="billSource != null">
+            and master.bill_source = #{billSource}
+        </if>
+        <if test="carrierCode != null and carrierCode !=''">
+            and master.carrier_code = #{carrierCode}
+        </if>
+        <if test="orderNo != null">
+            and master.order_no = #{orderNo}
+        </if>
+        <if test="requestBuyBillNo != null and requestBuyBillNo !=''">
+            and master.request_buy_bill_no = #{requestBuyBillNo}
+        </if>
+        <if test="platformCode != null and platformCode !=''">
+            and master.platform_code like CONCAT('%', #{platformCode}, '%')
+        </if>
+        <if test="carrierName != null and carrierName !=''">
+            and carrier.carrier_name like CONCAT('%', #{carrierName}, '%')
+        </if>
+        <if test="linkMan != null and linkMan !=''">
+            and carrier.link_man = #{linkMan}
+        </if>
+        <if test="linkPhone != null and linkPhone !=''">
+            and carrier.link_phone = #{linkPhone}
+        </if>
+        <if test="type != null and type !=''">
+            and carrier.type = #{type}
+        </if>
+        <if test="carType != null and carType !=''">
+            and cd.car_type = #{carType}
+        </if>
+        <if test="carNo != null and carNo !=''">
+            and cd.car_no = #{carNo}
+        </if>
+        <if test="driver != null and driver !=''">
+            and cd.driver = #{driver}
+        </if>
+        <if test="driverPhone != null and driverPhone !=''">
+            and cd.driver_phone = #{driverPhone}
+        </if>
+        <if test="asnType != null ">
+            and master.asn_type = #{asnType}
+        </if>
+      <if test="soBillNo != null and soBillNo !=''">
+          and master.so_bill_no like CONCAT('%', #{soBillNo}, '%')
+      </if>
+        <if test="asnTypeIn != null and asnTypeIn.size > 0">
+            and 
+            <foreach collection="asnTypeIn" item="item" open="(" separator="or" close=")">
+                <if test="item == null">
+                	master.asn_type is null
+                </if>
+                <if test="item != null">
+                	master.asn_type = #{item}
+                </if>
+            </foreach>
+        </if>
+        <if test="asnTypeNotIn != null and asnTypeNotIn.size > 0">
+            and ( master.asn_type is null or master.asn_type not in
+	            <foreach collection="asnTypeNotIn" item="item" open="(" separator="," close=")">
+	            	<if test="item != null">
+						#{item}
+					</if>
+	            </foreach>
+            )
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                master.memo like CONCAT('%', #{keyWord}, '%')
+                or master.create_user_name like CONCAT('%', #{keyWord}, '%')
+                or master.bill_no like CONCAT('%', #{keyWord}, '%')
+                or master.memo like CONCAT('%', #{keyWord}, '%')
+                or carrier.link_man like CONCAT('%', #{keyWord}, '%')
+                or carrier.link_phone like CONCAT('%', #{keyWord}, '%')
+                or cd.car_type like CONCAT('%', #{keyWord}, '%')
+                or cd.car_no like CONCAT('%', #{keyWord}, '%')
+                or cd.driver like CONCAT('%', #{keyWord}, '%')
+                or cd.driver_phone like CONCAT('%', #{keyWord}, '%')
+                or master.asn_udf_hs1 like CONCAT('%', #{keyWord}, '%')
+                or master.asn_udf_hs2 like CONCAT('%', #{keyWord}, '%')
+                or master.asn_udf_hs3 like CONCAT('%', #{keyWord}, '%')
+                or master.loading_place like CONCAT('%', #{keyWord}, '%')
+                or master.delivery_place like CONCAT('%', #{keyWord}, '%')
+                or master.traffic_describe like CONCAT('%', #{keyWord}, '%')
+
+                )
+            </foreach>
+        </if>
+
+        group by master.bill_no
+        order by master.asn_state  ,master.order_no desc,  master.asn_master_id desc
+    </select>
+
+    <select id="pdaAccept" parameterType="com.deer.wms.ASN.manage.model.asn.AsnMasterCriteria" resultMap="Dto">
+        select
+        master.asn_master_id
+        ,master.bill_no
+        ,master.state
+        ,master.order_no
+        ,master.ware_id
+        ,master.ware_name
+        ,master.organization_id
+        ,master.organization_name
+        ,master.create_time
+        ,master.create_user_id
+        ,master.create_user_name
+        ,master.memo
+        ,master.supplier_name
+        ,master.asn_type
+        ,master.so_bill_no
+
+        ,GROUP_CONCAT(concat(left(detail.item_name,30),'*',detail.expect_quantity) SEPARATOR 'fengefu')as detailNames
+
+
+
+
+
+
+
+        from asn_master master
+        left join asn_detail detail on master.bill_no = detail.bill_no
+
+        where 1=1
+        and master.is_deleted = 'n'
+        <if test="asnMasterId != null">
+            and master.asn_master_id = #{asnMasterId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and master.bill_no like CONCAT('%', #{billNo}, '%')
+        </if>
+        <if test="allotBillNo != null and allotBillNo !=''">
+            and master.allot_bill_no like CONCAT('%', #{allotBillNo}, '%')
+        </if>
+        <if test="wareId != null">
+            and master.ware_id = #{wareId}
+        </if>
+        <if test="organizationId != null">
+            and master.organization_id = #{organizationId}
+        </if>
+        <if test="supplierId != null">
+            and master.supplier_id = #{supplierId}
+        </if>
+        <if test="isAccept != null">
+            and master.asn_state &lt; 3
+        </if>
+        <if test="carrierId != null">
+            and carrier.carrier_id = #{carrierId}
+        </if>
+        <if test="state != null">
+            and master.state = #{state}
+        </if>
+        <if test="asnState != null">
+            and master.asn_state = #{asnState}
+        </if>
+        <if test="createUserId != null">
+            and master.create_user_id = #{createUserId}
+        </if>
+        <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and master.create_time &gt; #{startCreateTime} and master.create_time &lt; #{endCreateTime}
+        </if>
+        <if test="startExpectTime != null and startExpectTime != '' and endExpectTime != null and endExpectTime != ''">
+            and master.expect_time &gt; #{startExpectTime} and master.expect_time &lt; #{endExpectTime}
+        </if>
+
+        <if test="insertType != null">
+            and master.insert_type = #{insertType}
+        </if>
+        <if test="billSource != null">
+            and master.bill_source = #{billSource}
+        </if>
+        <if test="carrierCode != null and carrierCode !=''">
+            and master.carrier_code = #{carrierCode}
+        </if>
+        <if test="orderNo != null">
+            and master.order_no = #{orderNo}
+        </if>
+        <if test="requestBuyBillNo != null and requestBuyBillNo !=''">
+            and master.request_buy_bill_no = #{requestBuyBillNo}
+        </if>
+        <if test="platformCode != null and platformCode !=''">
+            and master.platform_code like CONCAT('%', #{platformCode}, '%')
+        </if>
+
+        <if test="asnType != null ">
+            and master.asn_type = #{asnType}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                master.memo like CONCAT('%', #{keyWord}, '%')
+                or master.create_user_name like CONCAT('%', #{keyWord}, '%')
+                or master.bill_no like CONCAT('%', #{keyWord}, '%')
+                or master.memo like CONCAT('%', #{keyWord}, '%')
+
+                or master.asn_udf_hs1 like CONCAT('%', #{keyWord}, '%')
+                or master.asn_udf_hs2 like CONCAT('%', #{keyWord}, '%')
+                or master.asn_udf_hs3 like CONCAT('%', #{keyWord}, '%')
+                or master.loading_place like CONCAT('%', #{keyWord}, '%')
+                or master.delivery_place like CONCAT('%', #{keyWord}, '%')
+                or master.traffic_describe like CONCAT('%', #{keyWord}, '%')
+
+                )
+            </foreach>
+        </if>
+        group by master.bill_no
+        order by master.order_no desc, master.asn_master_id desc
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from asn_master where bill_no =#{billNo} and version = #{version}
+
+  </delete>
+
+    <select id="findByBillNo" resultMap="Dto">
+    select
+    *
+    from
+    asn_ship_detail asd
+
+    left join  asn_master am on am.bill_no =asd.bill_no
+    where
+    asd.ship_bill_code =#{billNo}
+    and am.is_deleted = 'n'
+
+
+  </select>
+
+	<select id="findByRequestBuyBillNO" resultMap="Dto">
+	    select
+	    *
+	    from
+	   asn_master am 
+	    where
+	    am.request_buy_bill_no =#{billNo}
+	    and am.is_deleted = 'n'
+	
+	
+	  </select>
+  
+    <select id="findSoByBillNo" resultMap="BaseResultMap">
+    select
+    asn.*
+    from
+    asn_master asn
+    left join ware_info ware on asn.ware_id = ware.ware_id
+
+    where
+    asn.is_deleted = 'n'
+    and asn.bill_no =#{billNo}
+    and ware.ware_code  =#{wareCode}
+  </select>
+
+  <select id="findBySoBillNo" resultMap="BaseResultMap">
+    select
+      asn.*
+    from
+      asn_master asn
+    where
+      asn.is_deleted = 'n'
+      and asn.so_bill_no = #{soBillNo}
+      <if test="wareId != null">
+        and asn.ware_id = #{wareId}
+      </if>
+      <if test="asnType != null">
+        and asn.asn_type = #{asnType}
+      </if>
+  </select>
+
+
+</mapper>

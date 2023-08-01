@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.InventoryAdjustMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.InventoryAdjust">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="inventory_adjust_id" jdbcType="INTEGER" property="inventoryAdjustId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="stock_take_master_id" jdbcType="INTEGER" property="stockTakeMasterId"/>
+        <result column="reason" jdbcType="VARCHAR" property="reason"/>
+        <result column="reason_description" jdbcType="VARCHAR" property="reasonDescription"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_code" jdbcType="VARCHAR" property="wareCode"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="case_state" jdbcType="INTEGER" property="caseState"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="allow_batch" jdbcType="INTEGER" property="allowBatch"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.InventoryAdjustDto" extends="BaseResultMap">
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+    </resultMap>
+    <select id="findList" parameterType="com.deer.wms.inventory.model.InventoryAdjustCriteria" resultMap="Dto">
+        SELECT
+        ia.*
+        FROM
+        inventory_adjust ia
+        where 1=1
+        <if test="organizationId != null">
+            and ia.organization_id = #{organizationId}
+        </if>
+        <if test="billNo != null and billNo != ''">
+            and ia.bill_no = #{billNo}
+        </if>
+        <if test="caseState != null">
+            and ia.case_state = #{caseState}
+        </if>
+        <if test="insertType != null">
+            and ia.insert_type = #{insertType}
+        </if>
+        <if test="wareId != null">
+            and ia.ware_id = #{wareId}
+        </if>
+        <if test="reason != null and reason != ''">
+            and ia.reason =#{reason}
+        </if>
+        <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and ia.create_time &gt;= #{startCreateTime} and ia.create_time &lt;= #{endCreateTime}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                ia.reason_description like CONCAT('%', #{keyWord}, '%')
+                or ia.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by ia.create_time desc
+    </select>
+</mapper>

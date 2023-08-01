@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.FreezeMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.freeze.FreezeMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="freeze_master_id" jdbcType="INTEGER" property="freezeMasterId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_use_id" jdbcType="INTEGER" property="createUseId"/>
+        <result column="create_use_name" jdbcType="VARCHAR" property="createUseName"/>
+        <result column="freeze_describe" jdbcType="VARCHAR" property="freezeDescribe"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.inventory.model.freeze.FreezeMasterDto" extends="BaseResultMap">
+
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.inventory.model.freeze.FreezeMasterCriteria" resultMap="Dto">
+        select
+        master.freeze_master_id
+        ,master.bill_no
+        ,master.ware_id
+        ,master.ware_name
+        ,master.organization_id
+        ,master.organization_name
+        ,master.state
+        ,master.insert_type
+        ,master.create_time
+        ,master.create_use_id
+        ,master.create_use_name
+        ,master.freeze_describe
+        ,master.memo
+        from freeze_master master
+        where 1=1
+        <if test="freezeMasterId != null">
+            and master.freeze_master_id = #{freezeMasterId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and master.bill_no like CONCAT('%', #{billNo}, '%')
+        </if>
+        <if test="wareId != null">
+            and master.ware_id = #{wareId}
+        </if>
+        <if test="organizationId != null">
+            and master.organization_id = #{organizationId}
+        </if>
+        <if test="state != null">
+            and master.state = #{state}
+        </if>
+        <if test="freezeDescribe != null and freezeDescribe !=''">
+            and master.freeze_describe = #{freezeDescribe}
+        </if>
+        <if test="createUseId != null">
+            and master.create_use_id = #{createUseId}
+        </if>
+
+        <if test="insertType != null">
+            and master.insert_type = #{insertType}
+        </if>
+        <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and master.create_time &gt; #{startCreateTime} and master.create_time &lt; #{endCreateTime}
+        </if>
+
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                master.memo like CONCAT('%', #{keyWord}, '%')
+                or master.create_use_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by
+        <if test="sort == 'ASC'">
+            master.freeze_master_id ASC,
+        </if>
+        master.freeze_master_id DESC
+
+
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+
+    delete from freeze_master where bill_no = #{billNo}
+
+  </delete>
+</mapper>

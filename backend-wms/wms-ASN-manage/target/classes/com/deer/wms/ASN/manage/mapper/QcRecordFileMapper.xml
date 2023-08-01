@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.QcRecordFileMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.qc.QcRecordFile">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="qc_record_file_id" jdbcType="INTEGER" property="qcRecordFileId"/>
+        <result column="qc_bill_no" jdbcType="VARCHAR" property="qcBillNo"/>
+        <result column="qc_detail_no" jdbcType="VARCHAR" property="qcDetailNo"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+        <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+        <result column="qc_quantity" jdbcType="DOUBLE" property="qcQuantity"/>
+        <result column="check_quantity" jdbcType="DOUBLE" property="checkQuantity"/>
+        <result column="real_quantity" jdbcType="DOUBLE" property="realQuantity"/>
+        <result column="qualified_quantity" jdbcType="DOUBLE" property="qualifiedQuantity"/>
+        <result column="fied_quantity" jdbcType="DOUBLE" property="fiedQuantity"/>
+        <result column="qc_time" jdbcType="TIMESTAMP" property="qcTime"/>
+        <result column="qc_user_id" jdbcType="INTEGER" property="qcUserId"/>
+        <result column="qc_user_name" jdbcType="VARCHAR" property="qcUserName"/>
+        <result column="qc_result" jdbcType="INTEGER" property="qcResult"/>
+        <result column="bill_type" jdbcType="INTEGER" property="billType"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ASN.manage.model.qc.QcRecordFileDto" extends="BaseResultMap">
+
+        <result column="one" jdbcType="DOUBLE" property="one"/>
+        <result column="two" jdbcType="DOUBLE" property="two"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ASN.manage.model.qc.QcRecordFileCriteria" resultMap="Dto">
+        select
+        record.qc_record_file_id
+        ,record.qc_bill_no
+        ,record.qc_detail_no
+        ,record.item_code
+        ,record.item_name
+        ,record.pack_detail_id
+        ,record.pack_describe
+        ,record.qc_quantity
+        ,record.check_quantity
+        ,record.real_quantity
+        ,record.qualified_quantity
+        ,record.fied_quantity
+        ,record.qc_time
+        ,record.qc_user_id
+        ,record.qc_user_name
+        ,record.qc_result
+        ,record.bill_type
+        ,record.create_user_id
+        ,record.create_user_name
+        ,record.create_time
+        ,ROUND(record.qualified_quantity/record.check_quantity*100,2)as one
+        ,ROUND(record.fied_quantity/record.check_quantity*100,2)as two
+        from
+        qc_record_file record
+
+        where 1=1
+        <if test="qcRecordFileId != null">
+            and record.qc_record_file_id = #{qcRecordFileId}
+        </if>
+        <if test="qcBillNo != null and qcBillNo !=''">
+            and record.qc_bill_no = #{qcBillNo}
+        </if>
+        <if test="qcDetailNo != null and qcDetailNo !=''">
+            and record.qc_detail_no = #{qcDetailNo}
+        </if>
+        <if test="qcResult != null ">
+            and record.qc_result = #{qcResult}
+        </if>
+        <if test="billType != null ">
+            and record.bill_type = #{billType}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                record.item_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+    </select>
+</mapper>

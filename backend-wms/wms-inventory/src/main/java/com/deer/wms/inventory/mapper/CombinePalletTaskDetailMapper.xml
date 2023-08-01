@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.inventory.dao.CombinePalletTaskDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.inventory.model.combinePallet.CombinePalletTaskDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="task_no" jdbcType="VARCHAR" property="taskNo"/>
+        <result column="pallet_code" jdbcType="VARCHAR" property="palletCode"/>
+        <result column="cell_code" jdbcType="VARCHAR" property="cellCode"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="batch" jdbcType="VARCHAR" property="batch"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="is_target" jdbcType="INTEGER" property="isTarget"/>
+    </resultMap>
+
+    <select id="detailsWithBoxCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from combine_pallet_task_detail cptd
+    where cptd.pallet_code = #{boxCode}
+  </select>
+</mapper>

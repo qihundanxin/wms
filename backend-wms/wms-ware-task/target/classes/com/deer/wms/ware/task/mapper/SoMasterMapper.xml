@@ -1,0 +1,906 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.SoMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.SO.SoMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="so_master_id" jdbcType="INTEGER" property="soMasterId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="trade_no" jdbcType="VARCHAR" property="tradeNo"/>
+        <result column="shop" jdbcType="VARCHAR" property="shop"/>
+        <result column="priority" jdbcType="INTEGER" property="priority"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="send_state" jdbcType="VARCHAR" property="sendState"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="cn_declaration_name" jdbcType="VARCHAR" property="cnDeclarationName"/>
+        <result column="declaration_name" jdbcType="VARCHAR" property="declarationName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="customer_name" jdbcType="VARCHAR" property="customerName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="order_time" jdbcType="TIMESTAMP" property="orderTime"/>
+        <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        <result column="expect_time_fm" jdbcType="TIMESTAMP" property="expectTimeFm"/>
+        <result column="expect_time_to" jdbcType="TIMESTAMP" property="expectTimeTo"/>
+        <result column="order_no" jdbcType="INTEGER" property="orderNo"/>
+        <result column="case_state" jdbcType="INTEGER" property="caseState"/>
+        <result column="bill_source" jdbcType="INTEGER" property="billSource"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="so_udf_hs1" jdbcType="VARCHAR" property="soUdfHs1"/>
+        <result column="so_udf_hs2" jdbcType="VARCHAR" property="soUdfHs2"/>
+        <result column="so_udf_hs3" jdbcType="VARCHAR" property="soUdfHs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="carrier_id" jdbcType="INTEGER" property="carrierId"/>
+        <result column="carrier_name" jdbcType="VARCHAR" property="carrierName"/>
+        <result column="so_type" jdbcType="INTEGER" property="soType"/>
+        <result column="receiving_address_id" jdbcType="INTEGER" property="receivingAddressId"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="country" jdbcType="VARCHAR" property="country"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
+        <result column="ship_link_man" jdbcType="VARCHAR" property="shipLinkMan"/>
+        <result column="ship_link_phone" jdbcType="VARCHAR" property="shipLinkPhone"/>
+        <result column="ship_province" jdbcType="VARCHAR" property="shipProvince"/>
+        <result column="ship_country" jdbcType="VARCHAR" property="shipCountry"/>
+        <result column="ship_city" jdbcType="VARCHAR" property="shipCity"/>
+        <result column="ship_area" jdbcType="VARCHAR" property="shipArea"/>
+        <result column="ship_detail_address" jdbcType="VARCHAR" property="shipDetailAddress"/>
+        <result column="merge_no" jdbcType="VARCHAR" property="mergeNo"/>
+        <result column="actual_delivery_time" jdbcType="TIMESTAMP" property="actualDeliveryTime"/>
+        <result column="allot_bill_no" jdbcType="VARCHAR" property="allotBillNo"/>
+        <result column="manufacture_type" jdbcType="INTEGER" property="manufactureType"/>
+        <result column="ship_code" jdbcType="VARCHAR" property="shipCode"/>
+        <result column="ship_bill_code" jdbcType="VARCHAR" property="shipBillCode"/>
+        <result column="express_bill_url" jdbcType="VARCHAR" property="expressBillUrl"/>
+        <result column="total_price" jdbcType="DOUBLE" property="totalPrice"/>
+        <result column="length" jdbcType="DOUBLE" property="length"/>
+        <result column="weight" jdbcType="DOUBLE" property="weight"/>
+        <result column="height" jdbcType="DOUBLE" property="height"/>
+        <result column="width" jdbcType="DOUBLE" property="width"/>
+        <result column="erp_state" jdbcType="INTEGER" property="erpState"/>
+        <result column="last_mile_sorting_code" jdbcType="VARCHAR" property="lastMileSortingCode"/>
+        <result column="last_mile_destination" jdbcType="VARCHAR" property="lastMileDestination"/>
+        <result column="last_mile_line_code" jdbcType="VARCHAR" property="lastMileLineCode"/>
+        <result column="so_structure" jdbcType="INTEGER" property="soStructure"/>
+        <result column="check_time" jdbcType="TIMESTAMP" property="checkTime"/>
+        <result column="check_user_id" jdbcType="INTEGER" property="checkUserId"/>
+        <result column="check_user_name" jdbcType="VARCHAR" property="checkUserName"/>
+        <result column="out_time" jdbcType="TIMESTAMP" property="outTime"/>
+        <result column="out_user_id" jdbcType="INTEGER" property="outUserId"/>
+        <result column="out_user_name" jdbcType="VARCHAR" property="outUserName"/>
+        <result column="link_post_code" jdbcType="VARCHAR" property="linkPostCode"/>
+        <result column="ship_post_code" jdbcType="VARCHAR" property="shipPostCode"/>
+        <result column="seeding_cell_code" jdbcType="VARCHAR" property="seedingCellCode"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="shop_daily_count" jdbcType="INTEGER" property="shopDailyCount"/>
+        <result column="pdf_url" jdbcType="VARCHAR" property="pdfUrl"/>
+        <result column="print_state" jdbcType="INTEGER" property="printState"/>
+        <result column="wave_master_id" jdbcType="INTEGER" property="waveMasterId"/>
+
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ware.task.model.SO.SoMasterDto" extends="BaseResultMap">
+        <result column="weight" jdbcType="DOUBLE" property="weight"/>
+        <result column="size" jdbcType="DOUBLE" property="size"/>
+        <result column="shipName" jdbcType="VARCHAR" property="shipName"/>
+
+        <collection property="list" ofType="com.deer.wms.ware.task.model.SO.SoDetail">
+            <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+            <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+            <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+            <result column="pack_detail_id" jdbcType="INTEGER" property="packDetailId"/>
+            <result column="pack_describe" jdbcType="VARCHAR" property="packDescribe"/>
+            <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
+            <result column="order_quantity" jdbcType="DOUBLE" property="orderQuantity"/>
+        </collection>
+    </resultMap>
+    <resultMap id="PdaSearchSoData" type="com.deer.wms.ware.task.model.SO.PdaSearchSoData">
+        <result column="soNo" jdbcType="VARCHAR" property="soNo"/>
+        <result column="toCell" jdbcType="VARCHAR" property="toCell"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="receiver" jdbcType="VARCHAR" property="receiver"/>
+        <result column="itemCode" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="itemName" jdbcType="VARCHAR" property="itemName"/>
+        <result column="unit" jdbcType="VARCHAR" property="unit"/>
+        <result column="desc1" jdbcType="VARCHAR" property="desc1"/>
+        <result column="desc2" jdbcType="VARCHAR" property="desc2"/>
+        <result column="desc3" jdbcType="VARCHAR" property="desc3"/>
+    </resultMap>
+
+
+    <resultMap id="wave" type="com.deer.wms.ware.task.model.SO.SoMasterDto" extends="BaseResultMap">
+
+
+        <collection property="list" ofType="com.deer.wms.ware.task.model.SO.SoDetail" javaType="java.util.ArrayList">
+            <result column="so_detail_id" jdbcType="VARCHAR" property="soDetailId"/>
+            <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+            <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+            <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+            <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+            <result column="allotted_quantity" jdbcType="DOUBLE" property="allottedQuantity"/>
+            <result column="order_quantity" jdbcType="DOUBLE" property="orderQuantity"/>
+            <result column="pick_quantity" jdbcType="DOUBLE" property="pickQuantity"/>
+            <result column="delivery_quantity" jdbcType="DOUBLE" property="deliveryQuantity"/>
+            <result column="check_quantity" jdbcType="DOUBLE" property="checkQuantity"/>
+            <result column="detail_index" jdbcType="INTEGER" property="detailIndex"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="ydyp" type="com.deer.wms.ware.task.model.SO.SoMasterYdyp">
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="ship_bill_code" jdbcType="VARCHAR" property="shipBillCode"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+
+        <result column="so_detail_id" jdbcType="VARCHAR" property="soDetailId"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="allotted_quantity" jdbcType="DOUBLE" property="allottedQuantity"/>
+        <result column="order_quantity" jdbcType="DOUBLE" property="orderQuantity"/>
+        <result column="pick_quantity" jdbcType="DOUBLE" property="pickQuantity"/>
+        <result column="delivery_quantity" jdbcType="DOUBLE" property="deliveryQuantity"/>
+        <result column="check_quantity" jdbcType="DOUBLE" property="checkQuantity"/>
+
+    </resultMap>
+
+    <update id="updateState" >
+        update so_master
+        set state = #{state}
+        ,version = version + 1
+        where so_master_id = #{soMasterId}
+    </update>
+
+    <select id="findBillDetailByOrderNo" resultMap="Dto" >
+        select
+        sm.*
+        ,sd.item_code
+        ,sd.item_name
+        ,sd.img_url
+        ,sd.order_quantity
+        ,sd.pack_describe
+        ,sd.detail_index
+        from
+        so_master sm
+        left join so_detail sd on sm.bill_no = sd.bill_no
+        where
+        (sm.bill_no = #{orderNo}
+        or sm.allot_bill_no = #{orderNo})
+        and sm.ware_id = #{wareId}
+    </select>
+
+    <select id="getByBoxOrCell" resultMap="BaseResultMap">
+        select
+        *
+        from so_master
+        where
+        (box_code  =#{code} or seeding_cell_code = #{code})
+        and ware_id = #{wareId}
+    </select>
+
+    <select id="findByWaveId" parameterType="java.lang.Integer" resultMap="wave">
+        select
+        sm.bill_no
+        ,sm.so_master_id
+        ,sm.state
+        ,sm.version
+        ,sm.allot_bill_no
+        ,sm.shop_daily_count
+        ,sm.total_price
+        ,sm.pdf_url
+        from so_master sm
+<!--        left join wave_detail wd on wd.so_master_id = sm.so_master_id-->
+        where sm.ware_id = #{wareId}
+        <if test="waveMasterId != null">
+            and sm.wave_master_id = #{waveMasterId}
+        </if>
+        order by sm.so_master_id
+
+
+    </select>
+
+
+    <select id="getSeedingByItemCode" resultMap="wave">
+        select
+        sm.bill_no
+        ,sm.state
+        ,sm.version
+        ,sm.pdf_url
+        ,sd.so_detail_id
+        ,sd.item_code
+        ,sd.item_code
+        ,sd.item_name
+        ,sd.order_quantity
+        ,sd.allotted_quantity
+        ,sd.pick_quantity
+        ,sd.delivery_quantity
+        ,sd.check_quantity
+        from so_master sm
+        inner join so_detail sd on sm.bill_no = sd.bill_no
+<!--        left join wave_detail wd on wd.so_master_id = sm.so_master_id-->
+        left join seeding_cell cell on cell.bill_no =sm.bill_no
+        where sm.ware_id = #{wareId}
+        AND (cell.bill_no is null or cell.bill_no = '')
+        and wd.wave_master_id = #{waveMasterId}
+        <if test="waveMasterId != null">
+            and sm.wave_master_id = #{waveMasterId}
+        </if>
+        and sm.so_structure >0
+
+
+    </select>
+
+    <select id="getDtoByBoxOrCell" resultMap="wave">
+        select
+        sm.*
+        ,sd.so_detail_id
+        ,sd.item_code
+        ,sd.item_code
+        ,sd.item_name
+        ,sd.img_url
+        ,sd.order_quantity
+        ,sd.allotted_quantity
+        ,sd.pick_quantity
+        ,sd.delivery_quantity
+        ,sd.check_quantity
+        from so_master sm
+        inner join so_detail sd on sm.bill_no = sd.bill_no
+        where
+        sm.ware_id = #{wareId} and sm.state=7
+        and
+        (
+        box_code  =#{code}
+        or seeding_cell_code = #{code}
+        or ship_bill_code = #{code}
+        )
+
+
+
+
+    </select>
+
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.SO.SoMasterCriteria" resultMap="Dto">
+        select
+        sm.*,
+        ca.carrier_name as shipName
+
+        from so_master sm
+        left join carrier ca on sm.ship_code = ca.carrier_code
+
+        where 1=1
+
+        <if test="wareId != null">
+            and sm.ware_id = #{wareId}
+        </if>
+        <if test="soMasterId != null">
+            and sm.so_master_id= #{soMasterId}
+        </if>
+        <if test="customerId != null and customerId !=''">
+            and sm.customer_id= #{customerId}
+        </if>
+        <if test="receivingAddressId != null">
+            and sm.receiving_address_id= #{receivingAddressId}
+        </if>
+        <if test="carrierId != null">
+            and ca.carrier_id= #{carrierId}
+        </if>
+        <if test="organizationId != null">
+            and sm.organization_id= #{organizationId}
+        </if>
+        <if test="soType != null">
+            and sm.so_type= #{soType}
+        </if>
+        <if test="state != null and state !=''">
+            and sm.state= #{state}
+        </if>
+        <if test="sendState != null and sendState !=''">
+            and sm.send_state= #{sendState}
+        </if>
+        <if test="gtState != null and gtState !=''">
+            and sm.state > #{gtState}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and (sm.bill_no =#{billNo} or sm.ship_bill_code = #{billNo})
+        </if>
+        <if test="shipBillNo != null and shipBillNo !=''">
+            and sm.ship_bill_code = #{shipBillNo}
+        </if>
+        <if test="allotBillNo != null and allotBillNo !=''">
+            and sm.allot_bill_no like CONCAT('%', #{allotBillNo}, '%')
+        </if>
+        <if test="mergeNo != null and mergeNo !=''">
+            and sm.merge_no like CONCAT('%', #{mergeNo}, '%')
+        </if>
+        <if test="createUserId != null">
+            and sm.create_user_id= #{createUserId}
+        </if>
+        <if test="billSource != null">
+            and sm.bill_source= #{billSource}
+        </if>
+        <if test="insertType != null">
+            and sm.insert_type= #{insertType}
+        </if>
+        <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and sm.create_time &gt; #{startCreateTime} and sm.create_time &lt; #{endCreateTime}
+        </if>
+        <if test="startDeliveryTime != null and startDeliveryTime != '' and endDeliveryTime != null and endDeliveryTime != ''">
+            and sm.delivery_time &gt; #{startDeliveryTime} and sm.delivery_time &lt; #{endDeliveryTime}
+        </if>
+        <if test="startExpectTimeFm != null and startExpectTimeFm != '' and endExpectTimeTo != null and endExpectTimeTo != ''">
+            and sm.expect_time_fm &gt; #{startExpectTimeFm} and sm.expect_time_to &lt; #{endExpectTimeTo}
+        </if>
+        <if test="billNos != null and billNos.size() > 0">
+            and sm.bill_no in
+            <foreach collection="billNos" item="billNoXX" index="index" open="(" separator="," close=")">
+                #{billNoXX}
+            </foreach>
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+
+                sm.carrier_name like CONCAT('%', #{keyWord}, '%')
+                or sm.so_udf_hs1 like CONCAT('%', #{keyWord}, '%')
+                or sm.so_udf_hs2 like CONCAT('%', #{keyWord}, '%')
+                or sm.so_udf_hs3 like CONCAT('%', #{keyWord}, '%')
+                or sm.create_user_name like CONCAT('%', #{keyWord}, '%')
+                or sm.link_man like CONCAT('%', #{keyWord}, '%')
+                or sm.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        order by sm.merge_no ,sm.create_time desc
+
+    </select>
+    <select id="findThatNoCarrier" parameterType="com.deer.wms.ware.task.model.SO.SoMasterCriteria" resultMap="Dto">
+        select
+        sm.so_master_id
+        ,sm.bill_no
+        ,sm.state
+        ,sm.ware_id
+        ,sm.ware_name
+        ,sm.organization_id
+        ,sm.organization_name
+        ,sm.customer_id
+        ,sm.customer_name
+        ,sm.create_time
+        ,sm.create_user_id
+        ,sm.create_user_name
+        ,sm.delivery_time
+        ,sm.expect_time_fm
+        ,sm.expect_time_to
+        ,sm.order_no
+        ,sm.case_state
+        ,sm.bill_source
+        ,sm.insert_type
+        ,sm.so_udf_hs1
+        ,sm.so_udf_hs2
+        ,sm.so_udf_hs3
+        ,sm.memo
+        ,sm.carrier_id
+        ,sm.carrier_name
+        ,sm.so_type
+        ,sm.receiving_address_id
+        ,sm.link_man
+        ,sm.link_phone
+        ,sm.province
+        ,sm.city
+        ,sm.area
+        ,sm.detail_address
+        ,sm.merge_no
+        ,sm.actual_delivery_time
+        ,sm.allot_bill_no
+        ,sm.manufacture_type
+        ,sm.total_price
+        ,sm.version
+        ,sm.pdf_url
+
+        ,sum(ifnull(sd.weight,0) * ifnull(delivery_quantity,0)) as weight
+        ,sum(ifnull(sd.size,0) * ifnull(delivery_quantity,0)) as size
+
+
+        from so_master sm
+        inner join so_detail sd on sm.bill_no = sd.bill_no
+
+        where 1=1
+        and sm.carrier_id is null
+        <if test="soType != null">
+            and sm.so_type= #{soType}
+        </if>
+        <if test="state != null and state !=''">
+            and sm.state= #{state}
+        </if>
+        <if test="organizationId != null">
+            and sm.organization_id = #{organizationId}
+        </if>
+        <if test="wareId != null">
+            and sm.ware_id = #{wareId}
+        </if>
+        group by sm.bill_no
+
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from so_master where bill_no =#{billNo} and version = #{version}
+
+  </delete>
+
+    <select id="findSoGroupInfo" parameterType="com.deer.wms.ware.task.model.SO.SoMasterCriteria"
+            resultMap="BaseResultMap">
+    select * from so_master sm
+    where 1=1
+    group by ${groupStr}
+  </select>
+
+	<!--        new  berwin  2022   12546175,
+	<select id="getReplayOrderIDByIDS" parameterType="java.lang.String"
+	            resultMap="BaseResultMap">
+	    select order_id as bill_no, if(sum(order_type) in (0, 3), 1, 0) as state, group_concat(bill_no) as declaration_name from
+			(select right(bill_no, #{orderIDLen}) as order_id, bill_no,
+			case when length(replace(bill_no, 'SO-','')) = #{orderIDLen} then 0
+			     when locate(#{code1}, replace(bill_no, 'SO-','')) != 0 then 1
+			     when locate(#{code2}, replace(bill_no, 'SO-','')) != 0 then 2 else -999 end as order_type
+			from so_detail
+			WHERE right( bill_no, #{orderIDLen} ) IN (#{orderIDs})
+			group by order_id, bill_no
+			order by so_detail_id DESC ) as T
+			group by order_id
+	  </select>
+	   -->
+	 <!-- getReplayOrderIDByIDS 此方法暂未使用，留作优化  -->
+	<select id="getReplayOrderIDByIDS" parameterType="com.deer.wms.ware.task.model.SO.SoMasterCriteria"
+	            resultMap="Dto">
+	    select order_id as bill_no, if(sum(order_type) in (0, 3), 1, 0) as state, group_concat(bill_no) as declaration_name from
+			(select right(bill_no, 8) as order_id, bill_no,
+			case when length(replace(bill_no, 'SO-','')) = 8 then 0
+			     when locate(8000, replace(bill_no, 'SO-','')) != 0 then 1
+			     when locate(9000, replace(bill_no, 'SO-','')) != 0 then 2 else -999 end as order_type
+			from so_detail			
+			<if test="billNos != null">
+	            WHERE right( bill_no, 8 ) in 
+	            <foreach collection="billNos" item="billNoXX" index="index" open="(" separator="," close=")">
+	                #{billNoXX}
+	            </foreach>
+        	</if>
+			group by order_id, bill_no
+			order by so_detail_id DESC ) as T
+			group by order_id
+	  </select>
+
+	<select id="getReplayOrderIDByID" parameterType="java.lang.String"
+	            resultMap="BaseResultMap">
+	    select order_id as bill_no, if(sum(order_type) in (0, 3), 1, 0) as state, group_concat(bill_no) as declaration_name from
+			(select right(bill_no, '8') as order_id, bill_no,
+			case when length(replace(bill_no, 'SO-','')) = '8' then 0
+			     when locate('8000', replace(bill_no, 'SO-','')) != 0 then 1
+			     when locate('9000', replace(bill_no, 'SO-','')) != 0 then 2 else -999 end as order_type
+			from so_detail
+			WHERE right( bill_no, '8' ) IN (#{orderIDs})
+			group by order_id, bill_no
+			order by so_detail_id DESC ) as T
+			group by order_id
+	</select>
+	
+	<select id="findByIdAndWareID" parameterType="java.lang.String"
+	            resultMap="BaseResultMap">
+	    select *
+			from so_master
+			WHERE right( bill_no, #{orderIDLen} ) = #{orderID} and ware_id = #{wareID}
+	</select>
+	
+    <select id="findSoByWave" parameterType="com.deer.wms.ware.task.model.SO.SoMasterCriteria"
+            resultMap="BaseResultMap">
+        select sm.* from so_master sm
+        left join so_detail sd on sm.bill_no = sd.bill_no
+<!--        left join wave_detail wd on wd.so_master_id = sm.so_master_id-->
+        where
+        sm.wave_master_id is null
+        and sm.state = 4
+        and sm.ware_id = #{wareId}
+
+
+        <if test="soStructure != null and soStructure == 3">
+            and sd.order_quantity = 1
+        </if>
+        <if test="soStructure != null and soStructure == 4">
+            and sd.order_quantity > 1
+        </if>
+
+        <if test="soStructure != null and soStructure == 0">
+
+
+        </if>
+
+        <if test="soStructure != null and soStructure == 1">
+            and sm.so_structure =1
+
+        </if>
+        <if test="soStructure != null and soStructure == 2">
+            and sm.so_structure >1
+
+        </if>
+        <if test="soStructure != null and soStructure == 3">
+            and sm.so_structure =1
+
+        </if>
+        <if test="soStructure != null and soStructure == 4">
+            and sm.so_structure =1
+        </if>
+        GROUP BY
+        sd.bill_no
+        HAVING
+        count(sd.bill_no)
+
+    </select>
+
+
+    <select id="findCountByWaveIdAndState" resultType="java.lang.Integer">
+        select
+        count(1)
+        from so_master sm
+<!--        left join wave_detail wd on wd.so_master_id = sm.so_master_id-->
+        where
+        sm.wave_master_id =#{waveMasterId}  and sm.state = #{state}
+    </select>
+
+    <select id="pdaSearchSo" parameterType="java.lang.String" resultMap="PdaSearchSoData">
+        select
+        sm.bill_no as soNo,
+        pt.to_cell_code as toCell,
+        pt.pick_quantity as quantity,
+        ra.link_man as receiver,
+        pt.item_code as itemCode,
+        pt.item_name as itemName,
+        pt.pack_describe as unit,
+        sm.so_udf_hs1 as desc1,
+        sm.so_udf_hs2 as desc2,
+        sm.so_udf_hs3 as desc3
+        from pick_task pt
+        left join so_master sm on pt.so_master_id = sm.so_master_id
+        left join receiving_address ra on sm.receiving_address_id = ra.receiving_address_id
+        where pt.tracking_num = #{trackCode}
+    </select>
+
+
+    <select id="getYdyp" resultMap="ydyp">
+        select
+        sm.bill_no
+        ,sm.ship_bill_code
+        ,sm.state
+        ,sm.express_bill_url
+        ,sd.so_detail_id
+        ,sd.item_code
+        ,sd.spec
+        ,sd.model
+        ,sd.img_url
+        ,sd.item_name
+        ,sd.order_quantity
+        ,sd.allotted_quantity
+        ,sd.pick_quantity
+        ,sd.delivery_quantity
+        ,sd.check_quantity
+        from so_master sm
+        left join so_detail sd on sm.bill_no = sd.bill_no
+<!--        left join wave_detail wd on wd.so_master_id = sm.so_master_id-->
+        where
+        sm.ware_id = #{wareId}
+        and
+        sd.item_code = #{itemCode}
+        <if test="waveId != null">
+            and sm.wave_master_id = #{waveId}
+        </if>
+        and sm.so_structure =1
+        and sm.state=6
+        and sd.order_quantity = sd.pick_quantity
+
+        limit 1
+
+    </select>
+
+    <select id="getYdyp2" resultMap="ydyp">
+        select
+        sm.bill_no
+         ,sm.ship_bill_code
+        ,sm.state
+        ,sm.express_bill_url
+        ,sd.so_detail_id
+        ,sd.item_code
+        ,sd.spec
+        ,sd.model
+        ,sd.img_url
+        ,sd.item_name
+        ,sd.order_quantity
+        ,sd.allotted_quantity
+        ,sd.pick_quantity
+        ,sd.delivery_quantity
+        ,sd.check_quantity
+        from so_master sm
+        left join so_detail sd on sm.bill_no = sd.bill_no
+<!--        left join wave_detail wd on wd.so_master_id = sm.so_master_id-->
+        where
+        sm.ware_id = #{wareId}
+        and sm.ship_bill_code = #{billNo}
+        and sm.so_structure = 1
+        and   sd.order_quantity = sd.pick_quantity
+        and  sm.state = 7
+        limit 1
+
+    </select>
+
+    <select id="findCanTongBu" resultMap="BaseResultMap">
+        select
+        *
+        from so_master
+        where
+        state=8 and erp_state in(0, 1)
+    </select>
+
+    <select id="getMaxPriority" resultType="Integer">
+        select Max(priority) as priority from so_master
+    </select>
+
+    <select id="getUnCompleteLog" resultMap="Dto">
+        select
+            sm.*
+        from so_master sm
+        left join so_log sl on sm.so_master_id = sl.so_master_id
+        where IFNULL(sl.end_status,0) != 1
+    </select>
+
+    <update id="update">
+        update so_master
+        <set>
+            <if test="billNo != null">
+                bill_no = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="wareId != null">
+                ware_id = #{wareId,jdbcType=INTEGER},
+            </if>
+            <if test="wareCode != null">
+                ware_code = #{wareCode,jdbcType=VARCHAR},
+            </if>
+            <if test="wareName != null">
+                ware_name = #{wareName,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationId != null">
+                organization_id = #{organizationId,jdbcType=INTEGER},
+            </if>
+            <if test="organizationCode != null">
+                organization_code = #{organizationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationName != null">
+                organization_name = #{organizationName,jdbcType=VARCHAR},
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="customerName != null">
+                customer_name = #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="carrierId != null">
+                carrier_id = #{carrierId,jdbcType=INTEGER},
+            </if>
+            <if test="carrierName != null">
+                carrier_name = #{carrierName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createUserName != null">
+                create_user_name = #{createUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="outUserId != null">
+                out_user_id = #{outUserId,jdbcType=INTEGER},
+            </if>
+            <if test="outUserName != null">
+                out_user_name = #{outUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="outTime != null">
+                out_time = #{outTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderTime != null">
+                order_time = #{orderTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deliveryTime != null">
+                delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="expectTimeFm != null">
+                expect_time_fm = #{expectTimeFm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="expectTimeTo != null">
+                expect_time_to = #{expectTimeTo,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderNo != null">
+                order_no = #{orderNo,jdbcType=INTEGER},
+            </if>
+            <if test="caseState != null">
+                case_state = #{caseState,jdbcType=INTEGER},
+            </if>
+            <if test="billSource != null">
+                bill_source = #{billSource,jdbcType=INTEGER},
+            </if>
+            <if test="insertType != null">
+                insert_type = #{insertType,jdbcType=INTEGER},
+            </if>
+            <if test="soUdfHs1 != null">
+                so_udf_hs1 = #{soUdfHs1,jdbcType=VARCHAR},
+            </if>
+            <if test="soUdfHs2 != null">
+                so_udf_hs2 = #{soUdfHs2,jdbcType=VARCHAR},
+            </if>
+            <if test="soUdfHs3 != null">
+                so_udf_hs3 = #{soUdfHs3,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="soType != null">
+                so_type = #{soType,jdbcType=INTEGER},
+            </if>
+            <if test="receivingAddressId != null">
+                receiving_address_id = #{receivingAddressId,jdbcType=INTEGER},
+            </if>
+            <if test="shipCode != null">
+                ship_code = #{shipCode,jdbcType=VARCHAR},
+            </if>
+            <if test="shipBillCode != null">
+                ship_bill_code = #{shipBillCode,jdbcType=VARCHAR},
+            </if>
+            <if test="expressBillUrl != null">
+                express_bill_url = #{expressBillUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="linkMan != null">
+                link_man = #{linkMan,jdbcType=VARCHAR},
+            </if>
+            <if test="linkPhone != null">
+                link_phone = #{linkPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="linkPostCode != null">
+                link_post_code = #{linkPostCode,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null">
+                country = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="detailAddress != null">
+                detail_address = #{detailAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="shipLinkMan != null">
+                ship_link_man = #{shipLinkMan,jdbcType=VARCHAR},
+            </if>
+            <if test="shipLinkPhone != null">
+                ship_link_phone = #{shipLinkPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="shipPostCode != null">
+                ship_post_code = #{shipPostCode,jdbcType=VARCHAR},
+            </if>
+            <if test="shipCountry != null">
+                ship_country = #{shipCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="shipProvince != null">
+                ship_province = #{shipProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="shipCity != null">
+                ship_city = #{shipCity,jdbcType=VARCHAR},
+            </if>
+            <if test="shipArea != null">
+                ship_area = #{shipArea,jdbcType=VARCHAR},
+            </if>
+            <if test="shipDetailAddress != null">
+                ship_detail_address = #{shipDetailAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="mergeNo != null">
+                merge_no = #{mergeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="actualDeliveryTime != null">
+                actual_delivery_time = #{actualDeliveryTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="allotBillNo != null">
+                allot_bill_no = #{allotBillNo,jdbcType=VARCHAR},
+            </if>
+            <if test="manufactureType != null">
+                manufacture_type = #{manufactureType,jdbcType=INTEGER},
+            </if>
+            <if test="totalPrice != null">
+                total_price = #{totalPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="checkUserId != null">
+                check_user_id = #{checkUserId,jdbcType=INTEGER},
+            </if>
+            <if test="checkTime != null">
+                check_time = #{checkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="checkUserName != null">
+                check_user_name = #{checkUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="erpState != null">
+                erp_state = #{erpState,jdbcType=INTEGER},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=DOUBLE},
+            </if>
+            <if test="height != null">
+                height = #{height,jdbcType=DOUBLE},
+            </if>
+            <if test="width != null">
+                width = #{width,jdbcType=DOUBLE},
+            </if>
+            <if test="length != null">
+                length = #{length,jdbcType=DOUBLE},
+            </if>
+            <if test="lastMileSortingCode != null">
+                last_mile_sorting_code = #{lastMileSortingCode,jdbcType=VARCHAR},
+            </if>
+            <if test="lastMileDestination != null">
+                last_mile_destination = #{lastMileDestination,jdbcType=VARCHAR},
+            </if>
+            <if test="lastMileLineCode != null">
+                last_mile_line_code = #{lastMileLineCode,jdbcType=VARCHAR},
+            </if>
+            <if test="soStructure != null">
+                so_structure = #{soStructure,jdbcType=INTEGER},
+            </if>
+            <if test="tradeNo != null">
+                trade_no = #{tradeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="shop != null">
+                shop = #{shop,jdbcType=VARCHAR},
+            </if>
+            <if test="priority != null">
+                priority = #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="seedingCellCode != null">
+                seeding_cell_code = #{seedingCellCode,jdbcType=VARCHAR},
+            </if>
+            <if test="boxCode != null">
+                box_code = #{boxCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pdfUrl != null">
+                pdf_url = #{pdfUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="printState != null">
+                print_state = #{printState,jdbcType=INTEGER},
+            </if>
+            <if test="waveMasterId != null">
+                wave_master_id = #{waveMasterId,jdbcType=INTEGER},
+            </if>
+            <if test="version != null">
+                version = version + 1,
+            </if>
+            <if test="sendState != null">
+                send_state = #{sendState,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where so_master_id = #{soMasterId,jdbcType=INTEGER} and version = #{version}
+    </update>
+
+    <select id="findByBillNo" resultType="com.deer.wms.ware.task.model.SO.SoMaster">
+        SELECT * FROM `so_master` WHERE `bill_no`=#{billNo}
+    </select>
+</mapper>

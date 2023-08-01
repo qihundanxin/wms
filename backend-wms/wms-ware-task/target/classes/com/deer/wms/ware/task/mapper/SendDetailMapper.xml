@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.SendDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.Send.SendDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="send_detail_id" jdbcType="INTEGER" property="sendDetailId"/>
+        <result column="so_bill_no" jdbcType="VARCHAR" property="soBillNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="order_quantity" jdbcType="DOUBLE" property="orderQuantity"/>
+        <result column="send_quantity" jdbcType="DOUBLE" property="sendQuantity"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+        <result column="send_time" jdbcType="TIMESTAMP" property="sendTime"/>
+        <result column="send_user_id" jdbcType="INTEGER" property="sendUserId"/>
+        <result column="send_user_name" jdbcType="VARCHAR" property="sendUserName"/>
+    </resultMap>
+
+    <resultMap id="SendOrderInfo" type="com.deer.wms.ware.task.model.Send.SendOrderInfo">
+
+        <id column="so_bill_no" jdbcType="VARCHAR" property="soBillNo"/>
+        <id column="driver_name" jdbcType="VARCHAR" property="driverName"/>
+        <id column="total_order_quantity" jdbcType="INTEGER" property="orderQuantity"/>
+        <id column="total_send_quantity" jdbcType="INTEGER" property="sendQuantity"/>
+        <id column="deliver_index" jdbcType="INTEGER" property="deliverIndex"/>
+
+    </resultMap>
+
+    <update id="update">
+        update send_detail
+        <set>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="sendQuantity != null">
+                send_quantity = #{sendQuantity,jdbcType=DOUBLE},
+            </if>
+            <if test="version != null">
+                version = version + 1,
+            </if>
+            <if test="sendTime != null">
+                send_time = #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sendUserId != null">
+                send_user_id = #{sendUserId,jdbcType=INTEGER},
+            </if>
+            <if test="sendUserName != null">
+                send_user_name = #{sendUserName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where so_bill_no= #{soBillNo,jdbcType=VARCHAR} and item_code = #{itemCode} and version = #{version}
+    </update>
+
+    <select id="findByBillNoAndSku" resultMap="BaseResultMap">
+        select *
+        from send_detail
+        where so_bill_no= #{soBillNo,jdbcType=VARCHAR} and item_code = #{itemCode}
+    </select>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.Send.SendDetailParam" resultMap="BaseResultMap">
+        select * from send_detail send
+        where 1=1
+        <if test="startSendTime != null and endSendTime != null ">
+            and send.send_time > #{startSendTime} and send.send_time &lt; #{endSendTime}
+        </if>
+        <if test="sendUserId != null">
+            and send.send_user_id= #{sendUserId}
+        </if>
+        <if test="billNos != null and billNos.size() > 0">
+            and so_bill_no in
+            <foreach collection="billNos" item="billNoXX" index="index" open="(" separator="," close=")">
+                #{billNoXX}
+            </foreach>
+        </if>
+        order by send_time desc
+
+    </select>
+
+    <select id="findOrderInfo" parameterType="com.deer.wms.ware.task.model.Send.SendDetailParam" resultMap="SendOrderInfo">
+        select send.so_bill_no,
+               sum(order_quantity) total_order_quantity,
+               sum(send_quantity) total_send_quantity,
+               item.deliver_index,
+               bgroup.driver_name
+        from send_detail send
+                 left join (select * from pick_batch_item group by so_bill_no) item on send.so_bill_no = item.so_bill_no
+                 left join (select * from pick_batch_group group by pick_batch_group_no) bgroup on item.pick_batch_group_no = bgroup.pick_batch_group_no
+        where 1=1
+        <if test="startSendTime != null and endSendTime != null ">
+            and send.send_time > #{startSendTime} and send.send_time &lt; #{endSendTime}
+        </if>
+        <if test="sendUserId != null">
+            and send.send_user_id= #{sendUserId}
+        </if>
+        group by send.so_bill_no
+        order by item.deliver_index
+    </select>
+
+</mapper>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.SoMasterFileMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.SO.SoMasterFile">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="so_master_file_id" jdbcType="INTEGER" property="soMasterFileId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="customer_name" jdbcType="VARCHAR" property="customerName"/>
+        <result column="carrier_id" jdbcType="INTEGER" property="carrierId"/>
+        <result column="carrier_name" jdbcType="VARCHAR" property="carrierName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        <result column="expect_time_fm" jdbcType="TIMESTAMP" property="expectTimeFm"/>
+        <result column="expect_time_to" jdbcType="TIMESTAMP" property="expectTimeTo"/>
+        <result column="order_no" jdbcType="INTEGER" property="orderNo"/>
+        <result column="case_state" jdbcType="INTEGER" property="caseState"/>
+        <result column="bill_source" jdbcType="INTEGER" property="billSource"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="so_udf_hs1" jdbcType="VARCHAR" property="soUdfHs1"/>
+        <result column="so_udf_hs2" jdbcType="VARCHAR" property="soUdfHs2"/>
+        <result column="so_udf_hs3" jdbcType="VARCHAR" property="soUdfHs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="so_type" jdbcType="INTEGER" property="soType"/>
+        <result column="receiving_address_id" jdbcType="INTEGER" property="receivingAddressId"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
+        <result column="merge_no" jdbcType="VARCHAR" property="mergeNo"/>
+        <result column="file_time" jdbcType="TIMESTAMP" property="fileTime"/>
+        <result column="file_user_id" jdbcType="INTEGER" property="fileUserId"/>
+        <result column="file_user_name" jdbcType="VARCHAR" property="fileUserName"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.SO.SoMasterCriteria" resultMap="BaseResultMap">
+        select
+        sm.so_master_file_id
+        ,sm.bill_no
+        ,sm.state
+        ,sm.ware_id
+        ,sm.ware_name
+        ,sm.organization_id
+        ,sm.organization_name
+        ,sm.customer_id
+        ,sm.customer_name
+        ,sm.create_time
+        ,sm.create_user_id
+        ,sm.create_user_name
+        ,sm.delivery_time
+        ,sm.expect_time_fm
+        ,sm.expect_time_to
+        ,sm.order_no
+        ,sm.case_state
+        ,sm.bill_source
+        ,sm.insert_type
+        ,sm.so_udf_hs1
+        ,sm.so_udf_hs2
+        ,sm.so_udf_hs3
+        ,sm.memo
+        ,sm.carrier_id
+        ,sm.carrier_name
+        ,sm.so_type
+        ,sm.receiving_address_id
+        ,sm.link_man
+        ,sm.link_phone
+        ,sm.province
+        ,sm.city
+        ,sm.area
+        ,sm.detail_address
+        ,sm.merge_no
+        ,sm.file_time
+        ,sm.file_user_id
+        ,sm.file_user_name
+
+
+        from so_master_file sm
+
+        where 1=1
+
+        <if test="soMasterFileId != null">
+            and sm.so_master_file_id= #{soMasterFileId}
+        </if>
+        <if test="customerId != null and customerId !=''">
+            and sm.customer_id= #{customerId}
+        </if>
+        <if test="receivingAddressId != null">
+            and sm.receiving_address_id= #{receivingAddressId}
+        </if>
+        <if test="carrierId != null">
+            and sm.carrier_id= #{carrierId}
+        </if>
+        <if test="soType != null">
+            and sm.so_type= #{soType}
+        </if>
+        <if test="state != null and state !=''">
+            and sm.state= #{state}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and sm.bill_no= #{billNo}
+        </if>
+        <if test="mergeNo != null and mergeNo !=''">
+            and sm.merge_no= #{mergeNo}
+        </if>
+        <if test="createUserId != null">
+            and sm.create_user_id= #{createUserId}
+        </if>
+        <if test="billSource != null">
+            and sm.bill_source= #{billSource}
+        </if>
+        <if test="insertType != null">
+            and sm.insert_type= #{insertType}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                sm.ware_name like CONCAT('%', #{keyWord}, '%')
+                or sm.organization_name like CONCAT('%', #{keyWord}, '%')
+                or sm.customer_name like CONCAT('%', #{keyWord}, '%')
+                or sm.carrier_name like CONCAT('%', #{keyWord}, '%')
+                or sm.link_man like CONCAT('%', #{keyWord}, '%')
+                or sm.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        group by sm.bill_no
+        order by sm.so_master_file_id desc
+
+    </select>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.TurnoverTacticMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.TurnoverTactic">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="turnover_master_id" jdbcType="INTEGER" property="turnoverMasterId"/>
+        <result column="turnover_code" jdbcType="VARCHAR" property="turnoverCode"/>
+        <result column="turnover_description" jdbcType="VARCHAR" property="turnoverDescription"/>
+        <result column="batch_tactic_code" jdbcType="VARCHAR" property="batchTacticCode"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.TurnoverTacticCriteria"
+            resultMap="BaseResultMap">
+        select
+        *
+        from
+        turnover_tactic
+        where 1=1
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                turnover_code like CONCAT('%', #{keyWord}, '%')
+                or turnover_description like CONCAT('%', #{keyWord}, '%')
+                or batch_tactic_code like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+    </select>
+</mapper>

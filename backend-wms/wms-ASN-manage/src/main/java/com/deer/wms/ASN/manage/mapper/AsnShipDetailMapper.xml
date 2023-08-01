@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ASN.manage.dao.AsnShipDetailMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ASN.manage.model.asn.AsnShipDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="asn_ship_detail_id" jdbcType="INTEGER" property="asnShipDetailId"/>
+        <result column="bill_no" jdbcType="INTEGER" property="billNo"/>
+        <result column="ship_code" jdbcType="VARCHAR" property="shipCode"/>
+        <result column="ship_bill_code" jdbcType="VARCHAR" property="shipBillCode"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="accept_time" jdbcType="VARCHAR" property="acceptTime"/>
+    </resultMap>
+
+    <resultMap id="Dto" extends="BaseResultMap" type="com.deer.wms.ASN.manage.model.asn.AsnShipDetailDto">
+        <result column="ship_name" jdbcType="VARCHAR" property="shipName"/>
+    </resultMap>
+
+    <select id="findByBillNo" resultMap="Dto">
+    select
+    detail.*,
+    carrier.carrier_name as ship_name
+    from asn_ship_detail detail
+    left join carrier_copy carrier on detail.ship_code = carrier.carrier_code
+    where bill_no  =#{billNo}
+  </select>
+</mapper>

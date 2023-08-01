@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.busine.tactic.dao.UpperTacticMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.busine.tactic.model.Upper.UpperTactic">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="upper_tactic_id" jdbcType="INTEGER" property="upperTacticId"/>
+        <result column="upper_tactic_code" jdbcType="VARCHAR" property="upperTacticCode"/>
+        <result column="upper_tactic_name" jdbcType="VARCHAR" property="upperTacticName"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.busine.tactic.model.Upper.UpperTacticDto" extends="BaseResultMap">
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+    </resultMap>
+    <select id="findList" parameterType="com.deer.wms.busine.tactic.model.Upper.UpperTacticDetailCriteria"
+            resultMap="Dto">
+        select
+        upper.upper_tactic_id
+        ,upper.upper_tactic_code
+        ,upper.upper_tactic_name
+        ,upper.ware_id
+        ,upper.organization_id
+
+        ,ware.ware_name
+        ,organization.organization_name
+        from upper_tactic upper
+        left join ware_info ware on upper.ware_id = ware.ware_id
+        left join organization organization on upper.organization_id = organization.organization_id
+        where 1=1
+        <if test="upperTacticId != null and upperTacticId != ''">
+            and upper.upper_tactic_id = #{upperTacticId}
+        </if>
+        <if test="upperTacticCode != null and upperTacticCode != ''">
+            and upper.upper_tactic_code = #{upperTacticCode}
+        </if>
+        <if test="upperTacticName != null and upperTacticName != ''">
+            and upper.upper_tactic_name = #{upperTacticName}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                upper.upper_tactic_code like CONCAT('%', #{keyWord}, '%')
+                or upper.upper_tactic_name like CONCAT('%', #{keyWord}, '%')
+                or ware.ware_name like CONCAT('%', #{keyWord}, '%')
+                or organization.organization_name like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+
+    </select>
+
+    <select id="findByWareId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select *
+    from upper_tactic where ware_id = #{wareId}
+
+  </select>
+
+    <select id="findByUpperTacticCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from upper_tactic where upper_tactic_code = #{upperTacticCode}
+
+  </select>
+
+    <select id="findByOrganizationAndWare" resultMap="Dto">
+    select
+         upper.upper_tactic_id
+        ,upper.upper_tactic_code
+        ,upper.upper_tactic_name
+        ,upper.ware_id
+        ,upper.organization_id
+
+        ,ware.ware_name
+        ,organization.organization_name
+      from  upper_tactic upper
+      left join ware_info ware on upper.ware_id = ware.ware_id
+      left join organization organization on upper.organization_id = organization.organization_id
+      where upper.ware_id = #{wareId}and upper.organization_id = #{organizationId}
+
+  </select>
+</mapper>

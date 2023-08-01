@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.system.manage.dao.DataDictMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.system.manage.model.DataDictMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="data_dict_master_id" jdbcType="INTEGER" property="dataDictMasterId"/>
+        <result column="data_dict_code" jdbcType="VARCHAR" property="dataDictCode"/>
+        <result column="data_dict_name" jdbcType="VARCHAR" property="dataDictName"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+    </resultMap>
+
+    <select id="findByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+       data.data_dict_master_id
+      ,data.data_dict_code
+      ,data.data_dict_name
+      ,data.type
+    from data_dict_master data
+    where data.data_dict_code = #{dataDictCode}
+
+
+  </select>
+
+    <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+       data.data_dict_master_id
+      ,data.data_dict_code
+      ,data.data_dict_name
+      ,data.type
+    from data_dict_master data
+    where data.data_dict_name = #{dataDictName}
+
+
+  </select>
+</mapper>

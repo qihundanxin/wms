@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.SaleMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.Sale.SaleMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="sale_master_id" jdbcType="INTEGER" property="saleMasterId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="sale_type" jdbcType="INTEGER" property="saleType"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="sale_state" jdbcType="INTEGER" property="saleState"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="customer_name" jdbcType="VARCHAR" property="customerName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="expect_time" jdbcType="TIMESTAMP" property="expectTime"/>
+        <result column="sale_udf_hs1" jdbcType="VARCHAR" property="saleUdfHs1"/>
+        <result column="sale_udf_hs2" jdbcType="VARCHAR" property="saleUdfHs2"/>
+        <result column="sale_udf_hs3" jdbcType="VARCHAR" property="saleUdfHs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="bill_source" jdbcType="INTEGER" property="billSource"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.Sale.SaleMasterCriteria"
+            resultMap="BaseResultMap">
+        select * from
+        sale_master
+        where 1=1
+        <if test="saleMasterId !=null">
+            and sale_master_id = #{saleMasterId}
+        </if>
+        <if test="billNo !=null and billNo !=''">
+            and bill_no = #{billNo}
+        </if>
+        <if test="wareId !=null">
+            and ware_id = #{wareId}
+        </if>
+        <if test="organizationId !=null">
+            and organization_id = #{organizationId}
+        </if>
+        <if test="customerId !=null">
+            and customer_id = #{customerId}
+        </if>
+        <if test="createUserId !=null">
+            and create_user_id = #{createUserId}
+        </if>
+        <if test="insertType !=null">
+            and insert_type = #{insertType}
+        </if>
+        <if test="state !=null">
+            and state = #{state}
+        </if>
+        <if test="saleState !=null">
+            and sale_state = #{saleState}
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                ware_name like CONCAT('%', #{keyWord}, '%')
+                or ware_name like CONCAT('%', #{keyWord}, '%')
+                or organization_name like CONCAT('%', #{keyWord}, '%')
+                or customer_name like CONCAT('%', #{keyWord}, '%')
+                )
+
+            </foreach>
+        </if>
+        order by create_time desc
+
+    </select>
+
+    <delete id="deleteByBillNo" parameterType="java.lang.String">
+    delete from sale_master where bill_no =#{billNo}
+
+  </delete>
+</mapper>

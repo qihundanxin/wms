@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title>PDA</title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but deer-wms doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- <div id="google_translate_element" style="position:absolute;top:10px;right:70px;z-index:100000;opacity:0.7"> </div> -->
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {
+          //这个参数不起作用，看文章底部更新，翻译面板的语言
+          //pageLanguage: 'zh-CN',
+          //这个是你需要翻译的语言，比如你只需要翻译成越南和英语，这里就只写en,vi
+          includedLanguages: 'en,zh-CN,fr',
+          //选择语言的样式，这个是面板，还有下拉框的样式，具体的记不到了，找不到api~~
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          //自动显示翻译横幅，就是翻译后顶部出现的那个，有点丑，这个属性没有用的话，请看文章底部的其他方法
+          autoDisplay: true,
+          //还有些其他参数，由于原插件不再维护，找不到详细api了，将就了，实在不行直接上dom操作
+        },
+        'google_translate_element'//触发按钮的id
+      );
+    }
+    function loadJs(url) {
+      var script = document.createElement('script');
+      script.type = "text/javascript";
+      script.src = url;
+      document.body.appendChild(script);
+    }
+    /* 先渲染DOM 再懒加载JS 国内环境不会因为加载google过慢导致页面打开很慢 */
+    loadJs('https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
+  </script>
+  <!-- built files will be auto injected -->
+  <style>
+    .goog-te-banner-frame {
+      display: none;
+    }
+
+    .goog-te-banner {
+      display: none;
+    }
+  </style>
+</body>
+
+</html>

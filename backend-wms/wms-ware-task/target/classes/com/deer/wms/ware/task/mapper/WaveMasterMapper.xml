@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.WaveMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.Wave.WaveMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="wave_id" jdbcType="INTEGER" property="waveId"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="wave_tactic_code" jdbcType="VARCHAR" property="waveTacticCode"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+<!--        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>-->
+<!--        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>-->
+        <result column="total_bill_count" jdbcType="INTEGER" property="totalBillCount"/>
+        <result column="total_sku_count" jdbcType="INTEGER" property="totalSkuCount"/>
+        <result column="allot_user_id" jdbcType="INTEGER" property="allotUserId"/>
+        <result column="allot_user_name" jdbcType="INTEGER" property="allotUserName"/>
+        <result column="allot_time" jdbcType="TIMESTAMP" property="allotTime"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <result column="seeding_wall_code" jdbcType="VARCHAR" property="seedingWallCode"/>
+        <result column="isSeeding" jdbcType="INTEGER" property="isSeeding"/>
+    </resultMap>
+
+    <resultMap id="Dto" extends="BaseResultMap" type="com.deer.wms.ware.task.model.Wave.WaveMasterDto">
+        <result column="wave_tactic_code" jdbcType="VARCHAR" property="waveTacticCode"/>
+        <result column="wave_tactic_name" jdbcType="VARCHAR" property="waveTacticName"/>
+        <result column="priority_level" jdbcType="INTEGER" property="priorityLevel"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="carrier_id" jdbcType="INTEGER" property="carrierId"/>
+        <result column="so_type" jdbcType="VARCHAR" property="soType"/>
+        <result column="so_structure" jdbcType="INTEGER" property="soStructure"/>
+        <result column="so_deadline" jdbcType="TIMESTAMP" property="soDeadline"/>
+        <result column="so_count_limit" jdbcType="INTEGER" property="soCountLimit"/>
+        <result column="item_count" jdbcType="INTEGER" property="itemCount"/>
+        <result column="is_seeding" jdbcType="INTEGER" property="isSeeding"/>
+        <result column="max_wait_time" jdbcType="INTEGER" property="maxWaitTime"/>
+        <result column="last_time" jdbcType="TIMESTAMP" property="lastTime"/>
+
+        <collection property="bills" ofType="com.deer.wms.ware.task.model.SO.SoMaster" javaType="java.util.ArrayList">
+            <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+            <result column="allot_bill_no" jdbcType="VARCHAR" property="allotBillNo"/>
+            <result column="soState" jdbcType="VARCHAR" property="state"/>
+            <result column="shop_daily_count" jdbcType="VARCHAR" property="shopDailyCount"/>
+        </collection>
+    </resultMap>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select
+        *
+        from wave_master
+        where wave_id  =#{id}
+    </select>
+
+    <select id="findByUser" resultMap="Dto">
+        select
+        wm.*,
+        sm.bill_no,
+        sm.allot_bill_no,
+        sm.state as soState,
+        sm.shop_daily_count
+
+
+        from wave_master wm
+        inner join  so_master sm on wm.wave_id = sm.wave_master_id
+        where
+        allot_user_id  =#{userId}
+        and
+        wm.ware_id = #{wareId}
+        and
+        wm.state in (11,2,3)
+        order by wm.create_time desc
+
+    </select>
+
+    <select id="findBySeedingWallCode" resultMap="BaseResultMap">
+    select
+    *
+    from
+    wave_master
+    where
+    seeding_wall_code  =#{seedingWallCode}
+    and ware_id = #{wareId}
+
+  </select>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.Wave.WaveMasterCriteria" resultMap="Dto">
+        select
+        wm.*,
+        wtd.wave_tactic_name,
+        wtd.priority_level,
+
+
+        wtd.so_structure,
+        wtd.so_deadline,
+        wtd.so_count_limit,
+        wtd.item_count,
+
+        wtd.max_wait_time,
+        wtd.last_time
+        from
+        wave_master wm
+        left join wave_tactic_dianshang wtd on wtd.wave_tactic_code = wm.wave_tactic_code and wm.ware_id = wtd.ware_id
+
+
+        where 1=1
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+                wm.code like CONCAT('%', #{keyWord}, '%')
+                or wm.wave_id =#{keyWord}
+                )
+            </foreach>
+        </if>
+        <if test="wareId != null and wareId != ''">
+            and wm.ware_id = #{wareId}
+        </if>
+        <if test="userId != null and userId != ''">
+            and wm.ware_id = #{wareId}
+        </if>
+        <if test="boxCode != null and boxCode != ''">
+            and wm.box_code = #{boxCode}
+        </if>
+        <if test="isSeeding != null ">
+            and wm.is_seeding = #{isSeeding}
+        </if>
+        <if test="state != null ">
+            and wm.state = #{state}
+        </if>
+        <if test="noAllot != null ">
+            and wm.allot_user_id is null
+        </if>
+        group by wm.wave_id
+        order BY wm.state ,wm.wave_id
+    </select>
+
+    <select id="allotWave" parameterType="com.deer.wms.ware.task.model.Wave.WaveMasterCriteria" resultMap="Dto">
+    select
+    wm.*,
+    wtd.wave_tactic_name,
+    wtd.priority_level,
+
+
+
+    wtd.so_structure,
+    wtd.so_deadline,
+    wtd.so_count_limit,
+    wtd.item_count,
+
+    wtd.max_wait_time,
+    wtd.last_time
+    from
+    wave_master wm
+    left join wave_tactic_dianshang wtd on wtd.wave_tactic_code = wm.wave_tactic_code and wm.ware_id = wtd.ware_id
+
+    where 1=1
+    and wm.ware_id = #{wareId}
+    and wm.allot_user_id = #{userId}
+    and wm.state = 11
+    and wm.is_seeding = #{isSeeding}
+
+    order  by  wm.wave_id
+
+  </select>
+
+    <select id="getWaveState" parameterType="java.lang.Integer" resultType="com.deer.wms.ware.task.model.Wave.WaveState">
+        select
+        *
+        from wave_state
+        where wave_id = #{waveId}
+    </select>
+    <update id="waveState" parameterType="java.lang.Integer">
+        <if test="type==2">
+            UPDATE
+            wave_master
+            SET
+            state = 2
+            where wave_id
+            in
+            (
+            SELECT
+            wave_id
+            from wave_state
+            where count4 = 0 and count7 = 0 and count6 > 0
+            );
+        </if>
+
+        <if test="type==3">
+            UPDATE
+            wave_master
+            SET
+            state = 3
+            where wave_id
+            in
+            (
+            SELECT
+            wave_id
+            from wave_state
+            where count6 = 0 and count4 = 0 and count8 = 0 and count7 > 0
+            );
+        </if>
+
+        <if test="type==4">
+            UPDATE
+            wave_master
+            SET
+            state = 4
+            where wave_id
+            in
+            (
+            SELECT
+            wave_id
+            from wave_state
+            where count4 = 0 and count6 = 0 and count7 = 0 and count8 > 0
+            );
+        </if>
+
+        <if test="type==11">
+            UPDATE
+            wave_master
+            SET
+            state = 11
+            where wave_id
+            in
+            (
+            SELECT
+            wave_id
+            from wave_state
+            where state>1 and  count5 > 0
+            );
+        </if>
+
+
+
+
+    </update>
+
+    <update id="updateState" parameterType="java.lang.Integer">
+            UPDATE
+            wave_master
+            SET
+            state =#{state}
+            where wave_id  =#{waveId}
+    </update>
+
+
+    <select id="getLast" resultMap="BaseResultMap">
+    select
+    *
+    from wave_master
+    where wave_tactic_code = #{waveTacticCode}
+    and ware_id = #{wareId}
+    and state =0
+    order by create_time desc
+    limit 1
+  </select>
+
+    <select id="findByState" resultMap="BaseResultMap">
+    select
+    *
+    from wave_master
+    where state = #{state}
+  </select>
+
+    <select id="findByStateNo0" resultMap="BaseResultMap">
+    select
+    *
+    from wave_master
+    where (state  &gt; 0 and  state &lt; 4)  or state=11
+  </select>
+
+<!--    <select id="countSku" resultType="java.lang.Integer">-->
+<!--        SELECT-->
+<!--        1-->
+<!--        from pick_task pt-->
+<!--        left join so_master sm1 on sm1.so_master_id = pt.so_master_id-->
+<!--        <if test="waveMasterId != null">-->
+<!--            left join so_master sm2 on sm2.so_master_id = pt.so_master_id-->
+<!--            left join wave_detail wd on sm2.so_master_id = wd.so_master_id-->
+<!--        </if>-->
+<!--        where 1=1-->
+<!--        and sm1.so_master_id = #{soMasterId}-->
+<!--        <if test="waveMasterId != null">-->
+<!--            or wd.wave_master_id = #{waveMasterId}-->
+<!--        </if>-->
+<!--        group by pt.item_code-->
+
+
+<!--    </select>-->
+
+    <select id="countSku" resultType="java.lang.Integer">
+        SELECT
+        1
+        from pick_task pt
+        left join so_master sm1 on sm1.so_master_id = pt.so_master_id
+
+        where 1=1
+        and sm1.so_master_id = #{soMasterId}
+        <if test="waveMasterId != null">
+            or sm1.wave_master_id = #{waveMasterId}
+        </if>
+        group by pt.item_code
+
+
+    </select>
+
+    <select id="findByBoxCode11" resultMap="Dto">
+    select
+    wm.*,
+    wt.so_structure
+    from wave_master wm
+    left join wave_tactic_dianshang wt  on wm.wave_tactic_code = wt.wave_tactic_code and wt.ware_id = wm.ware_id
+    where wm.box_code  =#{boxCode}
+        <if test="isSeeding != null and isSeeding != ''">
+            and wm.is_seeding = #{isSeeding}
+        </if>
+    and wm.ware_id = #{wareId} and wm.allot_user_id = #{userId} and wm.state= 11
+  </select>
+
+
+    <select id="findByBoxCode" resultMap="BaseResultMap">
+    select
+    *
+    from wave_master
+    where box_code  =#{boxCode}
+        and is_seeding = 1
+    and ware_id = #{wareId} and state= 2
+  </select>
+
+    <!-- 一单一品 可以通过box查到拣货完成和播种完成的容器 -->
+    <select id="findByYdYpByBoxCode" resultMap="BaseResultMap">
+    select
+    wm.*
+    from wave_master wm
+    left join wave_tactic_dianshang wt  on wt.wave_tactic_code = wm.wave_tactic_code and wt.ware_id = wm.ware_id
+    where wm.box_code  =#{boxCode}
+
+            and wm.is_seeding = 1
+
+     and wm.ware_id = #{wareId} and wm.state in (2,3) and wt.so_structure != 2
+    group  by wm.wave_id
+  </select>
+
+
+    <!--  在给波次分配-->
+    <!--一单多品 在播种完成之后就可以释放拣货容器 一单一品 在发运完成才可以释放拣货容器  -->
+    <select id="findByBoxCode2" resultMap="BaseResultMap">
+    select
+    wm.*
+    from wave_master wm
+    left join wave_tactic_dianshang wt  on wm.wave_tactic_code = wt.wave_tactic_code and wt.ware_id = wm.ware_id
+    where
+    wm.box_code  =#{boxCode}
+    and wm.ware_id = #{wareId}
+    and
+    (
+        (
+          wm.state in (11,1,2,3)
+          and  wt.so_structure != 2
+        ) or
+        (
+          wm.state in (11,1,2)
+          and  wt.so_structure = 2
+        )
+    )
+  </select>
+    <select id="findByWaveIds" resultMap="BaseResultMap">
+        select * from wave_master
+        where
+        wave_id in
+        <foreach item="id" index="index" open="(" close=")" separator="," collection="list" >
+            #{id}
+        </foreach>
+    </select>
+</mapper>

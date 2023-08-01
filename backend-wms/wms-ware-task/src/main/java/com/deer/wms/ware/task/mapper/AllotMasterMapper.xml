@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.AllotMasterMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.Allot.AllotMaster">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="allot_master_id" jdbcType="INTEGER" property="allotMasterId"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="from_ware_id" jdbcType="INTEGER" property="fromWareId"/>
+        <result column="from_ware_name" jdbcType="VARCHAR" property="fromWareName"/>
+        <result column="to_ware_id" jdbcType="INTEGER" property="toWareId"/>
+        <result column="to_ware_name" jdbcType="VARCHAR" property="toWareName"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="organization_name" jdbcType="VARCHAR" property="organizationName"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="customer_name" jdbcType="VARCHAR" property="customerName"/>
+        <result column="carrier_id" jdbcType="INTEGER" property="carrierId"/>
+        <result column="carrier_name" jdbcType="VARCHAR" property="carrierName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        <result column="expect_time_fm" jdbcType="TIMESTAMP" property="expectTimeFm"/>
+        <result column="expect_time_to" jdbcType="TIMESTAMP" property="expectTimeTo"/>
+        <result column="order_no" jdbcType="INTEGER" property="orderNo"/>
+        <result column="case_state" jdbcType="INTEGER" property="caseState"/>
+        <result column="insert_type" jdbcType="INTEGER" property="insertType"/>
+        <result column="allot_udf_hs1" jdbcType="VARCHAR" property="allotUdfHs1"/>
+        <result column="allot_udf_hs2" jdbcType="VARCHAR" property="allotUdfHs2"/>
+        <result column="allot_udf_hs3" jdbcType="VARCHAR" property="allotUdfHs3"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="receiving_address_id" jdbcType="INTEGER" property="receivingAddressId"/>
+        <result column="link_man" jdbcType="VARCHAR" property="linkMan"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
+    </resultMap>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.Allot.AllotMasterCriteria"
+            resultMap="BaseResultMap">
+        select * from
+        allot_master allot
+        where 1=1
+        <if test="fromWareId != null">
+            and allot.from_ware_id = #{fromWareId}
+        </if>
+        <if test="toWareId != null">
+            and allot.to_ware_id = #{toWareId}
+        </if>
+        <if test="allotMasterId != null">
+            and allot.allot_master_id= #{allotMasterId}
+        </if>
+        <if test="customerId != null and customerId !=''">
+            and allot.customer_id= #{customerId}
+        </if>
+        <if test="receivingAddressId != null">
+            and allot.receiving_address_id= #{receivingAddressId}
+        </if>
+        <if test="carrierId != null">
+            and allot.carrier_id= #{carrierId}
+        </if>
+        <if test="organizationId != null">
+            and allot.organization_id= #{organizationId}
+        </if>
+        <if test="state != null and state !=''">
+            and allot.state= #{state}
+        </if>
+        <if test="caseState != null">
+            and allot.case_state= #{caseState}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and allot.bill_no like CONCAT('%', #{billNo}, '%')
+        </if>
+
+        <if test="createUserId != null">
+            and allot.create_user_id= #{createUserId}
+        </if>
+        <if test="insertType != null">
+            and allot.insert_type= #{insertType}
+        </if>
+        <if test="startCreateTime != null and startCreateTime != '' and endCreateTime != null and endCreateTime != ''">
+            and allot.create_time &gt; #{startCreateTime} and allot.create_time &lt; #{endCreateTime}
+        </if>
+        <if test="startDeliveryTime != null and startDeliveryTime != '' and endDeliveryTime != null and endDeliveryTime != ''">
+            and allot.delivery_time &gt; #{startDeliveryTime} and allot.delivery_time &lt; #{endDeliveryTime}
+        </if>
+        <if test="startExpectTimeFm != null and startExpectTimeFm != '' and endExpectTimeTo != null and endExpectTimeTo != ''">
+            and allot.expect_time_fm &gt; #{startExpectTimeFm} and allot.expect_time_to &lt; #{endExpectTimeTo}
+        </if>
+        <if test="billNos != null">
+            and allot.bill_no in
+            <foreach collection="billNos" item="billNoXX" index="index" open="(" separator="," close=")">
+                #{billNoXX}
+            </foreach>
+        </if>
+        <if test="keyWordList != null">
+            and
+            <foreach collection="keyWordList" item="keyWord" index="index" open="(" separator="and" close=")">
+                (
+
+                allot.carrier_name like CONCAT('%', #{keyWord}, '%')
+                or allot.allot_udf_hs1 like CONCAT('%', #{keyWord}, '%')
+                or allot.allot_udf_hs2 like CONCAT('%', #{keyWord}, '%')
+                or allot.allot_udf_hs3 like CONCAT('%', #{keyWord}, '%')
+                or allot.create_user_name like CONCAT('%', #{keyWord}, '%')
+                or allot.link_man like CONCAT('%', #{keyWord}, '%')
+                or allot.memo like CONCAT('%', #{keyWord}, '%')
+                )
+            </foreach>
+        </if>
+        <if test="orderNo != null">
+            and allot.order_no= #{orderNo}
+        </if>
+
+        group by allot.bill_no
+        order by allot.allot_master_id desc
+
+    </select>
+
+    <update id="allot" >
+        update allot_master set state=2 where bill_no = #{billNo};
+        update allot_detail set state=2 where bill_no = #{billNo};
+    </update>
+</mapper>

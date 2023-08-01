@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ware.task.dao.PickTaskReturnMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ware.task.model.PickTaskReturn">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="pick_task_return_id" jdbcType="INTEGER" property="pickTaskReturnId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="org_id" jdbcType="INTEGER" property="orgId"/>
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="from_inventory_id" jdbcType="INTEGER" property="fromInventoryId"/>
+        <result column="from_cell_code" jdbcType="VARCHAR" property="fromCellCode"/>
+        <result column="to_cell_code" jdbcType="VARCHAR" property="toCellCode"/>
+        <result column="commit_cell_code" jdbcType="VARCHAR" property="commitCellCode"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
+        <result column="ship_bill_no" jdbcType="VARCHAR" property="shipBillNo"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="wave_master_id" jdbcType="INTEGER" property="waveMasterId"/>
+        <result column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+
+        <result column="commit_user_id" jdbcType="INTEGER" property="commitUserId"/>
+        <result column="commit_user_name" jdbcType="VARCHAR" property="commitUserName"/>
+        <result column="commit_time" jdbcType="TIMESTAMP" property="commitTime"/>
+
+
+    </resultMap>
+
+    <resultMap id="Dto" type="com.deer.wms.ware.task.model.PickTaskReturnDto" extends="BaseResultMap">
+        <collection property="upcs" ofType="com.deer.wms.base.system.model.ItemUpc">
+            <result column="upc1" jdbcType="VARCHAR" property="upc"/>
+        </collection>
+    </resultMap>
+
+    <select id="findById" resultMap="BaseResultMap">
+    select
+    *
+    from pick_task_return
+    where pick_task_return_id = #{id}
+  </select>
+
+    <update id="update">
+        update
+        pick_task_return
+        <set>
+            <if test="state!=null">
+                state= #{state}
+            </if>
+            <if test="commitCellCode!=null">
+                , commit_cell_code= #{commitCellCode}
+            </if>
+            <if test="commitUserId!=null">
+                , commit_user_id= #{commitUserId}
+            </if>
+            <if test="commitUserName!=null">
+                , commit_user_name= #{commitUserName}
+            </if>
+            <if test="commitTime!=null">
+                , commit_time= #{commitTime}
+            </if>
+        </set>
+        where pick_task_return_id = #{pickTaskReturnId,jdbcType=INTEGER}
+    </update>
+
+    <select id="findByWaveMasterId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        *
+        from pick_task_return
+        where  wave_master_id =#{waveMasterId} and state=0
+  </select>
+
+    <select id="findByBoxCode" resultMap="Dto">
+        select
+        task.*
+        ,iu.upc as upc1
+        from pick_task_return task
+        left join item_upc iu on iu.organization_id = task.org_id and iu.item_code = task.item_code
+        where
+        task.state=0
+        and task.ware_id = #{wareId}
+        <if test="boxCode!= null and boxCode != ''">
+            and task.box_code =#{boxCode}
+        </if>
+<!--        <if test="boxCode== null or boxCode == ''">-->
+<!--            and box_code is null-->
+<!--        </if>-->
+
+
+    </select>
+
+    <select id="findList" parameterType="com.deer.wms.ware.task.model.PickTaskReturnCriteria" resultMap="BaseResultMap">
+        select
+        *
+        from pick_task_return
+        where 1=1
+        <if test="state !=null">
+            and state =#{state}
+        </if>
+        <if test="itemCode !=null and itemCode != ''">
+            and item_code =#{itemCode}
+        </if>
+        <if test="type !=null">
+            and `type` =#{type}
+        </if>
+        <if test="wareId !=null">
+            and ware_id =#{wareId}
+        </if>
+        <if test="orgId !=null">
+            and org_id =#{orgId}
+        </if>
+        <if test="boxCode !=null and boxCode != ''">
+            and box_code =#{boxCode}
+        </if>
+    </select>
+</mapper>

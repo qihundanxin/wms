@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.webhook.dao.WebHookLogMapper">
+    <select id="getList" resultType="com.deer.wms.webhook.model.WebHookLog">
+        SELECT * FROM `web_hook_log`
+        <where>
+            <if test="param.sendDatetimeBegin != null">
+                AND `send_datetime` &gt;= #{param.sendDatetimeBegin}
+            </if>
+            <if test="param.sendDatetimeEnd != null">
+                AND `send_datetime` &lt;= #{param.sendDatetimeEnd}
+            </if>
+            <if test="param.webHookSrttingId != null">
+                AND `web_hook_setting_id`=#{param.webHookSrttingId}
+            </if>
+            <if test="param.ability != null">
+                AND `ability`=#{param.ability}
+            </if>
+            <if test="param.keyLike != null and param.keyLike != ''">
+                AND `key_word` LIKE #{param.keyLike}
+            </if>
+        </where>
+    </select>
+</mapper>

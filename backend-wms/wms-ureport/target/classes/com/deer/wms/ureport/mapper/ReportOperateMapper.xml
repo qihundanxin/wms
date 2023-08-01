@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.ureport.dao.ReportOperateMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.ureport.model.ReportOperate">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="report_operate_id" jdbcType="INTEGER" property="reportOperateId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_name" jdbcType="VARCHAR" property="wareName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="quantity1" jdbcType="INTEGER" property="quantity1"/>
+        <result column="quantity2" jdbcType="INTEGER" property="quantity2"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="report_date" jdbcType="VARCHAR" property="reportDate"/>
+    </resultMap>
+
+    <select id="findNow" resultMap="BaseResultMap">
+        select * from report_operate
+        where
+        to_days(report_date) = to_days(now())
+        and  user_id = #{userId}
+        and  ware_id = #{wareId}
+        and  type = #{type}
+        limit 1
+    </select>
+
+    <select id="findList" resultMap="BaseResultMap" parameterType="com.deer.wms.ureport.model.ReportOperateCriteria">
+        select
+        *
+        from report_operate
+        where 1=1
+        <if test="wareId != null">
+            and ware_id = #{wareId}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="userName != null and userName != ''">
+            and user_name = #{userName}
+        </if>
+        <if test="type != null">
+            and type = #{type}
+        </if>
+
+        <if test="startTime != null and startTime !=''">
+            and report_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime !=''">
+            and report_date &lt;= #{endTime}
+        </if>
+    </select>
+</mapper>

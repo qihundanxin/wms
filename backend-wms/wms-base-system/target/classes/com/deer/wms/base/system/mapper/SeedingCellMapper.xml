@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.wms.base.system.dao.SeedingCellMapper">
+    <resultMap id="BaseResultMap" type="com.deer.wms.base.system.model.SeedingCell">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="seeding_cell_id" jdbcType="INTEGER" property="seedingCellId"/>
+        <result column="bill_no" jdbcType="INTEGER" property="billNo"/>
+        <result column="seeding_cell_code" jdbcType="VARCHAR" property="seedingCellCode"/>
+        <result column="seeding_wall_code" jdbcType="VARCHAR" property="seedingWallCode"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="update_user_name" jdbcType="TIMESTAMP" property="updateUserName"/>
+        <result column="x" jdbcType="INTEGER" property="x"/>
+        <result column="y" jdbcType="INTEGER" property="y"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+    <resultMap id="Dto" type="com.deer.wms.base.system.model.SeedingCellDto" extends="BaseResultMap">
+        <result column="soState" jdbcType="INTEGER" property="soState"/>
+    </resultMap>
+
+    <delete id="deleteByWallCode">
+    delete
+    from seeding_cell
+    where seeding_wall_code = #{wallCode} and ware_id  =#{wareId}
+  </delete>
+
+    <select id="findByWallCode" resultMap="Dto">
+    select
+    cell.*
+    from seeding_cell  cell
+
+    inner join  seeding_wall wall  on wall.code = cell.seeding_wall_code
+    where
+    wall.code = #{wallCode}
+    and wall.ware_id = #{wareId}
+  </select>
+</mapper>
