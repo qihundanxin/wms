@@ -78,7 +78,7 @@
         </el-dropdown-menu>
       </el-dropdown>
       <el-button size="small" type="danger" round icon="iconfont icon-shanchu"
-                 @click="isDelete(soMaster.billNo)"> 取消
+                 @click="isDelete(soMaster.billNo, soMaster.state)"> 取消
       </el-button>
       <!--      <el-button size="small" type="primary" plain round icon="iconfont icon-7">导出</el-button>-->
       <!--      <el-button v-if="soMaster.mergeNo ===null" size="small" type="primary" plain round icon="iconfont icon-shangjia"
@@ -1916,7 +1916,11 @@ import { off } from 'process';
       handleClose3(done) {
         this.dialogReviewVisible = false;
       },
-      isDelete(billNo) {
+      isDelete(billNo, state) {
+        if (state == -1) {
+          IOT.tips('该出库单已是取消状态！', 'success');
+          return false
+        }
         this.$confirm('确认取消？')
           .then(_ => {
             this.deleteBuyBillIn(billNo)
