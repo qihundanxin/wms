@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -17,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.hutool.core.util.ObjectUtil;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -959,9 +962,19 @@ public class SoMasterServiceImpl extends AbstractService<SoMaster, Integer> impl
             }
 
             soMaster.setSoStructure(soData.getSoDetails().size());
+            /*
+             计算运单重量
+             */
+            Double weight = 0.0;
+            List<SoDetail> soDetails = soData.getSoDetails();
+            for (int i = 0; i < soDetails.size(); i++) {
+                if (ObjectUtil.isNotEmpty(soDetails.get(i).getWeight())) {
+                    weight += soDetails.get(i).getWeight() * soDetails.get(i).getOrderQuantity();
+                }
+            }
+            soMaster.setWeight(weight);
             soMasterService.save(soMaster);
 
-            List<SoDetail> soDetails = soData.getSoDetails();
             for (int i = 0; i < soDetails.size(); i++) {
                 String detailNo = billNo + "-" + (i + 1);
                 SoDetail soDetail = soDetails.get(i);

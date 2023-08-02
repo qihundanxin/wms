@@ -11,6 +11,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class InventoryDto extends Inventory {
+    private Double weight;
+
     private Integer itemTypeId;
     private String itemTypeName;
     private String spec;

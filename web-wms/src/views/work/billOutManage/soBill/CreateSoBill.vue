@@ -537,6 +537,9 @@ export default {
                 IOT.hideOverlay();
                 if (ret.code === 200) {
                     that.ids.push(row.itemName);
+
+                    this.form.soDetails[index].weight = row.weight;
+
                     this.form.soDetails[index].packDetails = ret.rows;
                     this.form.soDetails[index].orderQuantityMax = row.quantity - row.allotQuantity - row.freezeQuantity;
                     this.form.soDetails[index].packDetails = ret.rows;
@@ -571,6 +574,12 @@ export default {
                 if (valid) {
                     let form = PF.JSON(this.form);
                     form.soMaster.manufactureType = form.soMaster.manufactureType ? 1 : 0;
+                    if (form.soDetails.length == 0) {
+                        IOT.tips('不得有空行！', 'error', 1000, () => {
+                            IOT.hideOverlay();
+                        });
+                        return false
+                    }
                     for (let i = 0; i < form.soDetails.length; i++) {
                         // if(!PF.isNull(form.soDetails[i].id)){
                         if (!PF.isNull(form.soDetails[i].itemName)) {

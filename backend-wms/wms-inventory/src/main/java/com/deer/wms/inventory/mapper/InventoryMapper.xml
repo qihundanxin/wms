@@ -47,6 +47,8 @@
         <result column="ware_entry_time" jdbcType="TIMESTAMP" property="wareEntryTime"/>
     </resultMap>
     <resultMap id="Dto" type="com.deer.wms.inventory.model.Inventory.InventoryDto" extends="BaseResultMap">
+        <result column="weight" jdbcType="DOUBLE" property="weight"/>
+
         <result column="can_pick_quantity" jdbcType="DOUBLE" property="canPickQuantity"/>
         <result column="item_type_id" jdbcType="INTEGER" property="itemTypeId"/>
         <result column="item_type_name" jdbcType="VARCHAR" property="itemTypeName"/>
@@ -553,6 +555,8 @@
         ,ifnull(sum(inventory.freeze_quantity),0) as freeze_quantity
         ,inventory.state
         ,inventory.qc_state
+
+        ,item.weight
 
         ,item.spec
         ,item.model
