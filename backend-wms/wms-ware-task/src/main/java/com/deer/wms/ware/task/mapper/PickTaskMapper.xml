@@ -55,6 +55,8 @@
     </resultMap>
 
     <resultMap id="Dto" type="com.deer.wms.ware.task.model.pickTask.PickTaskDto" extends="BaseResultMap">
+        <result column="shop_daily_count" jdbcType="INTEGER" property="shopDailyCount"/>
+
         <result column="bill_no" jdbcType="VARCHAR" property="billNo"/>
         <result column="trans_ratio" jdbcType="DOUBLE" property="transRatio"/>
         <result column="pack_code" jdbcType="VARCHAR" property="packCode"/>
@@ -392,6 +394,8 @@
     <select id="findRunningByBillNo" parameterType="com.deer.wms.ware.task.model.pickTask.PickTaskCriteria"
             resultMap="Dto">
         select
+        so.shop_daily_count,
+
         pt.*,
         info.weighting,
         wm.allot_user_id,

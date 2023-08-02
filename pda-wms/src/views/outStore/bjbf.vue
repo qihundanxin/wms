@@ -77,7 +77,7 @@
 
                                     <div> 
                                           <span>单号：</span>
-                                           <span>{{item.billNo}} {{item.shopDailyCount}}</span> 
+                                           <span>{{item.billNo}} {{item.billNo}}</span>
                                     </div>
                                     <div> 
                                           <span>店铺订单日序号：</span>
